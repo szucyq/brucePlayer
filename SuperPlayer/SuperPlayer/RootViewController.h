@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WithTableViewController.h"
-#import "SettingViewController.h"
+
 
 #import "ServerViewController.h"
 #import <MediaServerBrowserService/MediaServerBrowserService.h>
@@ -58,7 +58,6 @@
 //右侧actions
 - (IBAction)renderBtAction:(id)sender;
 - (IBAction)serverBtAction:(id)sender;
-- (IBAction)settingAction:(id)sender;
 
 //底部actions
 - (IBAction)preBtAction:(id)sender;
