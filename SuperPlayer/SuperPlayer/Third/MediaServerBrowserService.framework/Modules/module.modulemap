@@ -1,0 +1,6 @@
+framework module MediaServerBrowserService {
+  umbrella header "MediaServerBrowserService.h"
+
+  export *
+  module * { export * }
+}
