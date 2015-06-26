@@ -16,6 +16,7 @@
 @property (strong, nonatomic) UIWindow *window;
 //@property (nonatomic, retain)CGUpnpAvRenderer* avRenderer;
 //@property (nonatomic,retain)CGUpnpAvServer *avServer;
+@property (nonatomic,copy)NSString *serverUuid;
 @property (nonatomic,retain)UINavigationController *navController;
 
 @end

@@ -71,6 +71,8 @@
 		3282982E1B33FE2900815605 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 328298211B33FE2900815605 /* UIScrollView+MJRefresh.m */; };
 		3282982F1B33FE2900815605 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 328298231B33FE2900815605 /* UIView+MJExtension.m */; };
 		328298321B340F8C00815605 /* UIWindow+BPScaling.m in Sources */ = {isa = PBXBuildFile; fileRef = 328298311B340F8C00815605 /* UIWindow+BPScaling.m */; };
+		32C701611B3D1D6300E86FFF /* AllMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C701601B3D1D6300E86FFF /* AllMusicController.m */; };
+		32C701641B3D20A700E86FFF /* RenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C701631B3D20A700E86FFF /* RenderViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -207,6 +209,10 @@
 		328298231B33FE2900815605 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
 		328298301B340F8C00815605 /* UIWindow+BPScaling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+BPScaling.h"; sourceTree = "<group>"; };
 		328298311B340F8C00815605 /* UIWindow+BPScaling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+BPScaling.m"; sourceTree = "<group>"; };
+		32C7015F1B3D1D6300E86FFF /* AllMusicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllMusicController.h; sourceTree = "<group>"; };
+		32C701601B3D1D6300E86FFF /* AllMusicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllMusicController.m; sourceTree = "<group>"; };
+		32C701621B3D20A700E86FFF /* RenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderViewController.h; sourceTree = "<group>"; };
+		32C701631B3D20A700E86FFF /* RenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,7 +286,6 @@
 				328298081B33FD8A00815605 /* Singleton.h */,
 				328298091B33FD8A00815605 /* Singleton.m */,
 				328297C21B33F7AC00815605 /* Constants.h */,
-				328297C51B33FA5100815605 /* Third */,
 				328297A01B33F78200815605 /* Public */,
 				3282979D1B33E09200815605 /* DMR */,
 				320F25231B2DB5570005703F /* DMS */,
@@ -299,6 +304,7 @@
 		326438221B22E90300EF77A8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				328297C51B33FA5100815605 /* Third */,
 				3282961D1B3158D500815605 /* images */,
 				328296041B3157AD00815605 /* libxml2.2.dylib */,
 				326438681B22EACC00EF77A8 /* MediaPlayer.framework */,
@@ -345,6 +351,8 @@
 				328296081B31580500815605 /* ServerViewController.m */,
 				323682B61B3C1FCD006889F9 /* ItemsViewController.h */,
 				323682B71B3C1FCD006889F9 /* ItemsViewController.m */,
+				32C7015F1B3D1D6300E86FFF /* AllMusicController.h */,
+				32C701601B3D1D6300E86FFF /* AllMusicController.m */,
 			);
 			name = DMC;
 			sourceTree = "<group>";
@@ -352,6 +360,8 @@
 		3282979D1B33E09200815605 /* DMR */ = {
 			isa = PBXGroup;
 			children = (
+				32C701621B3D20A700E86FFF /* RenderViewController.h */,
+				32C701631B3D20A700E86FFF /* RenderViewController.m */,
 			);
 			name = DMR;
 			sourceTree = "<group>";
@@ -620,6 +630,7 @@
 				328298041B33FA6300815605 /* UIImageView+AFNetworking.m in Sources */,
 				3282982C1B33FE2900815605 /* MJRefreshLegendHeader.m in Sources */,
 				328298021B33FA6300815605 /* UIAlertView+AFNetworking.m in Sources */,
+				32C701641B3D20A700E86FFF /* RenderViewController.m in Sources */,
 				328297F81B33FA6300815605 /* AFSecurityPolicy.m in Sources */,
 				328297FC1B33FA6300815605 /* AFURLSessionManager.m in Sources */,
 				328298071B33FA6300815605 /* UIWebView+AFNetworking.m in Sources */,
@@ -628,6 +639,7 @@
 				328297B71B33F79D00815605 /* UICustomLineLabel.m in Sources */,
 				323682CC1B3CD35D006889F9 /* PhotoDMSDelegate.mm in Sources */,
 				328297BE1B33F79D00815605 /* WithRequestViewController.m in Sources */,
+				32C701611B3D1D6300E86FFF /* AllMusicController.m in Sources */,
 				328297F61B33FA6300815605 /* AFHTTPSessionManager.m in Sources */,
 				328297C11B33F79D00815605 /* WithTVRefreshController.m in Sources */,
 				328297F71B33FA6300815605 /* AFNetworkReachabilityManager.m in Sources */,

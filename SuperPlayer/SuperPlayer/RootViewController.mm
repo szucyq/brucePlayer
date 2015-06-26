@@ -191,16 +191,28 @@
 }
 
 - (IBAction)catalogBtAction:(id)sender {
-//    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-//    NSLog(@"server :%@",appDelagete.avServer);
-//    self.serverContentView=[[ServerContentViewController alloc]initWithAvServer:appDelagete.avServer objectId:@"0"];
-
-
-    //add
-//    self.catalogNav=[[UINavigationController alloc]initWithRootViewController:self.serverContentView];
-//    self.catalogNav.view.frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height);
-//    [self.view addSubview:self.catalogNav.view];
-//    
+    [self bringCatagoryViewToFront];
+    
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    MediaServerBrowser *browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:self.itemsViewController];
+    
+    //catalogNav视图用于按照目录层级的方式进行访问server资源
+    if(self.catalogNav){
+        [self.catalogNav.navigationController popToRootViewControllerAnimated:YES];
+        self.itemsViewController.browser=browser;
+    }
+    else{
+        self.itemsViewController = [[ItemsViewController alloc] init];
+        
+        self.itemsViewController.browser = browser;
+        //add catalog style nav 添加层级目录浏览界面
+        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:self.itemsViewController];
+        self.catalogNav.view.frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height);
+        
+        [self.view addSubview:self.catalogNav.view];
+    }
+    
+    
     
     
 }
@@ -215,18 +227,23 @@
 
 - (IBAction)bySongAction:(id)sender {
     NSLog(@"按歌曲浏览");
+    [self bringAllMusicViewToFront];
 }
 
 - (IBAction)byZuoquAction:(id)sender {
     NSLog(@"按作曲浏览");
+    [self bringAllMusicViewToFront];
+    
 }
 
 - (IBAction)byArtistAction:(id)sender {
     NSLog(@"按艺术家浏览");
+    [self bringAllMusicViewToFront];
 }
 
 - (IBAction)byAlbumAction:(id)sender {
     NSLog(@"按专辑浏览");
+    [self bringAllMusicViewToFront];
 }
 
 - (IBAction)preBtAction:(id)sender {
@@ -262,12 +279,34 @@
 //    NSLog(@"action %@", [action description]);
 //    return YES;
 //}
+- (void)bringAllMusicViewToFront{
+    if(self.allMusicController){
+        [self.view bringSubviewToFront:self.allMusicController.view];
+    }
+}
+- (void)bringCatagoryViewToFront{
+    if(self.catalogNav){
+        [self.view bringSubviewToFront:self.catalogNav.view];
+    }
+}
 #pragma mark - notion controls
 - (void)playWithAvItem:(NSNotification *)sender{
     
 }
 - (void)getServerAction:(NSNotification *)sender{
+    NSDictionary *userinfo=[sender userInfo];
+    NSString *serverUuid = [userinfo objectForKey:@"server"];
     
+    if(self.allMusicController){
+//        self.allMusicController.server=serverUuid;
+        [self.view bringSubviewToFront:self.allMusicController.view];
+    }
+    else{
+        self.allMusicController = [[AllMusicController alloc]init];
+//        self.allMusicController.server = serverUuid;
+        self.allMusicController.view.frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height);
+        [self.view addSubview:self.allMusicController.view];
+    }
     
 }
 @end

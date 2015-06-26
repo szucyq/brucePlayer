@@ -12,6 +12,6 @@
 @property (strong, nonatomic) ServerContentViewController *detailViewController;
 @property (nonatomic, retain) NSArray* dataSource;
 @property (nonatomic, retain) NSArray* renderers;
-@property (nonatomic) NSMutableDictionary* dmsArr;
+@property (nonatomic,retain) NSMutableDictionary* dmsArr;
 @property (nonatomic, retain) CGUpnpAvController* avController;
 @end

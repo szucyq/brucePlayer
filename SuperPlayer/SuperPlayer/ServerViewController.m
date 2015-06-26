@@ -159,20 +159,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-//    appDelagete.avServer = (CGUpnpAvServer*)[self.dataSource objectAtIndex:indexPath.row];
-//    [SVProgressHUD showSuccessWithStatus:@"已选择媒体服务器" maskType:SVProgressHUDMaskTypeBlack];
-//    
-//    NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:(CGUpnpAvServer*)[self.dataSource objectAtIndex:indexPath.row],@"server", nil];
-//    [[NSNotificationCenter defaultCenter]postNotificationName:@"kSelectServer" object:nil userInfo:userinfo];
+    //只是选择server，并不进入浏览。
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     NSString *uuid = [[_dmsArr allKeys] objectAtIndex:indexPath.row];
-    ItemsViewController *controller = [[ItemsViewController alloc] init];
-    MediaServerBrowser *browser = [[MediaServerBrowserService instance] browserWithUUID:uuid delegate:controller];
-    controller.browser = browser;
+    appDelagete.serverUuid=uuid;
+
+    [SVProgressHUD showSuccessWithStatus:@"已选择媒体服务器" maskType:SVProgressHUDMaskTypeBlack];
     
-    //PlaybackViewController *playerViewContorller = [[PlaybackViewController alloc] initWithUrl:url];
-//    [self presentViewController:controller animated:YES completion:nil];
-    [self.navigationController pushViewController:controller animated:YES];
+    //此处选择server后，传递server信息，让前端刷新对应server内容
+    NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:uuid,@"server", nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"kSelectServer" object:nil userInfo:userinfo];
+    
+    
+    
+    
+    
+
+//    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark -
@@ -181,6 +184,7 @@
 - (BOOL)onMediaServerBrowserAdded:(NSString *)friendlyName uuid:(NSString *)uuid
 {
     //NSLog(@"[ViewController] [onMediaServerBroserAdded] friendlyName = %@", friendlyName);
+    NSLog(@"add uuid:%@",uuid);
     [_dmsArr setObject:friendlyName forKey:uuid];
     [self.listTableView reloadData];
     return YES;
@@ -189,6 +193,7 @@
 - (void)onMediaServerBrowserRemoved:(NSString *)friendlyName uuid:(NSString *)uuid
 {
     //NSLog(@"[ViewController] [onMediaServerBroserRemoved] friendlyName = %@", friendlyName);
+     NSLog(@"remove uuid:%@",uuid);
     [_dmsArr removeObjectForKey:friendlyName];
 }
 @end

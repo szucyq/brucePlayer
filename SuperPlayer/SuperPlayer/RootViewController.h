@@ -7,19 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import <CyberLink/UPnPAV.h>
 #import "WithTableViewController.h"
 
 
 #import "ServerViewController.h"
+#import <MediaServerBrowserService/MediaServerBrowserService.h>
+#import "ItemsViewController.h"
 //#import "RendererTableViewController.h"
 
 
 #import "AppDelegate.h"
-
-
-@class CGUpnpAvRenderer;
-@class CGUpnpAvItem;
+#import "AllMusicController.h"
 
 @interface RootViewController : WithTableViewController
 
@@ -52,10 +50,11 @@
 //@property (nonatomic,retain)RendererTableViewController *renderController;
 @property(nonatomic,retain)ServerViewController *serverController;
 @property (nonatomic,retain)UINavigationController *catalogNav;
-@property(nonatomic, retain)CGUpnpAvItem* avItem;
-@property(nonatomic, retain)CGUpnpAvRenderer* renderer;
+//@property(nonatomic, retain)CGUpnpAvItem* avItem;
+//@property(nonatomic, retain)CGUpnpAvRenderer* renderer;
 @property(nonatomic) BOOL isPlay;
-
+@property (nonatomic,retain)ItemsViewController *itemsViewController;
+@property (nonatomic,retain)AllMusicController *allMusicController;
 //右侧actions
 - (IBAction)renderBtAction:(id)sender;
 - (IBAction)serverBtAction:(id)sender;
