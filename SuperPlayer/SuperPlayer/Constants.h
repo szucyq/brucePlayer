@@ -1,7 +1,6 @@
 
 // api url
-#define kBaseAPIURLStr @"https://api.youyoulive.com/"
-#define kShopBaseAPIURLStr @"http://www.youyoulive.com/mobile/"
+#define kBaseAPIURLStr @""
 
 
 //判断是否为iOS 7.0系统
@@ -31,6 +30,8 @@
 
 
 //--------------------------
+
+
 
 
 
