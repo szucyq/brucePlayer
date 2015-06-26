@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		323682B81B3C1FCD006889F9 /* ItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 323682B71B3C1FCD006889F9 /* ItemsViewController.m */; };
-		323682BC1B3C22A2006889F9 /* MediaServerBrowserService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 323682BB1B3C22A2006889F9 /* MediaServerBrowserService.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		323682CB1B3CD35D006889F9 /* ItunesMusicDMSDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 323682C11B3CD35D006889F9 /* ItunesMusicDMSDelegate.mm */; };
 		323682CC1B3CD35D006889F9 /* PhotoDMSDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 323682C41B3CD35D006889F9 /* PhotoDMSDelegate.mm */; };
 		323682CD1B3CD35D006889F9 /* PltMediaServerObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 323682C61B3CD35D006889F9 /* PltMediaServerObject.mm */; };
@@ -17,7 +16,6 @@
 		326438251B22E90300EF77A8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 326438241B22E90300EF77A8 /* main.m */; };
 		326438281B22E90300EF77A8 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 326438271B22E90300EF77A8 /* AppDelegate.mm */; };
 		326438301B22E90300EF77A8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3264382F1B22E90300EF77A8 /* Images.xcassets */; };
-		3264383F1B22E90300EF77A8 /* SuperPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3264383E1B22E90300EF77A8 /* SuperPlayerTests.m */; };
 		326438491B22E98200EF77A8 /* Platinum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 326438481B22E98200EF77A8 /* Platinum.framework */; };
 		3264385F1B22EA0F00EF77A8 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3264385E1B22EA0F00EF77A8 /* RootViewController.mm */; };
 		326438611B22EAA900EF77A8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 326438601B22EAA900EF77A8 /* AVFoundation.framework */; };
@@ -73,22 +71,29 @@
 		328298321B340F8C00815605 /* UIWindow+BPScaling.m in Sources */ = {isa = PBXBuildFile; fileRef = 328298311B340F8C00815605 /* UIWindow+BPScaling.m */; };
 		32C701611B3D1D6300E86FFF /* AllMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C701601B3D1D6300E86FFF /* AllMusicController.m */; };
 		32C701641B3D20A700E86FFF /* RenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C701631B3D20A700E86FFF /* RenderViewController.m */; };
+		9B9671CE1B3D403A008F38A4 /* MediaServerBrowserService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9671CB1B3D4028008F38A4 /* MediaServerBrowserService.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		326438391B22E90300EF77A8 /* PBXContainerItemProxy */ = {
+		9B9671CA1B3D4028008F38A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 326438171B22E90300EF77A8 /* Project object */;
+			containerPortal = 9B9671C61B3D4028008F38A4 /* MediaServerBrowserService.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9B9671041B3A54EE008F38A4;
+			remoteInfo = MediaServerBrowserService;
+		};
+		9B9671CC1B3D4034008F38A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B9671C61B3D4028008F38A4 /* MediaServerBrowserService.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = 3264381E1B22E90300EF77A8;
-			remoteInfo = SuperPlayer;
+			remoteGlobalIDString = 9B9671031B3A54EE008F38A4;
+			remoteInfo = MediaServerBrowserService;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		323682B61B3C1FCD006889F9 /* ItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemsViewController.h; sourceTree = "<group>"; };
 		323682B71B3C1FCD006889F9 /* ItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemsViewController.m; sourceTree = "<group>"; };
-		323682BB1B3C22A2006889F9 /* MediaServerBrowserService.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaServerBrowserService.framework; path = SuperPlayer/Third/MediaServerBrowserService.framework; sourceTree = "<group>"; };
 		323682C01B3CD35D006889F9 /* ItunesMusicDMSDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItunesMusicDMSDelegate.h; path = Third/dms/ItunesMusicDMSDelegate.h; sourceTree = "<group>"; };
 		323682C11B3CD35D006889F9 /* ItunesMusicDMSDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ItunesMusicDMSDelegate.mm; path = Third/dms/ItunesMusicDMSDelegate.mm; sourceTree = "<group>"; };
 		323682C21B3CD35D006889F9 /* Macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Macro.h; path = Third/dms/Macro.h; sourceTree = "<group>"; };
@@ -106,7 +111,6 @@
 		326438261B22E90300EF77A8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		326438271B22E90300EF77A8 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		3264382F1B22E90300EF77A8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		326438381B22E90300EF77A8 /* SuperPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SuperPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3264383D1B22E90300EF77A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3264383E1B22E90300EF77A8 /* SuperPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuperPlayerTests.m; sourceTree = "<group>"; };
 		326438481B22E98200EF77A8 /* Platinum.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Platinum.framework; path = Third/Platinum.framework; sourceTree = "<group>"; };
@@ -213,6 +217,7 @@
 		32C701601B3D1D6300E86FFF /* AllMusicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllMusicController.m; sourceTree = "<group>"; };
 		32C701621B3D20A700E86FFF /* RenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderViewController.h; sourceTree = "<group>"; };
 		32C701631B3D20A700E86FFF /* RenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderViewController.m; sourceTree = "<group>"; };
+		9B9671C61B3D4028008F38A4 /* MediaServerBrowserService.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MediaServerBrowserService.xcodeproj; path = ../MediaServerBrowserService/MediaServerBrowserService.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,7 +225,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				323682BC1B3C22A2006889F9 /* MediaServerBrowserService.framework in Frameworks */,
+				9B9671CE1B3D403A008F38A4 /* MediaServerBrowserService.framework in Frameworks */,
 				328296051B3157AD00815605 /* libxml2.2.dylib in Frameworks */,
 				326438691B22EACC00EF77A8 /* MediaPlayer.framework in Frameworks */,
 				326438671B22EAC400EF77A8 /* AssetsLibrary.framework in Frameworks */,
@@ -228,13 +233,6 @@
 				326438631B22EAB100EF77A8 /* CoreMedia.framework in Frameworks */,
 				326438611B22EAA900EF77A8 /* AVFoundation.framework in Frameworks */,
 				326438491B22E98200EF77A8 /* Platinum.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		326438351B22E90300EF77A8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +260,7 @@
 		326438161B22E90300EF77A8 = {
 			isa = PBXGroup;
 			children = (
-				323682BB1B3C22A2006889F9 /* MediaServerBrowserService.framework */,
+				9B9671C61B3D4028008F38A4 /* MediaServerBrowserService.xcodeproj */,
 				326438211B22E90300EF77A8 /* SuperPlayer */,
 				3264383B1B22E90300EF77A8 /* SuperPlayerTests */,
 				326438201B22E90300EF77A8 /* Products */,
@@ -273,7 +271,6 @@
 			isa = PBXGroup;
 			children = (
 				3264381F1B22E90300EF77A8 /* SuperPlayer.app */,
-				326438381B22E90300EF77A8 /* SuperPlayerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -507,6 +504,14 @@
 			path = Third/MJRefresh;
 			sourceTree = "<group>";
 		};
+		9B9671C71B3D4028008F38A4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9B9671CB1B3D4028008F38A4 /* MediaServerBrowserService.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -521,29 +526,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				9B9671CD1B3D4034008F38A4 /* PBXTargetDependency */,
 			);
 			name = SuperPlayer;
 			productName = SuperPlayer;
 			productReference = 3264381F1B22E90300EF77A8 /* SuperPlayer.app */;
 			productType = "com.apple.product-type.application";
-		};
-		326438371B22E90300EF77A8 /* SuperPlayerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 326438451B22E90300EF77A8 /* Build configuration list for PBXNativeTarget "SuperPlayerTests" */;
-			buildPhases = (
-				326438341B22E90300EF77A8 /* Sources */,
-				326438351B22E90300EF77A8 /* Frameworks */,
-				326438361B22E90300EF77A8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3264383A1B22E90300EF77A8 /* PBXTargetDependency */,
-			);
-			name = SuperPlayerTests;
-			productName = SuperPlayerTests;
-			productReference = 326438381B22E90300EF77A8 /* SuperPlayerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -556,11 +544,6 @@
 				TargetAttributes = {
 					3264381E1B22E90300EF77A8 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = FQPHX6B82P;
-					};
-					326438371B22E90300EF77A8 = {
-						CreatedOnToolsVersion = 6.2;
-						TestTargetID = 3264381E1B22E90300EF77A8;
 					};
 				};
 			};
@@ -575,13 +558,28 @@
 			mainGroup = 326438161B22E90300EF77A8;
 			productRefGroup = 326438201B22E90300EF77A8 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9B9671C71B3D4028008F38A4 /* Products */;
+					ProjectRef = 9B9671C61B3D4028008F38A4 /* MediaServerBrowserService.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				3264381E1B22E90300EF77A8 /* SuperPlayer */,
-				326438371B22E90300EF77A8 /* SuperPlayerTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9B9671CB1B3D4028008F38A4 /* MediaServerBrowserService.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MediaServerBrowserService.framework;
+			remoteRef = 9B9671CA1B3D4028008F38A4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3264381D1B22E90300EF77A8 /* Resources */ = {
@@ -593,13 +591,6 @@
 				328297C41B33F85600815605 /* RootView.xib in Resources */,
 				3282961F1B3158D500815605 /* Icon.png in Resources */,
 				328298241B33FE2900815605 /* MJRefresh.bundle in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		326438361B22E90300EF77A8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,21 +656,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		326438341B22E90300EF77A8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3264383F1B22E90300EF77A8 /* SuperPlayerTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3264383A1B22E90300EF77A8 /* PBXTargetDependency */ = {
+		9B9671CD1B3D4034008F38A4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3264381E1B22E90300EF77A8 /* SuperPlayer */;
-			targetProxy = 326438391B22E90300EF77A8 /* PBXContainerItemProxy */;
+			name = MediaServerBrowserService;
+			targetProxy = 9B9671CC1B3D4034008F38A4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -767,7 +750,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 吟飞 赵 (252Y7G4A35)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SuperPlayer/Third",
@@ -784,8 +767,10 @@
 				INFOPLIST_FILE = SuperPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "35968b6b-2ad4-4d14-92d7-065a1bcd2fd5";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -793,8 +778,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen City Wuwangtong Information Technology Co. Ltd. (FQPHX6B82P)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shenzhen City Wuwangtong Information Technology Co. Ltd. (FQPHX6B82P)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 吟飞 赵 (252Y7G4A35)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SuperPlayer/Third",
@@ -811,42 +796,10 @@
 				INFOPLIST_FILE = SuperPlayer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-			};
-			name = Release;
-		};
-		326438461B22E90300EF77A8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SuperPlayerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SuperPlayer.app/SuperPlayer";
-			};
-			name = Debug;
-		};
-		326438471B22E90300EF77A8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SuperPlayerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SuperPlayer.app/SuperPlayer";
+				PROVISIONING_PROFILE = "35968b6b-2ad4-4d14-92d7-065a1bcd2fd5";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};
@@ -867,15 +820,6 @@
 			buildConfigurations = (
 				326438431B22E90300EF77A8 /* Debug */,
 				326438441B22E90300EF77A8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		326438451B22E90300EF77A8 /* Build configuration list for PBXNativeTarget "SuperPlayerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				326438461B22E90300EF77A8 /* Debug */,
-				326438471B22E90300EF77A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
