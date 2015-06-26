@@ -12,8 +12,9 @@
 		9B9671231B3AC575008F38A4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9671221B3AC575008F38A4 /* Foundation.framework */; };
 		9B9671251B3AC97D008F38A4 /* Platinum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9671241B3AC97D008F38A4 /* Platinum.framework */; };
 		9B9671271B3ACB39008F38A4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9671261B3ACB39008F38A4 /* UIKit.framework */; };
-		9B96712A1B3B9830008F38A4 /* MediaServerBrowserImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B9671281B3B9830008F38A4 /* MediaServerBrowserImpl.h */; };
 		9B96712B1B3B9830008F38A4 /* MediaServerBrowserImpl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B9671291B3B9830008F38A4 /* MediaServerBrowserImpl.mm */; };
+		9B9671CF1B3D4518008F38A4 /* MediaServerBrowserImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B9671281B3B9830008F38A4 /* MediaServerBrowserImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		9B9671D21B3D470D008F38A4 /* upnpdeamon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9B9671D11B3D470D008F38A4 /* upnpdeamon.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		9B9671261B3ACB39008F38A4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9B9671281B3B9830008F38A4 /* MediaServerBrowserImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaServerBrowserImpl.h; sourceTree = "<group>"; };
 		9B9671291B3B9830008F38A4 /* MediaServerBrowserImpl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MediaServerBrowserImpl.mm; sourceTree = "<group>"; };
+		9B9671D01B3D46EC008F38A4 /* upnpdeamon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = upnpdeamon.h; sourceTree = "<group>"; };
+		9B9671D11B3D470D008F38A4 /* upnpdeamon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = upnpdeamon.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,9 +69,11 @@
 			children = (
 				9B9671091B3A54EE008F38A4 /* MediaServerBrowserService.h */,
 				9B9671201B3AC43E008F38A4 /* MediaServerBrowserService.mm */,
-				9B9671071B3A54EE008F38A4 /* Supporting Files */,
 				9B9671281B3B9830008F38A4 /* MediaServerBrowserImpl.h */,
 				9B9671291B3B9830008F38A4 /* MediaServerBrowserImpl.mm */,
+				9B9671D01B3D46EC008F38A4 /* upnpdeamon.h */,
+				9B9671D11B3D470D008F38A4 /* upnpdeamon.cpp */,
+				9B9671071B3A54EE008F38A4 /* Supporting Files */,
 			);
 			path = MediaServerBrowserService;
 			sourceTree = "<group>";
@@ -89,7 +94,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B96710A1B3A54EE008F38A4 /* MediaServerBrowserService.h in Headers */,
-				9B96712A1B3B9830008F38A4 /* MediaServerBrowserImpl.h in Headers */,
+				9B9671CF1B3D4518008F38A4 /* MediaServerBrowserImpl.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,6 +167,7 @@
 			files = (
 				9B96712B1B3B9830008F38A4 /* MediaServerBrowserImpl.mm in Sources */,
 				9B9671211B3AC43E008F38A4 /* MediaServerBrowserService.mm in Sources */,
+				9B9671D21B3D470D008F38A4 /* upnpdeamon.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

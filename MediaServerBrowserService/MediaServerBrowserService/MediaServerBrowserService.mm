@@ -13,6 +13,8 @@
 
 #include "Platinum/Platinum.h"
 
+#include "upnpdeamon.h"
+
 class MediaServerListener;
 
 @implementation MediaServerItem
@@ -27,7 +29,6 @@ class MediaServerListener;
 
 @implementation MediaServerBrowserService
 {
-    PLT_UPnP upnp_;
     PLT_MediaBrowser *browser_;
     PLT_CtrlPointReference ref_;
     MediaServerListener *listener_;
@@ -64,8 +65,7 @@ class MediaServerListener;
     ref_ = new PLT_CtrlPoint();
     listener_ = new MediaServerListener(self, delegate);
     browser_ = new PLT_MediaBrowser(ref_, listener_);
-    upnp_.AddCtrlPoint(ref_);
-    upnp_.Start();
+    UPnPDeamon::instance()->addCtrlPoint(ref_);
     return YES;
 }
 
@@ -75,8 +75,7 @@ class MediaServerListener;
         NSLog(@"DMS-C not start!");
         return;
     }
-    upnp_.Stop();
-    upnp_.RemoveCtrlPoint(ref_);
+    UPnPDeamon::instance()->removeCtrlPoint(ref_);
     delete browser_;
     browser_ = NULL;
     ref_ = NULL;
