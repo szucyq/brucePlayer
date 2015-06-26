@@ -190,6 +190,14 @@
 //    [self presentViewController:self.serverController animated:YES completion:nil];
 }
 
+- (IBAction)settingAction:(id)sender {
+    SettingViewController *setting=[[SettingViewController alloc]init];
+    UIPopoverController *popoverController=[[UIPopoverController alloc]initWithContentViewController:setting];
+    popoverController.contentViewController.contentSizeForViewInPopover=CGSizeMake(300, 500);
+
+    [popoverController presentPopoverFromRect:self.setupBt.frame inView:self.rightView permittedArrowDirections:UIPopoverArrowDirectionRight animated:YES];
+}
+
 - (IBAction)catalogBtAction:(id)sender {
     [self bringCatagoryViewToFront];
     

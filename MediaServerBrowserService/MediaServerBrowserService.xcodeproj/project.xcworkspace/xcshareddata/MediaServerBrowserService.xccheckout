@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>FB79A01A-7FB5-4B4C-A8ED-736F474D6DEC</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MediaServerBrowserService</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>78D7817612590D102C1A142403A0264956590F17</key>
+		<string>https://github.com/szucyq/brucePlayer.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MediaServerBrowserService/MediaServerBrowserService.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>78D7817612590D102C1A142403A0264956590F17</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/szucyq/brucePlayer.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>78D7817612590D102C1A142403A0264956590F17</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>78D7817612590D102C1A142403A0264956590F17</string>
+			<key>IDESourceControlWCCName</key>
+			<string>brucePlayer</string>
+		</dict>
+	</array>
+</dict>
+</plist>

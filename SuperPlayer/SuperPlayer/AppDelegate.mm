@@ -60,8 +60,9 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [self initUpnpServer];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationFlag_StatusChanged object:nil];
+//    NSLog(@"applicationDidBecomeActive");
+//    [self initUpnpServer];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationFlag_StatusChanged object:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -74,11 +75,11 @@
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
     // **This is quite useless for no document content manage support from UI
-    [[UPnPEngine getEngine] intendStartLocalFileServerWithRootPath:[[Util sharedInstance] getDocumentPath] serverName:@"xiOSDMS_File"];
+    [[UPnPEngine getEngine] intendStartLocalFileServerWithRootPath:[[Util sharedInstance] getDocumentPath] serverName:@"PLAYER_DMS_File"];
     // **
     
-    [[UPnPEngine getEngine] intendStartItunesMusicServerWithServerName:@"xiOSDMS_Music"];
-    [[UPnPEngine getEngine] intendStartIOSPhotoServerWithServerName:@"xiOSDMS_Photo"];
+    [[UPnPEngine getEngine] intendStartItunesMusicServerWithServerName:@"PLAYER_DMS_Music"];
+    [[UPnPEngine getEngine] intendStartIOSPhotoServerWithServerName:@"PLAYER_DMS_Photo"];
     
     if (![[UPnPEngine getEngine] startUPnP]) {
         NSLog(@"Error starting up DMS servers");

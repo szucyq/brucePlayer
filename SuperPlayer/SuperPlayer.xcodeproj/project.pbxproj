@@ -71,7 +71,11 @@
 		328298321B340F8C00815605 /* UIWindow+BPScaling.m in Sources */ = {isa = PBXBuildFile; fileRef = 328298311B340F8C00815605 /* UIWindow+BPScaling.m */; };
 		32C701611B3D1D6300E86FFF /* AllMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C701601B3D1D6300E86FFF /* AllMusicController.m */; };
 		32C701641B3D20A700E86FFF /* RenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C701631B3D20A700E86FFF /* RenderViewController.m */; };
+<<<<<<< Updated upstream
 		9B9671CE1B3D403A008F38A4 /* MediaServerBrowserService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9671CB1B3D4028008F38A4 /* MediaServerBrowserService.framework */; };
+=======
+		32C701671B3D32BC00E86FFF /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C701661B3D32BC00E86FFF /* SettingViewController.m */; };
+>>>>>>> Stashed changes
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -217,7 +221,12 @@
 		32C701601B3D1D6300E86FFF /* AllMusicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllMusicController.m; sourceTree = "<group>"; };
 		32C701621B3D20A700E86FFF /* RenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderViewController.h; sourceTree = "<group>"; };
 		32C701631B3D20A700E86FFF /* RenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderViewController.m; sourceTree = "<group>"; };
+<<<<<<< Updated upstream
 		9B9671C61B3D4028008F38A4 /* MediaServerBrowserService.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MediaServerBrowserService.xcodeproj; path = ../MediaServerBrowserService/MediaServerBrowserService.xcodeproj; sourceTree = "<group>"; };
+=======
+		32C701651B3D32BC00E86FFF /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		32C701661B3D32BC00E86FFF /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+>>>>>>> Stashed changes
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -350,6 +359,8 @@
 				323682B71B3C1FCD006889F9 /* ItemsViewController.m */,
 				32C7015F1B3D1D6300E86FFF /* AllMusicController.h */,
 				32C701601B3D1D6300E86FFF /* AllMusicController.m */,
+				32C701651B3D32BC00E86FFF /* SettingViewController.h */,
+				32C701661B3D32BC00E86FFF /* SettingViewController.m */,
 			);
 			name = DMC;
 			sourceTree = "<group>";
@@ -612,6 +623,7 @@
 				326438281B22E90300EF77A8 /* AppDelegate.mm in Sources */,
 				323682CB1B3CD35D006889F9 /* ItunesMusicDMSDelegate.mm in Sources */,
 				328298011B33FA6300815605 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				32C701671B3D32BC00E86FFF /* SettingViewController.m in Sources */,
 				328298251B33FE2900815605 /* MJRefreshComponent.m in Sources */,
 				328296121B31580500815605 /* ServerViewController.m in Sources */,
 				323682CD1B3CD35D006889F9 /* PltMediaServerObject.mm in Sources */,
