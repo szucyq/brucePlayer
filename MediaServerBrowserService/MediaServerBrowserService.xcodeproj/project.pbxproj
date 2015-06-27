@@ -67,6 +67,7 @@
 		9B9671061B3A54EE008F38A4 /* MediaServerBrowserService */ = {
 			isa = PBXGroup;
 			children = (
+				9B9671071B3A54EE008F38A4 /* Supporting Files */,
 				9B9671091B3A54EE008F38A4 /* MediaServerBrowserService.h */,
 				9B9671201B3AC43E008F38A4 /* MediaServerBrowserService.mm */,
 				9B9671281B3B9830008F38A4 /* MediaServerBrowserImpl.h */,

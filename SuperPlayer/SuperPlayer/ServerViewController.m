@@ -56,7 +56,7 @@
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
+    self.dmsArr=[NSMutableDictionary dictionary];
     
 }
 - (void)viewDidAppear:(BOOL)animated
@@ -99,6 +99,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"dms arr:%@",_dmsArr);
     return [_dmsArr count];
 }
 
@@ -171,7 +172,14 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:@"kSelectServer" object:nil userInfo:userinfo];
     
     
+//    NSString *uuid = [[_dmsArr allKeys] objectAtIndex:indexPath.row];
+    ItemsViewController *controller = [[ItemsViewController alloc] init];
+    MediaServerBrowser *browser = [[MediaServerBrowserService instance] browserWithUUID:uuid delegate:controller];
+    controller.browser = browser;
     
+    [self.navigationController pushViewController:controller animated:YES];
+    //PlaybackViewController *playerViewContorller = [[PlaybackViewController alloc] initWithUrl:url];
+//    [self presentViewController:controller animated:NO completion:nil];
     
     
 

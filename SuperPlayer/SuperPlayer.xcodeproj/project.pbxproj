@@ -71,10 +71,19 @@
 		328298321B340F8C00815605 /* UIWindow+BPScaling.m in Sources */ = {isa = PBXBuildFile; fileRef = 328298311B340F8C00815605 /* UIWindow+BPScaling.m */; };
 		32C701611B3D1D6300E86FFF /* AllMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C701601B3D1D6300E86FFF /* AllMusicController.m */; };
 		32C701641B3D20A700E86FFF /* RenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C701631B3D20A700E86FFF /* RenderViewController.m */; };
-		9B9671CE1B3D403A008F38A4 /* MediaServerBrowserService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9671CB1B3D4028008F38A4 /* MediaServerBrowserService.framework */; };
+		32DCC7501B3D4EF10063DD60 /* MediaServerBrowserService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9671CB1B3D4028008F38A4 /* MediaServerBrowserService.framework */; };
+		32DCC7511B3D4EF10063DD60 /* MediaServerBrowserService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9671CB1B3D4028008F38A4 /* MediaServerBrowserService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9B9671CE1B3D403A008F38A4 /* MediaServerBrowserService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B9671CB1B3D4028008F38A4 /* MediaServerBrowserService.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		32DCC7521B3D4EF10063DD60 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9B9671C61B3D4028008F38A4 /* MediaServerBrowserService.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B9671031B3A54EE008F38A4;
+			remoteInfo = MediaServerBrowserService;
+		};
 		9B9671CA1B3D4028008F38A4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9B9671C61B3D4028008F38A4 /* MediaServerBrowserService.xcodeproj */;
@@ -90,6 +99,20 @@
 			remoteInfo = MediaServerBrowserService;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		32DCC7541B3D4EF10063DD60 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				32DCC7511B3D4EF10063DD60 /* MediaServerBrowserService.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		323682B61B3C1FCD006889F9 /* ItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemsViewController.h; sourceTree = "<group>"; };
@@ -232,6 +255,7 @@
 				326438651B22EABA00EF77A8 /* CoreAudio.framework in Frameworks */,
 				326438631B22EAB100EF77A8 /* CoreMedia.framework in Frameworks */,
 				326438611B22EAA900EF77A8 /* AVFoundation.framework in Frameworks */,
+				32DCC7501B3D4EF10063DD60 /* MediaServerBrowserService.framework in Frameworks */,
 				326438491B22E98200EF77A8 /* Platinum.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,11 +546,13 @@
 				3264381B1B22E90300EF77A8 /* Sources */,
 				3264381C1B22E90300EF77A8 /* Frameworks */,
 				3264381D1B22E90300EF77A8 /* Resources */,
+				32DCC7541B3D4EF10063DD60 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				9B9671CD1B3D4034008F38A4 /* PBXTargetDependency */,
+				32DCC7531B3D4EF10063DD60 /* PBXTargetDependency */,
 			);
 			name = SuperPlayer;
 			productName = SuperPlayer;
@@ -544,6 +570,7 @@
 				TargetAttributes = {
 					3264381E1B22E90300EF77A8 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = FQPHX6B82P;
 					};
 				};
 			};
@@ -659,6 +686,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		32DCC7531B3D4EF10063DD60 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MediaServerBrowserService;
+			targetProxy = 32DCC7521B3D4EF10063DD60 /* PBXContainerItemProxy */;
+		};
 		9B9671CD1B3D4034008F38A4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MediaServerBrowserService;
@@ -750,7 +782,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 吟飞 赵 (252Y7G4A35)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SuperPlayer/Third",
@@ -769,7 +801,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "35968b6b-2ad4-4d14-92d7-065a1bcd2fd5";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
@@ -779,7 +811,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 吟飞 赵 (252Y7G4A35)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SuperPlayer/Third",
@@ -798,7 +830,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "35968b6b-2ad4-4d14-92d7-065a1bcd2fd5";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
