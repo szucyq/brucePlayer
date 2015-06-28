@@ -8,6 +8,7 @@
 
 #import "RootViewController.h"
 #import <Platinum/Platinum.h>
+#import "AppDelegate.h"
 
 @implementation RootViewController
 - (void)didReceiveMemoryWarning
@@ -35,8 +36,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getServerAction:) name:@"kSelectServer" object:nil];
     
 }
-- (void)viewDidLayoutSubviews{
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+//    self.navigationController.navigationBarHidden=YES;
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden=YES;
+}
+- (void)viewDidLayoutSubviews{
+//    self.navigationController.navigationBarHidden=YES;
     //top view
     self.topView.frame=CGRectMake(0, kContentBaseY, kContentViewWidth-_rightView.frame.size.width, _topView.frame.size.height);
     //right view
@@ -189,10 +198,9 @@
 #pragma mark -
 #pragma mark - actions
 - (IBAction)renderBtAction:(id)sender {
-//    self.renderViewController = [[RenderViewController alloc] init];
-//    
-//    [self.navigationController pushViewController:self.renderViewController animated:YES];
-//    [self presentViewController:self.renderViewController animated:YES completion:nil];
+    self.renderViewController = [[RenderViewController alloc] init];
+    
+    [self.navigationController pushViewController:self.renderViewController animated:YES];
 }
 
 - (IBAction)serverBtAction:(id)sender {
@@ -225,7 +233,7 @@
         itemController.browser=browser;
     }
     else{
-        [SVProgressHUD showErrorWithStatus:@"请先选择媒体服务器" maskType:SVProgressHUDMaskTypeGradient];
+        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
         return;
     }
     
@@ -258,10 +266,20 @@
 
 - (IBAction)listLookAction:(id)sender {
     NSLog(@"列表浏览");
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    if(!appDelagete.serverUuid){
+        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
+        return;
+    }
 }
 
 - (IBAction)iconLookAction:(id)sender {
     NSLog(@"图标浏览");
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    if(!appDelagete.serverUuid){
+        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
+        return;
+    }
 }
 
 - (IBAction)bySongAction:(id)sender {

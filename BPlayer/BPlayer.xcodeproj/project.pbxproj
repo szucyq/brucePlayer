@@ -10,8 +10,8 @@
 		3297F4A01B3DCACB0006EDFA /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3297F49F1B3DCACB0006EDFA /* SettingViewController.m */; };
 		3297F4A71B3DCD0C0006EDFA /* MediaServerBrowserService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3297F4A61B3DCCBF0006EDFA /* MediaServerBrowserService.framework */; };
 		3297F4A81B3DCD0C0006EDFA /* MediaServerBrowserService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3297F4A61B3DCCBF0006EDFA /* MediaServerBrowserService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3297F4AD1B3DCE750006EDFA /* RenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3297F4AC1B3DCE750006EDFA /* RenderViewController.m */; };
 		3297F4B21B3FC8CE0006EDFA /* RootView-iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */; };
+		32DB6A7A1B3FF8FB0030E86F /* RenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DB6A791B3FF8FB0030E86F /* RenderViewController.m */; };
 		32DCC7671B3DB6230063DD60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC7661B3DB6230063DD60 /* main.m */; };
 		32DCC76A1B3DB6230063DD60 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC7691B3DB6230063DD60 /* AppDelegate.mm */; };
 		32DCC7721B3DB6230063DD60 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32DCC7711B3DB6230063DD60 /* Images.xcassets */; };
@@ -119,9 +119,9 @@
 		3297F49E1B3DCACB0006EDFA /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		3297F49F1B3DCACB0006EDFA /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		3297F4A11B3DCCBF0006EDFA /* MediaServerBrowserService.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MediaServerBrowserService.xcodeproj; path = ../MediaServerBrowserService/MediaServerBrowserService.xcodeproj; sourceTree = "<group>"; };
-		3297F4AB1B3DCE750006EDFA /* RenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderViewController.h; sourceTree = "<group>"; };
-		3297F4AC1B3DCE750006EDFA /* RenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderViewController.m; sourceTree = "<group>"; };
 		3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "RootView-iPhone.xib"; sourceTree = "<group>"; };
+		32DB6A781B3FF8FB0030E86F /* RenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderViewController.h; sourceTree = "<group>"; };
+		32DB6A791B3FF8FB0030E86F /* RenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderViewController.m; sourceTree = "<group>"; };
 		32DCC7611B3DB6230063DD60 /* BPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32DCC7651B3DB6230063DD60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32DCC7661B3DB6230063DD60 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -497,8 +497,8 @@
 		32DCC84D1B3DB9350063DD60 /* DMR */ = {
 			isa = PBXGroup;
 			children = (
-				3297F4AB1B3DCE750006EDFA /* RenderViewController.h */,
-				3297F4AC1B3DCE750006EDFA /* RenderViewController.m */,
+				32DB6A781B3FF8FB0030E86F /* RenderViewController.h */,
+				32DB6A791B3FF8FB0030E86F /* RenderViewController.m */,
 			);
 			name = DMR;
 			sourceTree = "<group>";
@@ -675,7 +675,7 @@
 				32DCC83A1B3DB8B40063DD60 /* UIScrollView+MJExtension.m in Sources */,
 				32DCC8611B3DB9580063DD60 /* Util.m in Sources */,
 				32DCC85F1B3DB9580063DD60 /* PltMediaServerObject.mm in Sources */,
-				3297F4AD1B3DCE750006EDFA /* RenderViewController.m in Sources */,
+				32DB6A7A1B3FF8FB0030E86F /* RenderViewController.m in Sources */,
 				32DCC8441B3DB8B40063DD60 /* UIButton+AFNetworking.m in Sources */,
 				32DCC78D1B3DB6AC0063DD60 /* RootViewController.mm in Sources */,
 				32DCC8251B3DB8B40063DD60 /* AFNetworkReachabilityManager.m in Sources */,

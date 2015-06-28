@@ -7,6 +7,7 @@
 //
 
 #import "ColorTitle.h"
+#import "AppDelegate.h"
 
 @interface ColorTitle ()
 

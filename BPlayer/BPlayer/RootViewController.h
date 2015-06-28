@@ -10,14 +10,11 @@
 #import "WithTableViewController.h"
 #import "SettingViewController.h"
 
-
+#import "RenderViewController.h"
 #import <MediaServerBrowserService/MediaServerBrowserService.h>
 #import "ServerViewController.h"
 #import "ItemsViewController.h"
-#import "RenderViewController.h"
 
-
-#import "AppDelegate.h"
 #import "AllMusicController.h"
 
 
@@ -52,12 +49,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 //其他
-@property (nonatomic,retain)ServerContentViewController *serverContentView;
-//@property (nonatomic,retain)RenderViewController *renderViewController;
+//@property (nonatomic,retain)ServerContentViewController *serverContentView;
+@property (nonatomic,retain)RenderViewController *renderViewController;
 @property (nonatomic,retain)ServerViewController *serverController;
 @property (nonatomic,retain)UINavigationController *catalogNav;
 @property (nonatomic) BOOL isPlay;
-@property (nonatomic,retain)ItemsViewController *itemsViewController;
+//@property (nonatomic,retain)ItemsViewController *itemsViewController;
 @property (nonatomic,retain)AllMusicController *allMusicController;
 //右侧actions
 - (IBAction)renderBtAction:(id)sender;
