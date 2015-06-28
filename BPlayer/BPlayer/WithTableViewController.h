@@ -12,4 +12,5 @@
 @property (nonatomic,retain)UITableView *listTableView;
 @property (nonatomic,retain)NSMutableArray *listArray;
 @property (nonatomic)NSInteger currentPage;
+- (id)init;
 @end

@@ -10,4 +10,6 @@
 
 @interface AllMusicController : WithTableViewController
 @property (nonatomic,copy)NSString *byType;
+@property (nonatomic,copy)NSString *serverUuid;
+- (id)initWithFrame:(CGRect)frame;
 @end

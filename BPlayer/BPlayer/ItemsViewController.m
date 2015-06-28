@@ -18,7 +18,13 @@
 
 @synthesize browser = browser_;
 @synthesize itemArr = itemArr_;
-
+- (id)initWithFrame:(CGRect)frame{
+    self=[super init];
+    if(self){
+        self.tableView.frame=frame;
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     

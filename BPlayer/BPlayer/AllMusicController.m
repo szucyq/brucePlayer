@@ -13,11 +13,17 @@
 @end
 
 @implementation AllMusicController
-
+- (id)initWithFrame:(CGRect)frame{
+    self=[super init];
+    if(self){
+        self.listTableView.frame=CGRectMake(0, 0, frame.size.width, frame.size.height);
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.view.backgroundColor=[UIColor redColor];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -36,6 +42,9 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (void)setServerUuid:(NSString *)serverUuid{
+    
+}
 - (void)setByType:(NSString *)byType{
     NSLog(@"set byType:%@",byType);
     if([byType isEqualToString:@"music"]){
@@ -47,6 +56,7 @@
     [self.listTableView reloadData];
     
 }
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

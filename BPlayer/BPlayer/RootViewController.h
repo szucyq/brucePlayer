@@ -49,6 +49,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *setupBt;
 @property (weak, nonatomic) IBOutlet UISlider *seekSlider;
 @property (weak, nonatomic) IBOutlet UIButton *muteBt;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 //其他
 @property (nonatomic,retain)ServerContentViewController *serverContentView;
