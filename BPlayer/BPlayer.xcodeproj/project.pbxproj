@@ -11,6 +11,7 @@
 		3297F4A71B3DCD0C0006EDFA /* MediaServerBrowserService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3297F4A61B3DCCBF0006EDFA /* MediaServerBrowserService.framework */; };
 		3297F4A81B3DCD0C0006EDFA /* MediaServerBrowserService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3297F4A61B3DCCBF0006EDFA /* MediaServerBrowserService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3297F4AD1B3DCE750006EDFA /* RenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3297F4AC1B3DCE750006EDFA /* RenderViewController.m */; };
+		3297F4B21B3FC8CE0006EDFA /* RootView-iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */; };
 		32DCC7671B3DB6230063DD60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC7661B3DB6230063DD60 /* main.m */; };
 		32DCC76A1B3DB6230063DD60 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC7691B3DB6230063DD60 /* AppDelegate.mm */; };
 		32DCC7721B3DB6230063DD60 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32DCC7711B3DB6230063DD60 /* Images.xcassets */; };
@@ -120,6 +121,7 @@
 		3297F4A11B3DCCBF0006EDFA /* MediaServerBrowserService.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MediaServerBrowserService.xcodeproj; path = ../MediaServerBrowserService/MediaServerBrowserService.xcodeproj; sourceTree = "<group>"; };
 		3297F4AB1B3DCE750006EDFA /* RenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderViewController.h; sourceTree = "<group>"; };
 		3297F4AC1B3DCE750006EDFA /* RenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderViewController.m; sourceTree = "<group>"; };
+		3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "RootView-iPhone.xib"; sourceTree = "<group>"; };
 		32DCC7611B3DB6230063DD60 /* BPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32DCC7651B3DB6230063DD60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32DCC7661B3DB6230063DD60 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				32DCC78A1B3DB6AC0063DD60 /* RootViewController.h */,
 				32DCC78B1B3DB6AC0063DD60 /* RootViewController.mm */,
 				32DCC78C1B3DB6AC0063DD60 /* RootView.xib */,
+				3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */,
 				3297F49E1B3DCACB0006EDFA /* SettingViewController.h */,
 				3297F49F1B3DCACB0006EDFA /* SettingViewController.m */,
 				32DCC7711B3DB6230063DD60 /* Images.xcassets */,
@@ -632,6 +635,7 @@
 				32DCC78E1B3DB6AC0063DD60 /* RootView.xib in Resources */,
 				32DCC83F1B3DB8B40063DD60 /* SVProgressHUD.bundle in Resources */,
 				32DCC7751B3DB6230063DD60 /* LaunchScreen.xib in Resources */,
+				3297F4B21B3FC8CE0006EDFA /* RootView-iPhone.xib in Resources */,
 				32DCC8311B3DB8B40063DD60 /* MJRefresh.bundle in Resources */,
 				32DCC7721B3DB6230063DD60 /* Images.xcassets in Resources */,
 			);

@@ -9,5 +9,5 @@
 #import "WithTableViewController.h"
 
 @interface AllMusicController : WithTableViewController
-
+@property (nonatomic,copy)NSString *byType;
 @end

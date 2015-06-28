@@ -28,9 +28,16 @@
     [self initUpnpServer];
     [[NSNotificationCenter defaultCenter] postNotificationName:NotificationFlag_StatusChanged object:nil];
     //
-    RootViewController *root=[[RootViewController alloc]init];
-    UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:root];
-    self.window.rootViewController=nav;
+    if(kIS_IPAD){
+        RootViewController *root=[[RootViewController alloc]initWithNibName:@"RootView" bundle:nil];
+        UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:root];
+        self.window.rootViewController=nav;
+    }
+    else{
+        RootViewController *root=[[RootViewController alloc]initWithNibName:@"RootView-iPhone" bundle:nil];
+        UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:root];
+        self.window.rootViewController=nav;
+    }
     
     NSLog(@"window frame:%@",[NSValue valueWithCGRect:self.window.frame]);
     

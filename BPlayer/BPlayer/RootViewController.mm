@@ -50,13 +50,21 @@
 //    float itemWidth=50;
 //    float padding=(kContentViewWidth-titleWidth-topNum*itemWidth)/(topNum+1+1);
 
-    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
-    if (UIDeviceOrientationIsLandscape(deviceOrientation)){
-        NSLog(@"横向");
+    if(kIS_IPAD){
+        UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+        if (UIDeviceOrientationIsLandscape(deviceOrientation)){
+            NSLog(@"横向");
+        }
+        else{
+            NSLog(@"竖屏");
+            
+        }
+    }
+    else if(kIS_IPHONE){
+        NSLog(@"iphone");
     }
     else{
-        NSLog(@"竖屏");
-
+        NSLog(@"other device");
     }
 
 }
@@ -206,21 +214,34 @@
     [self bringCatagoryViewToFront];
     
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-    MediaServerBrowser *browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:self.itemsViewController];
+    ItemsViewController *itemController = [[ItemsViewController alloc] init];
+    if(appDelagete.serverUuid){
+        MediaServerBrowser *browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:itemController];
+        itemController.browser=browser;
+    }
+    else{
+        [SVProgressHUD showErrorWithStatus:@"请先选择媒体服务器" maskType:SVProgressHUDMaskTypeGradient];
+        return;
+    }
+    
     
     //catalogNav视图用于按照目录层级的方式进行访问server资源
     if(self.catalogNav){
-        [self.catalogNav.navigationController popToRootViewControllerAnimated:YES];
-        self.itemsViewController.browser=browser;
+        [self.catalogNav.view removeFromSuperview];
+        
+        
+        //add catalog style nav 添加层级目录浏览界面
+        
+        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:itemController];
+        self.catalogNav.view.frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height);
+        self.catalogNav.view.tag=10000;
+        [self.view addSubview:self.catalogNav.view];
     }
     else{
-        self.itemsViewController = [[ItemsViewController alloc] init];
-        
-        self.itemsViewController.browser = browser;
         //add catalog style nav 添加层级目录浏览界面
-        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:self.itemsViewController];
+        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:itemController];
         self.catalogNav.view.frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height);
-        
+        self.catalogNav.view.tag=10000;
         [self.view addSubview:self.catalogNav.view];
     }
     
@@ -240,12 +261,14 @@
 - (IBAction)bySongAction:(id)sender {
     NSLog(@"按歌曲浏览");
     [self bringAllMusicViewToFront];
+    self.allMusicController.byType=@"music";
+    
 }
 
 - (IBAction)byZuoquAction:(id)sender {
     NSLog(@"按作曲浏览");
     [self bringAllMusicViewToFront];
-    
+    self.allMusicController.byType=@"other";
 }
 
 - (IBAction)byArtistAction:(id)sender {
@@ -312,6 +335,8 @@
 }
 #pragma mark - notion controls
 - (void)playWithAvItem:(NSNotification *)sender{
+//    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    [SVProgressHUD showErrorWithStatus:@"请选择播放器" maskType:SVProgressHUDMaskTypeBlack];
     
 }
 - (void)getServerAction:(NSNotification *)sender{
