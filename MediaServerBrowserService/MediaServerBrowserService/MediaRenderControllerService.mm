@@ -16,6 +16,7 @@
     PLT_MediaController *controller_;
     PLT_CtrlPointReference ctrlPoint_;
     id delegate_;
+    NSMutableDictionary *renderDic_;
 }
 
 + (id)instance
@@ -33,6 +34,7 @@
     self = [super init];
     if (self) {
         controller_ = NULL;
+        renderDic_ = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -65,13 +67,20 @@
 
 - (MediaRenderController*)controllerWithUUID:(NSString*)UUID
 {
+    /*
     MediaRenderController *renderCtr = NULL;
     PLT_DeviceDataReference device;
     NPT_Result res = controller_->FindRenderer([UUID UTF8String], device);
     if ( NPT_SUCCEEDED(res) ) {
-        
+        renderCtr = [renderDic_ valueForKey:UUID];
+        if (renderCtr == nil) {
+            //renderCtr = [[MediaRenderController alloc] init];
+            //[renderDic_ setObject:renderCtr forKey:UUID];
+        }
     }
     return renderCtr;
+     */
+    return nil;
 }
 
 @end

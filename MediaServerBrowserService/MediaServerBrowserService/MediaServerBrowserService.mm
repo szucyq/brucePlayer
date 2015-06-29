@@ -115,7 +115,7 @@ class MediaServerListener;
 
 - (void)destroyBrowser:(MediaServerBrowser*)browser
 {
-    [browserDic_ removeObjectForKey:[browser uuid]];
+    [browserDic_ removeObjectForKey:[browser UUID]];
 }
 
 class MediaServerListener : public PLT_MediaBrowserDelegate
@@ -205,7 +205,7 @@ public:
             tmp = [[NSMutableArray alloc] init];
             if ( info->items->GetItemCount() > 0 ) {
                 PLT_MediaObjectList::Iterator iter = info->items->GetFirstItem();
-                while ( iter != info->items->GetLastItem() ) {
+                while ( iter ) {
                     MediaServerItem *item = [[MediaServerItem alloc] init];
                     fileItem(*iter, item);
                     [tmp addObject:item];
@@ -218,11 +218,11 @@ public:
         NSArray *items = tmp == nil ? nil : [tmp copy];
         
         //
-        dispatch_async( dispatch_get_main_queue(), ^{
-            if ([delegate respondsToSelector:@selector(onBrowseResult:path:items:)]) {
+        if ([delegate respondsToSelector:@selector(onBrowseResult:path:items:)]) {
+            dispatch_async( dispatch_get_main_queue(), ^{
                 [delegate onBrowseResult:ret path:path items:items];
-            }
-        });
+            });
+        }
     }
     
     PLT_DeviceDataReference device(const char *uuid) {

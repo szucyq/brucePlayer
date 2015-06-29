@@ -20,6 +20,8 @@ FOUNDATION_EXPORT const unsigned char MediaServerBrowserServiceVersionString[];
 
 @class MediaServerBrowser;
 
+@class MediaServerCrawler;
+
 enum MediaServerItemType {
     UNKNOW = 0,
     VIDEO,
@@ -109,10 +111,11 @@ enum MediaServerItemType {
 
 - (void)browse:(NSString*)objID;
 
-@property(nonatomic, readonly) NSString* uuid;
+@property(nonatomic, readonly) NSString* UUID;
 
 @property(nonatomic, readonly) NSString* friendlyName;
 
 @property(nonatomic, readonly) id delegate;
 
 @end
+

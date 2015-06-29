@@ -39,17 +39,21 @@ enum RenderStatu{
     STOPED,
     LOADING
 };
+//get
 @property(nonatomic, readonly)NSString *UUID;
 @property(nonatomic, readonly)NSString *friendlyName;
-
-@property(nonatomic, readonly)NSTimeInterval curPos;
-@property(nonatomic, readonly)int vol;
-@property(nonatomic, readonly)NSURL *uri;
 @property(nonatomic, readonly)id delegate;
-@property(nonatomic, readonly)enum RenderStatu stat;
 
-- (id)initWithUUID:(NSString*)UUID delegate:(id)delegate;
+// async get
+- (void)getCurPos:(void*)userData;
 
+- (void)getVolume:(void*)userData;
+
+- (void)getCurUri:(void*)userData;
+
+- (void)getStat:(void*)userData;
+
+//set
 - (void)setUri:(NSURL*)url userData:(void*)userData;
 
 - (void)play:(void*)userData;
