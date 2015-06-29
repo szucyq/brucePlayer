@@ -37,10 +37,35 @@ enum MediaServerItemType {
 
 @property (nonatomic, strong) NSString *uri;
 
-@property (nonatomic) NSInteger size;
+@property (nonatomic) long long size;
 
 @property (nonatomic) enum MediaServerItemType type;
 
+@property (nonatomic, strong) NSString *artist;
+
+@property (nonatomic, strong) NSDate *date;
+
+@property (nonatomic, strong) NSString *composer;
+
+@property (nonatomic, strong) NSString *trackList;
+
+@property (nonatomic, strong) NSString *codeType;
+
+@property (nonatomic, strong) NSString *contentFormat;
+
+@property (nonatomic, strong) NSString *mimeType;
+
+@property (nonatomic, strong) NSString *extention;
+
+@property (nonatomic, strong) NSString *albumArtURI;
+
+@property (nonatomic, strong) NSString *thumbnailUrl;
+
+@property (nonatomic, strong) NSString *smallImageUrl;
+
+@property (nonatomic, strong) NSString *mediumImageUrl;
+
+@property (nonatomic, strong) NSString *largeImageUrl;
 @end
 
 @protocol MediaServerBrowserServiceDelegate <NSObject>

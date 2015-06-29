@@ -8,8 +8,7 @@
 
 #import "MediaServerBrowserService.h"
 #import "MediaServerBrowserImpl.h"
-
-#include "list"
+#include <list>
 
 #include "Platinum/Platinum.h"
 
@@ -24,6 +23,19 @@ class MediaServerListener;
 @synthesize uri;
 @synthesize size;
 @synthesize type;
+@synthesize artist;
+@synthesize date;
+@synthesize composer;
+@synthesize trackList;
+@synthesize codeType;
+@synthesize contentFormat;
+@synthesize mimeType;
+@synthesize extention;
+@synthesize albumArtURI;
+@synthesize thumbnailUrl;
+@synthesize smallImageUrl;
+@synthesize mediumImageUrl;
+@synthesize largeImageUrl;
 
 @end
 
@@ -166,6 +178,9 @@ public:
                         obj->m_Resources.GetFirstItem()->m_Uri.GetChars()];
             item.size = obj->m_Resources.GetFirstItem()->m_Size;
         }
+        obj->m_Date.GetChars();
+        
+
     };
 
     void OnBrowseResult( NPT_Result res

@@ -15,6 +15,8 @@
 		9B96712B1B3B9830008F38A4 /* MediaServerBrowserImpl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B9671291B3B9830008F38A4 /* MediaServerBrowserImpl.mm */; };
 		9B9671CF1B3D4518008F38A4 /* MediaServerBrowserImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B9671281B3B9830008F38A4 /* MediaServerBrowserImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		9B9671D21B3D470D008F38A4 /* upnpdeamon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9B9671D11B3D470D008F38A4 /* upnpdeamon.cpp */; };
+		9BAF4A151B3E243100123DEB /* MediaRenderControllerService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BAF4A131B3E243100123DEB /* MediaRenderControllerService.h */; };
+		9BAF4A161B3E243100123DEB /* MediaRenderControllerService.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9BAF4A141B3E243100123DEB /* MediaRenderControllerService.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		9B9671291B3B9830008F38A4 /* MediaServerBrowserImpl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MediaServerBrowserImpl.mm; sourceTree = "<group>"; };
 		9B9671D01B3D46EC008F38A4 /* upnpdeamon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = upnpdeamon.h; sourceTree = "<group>"; };
 		9B9671D11B3D470D008F38A4 /* upnpdeamon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = upnpdeamon.cpp; sourceTree = "<group>"; };
+		9BAF4A131B3E243100123DEB /* MediaRenderControllerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaRenderControllerService.h; sourceTree = "<group>"; };
+		9BAF4A141B3E243100123DEB /* MediaRenderControllerService.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MediaRenderControllerService.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,11 +71,12 @@
 		9B9671061B3A54EE008F38A4 /* MediaServerBrowserService */ = {
 			isa = PBXGroup;
 			children = (
-				9B9671071B3A54EE008F38A4 /* Supporting Files */,
 				9B9671091B3A54EE008F38A4 /* MediaServerBrowserService.h */,
 				9B9671201B3AC43E008F38A4 /* MediaServerBrowserService.mm */,
 				9B9671281B3B9830008F38A4 /* MediaServerBrowserImpl.h */,
 				9B9671291B3B9830008F38A4 /* MediaServerBrowserImpl.mm */,
+				9BAF4A131B3E243100123DEB /* MediaRenderControllerService.h */,
+				9BAF4A141B3E243100123DEB /* MediaRenderControllerService.mm */,
 				9B9671D01B3D46EC008F38A4 /* upnpdeamon.h */,
 				9B9671D11B3D470D008F38A4 /* upnpdeamon.cpp */,
 				9B9671071B3A54EE008F38A4 /* Supporting Files */,
@@ -96,6 +101,7 @@
 			files = (
 				9B96710A1B3A54EE008F38A4 /* MediaServerBrowserService.h in Headers */,
 				9B9671CF1B3D4518008F38A4 /* MediaServerBrowserImpl.h in Headers */,
+				9BAF4A151B3E243100123DEB /* MediaRenderControllerService.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +174,7 @@
 			files = (
 				9B96712B1B3B9830008F38A4 /* MediaServerBrowserImpl.mm in Sources */,
 				9B9671211B3AC43E008F38A4 /* MediaServerBrowserService.mm in Sources */,
+				9BAF4A161B3E243100123DEB /* MediaRenderControllerService.mm in Sources */,
 				9B9671D21B3D470D008F38A4 /* upnpdeamon.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
