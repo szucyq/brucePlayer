@@ -51,17 +51,18 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.dmsArr=[NSMutableDictionary dictionary];
     self.title=@"选择服务器";
-    
-}
-- (void)viewDidAppear:(BOOL)animated
-{
     //启动
     [[MediaServerBrowserService instance] startService:self];
+    
 }
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    
+//}
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     //停止
-    [[MediaServerBrowserService instance]stopService];
+//    [[MediaServerBrowserService instance]stopService];
 }
 - (void)viewDidLayoutSubviews{
     self.navigationController.navigationBarHidden=NO;
@@ -171,11 +172,11 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:@"kSelectServer" object:nil userInfo:userinfo];
     
     //暂时跳转下级目录测试
-    ItemsViewController *controller = [[ItemsViewController alloc] init];
-    MediaServerBrowser *browser = [[MediaServerBrowserService instance] browserWithUUID:uuid delegate:controller];
-    controller.browser = browser;
-    
-    [self.navigationController pushViewController:controller animated:YES];
+//    ItemsViewController *controller = [[ItemsViewController alloc] init];
+//    MediaServerBrowser *browser = [[MediaServerBrowserService instance] browserWithUUID:uuid delegate:controller];
+//    controller.browser = browser;
+//    
+//    [self.navigationController pushViewController:controller animated:YES];
 
     
     

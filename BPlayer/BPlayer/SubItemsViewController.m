@@ -6,16 +6,16 @@
 //  Copyright (c) 2015年 Eason. All rights reserved.
 //
 
-#import "ItemsViewController.h"
+#import "SubItemsViewController.h"
 #import "AppDelegate.h"
 
-@interface ItemsViewController ()<MediaServerBrowserDelegate>
+@interface SubItemsViewController ()<MediaServerBrowserDelegate>
 
 @property (nonatomic, strong) NSArray* itemArr;
 
 @end
 
-@implementation ItemsViewController
+@implementation SubItemsViewController
 
 @synthesize browser = browser_;
 @synthesize itemArr = itemArr_;
@@ -37,9 +37,9 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.title=@"目录浏览";
     //search
-    NSLog(@"search");
+    NSLog(@"search browser id:%@",self.browseID);
     self.itemArr=[NSArray array];
-    [browser_ browseRoot];
+    [browser_ browse:self.browseID];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -123,7 +123,7 @@
     NSString *serverUuid=appDelagete.serverUuid;
     
     if(item.type==FOLDER){
-        NSLog(@"folder");
+        
         SubItemsViewController *controller = [[SubItemsViewController alloc] init];
         MediaServerBrowser *browser = [[MediaServerBrowserService instance] browserWithUUID:serverUuid delegate:controller];
         controller.browser = browser;
