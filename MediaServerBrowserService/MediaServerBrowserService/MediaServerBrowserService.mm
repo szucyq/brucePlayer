@@ -215,12 +215,12 @@ public:
             
             path = [NSString stringWithUTF8String:info->object_id.GetChars()];
         }
-        NSArray *items = tmp == nil ? nil : [items copy];
+        NSArray *items = tmp == nil ? nil : [tmp copy];
         
         //
         dispatch_async( dispatch_get_main_queue(), ^{
             if ([delegate respondsToSelector:@selector(onBrowseResult:path:items:)]) {
-                [delegate onBrowseResult:res path:path items:items];
+                [delegate onBrowseResult:ret path:path items:items];
             }
         });
     }
