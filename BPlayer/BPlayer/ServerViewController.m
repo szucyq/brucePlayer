@@ -50,6 +50,8 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.dmsArr=[NSMutableDictionary dictionary];
     self.title=@"选择服务器";
+    //先停止
+    [[MediaServerBrowserService instance] stopService];
     //启动
     [[MediaServerBrowserService instance] startService:self];
     

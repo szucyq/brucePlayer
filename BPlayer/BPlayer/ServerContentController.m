@@ -47,12 +47,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.title=@"目录浏览";
     
 }
@@ -66,6 +60,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
+    NSLog(@"item arr:%@",itemArr_);
     return itemArr_.count;
 }
 
@@ -76,6 +71,7 @@
     if (res == 0) {
         itemArr_ = items;
         NSLog(@"items:%@",itemArr_);
+        
         [self.tableView reloadData];
 //        dispatch_sync(dispatch_get_main_queue(), ^{
 //            [self.tableView reloadData];
@@ -101,10 +97,12 @@
     MediaServerItem * item = [itemArr_ objectAtIndex:indexPath.row];
 
     if(item.type==FOLDER){
-        NSLog(@"folder");
-        ServerContentController *controller=[[ServerContentController alloc]initWithFrame:self.view.bounds root:NO objectId:item.objID];
+        NSLog(@"folder:%@",self.navigationController.viewControllers);
+        
+        UIViewController *controller=[[ServerContentController alloc]initWithFrame:self.view.bounds root:NO objectId:item.objID];
 
         [self.navigationController pushViewController:controller animated:YES];
+
     }
     else if(item.type==AUDIO){
         //如果是音频文件播放，则要在主界面控制

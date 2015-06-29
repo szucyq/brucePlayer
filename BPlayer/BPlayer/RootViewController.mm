@@ -36,10 +36,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getServerAction:) name:@"kSelectServer" object:nil];
     
 }
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-//    self.navigationController.navigationBarHidden=YES;
-}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden=YES;
@@ -114,88 +111,6 @@
 ////    return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft); // 只支持向左横向, YES 表示支持所有方向
 //}
 #pragma mark -
-
-
-#pragma mark -
-#pragma mark table view datasource
-// Customize the number of sections in the table view.
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-//    return [self.dataSource count];
-//    return 5;
-    return 1;
-}
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *identifier=@"renderCell";
-    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if(cell==nil){
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
-    }
-    
-    cell.textLabel.text=@"sf";
-    
-    return cell;
-}
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source.
- [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-//    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-//    NSLog(@"server :%@",appDelagete.avServer);
-//    DetailViewController *detail = [[ServerContentViewController alloc] initWithAvServer:appDelagete.avServer objectId:@"0"];
-
-    
-//    ServerContentViewController *detail=[[ServerContentViewController alloc]initWithAvServer:appDelagete.avServer objectId:@"0"];
-//    [self.navigationController pushViewController:detail animated:YES];
-}
-
-#pragma mark -
 #pragma mark - actions
 - (IBAction)renderBtAction:(id)sender {
     self.renderViewController = [[RenderViewController alloc] init];
@@ -232,7 +147,7 @@
 
     
     if(appDelagete.serverUuid){
-        
+        NSLog(@"server uuid :%@",appDelagete.serverUuid);
     }
     else{
         [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
@@ -394,19 +309,57 @@
 //    NSDictionary *userinfo=[sender userInfo];
 //    NSString *serverUuid = [userinfo objectForKey:@"server"];
     
-    if(self.allMusicController){
-//        self.allMusicController.server=serverUuid;
-        [self.view bringSubviewToFront:self.allMusicController.view];
+//    if(self.allMusicController){
+////        self.allMusicController.server=serverUuid;
+//        [self.view bringSubviewToFront:self.allMusicController.view];
+//    }
+//    else{
+//        CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
+//        self.allMusicController = [[AllMusicController alloc]initWithFrame:frame];
+//        self.allMusicController.view.frame=frame;
+////        self.allMusicController.server = serverUuid;
+//
+//        [self.view addSubview:self.allMusicController.view];
+//    }
+    
+    [self bringCatagoryViewToFront];
+    CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
+    
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    
+    
+    if(appDelagete.serverUuid){
+        NSLog(@"server uuid :%@",appDelagete.serverUuid);
     }
     else{
-        CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
-        self.allMusicController = [[AllMusicController alloc]initWithFrame:frame];
-        self.allMusicController.view.frame=frame;
-//        self.allMusicController.server = serverUuid;
+        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
+        return;
+    }
+    
+    ServerContentController *itemController=[[ServerContentController alloc]initWithFrame:frame root:YES objectId:nil];
 
-        [self.view addSubview:self.allMusicController.view];
+    //catalogNav视图用于按照目录层级的方式进行访问server资源
+    if(self.catalogNav){
+        NSLog(@"如果已有目录浏览视图，则先删除");
+        [self.catalogNav.view removeFromSuperview];
+        
+        //add catalog style nav 添加层级目录浏览界面
+        
+        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:itemController];
+        self.catalogNav.view.frame=frame;
+        self.catalogNav.view.tag=10000;
+        [self.view addSubview:self.catalogNav.view];
+    }
+    else{
+        NSLog(@"如果没有目录浏览视图，则添加");
+        //add catalog style nav 添加层级目录浏览界面
+        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:itemController];
+        self.catalogNav.view.frame=frame;
+        self.catalogNav.view.tag=10000;
+        [self.view addSubview:self.catalogNav.view];
     }
     
 }
+
 @end
 

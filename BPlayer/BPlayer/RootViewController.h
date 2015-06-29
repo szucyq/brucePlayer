@@ -21,7 +21,6 @@
 
 @interface RootViewController : WithTableViewController
 
-
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *rightView;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
