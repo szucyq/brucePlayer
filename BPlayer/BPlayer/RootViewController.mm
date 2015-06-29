@@ -227,13 +227,12 @@
 - (IBAction)catalogBtAction:(id)sender {
     [self bringCatagoryViewToFront];
     CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
-    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     
-//    ItemsViewController *itemController = [[ItemsViewController alloc] initWithFrame:frame];
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+
     ServerContentController *itemController=[[ServerContentController alloc]initWithFrame:frame root:YES objectId:nil];
     if(appDelagete.serverUuid){
-        MediaServerBrowser *browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:itemController];
-        itemController.browser=browser;
+        
     }
     else{
         [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];

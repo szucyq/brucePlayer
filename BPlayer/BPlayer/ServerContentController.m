@@ -29,6 +29,17 @@
         self.itemArr=[NSArray array];
         self.browserRoot=rootOrNot;
         self.browserObjID=anObjectId;
+        
+        AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+        MediaServerBrowser *bser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:self];
+        self.browser=bser;
+        
+        if(self.browserRoot){
+            [self.browser browseRoot];
+        }
+        else{
+            [self.browser browse:self.browserObjID];
+        }
 
     }
     return self;
@@ -45,15 +56,7 @@
     self.title=@"目录浏览";
     
 }
-- (void)setBrowser:(MediaServerBrowser *)browser{
-    browser_=browser;
-    if(self.browserRoot){
-        [self.browser browseRoot];
-    }
-    else{
-        [self.browser browse:self.browserObjID];
-    }
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
