@@ -6,40 +6,49 @@
 //  Copyright (c) 2015年 Eason. All rights reserved.
 //
 
-#import "ItemsViewController.h"
+#import "ServerContentController.h"
 #import "AppDelegate.h"
 
-@interface ItemsViewController ()<MediaServerBrowserDelegate>
+@interface ServerContentController ()<MediaServerBrowserDelegate>
 
 @property (nonatomic, strong) NSArray* itemArr;
-
+@property (nonatomic)BOOL browserRoot;
+@property (nonatomic,copy)NSString *browserObjID;
 @end
 
-@implementation ItemsViewController
+@implementation ServerContentController
 
 @synthesize browser = browser_;
 @synthesize itemArr = itemArr_;
-- (id)initWithFrame:(CGRect)frame{
+- (id)initWithFrame:(CGRect)frame root:(BOOL)rootOrNot objectId:(NSString*)anObjectId{
     self=[super init];
     if(self){
         self.tableView.frame=frame;
+        //search
+        NSLog(@"search");
+        self.itemArr=[NSArray array];
+        self.browserRoot=rootOrNot;
+        self.browserObjID=anObjectId;
+        
+        AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+        self.browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:self];
+
+        
+        if(self.browserRoot){
+            [self.browser browseRoot];
+        }
+        else{
+            [self.browser browse:self.browserObjID];
+        }
+
     }
     return self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.title=@"目录浏览";
-    //search
-    NSLog(@"search");
-    self.itemArr=[NSArray array];
-    [browser_ browseRoot];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -51,6 +60,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
+    NSLog(@"item arr:%@",itemArr_);
     return itemArr_.count;
 }
 
@@ -61,6 +71,7 @@
     if (res == 0) {
         itemArr_ = items;
         NSLog(@"items:%@",itemArr_);
+        
         [self.tableView reloadData];
 //        dispatch_sync(dispatch_get_main_queue(), ^{
 //            [self.tableView reloadData];
@@ -77,40 +88,6 @@
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 
 #pragma mark - Table view delegate
 
@@ -118,18 +95,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Navigation logic may go here, for example:
     MediaServerItem * item = [itemArr_ objectAtIndex:indexPath.row];
-    //取得当前的server
-    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-    NSString *serverUuid=appDelagete.serverUuid;
-    
+
     if(item.type==FOLDER){
-        NSLog(@"folder");
-        SubItemsViewController *controller = [[SubItemsViewController alloc] init];
-        MediaServerBrowser *browser = [[MediaServerBrowserService instance] browserWithUUID:serverUuid delegate:controller];
-        controller.browser = browser;
-        controller.browseID=item.objID;
-        
-        [self.navigationController pushViewController:controller animated:YES];
+        NSLog(@"folder:%@",self.navigationController.viewControllers);
+        NSLog(@"item objid:%@",item.objID);
+        self.serverContentController=[[ServerContentController alloc]initWithFrame:self.view.bounds root:NO objectId:item.objID];
+
+        [self.navigationController pushViewController:self.serverContentController animated:YES];
+
     }
     else if(item.type==AUDIO){
         //如果是音频文件播放，则要在主界面控制

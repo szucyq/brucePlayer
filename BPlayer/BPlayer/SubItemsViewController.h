@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <MediaServerBrowserService/MediaServerBrowserService.h>
-#import "SubItemsViewController.h"
 
-@interface ItemsViewController : UITableViewController
+@interface SubItemsViewController : UITableViewController
 
 @property (nonatomic, strong) MediaServerBrowser* browser;
 @property (nonatomic,copy)NSString *browseID;

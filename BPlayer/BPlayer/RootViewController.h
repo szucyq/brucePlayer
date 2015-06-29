@@ -14,12 +14,12 @@
 #import <MediaServerBrowserService/MediaServerBrowserService.h>
 #import "ServerViewController.h"
 #import "ItemsViewController.h"
+#import "ServerContentController.h"
 
 #import "AllMusicController.h"
 
 
 @interface RootViewController : WithTableViewController
-
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *rightView;
