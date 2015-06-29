@@ -204,8 +204,9 @@
 }
 
 - (IBAction)serverBtAction:(id)sender {
-    self.serverController=[[ServerViewController alloc]init];
-    [self.navigationController pushViewController:self.serverController animated:YES];
+//    self.serverController=[[ServerViewController alloc]init];
+    ServerViewController *serverC=[[ServerViewController alloc]init];
+    [self.navigationController pushViewController:serverC animated:YES];
 //    [self presentViewController:self.serverController animated:YES completion:nil];
 }
 
