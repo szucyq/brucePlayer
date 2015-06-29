@@ -8,6 +8,7 @@
 
 #import "RootViewController.h"
 #import <Platinum/Platinum.h>
+#import "AppDelegate.h"
 
 @implementation RootViewController
 - (void)didReceiveMemoryWarning
@@ -35,8 +36,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getServerAction:) name:@"kSelectServer" object:nil];
     
 }
-- (void)viewDidLayoutSubviews{
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+//    self.navigationController.navigationBarHidden=YES;
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden=YES;
+}
+- (void)viewDidLayoutSubviews{
+//    self.navigationController.navigationBarHidden=YES;
     //top view
     self.topView.frame=CGRectMake(0, kContentBaseY, kContentViewWidth-_rightView.frame.size.width, _topView.frame.size.height);
     //right view
@@ -44,19 +53,30 @@
     //bottom view
     self.bottomView.frame=CGRectMake(0, self.view.frame.size.height-_bottomView.frame.size.height, kContentViewWidth-_rightView.frame.size.width, _bottomView.frame.size.height);
     NSLog(@"bottom view frame:%@",[NSValue valueWithCGRect:self.bottomView.frame]);
-    //顶端subviews
-//    int topNum=7;
-//    float titleWidth=140;
-//    float itemWidth=50;
-//    float padding=(kContentViewWidth-titleWidth-topNum*itemWidth)/(topNum+1+1);
+    //all music view && catalog view
+    CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
+    self.allMusicController.view.frame=frame;
+    self.allMusicController.listTableView.frame=CGRectMake(0, 0, frame.size.width, frame.size.height);
+    
+    self.catalogNav.view.frame=frame;
+    
+    
 
-    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
-    if (UIDeviceOrientationIsLandscape(deviceOrientation)){
-        NSLog(@"横向");
+    if(kIS_IPAD){
+        UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
+        if (UIDeviceOrientationIsLandscape(deviceOrientation)){
+            NSLog(@"横向");
+        }
+        else{
+            NSLog(@"竖屏");
+            
+        }
+    }
+    else if(kIS_IPHONE){
+        NSLog(@"iphone");
     }
     else{
-        NSLog(@"竖屏");
-
+        NSLog(@"other device");
     }
 
 }
@@ -178,15 +198,15 @@
 #pragma mark -
 #pragma mark - actions
 - (IBAction)renderBtAction:(id)sender {
-//    self.renderViewController = [[RenderViewController alloc] init];
-//    
-//    [self.navigationController pushViewController:self.renderViewController animated:YES];
-//    [self presentViewController:self.renderViewController animated:YES completion:nil];
+    self.renderViewController = [[RenderViewController alloc] init];
+    
+    [self.navigationController pushViewController:self.renderViewController animated:YES];
 }
 
 - (IBAction)serverBtAction:(id)sender {
-    self.serverController=[[ServerViewController alloc]init];
-    [self.navigationController pushViewController:self.serverController animated:YES];
+//    self.serverController=[[ServerViewController alloc]init];
+    ServerViewController *serverC=[[ServerViewController alloc]init];
+    [self.navigationController pushViewController:serverC animated:YES];
 //    [self presentViewController:self.serverController animated:YES completion:nil];
 }
 
@@ -197,30 +217,46 @@
         UIPopoverController *popoverController=[[UIPopoverController alloc]initWithContentViewController:setting];
         popoverController.contentViewController.contentSizeForViewInPopover=CGSizeMake(300, 500);
         
-        [popoverController presentPopoverFromRect:self.setupBt.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionRight animated:YES];
+        [popoverController presentPopoverFromRect:self.setupBt.frame inView:self.rightView permittedArrowDirections:UIPopoverArrowDirectionRight animated:YES];
     }
-    
+    else{
+        [SVProgressHUD showErrorWithStatus:@"iphone 暂不支持该操作" maskType:SVProgressHUDMaskTypeBlack];
+    }
 }
 
 - (IBAction)catalogBtAction:(id)sender {
     [self bringCatagoryViewToFront];
-    
+    CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-    MediaServerBrowser *browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:self.itemsViewController];
+    ItemsViewController *itemController = [[ItemsViewController alloc] initWithFrame:frame];
+    if(appDelagete.serverUuid){
+        MediaServerBrowser *browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:itemController];
+        itemController.browser=browser;
+    }
+    else{
+        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
+        return;
+    }
+    
     
     //catalogNav视图用于按照目录层级的方式进行访问server资源
     if(self.catalogNav){
-        [self.catalogNav.navigationController popToRootViewControllerAnimated:YES];
-        self.itemsViewController.browser=browser;
+        NSLog(@"如果已有目录浏览视图，则先删除");
+        [self.catalogNav.view removeFromSuperview];
+        
+        //add catalog style nav 添加层级目录浏览界面
+        
+        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:itemController];
+        self.catalogNav.view.frame=frame;
+        self.catalogNav.view.tag=10000;
+        [self.view addSubview:self.catalogNav.view];
     }
     else{
-        self.itemsViewController = [[ItemsViewController alloc] init];
-        
-        self.itemsViewController.browser = browser;
+        NSLog(@"如果没有目录浏览视图，则添加");
         //add catalog style nav 添加层级目录浏览界面
-        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:self.itemsViewController];
-        self.catalogNav.view.frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height);
-        
+        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:itemController];
+        self.catalogNav.view.frame=frame;
+        self.catalogNav.view.tag=10000;
         [self.view addSubview:self.catalogNav.view];
     }
     
@@ -231,31 +267,42 @@
 
 - (IBAction)listLookAction:(id)sender {
     NSLog(@"列表浏览");
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    if(!appDelagete.serverUuid){
+        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
+        return;
+    }
 }
 
 - (IBAction)iconLookAction:(id)sender {
     NSLog(@"图标浏览");
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    if(!appDelagete.serverUuid){
+        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
+        return;
+    }
 }
 
 - (IBAction)bySongAction:(id)sender {
     NSLog(@"按歌曲浏览");
-    [self bringAllMusicViewToFront];
+    [self refreshAllMusicByType:@"music"];
+    
 }
 
 - (IBAction)byZuoquAction:(id)sender {
     NSLog(@"按作曲浏览");
     [self bringAllMusicViewToFront];
-    
+    [self refreshAllMusicByType:@"zuoqu"];
 }
 
 - (IBAction)byArtistAction:(id)sender {
     NSLog(@"按艺术家浏览");
-    [self bringAllMusicViewToFront];
+    [self refreshAllMusicByType:@"artist"];
 }
 
 - (IBAction)byAlbumAction:(id)sender {
     NSLog(@"按专辑浏览");
-    [self bringAllMusicViewToFront];
+    [self refreshAllMusicByType:@"album"];
 }
 
 - (IBAction)preBtAction:(id)sender {
@@ -310,22 +357,52 @@
         [self.view bringSubviewToFront:self.catalogNav.view];
     }
 }
+- (void)refreshAllMusicByType:(NSString*)type{
+    //取得当前的server
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    NSString *serverUuid=appDelagete.serverUuid;
+    if(!serverUuid){
+        [SVProgressHUD showErrorWithStatus:@"请先选择一个服务器" maskType:SVProgressHUDMaskTypeBlack];
+        return;
+    }
+    //刷新当前server内容
+    if(self.allMusicController){
+        self.allMusicController.serverUuid=serverUuid;
+        self.allMusicController.byType=type;
+
+        [self.view bringSubviewToFront:self.allMusicController.view];
+    }
+    else{
+        CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
+        self.allMusicController = [[AllMusicController alloc]initWithFrame:frame];
+        self.allMusicController.view.frame=frame;
+        
+        self.allMusicController.serverUuid=serverUuid;
+        self.allMusicController.byType=type;
+        
+        [self.view addSubview:self.allMusicController.view];
+    }
+}
 #pragma mark - notion controls
 - (void)playWithAvItem:(NSNotification *)sender{
+//    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    [SVProgressHUD showErrorWithStatus:@"请选择播放器" maskType:SVProgressHUDMaskTypeBlack];
     
 }
 - (void)getServerAction:(NSNotification *)sender{
-    NSDictionary *userinfo=[sender userInfo];
-    NSString *serverUuid = [userinfo objectForKey:@"server"];
+//    NSDictionary *userinfo=[sender userInfo];
+//    NSString *serverUuid = [userinfo objectForKey:@"server"];
     
     if(self.allMusicController){
 //        self.allMusicController.server=serverUuid;
         [self.view bringSubviewToFront:self.allMusicController.view];
     }
     else{
-        self.allMusicController = [[AllMusicController alloc]init];
+        CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
+        self.allMusicController = [[AllMusicController alloc]initWithFrame:frame];
+        self.allMusicController.view.frame=frame;
 //        self.allMusicController.server = serverUuid;
-        self.allMusicController.view.frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height);
+
         [self.view addSubview:self.allMusicController.view];
     }
     

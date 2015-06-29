@@ -1,12 +1,13 @@
 //
 //  RenderViewController.m
-//  SuperPlayer
+//  BPlayer
 //
-//  Created by Bruce on 15/6/26.
+//  Created by Bruce on 15/6/28.
 //  Copyright (c) 2015年 Bruce. All rights reserved.
 //
 
 #import "RenderViewController.h"
+#import "AppDelegate.h"
 
 @interface RenderViewController ()
 
@@ -17,22 +18,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title=@"选择播放器";
 }
-
+- (void)viewDidLayoutSubviews{
+    self.navigationController.navigationBarHidden=NO;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -63,7 +67,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //保存render信息，供播放时使用
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-//    appDelagete.avRenderer = (CGUpnpAvRenderer*)[self.dataSource objectAtIndex:indexPath.row];
+    //    appDelagete.avRenderer = (CGUpnpAvRenderer*)[self.dataSource objectAtIndex:indexPath.row];
     //    [self dismissViewControllerAnimated:YES completion:nil];
     [SVProgressHUD showSuccessWithStatus:@"已选择播放器" maskType:SVProgressHUDMaskTypeBlack];
 }

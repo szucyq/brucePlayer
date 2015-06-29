@@ -50,12 +50,18 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.dmsArr=[NSMutableDictionary dictionary];
+    self.title=@"选择服务器";
     
 }
 - (void)viewDidAppear:(BOOL)animated
 {
     //启动
     [[MediaServerBrowserService instance] startService:self];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    //停止
+    [[MediaServerBrowserService instance]stopService];
 }
 - (void)viewDidLayoutSubviews{
     self.navigationController.navigationBarHidden=NO;

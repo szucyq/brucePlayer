@@ -13,21 +13,25 @@
 @end
 
 @implementation WithTableViewController
-
+- (id)init{
+    self=[super init];
+    if(self){
+        self.listArray=[NSMutableArray array];
+        self.currentPage=1;
+        //添加list table view
+        UITableView *tv=[[UITableView alloc]initWithFrame:CGRectMake(0, kContentBaseY, kContentViewWidth, kContentViewHeightNoTab) style:UITableViewStylePlain];
+        NSLog(@"super tv rect :%@",[NSValue valueWithCGRect:tv.frame]);
+        self.listTableView=tv;
+        self.listTableView.delegate=self;
+        self.listTableView.dataSource=self;
+        [self.view addSubview:self.listTableView];
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.listArray=[NSMutableArray array];
-    self.currentPage=1;
-    //添加list table view
-    UITableView *tv=[[UITableView alloc]initWithFrame:CGRectMake(0, kContentBaseY, kContentViewWidth, kContentViewHeightNoTab) style:UITableViewStylePlain];
-    NSLog(@"super tv rect :%@",[NSValue valueWithCGRect:tv.frame]);
-    self.listTableView=tv;
-    self.listTableView.delegate=self;
-    self.listTableView.dataSource=self;
-    //    self.listTableView.autoresizingMask=UIViewAutoresizingFlexibleHeight;
     
-    [self.view addSubview:self.listTableView];
 }
 
 - (void)didReceiveMemoryWarning {

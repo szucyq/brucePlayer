@@ -12,5 +12,5 @@
 @interface ItemsViewController : UITableViewController
 
 @property (nonatomic, strong) MediaServerBrowser* browser;
-
+- (id)initWithFrame:(CGRect)frame;
 @end

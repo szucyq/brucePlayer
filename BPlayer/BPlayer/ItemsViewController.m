@@ -18,7 +18,13 @@
 
 @synthesize browser = browser_;
 @synthesize itemArr = itemArr_;
-
+- (id)initWithFrame:(CGRect)frame{
+    self=[super init];
+    if(self){
+        self.tableView.frame=frame;
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -28,11 +34,16 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.title=@"目录浏览";
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //search
+    NSLog(@"search");
+    self.itemArr=[NSArray array];
     [browser_ browseRoot];
+    
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
