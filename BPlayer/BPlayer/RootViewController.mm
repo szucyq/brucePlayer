@@ -230,7 +230,7 @@
     
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
 
-    ServerContentController *itemController=[[ServerContentController alloc]initWithFrame:frame root:YES objectId:nil];
+    
     if(appDelagete.serverUuid){
         
     }
@@ -239,7 +239,7 @@
         return;
     }
     
-    
+    ServerContentController *itemController=[[ServerContentController alloc]initWithFrame:frame root:YES objectId:nil];
     //catalogNav视图用于按照目录层级的方式进行访问server资源
     if(self.catalogNav){
         NSLog(@"如果已有目录浏览视图，则先删除");

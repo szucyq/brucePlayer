@@ -31,8 +31,8 @@
         self.browserObjID=anObjectId;
         
         AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-        MediaServerBrowser *bser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:self];
-        self.browser=bser;
+        self.browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:self];
+
         
         if(self.browserRoot){
             [self.browser browseRoot];
@@ -99,18 +99,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Navigation logic may go here, for example:
     MediaServerItem * item = [itemArr_ objectAtIndex:indexPath.row];
-    //取得当前的server
-    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-    NSString *serverUuid=appDelagete.serverUuid;
-    
+
     if(item.type==FOLDER){
         NSLog(@"folder");
-//        SubItemsViewController *controller = [[SubItemsViewController alloc] init];
         ServerContentController *controller=[[ServerContentController alloc]initWithFrame:self.view.bounds root:NO objectId:item.objID];
-        MediaServerBrowser *browser = [[MediaServerBrowserService instance] browserWithUUID:serverUuid delegate:controller];
-        controller.browser = browser;
-//        controller.browseID=item.objID;
-        
+
         [self.navigationController pushViewController:controller animated:YES];
     }
     else if(item.type==AUDIO){
