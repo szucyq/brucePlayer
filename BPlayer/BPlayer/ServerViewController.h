@@ -4,6 +4,7 @@
 
 #import <MediaServerBrowserService/MediaServerBrowserService.h>
 #import "ItemsViewController.h"
+
 @class ServerContentViewController;
 @class CGUpnpAvController;
 
