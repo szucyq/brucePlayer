@@ -18,9 +18,8 @@
 
 @implementation ServerViewController
 
-@synthesize detailViewController = _detailViewController;
+
 @synthesize dataSource = dataSource_;
-@synthesize avController = _avController;
 @synthesize renderers = _renderers;
 
 
