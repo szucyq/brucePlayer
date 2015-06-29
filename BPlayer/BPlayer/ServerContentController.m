@@ -98,10 +98,10 @@
 
     if(item.type==FOLDER){
         NSLog(@"folder:%@",self.navigationController.viewControllers);
-        
-        UIViewController *controller=[[ServerContentController alloc]initWithFrame:self.view.bounds root:NO objectId:item.objID];
+        NSLog(@"item objid:%@",item.objID);
+        self.serverContentController=[[ServerContentController alloc]initWithFrame:self.view.bounds root:NO objectId:item.objID];
 
-        [self.navigationController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:self.serverContentController animated:YES];
 
     }
     else if(item.type==AUDIO){
