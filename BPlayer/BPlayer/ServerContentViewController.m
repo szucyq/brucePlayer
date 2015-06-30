@@ -94,8 +94,8 @@
         
 //        TestTableViewController *test=[[TestTableViewController alloc]init];
         
-//        [self.navigationController pushViewController:sContentController animated:YES];
-        [self presentViewController:sContentController animated:YES completion:nil];
+        [self.navigationController pushViewController:sContentController animated:YES];
+//        [self presentViewController:sContentController animated:YES completion:nil];
         
     }
     else if(item.type==AUDIO){
