@@ -27,7 +27,7 @@
         self.title=anObjectId;
         
         AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-        self.browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:self];
+        self.browser = [[MediaServerBrowserService instance] findBrowser:appDelagete.serverUuid];
     }
     return self;
 }
@@ -50,7 +50,10 @@
         [self.browser browse:self.browserObjID];
     }
 }
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -90,6 +93,7 @@
         NSLog(@"folder:%@",self.navigationController.viewControllers);
         NSLog(@"item objid:%@",item.objID);
         ServerContentViewController *sContentController=[[ServerContentViewController alloc]initWithFrame:self.tableView.bounds root:NO objectId:item.objID];
+//        sContentController.browser=self.browser;
         NSLog(@"view:%@",sContentController);
         
 //        TestTableViewController *test=[[TestTableViewController alloc]init];
@@ -114,6 +118,7 @@
 {
     if (res == 0) {
         self.itemArr = items;
+        NSLog(@"path:%@",path);
         NSLog(@"items:%@",self.itemArr);
         
         [self.tableView reloadData];

@@ -175,9 +175,14 @@
     //暂时跳转下级目录测试
     ServerContentViewController *sContentController=[[ServerContentViewController alloc]initWithFrame:self.view.bounds root:YES objectId:nil];
     sContentController.title=@"root";
+    
+
+    MediaServerBrowser *browser= [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:sContentController];
+    sContentController.browser=browser;
+    
     NSLog(@"view:%@",sContentController);
     
-    TestTableViewController *test=[[TestTableViewController alloc]init];
+//    TestTableViewController *test=[[TestTableViewController alloc]init];
     [self.navigationController pushViewController:sContentController animated:YES];
 
     
