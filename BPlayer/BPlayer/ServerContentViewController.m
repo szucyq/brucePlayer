@@ -12,43 +12,51 @@
 @interface ServerContentViewController ()
 @property (nonatomic, strong) NSArray* itemArr;
 @property (nonatomic)BOOL browserRoot;
-@property (nonatomic,copy)NSString *browserObjID;
+@property (nonatomic) NSMutableArray *objIDArr;
 @property (nonatomic)CGRect selfFrame;
+
 @end
 
 @implementation ServerContentViewController
-- (id)initWithFrame:(CGRect)frame root:(BOOL)rootOrNot objectId:(NSString *)anObjectId{
+- (id)initWithFrame:(CGRect)frame
+{
     self=[super init];
     if(self){
-        self.itemArr=[NSArray array];
-        self.browserRoot=rootOrNot;
-        self.browserObjID=anObjectId;
-        self.selfFrame=frame;
-        self.title=anObjectId;
-        
-        AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-        self.browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:self];
+        self.selfFrame = frame;
+        //AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+        //self.browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:self];
     }
     return self;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.objIDArr = [[NSMutableArray alloc] init];
+    //self.itemArr = @[];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.tableView.frame=self.selfFrame;
-    NSLog(@"browser is :%@",self.browser);
-    if(self.browserRoot){
-        NSLog(@"broser root");
-        [self.browser browseRoot];
-    }
-    else{
-        NSLog(@"broser objid:%@",self.browserObjID);
-        [self.browser browse:self.browserObjID];
-    }
+    
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    self.itemArr = nil;
+    [self.tableView reloadData];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    self.title = @"root";
+    self.itemArr=[NSArray array];
+    self.browserRoot = YES;
+    [self.objIDArr removeAllObjects];
+    //[self.objIDArr addObject:@"0"];
+
+    [self.browser browseRoot];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,7 +73,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     //    NSLog(@"item arr:%@",itemArr_);
-    return self.itemArr.count;
+    if (self.browserRoot) {
+        return self.itemArr.count;
+    }
+    return self.itemArr.count + 1;
 }
 
 
@@ -73,8 +84,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
-    MediaServerItem * item = [self.itemArr objectAtIndex:indexPath.row];
-    cell.textLabel.text = item.title;
+    if ( !self.browserRoot ) {
+        if (indexPath.row == 0) {
+            cell.textLabel.text = @"..";
+        } else {
+            MediaServerItem *item = [self.itemArr objectAtIndex:indexPath.row - 1];
+            cell.textLabel.text = item.title;
+        }
+    } else {
+        MediaServerItem *item = [self.itemArr objectAtIndex:indexPath.row];
+        cell.textLabel.text = item.title;
+    }
     return cell;
 }
 
@@ -83,18 +103,29 @@
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    //go back
+    if ( !self.browserRoot
+        && indexPath.row == 0) {
+
+        [self.objIDArr removeLastObject];
+        NSString *parentObjID = [self.objIDArr lastObject];
+        [self.browser browse:parentObjID];
+        return;
+    }
     // Navigation logic may go here, for example:
     MediaServerItem * item = [self.itemArr objectAtIndex:indexPath.row];
     
     if(item.type==FOLDER){
         NSLog(@"folder:%@",self.navigationController.viewControllers);
         NSLog(@"item objid:%@",item.objID);
-        ServerContentViewController *sContentController=[[ServerContentViewController alloc]initWithFrame:self.tableView.bounds root:NO objectId:item.objID];
-        NSLog(@"view:%@",sContentController);
+        
+        [self.browser browse:item.objID];
+        //ServerContentViewController *sContentController=[[ServerContentViewController alloc]initWithFrame:self.tableView.bounds root:NO objectId:item.objID];
+        //NSLog(@"view:%@",sContentController);
         
 //        TestTableViewController *test=[[TestTableViewController alloc]init];
         
-        [self.navigationController pushViewController:sContentController animated:YES];
+        //[self.navigationController pushViewController:sContentController animated:YES];
 //        [self presentViewController:sContentController animated:YES completion:nil];
         
     }
@@ -113,13 +144,14 @@
                  items:(NSArray*)items
 {
     if (res == 0) {
+        self.browserRoot = [path isEqualToString:@"0"];
+        NSString *currentObjID = [self.objIDArr lastObject];
+        if ( ![currentObjID isEqualToString:path] ) {
+            [self.objIDArr addObject:path];
+        }
         self.itemArr = items;
         NSLog(@"items:%@",self.itemArr);
-        
         [self.tableView reloadData];
-        //        dispatch_sync(dispatch_get_main_queue(), ^{
-        //            [self.tableView reloadData];
-        //        });
     }
     //    NSLog(@"items 2:%@",items);
 }

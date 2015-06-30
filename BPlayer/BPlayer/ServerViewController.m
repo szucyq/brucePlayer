@@ -16,13 +16,17 @@
 //#include <cybergarage/upnp/cupnp.h>
 //#include <cybergarage/xml/cxml.h>
 
+@interface ServerViewController()
+@property (nonatomic, strong) ServerContentViewController* contentController;
+
+@end
 @implementation ServerViewController
 
 
 @synthesize dataSource = dataSource_;
 @synthesize renderers = _renderers;
 
-
+@synthesize contentController = contentController_;
 
 //- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 //{
@@ -173,12 +177,16 @@
 //    [[NSNotificationCenter defaultCenter]postNotificationName:@"kSelectServer" object:nil userInfo:userinfo];
     
     //暂时跳转下级目录测试
-    ServerContentViewController *sContentController=[[ServerContentViewController alloc]initWithFrame:self.view.bounds root:YES objectId:nil];
-    sContentController.title=@"root";
-    NSLog(@"view:%@",sContentController);
+    if (contentController_ == nil) {
+        contentController_ = [[ServerContentViewController alloc]initWithFrame:self.view.bounds];
+    }
+    //ServerContentViewController *sContentController=[[ServerContentViewController alloc]initWithFrame:self.view.bounds root:YES objectId:nil];
+    contentController_.title=@"root";
+    NSLog(@"view:%@", contentController_);
+    contentController_.browser = [[MediaServerBrowserService instance] browserWithUUID:uuid delegate:contentController_];
     
-    TestTableViewController *test=[[TestTableViewController alloc]init];
-    [self.navigationController pushViewController:sContentController animated:YES];
+    //TestTableViewController *test=[[TestTableViewController alloc]init];
+    [self.navigationController pushViewController:contentController_ animated:YES];
 
     
     

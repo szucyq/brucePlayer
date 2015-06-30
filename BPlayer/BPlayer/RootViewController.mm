@@ -120,7 +120,7 @@
 
 - (IBAction)serverBtAction:(id)sender {
 //    self.serverController=[[ServerViewController alloc]init];
-    ServerViewController *serverC=[[ServerViewController alloc]init];
+    ServerViewController *serverC=[[ServerViewController alloc] init];
     [self.navigationController pushViewController:serverC animated:YES];
 //    [self presentViewController:self.serverController animated:YES completion:nil];
 }
@@ -169,7 +169,7 @@
         return;
     }
     
-    ServerContentViewController *itemController=[[ServerContentViewController alloc]initWithFrame:frame root:YES objectId:nil];
+    ServerContentViewController *itemController=[[ServerContentViewController alloc]initWithFrame:frame];
     //catalogNav视图用于按照目录层级的方式进行访问server资源
     if(self.catalogNav){
         NSLog(@"如果已有目录浏览视图，则先删除");
@@ -351,7 +351,7 @@
         return;
     }
     
-    ServerContentViewController *itemController=[[ServerContentViewController alloc]initWithFrame:frame root:YES objectId:nil];
+    ServerContentViewController *itemController=[[ServerContentViewController alloc]initWithFrame:frame];
 
     //catalogNav视图用于按照目录层级的方式进行访问server资源
     if(self.catalogNav){
