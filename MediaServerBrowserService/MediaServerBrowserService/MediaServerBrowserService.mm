@@ -108,7 +108,7 @@ class MediaServerListener;
                                                             device:device
                                                         controller:browser_];
         [browserDic_ setObject:browser forKey:uuid];
-    }
+    } 
     return browser;
 }
 
