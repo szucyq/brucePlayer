@@ -71,20 +71,21 @@ class MediaServerListener;
 - (BOOL)startService:(id)delegate
 {
     if (browser_ != NULL) {
-        NSLog(@"DMS-C already start!");
+        NSLog(@"[MediaServerBrowserService] [startService] DMS-C already start!");
         return YES;
     }
     ref_ = new PLT_CtrlPoint();
     listener_ = new MediaServerListener(self, delegate);
     browser_ = new PLT_MediaBrowser(ref_, listener_);
     UPnPDeamon::instance()->addCtrlPoint(ref_);
+    NSLog(@"[MediaServerBrowserService] [startService] success");
     return YES;
 }
 
 - (void)stopService
 {
     if (browser_ == NULL) {
-        NSLog(@"DMS-C not start!");
+        NSLog(@"[MediaServerBrowserService] [stopService] DMS-C not start!");
         return;
     }
     UPnPDeamon::instance()->removeCtrlPoint(ref_);
@@ -93,10 +94,13 @@ class MediaServerListener;
     ref_ = NULL;
     delete listener_;
     listener_ = NULL;
+    [browserDic_ removeAllObjects];
+    NSLog(@"[MediaServerBrowserService] [stopService] success!");
 }
 
 - (MediaServerBrowser*)browserWithUUID:(NSString *)uuid delegate:(id)delegate
 {
+    NSLog(@"[MediaServerBrowserService] [browserWithUUID] uuid = %@", uuid);
     MediaServerBrowser* browser = [browserDic_ valueForKey:uuid];
     if (!browser) {
         PLT_DeviceDataReference device = listener_->device([uuid UTF8String]);
