@@ -169,15 +169,16 @@
     [SVProgressHUD showSuccessWithStatus:@"已选择媒体服务器" maskType:SVProgressHUDMaskTypeBlack];
     
     //此处选择server后，传递server信息，让前端刷新对应server内容
-    NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:uuid,@"server", nil];
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"kSelectServer" object:nil userInfo:userinfo];
+//    NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:uuid,@"server", nil];
+//    [[NSNotificationCenter defaultCenter]postNotificationName:@"kSelectServer" object:nil userInfo:userinfo];
     
     //暂时跳转下级目录测试
-//    ItemsViewController *controller = [[ItemsViewController alloc] init];
-//    MediaServerBrowser *browser = [[MediaServerBrowserService instance] browserWithUUID:uuid delegate:controller];
-//    controller.browser = browser;
-//    
-//    [self.navigationController pushViewController:controller animated:YES];
+    ServerContentViewController *sContentController=[[ServerContentViewController alloc]initWithFrame:self.view.bounds root:YES objectId:nil];
+    sContentController.title=@"root";
+    NSLog(@"view:%@",sContentController);
+    
+    TestTableViewController *test=[[TestTableViewController alloc]init];
+    [self.navigationController pushViewController:sContentController animated:YES];
 
     
     

@@ -1,22 +1,19 @@
 //
-//  ItemsViewController.h
-//  MediaBrowserTest
+//  ServerContentViewController.h
+//  BPlayer
 //
-//  Created by Eason Zhao on 15/6/25.
-//  Copyright (c) 2015年 Eason. All rights reserved.
+//  Created by Bruce on 15/6/30.
+//  Copyright (c) 2015年 Bruce. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <MediaServerBrowserService/MediaServerBrowserService.h>
 
 
-
-@interface ServerContentController : UITableViewController
+@interface ServerContentViewController : UITableViewController<MediaServerBrowserDelegate>
 
 @property (nonatomic, retain) MediaServerBrowser* browser;
-@property (nonatomic,copy)NSString *browseID;
 
 
 - (id)initWithFrame:(CGRect)frame root:(BOOL)rootOrNot objectId:(NSString*)anObjectId;
-
 @end

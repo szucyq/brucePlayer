@@ -5,7 +5,7 @@
 #import <MediaServerBrowserService/MediaServerBrowserService.h>
 #import "ItemsViewController.h"
 
-
+#import "TestTableViewController.h"
 
 @interface ServerViewController : WithTableViewController <MediaServerBrowserServiceDelegate>
 

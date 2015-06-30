@@ -125,6 +125,21 @@
 //    [self presentViewController:self.serverController animated:YES completion:nil];
 }
 
+- (IBAction)loadAllContentsAction:(id)sender {
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    
+    
+    if(appDelagete.serverUuid){
+        NSLog(@"server uuid :%@",appDelagete.serverUuid);
+        MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithUUID:appDelagete.serverUuid delegate:self];
+        [crawler crawl];
+    }
+    else{
+        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
+        return;
+    }
+}
+
 - (IBAction)settingAction:(id)sender {
     NSLog(@"设置");
     if(kIS_IPAD){
@@ -154,7 +169,7 @@
         return;
     }
     
-    ServerContentController *itemController=[[ServerContentController alloc]initWithFrame:frame root:YES objectId:nil];
+    ServerContentViewController *itemController=[[ServerContentViewController alloc]initWithFrame:frame root:YES objectId:nil];
     //catalogNav视图用于按照目录层级的方式进行访问server资源
     if(self.catalogNav){
         NSLog(@"如果已有目录浏览视图，则先删除");
@@ -336,7 +351,7 @@
         return;
     }
     
-    ServerContentController *itemController=[[ServerContentController alloc]initWithFrame:frame root:YES objectId:nil];
+    ServerContentViewController *itemController=[[ServerContentViewController alloc]initWithFrame:frame root:YES objectId:nil];
 
     //catalogNav视图用于按照目录层级的方式进行访问server资源
     if(self.catalogNav){
@@ -346,6 +361,7 @@
         //add catalog style nav 添加层级目录浏览界面
         
         self.catalogNav=[[UINavigationController alloc]initWithRootViewController:itemController];
+
         self.catalogNav.view.frame=frame;
         self.catalogNav.view.tag=10000;
         [self.view addSubview:self.catalogNav.view];
@@ -360,6 +376,9 @@
     }
     
 }
-
+#pragma mark Media server content crawler delegate
+- (void)onCrawlResult:(NSArray *)items{
+    NSLog(@"craw items:%@",items);
+}
 @end
 

@@ -12,14 +12,17 @@
 
 #import "RenderViewController.h"
 #import <MediaServerBrowserService/MediaServerBrowserService.h>
+#import <MediaServerBrowserService/MediaServerCrawler.h>
+
 #import "ServerViewController.h"
 #import "ItemsViewController.h"
-#import "ServerContentController.h"
+//#import "ServerContentController.h"
+#import "ServerContentViewController.h"
 
 #import "AllMusicController.h"
 
 
-@interface RootViewController : WithTableViewController
+@interface RootViewController : WithTableViewController<MediaServerCrawlerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *rightView;
@@ -59,6 +62,7 @@
 //右侧actions
 - (IBAction)renderBtAction:(id)sender;
 - (IBAction)serverBtAction:(id)sender;
+- (IBAction)loadAllContentsAction:(id)sender;
 
 
 //底部actions

@@ -8,12 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3297F4A01B3DCACB0006EDFA /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3297F49F1B3DCACB0006EDFA /* SettingViewController.m */; };
-		3297F4A71B3DCD0C0006EDFA /* MediaServerBrowserService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3297F4A61B3DCCBF0006EDFA /* MediaServerBrowserService.framework */; };
-		3297F4A81B3DCD0C0006EDFA /* MediaServerBrowserService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3297F4A61B3DCCBF0006EDFA /* MediaServerBrowserService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3297F4B21B3FC8CE0006EDFA /* RootView-iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */; };
 		32DB6A7A1B3FF8FB0030E86F /* RenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DB6A791B3FF8FB0030E86F /* RenderViewController.m */; };
 		32DB6A831B413CCE0030E86F /* SubItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DB6A821B413CCE0030E86F /* SubItemsViewController.m */; };
-		32DB6A871B4146D20030E86F /* ServerContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DB6A851B4146D20030E86F /* ServerContentController.m */; };
 		32DCC7671B3DB6230063DD60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC7661B3DB6230063DD60 /* main.m */; };
 		32DCC76A1B3DB6230063DD60 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC7691B3DB6230063DD60 /* AppDelegate.mm */; };
 		32DCC7721B3DB6230063DD60 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32DCC7711B3DB6230063DD60 /* Images.xcassets */; };
@@ -77,6 +74,11 @@
 		32DCC8751B3DB9C80063DD60 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32DCC8741B3DB9C80063DD60 /* CoreAudio.framework */; };
 		32DCC8771B3DB9CE0063DD60 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32DCC8761B3DB9CE0063DD60 /* CoreMedia.framework */; };
 		32DCC89A1B3DC2B20063DD60 /* Platinum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32DCC8071B3DB8B40063DD60 /* Platinum.framework */; };
+		32DE23051B421B0000B62958 /* TestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DE23041B421B0000B62958 /* TestTableViewController.m */; };
+		32DE230A1B42631100B62958 /* ServerContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DE23091B42631100B62958 /* ServerContentViewController.m */; };
+		32DE230D1B42650F00B62958 /* ServerContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DE230B1B42650F00B62958 /* ServerContentController.m */; };
+		32DE230E1B4267E100B62958 /* MediaServerBrowserService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3297F4A61B3DCCBF0006EDFA /* MediaServerBrowserService.framework */; };
+		32DE230F1B4267E100B62958 /* MediaServerBrowserService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3297F4A61B3DCCBF0006EDFA /* MediaServerBrowserService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,13 +89,6 @@
 			remoteGlobalIDString = 9B9671041B3A54EE008F38A4;
 			remoteInfo = MediaServerBrowserService;
 		};
-		3297F4A91B3DCD0C0006EDFA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3297F4A11B3DCCBF0006EDFA /* MediaServerBrowserService.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 9B9671031B3A54EE008F38A4;
-			remoteInfo = MediaServerBrowserService;
-		};
 		32DCC77B1B3DB6230063DD60 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 32DCC7591B3DB6230063DD60 /* Project object */;
@@ -101,16 +96,23 @@
 			remoteGlobalIDString = 32DCC7601B3DB6230063DD60;
 			remoteInfo = BPlayer;
 		};
+		32DE23101B4267E100B62958 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3297F4A11B3DCCBF0006EDFA /* MediaServerBrowserService.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9B9671031B3A54EE008F38A4;
+			remoteInfo = MediaServerBrowserService;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		32DCC89E1B3DC3810063DD60 /* Embed Frameworks */ = {
+		32DE23121B4267E100B62958 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3297F4A81B3DCD0C0006EDFA /* MediaServerBrowserService.framework in Embed Frameworks */,
+				32DE230F1B4267E100B62958 /* MediaServerBrowserService.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,8 +128,6 @@
 		32DB6A791B3FF8FB0030E86F /* RenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderViewController.m; sourceTree = "<group>"; };
 		32DB6A811B413CCE0030E86F /* SubItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubItemsViewController.h; sourceTree = "<group>"; };
 		32DB6A821B413CCE0030E86F /* SubItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubItemsViewController.m; sourceTree = "<group>"; };
-		32DB6A851B4146D20030E86F /* ServerContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerContentController.m; sourceTree = "<group>"; };
-		32DB6A861B4146D20030E86F /* ServerContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerContentController.h; sourceTree = "<group>"; };
 		32DCC7611B3DB6230063DD60 /* BPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32DCC7651B3DB6230063DD60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32DCC7661B3DB6230063DD60 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -250,6 +250,12 @@
 		32DCC8721B3DB9BD0063DD60 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		32DCC8741B3DB9C80063DD60 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		32DCC8761B3DB9CE0063DD60 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		32DE23031B421B0000B62958 /* TestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewController.h; sourceTree = "<group>"; };
+		32DE23041B421B0000B62958 /* TestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewController.m; sourceTree = "<group>"; };
+		32DE23081B42631100B62958 /* ServerContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerContentViewController.h; sourceTree = "<group>"; };
+		32DE23091B42631100B62958 /* ServerContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerContentViewController.m; sourceTree = "<group>"; };
+		32DE230B1B42650F00B62958 /* ServerContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerContentController.m; sourceTree = "<group>"; };
+		32DE230C1B42650F00B62958 /* ServerContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerContentController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,10 +266,10 @@
 				32DCC89A1B3DC2B20063DD60 /* Platinum.framework in Frameworks */,
 				32DCC8771B3DB9CE0063DD60 /* CoreMedia.framework in Frameworks */,
 				32DCC8751B3DB9C80063DD60 /* CoreAudio.framework in Frameworks */,
+				32DE230E1B4267E100B62958 /* MediaServerBrowserService.framework in Frameworks */,
 				32DCC8731B3DB9BD0063DD60 /* AssetsLibrary.framework in Frameworks */,
 				32DCC8711B3DB9AF0063DD60 /* MediaPlayer.framework in Frameworks */,
 				32DCC86F1B3DB9A10063DD60 /* libxml2.2.dylib in Frameworks */,
-				3297F4A71B3DCD0C0006EDFA /* MediaServerBrowserService.framework in Frameworks */,
 				32DCC86D1B3DB9920063DD60 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,6 +295,8 @@
 		32DB6A891B414D710030E86F /* 无用 */ = {
 			isa = PBXGroup;
 			children = (
+				32DE230C1B42650F00B62958 /* ServerContentController.h */,
+				32DE230B1B42650F00B62958 /* ServerContentController.m */,
 				32DCC8651B3DB9700063DD60 /* ItemsViewController.h */,
 				32DCC8661B3DB9700063DD60 /* ItemsViewController.m */,
 				32DB6A811B413CCE0030E86F /* SubItemsViewController.h */,
@@ -335,6 +343,8 @@
 				3297F49F1B3DCACB0006EDFA /* SettingViewController.m */,
 				32DCC7711B3DB6230063DD60 /* Images.xcassets */,
 				32DCC7731B3DB6230063DD60 /* LaunchScreen.xib */,
+				32DE23031B421B0000B62958 /* TestTableViewController.h */,
+				32DE23041B421B0000B62958 /* TestTableViewController.m */,
 				32DCC7641B3DB6230063DD60 /* Supporting Files */,
 			);
 			path = BPlayer;
@@ -544,8 +554,8 @@
 				32DB6A891B414D710030E86F /* 无用 */,
 				32DCC8631B3DB9700063DD60 /* ServerViewController.h */,
 				32DCC8641B3DB9700063DD60 /* ServerViewController.m */,
-				32DB6A861B4146D20030E86F /* ServerContentController.h */,
-				32DB6A851B4146D20030E86F /* ServerContentController.m */,
+				32DE23081B42631100B62958 /* ServerContentViewController.h */,
+				32DE23091B42631100B62958 /* ServerContentViewController.m */,
 				32DCC8671B3DB9700063DD60 /* AllMusicController.h */,
 				32DCC8681B3DB9700063DD60 /* AllMusicController.m */,
 			);
@@ -562,12 +572,12 @@
 				32DCC75D1B3DB6230063DD60 /* Sources */,
 				32DCC75E1B3DB6230063DD60 /* Frameworks */,
 				32DCC75F1B3DB6230063DD60 /* Resources */,
-				32DCC89E1B3DC3810063DD60 /* Embed Frameworks */,
+				32DE23121B4267E100B62958 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				3297F4AA1B3DCD0C0006EDFA /* PBXTargetDependency */,
+				32DE23111B4267E100B62958 /* PBXTargetDependency */,
 			);
 			name = BPlayer;
 			productName = BPlayer;
@@ -683,7 +693,6 @@
 				32DB6A831B413CCE0030E86F /* SubItemsViewController.m in Sources */,
 				32DCC8411B3DB8B40063DD60 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				32DCC7C81B3DB8780063DD60 /* WithRequestViewController.m in Sources */,
-				32DB6A871B4146D20030E86F /* ServerContentController.m in Sources */,
 				32DCC86A1B3DB9700063DD60 /* ItemsViewController.m in Sources */,
 				32DCC8691B3DB9700063DD60 /* ServerViewController.m in Sources */,
 				32DCC84C1B3DB8E80063DD60 /* Singleton.m in Sources */,
@@ -700,9 +709,11 @@
 				32DCC78D1B3DB6AC0063DD60 /* RootViewController.mm in Sources */,
 				32DCC8251B3DB8B40063DD60 /* AFNetworkReachabilityManager.m in Sources */,
 				32DCC7C41B3DB8780063DD60 /* UICustomLineLabel.m in Sources */,
+				32DE230D1B42650F00B62958 /* ServerContentController.m in Sources */,
 				32DCC8601B3DB9580063DD60 /* UPnPEngine.mm in Sources */,
 				32DCC7C61B3DB8780063DD60 /* ImageView.m in Sources */,
 				32DCC85D1B3DB9580063DD60 /* ItunesMusicDMSDelegate.mm in Sources */,
+				32DE230A1B42631100B62958 /* ServerContentViewController.m in Sources */,
 				32DCC83C1B3DB8B40063DD60 /* UIView+MJExtension.m in Sources */,
 				32DCC8261B3DB8B40063DD60 /* AFSecurityPolicy.m in Sources */,
 				32DCC83E1B3DB8B40063DD60 /* SVIndefiniteAnimatedView.m in Sources */,
@@ -720,6 +731,7 @@
 				32DCC8371B3DB8B40063DD60 /* MJRefreshHeader.m in Sources */,
 				32DCC8351B3DB8B40063DD60 /* MJRefreshGifFooter.m in Sources */,
 				32DCC85E1B3DB9580063DD60 /* PhotoDMSDelegate.mm in Sources */,
+				32DE23051B421B0000B62958 /* TestTableViewController.m in Sources */,
 				32DCC83B1B3DB8B40063DD60 /* UIScrollView+MJRefresh.m in Sources */,
 				32DCC8401B3DB8B40063DD60 /* SVProgressHUD.m in Sources */,
 				32DCC86B1B3DB9700063DD60 /* AllMusicController.m in Sources */,
@@ -741,15 +753,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		3297F4AA1B3DCD0C0006EDFA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = MediaServerBrowserService;
-			targetProxy = 3297F4A91B3DCD0C0006EDFA /* PBXContainerItemProxy */;
-		};
 		32DCC77C1B3DB6230063DD60 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 32DCC7601B3DB6230063DD60 /* BPlayer */;
 			targetProxy = 32DCC77B1B3DB6230063DD60 /* PBXContainerItemProxy */;
+		};
+		32DE23111B4267E100B62958 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MediaServerBrowserService;
+			targetProxy = 32DE23101B4267E100B62958 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

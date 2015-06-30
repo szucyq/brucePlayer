@@ -199,7 +199,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前音乐名字" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="r9u-sa-JzC">
-                            <rect key="frame" x="0.0" y="43" width="254" height="21"/>
+                            <rect key="frame" x="8" y="43" width="113" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -224,6 +224,16 @@
                             </state>
                             <connections>
                                 <action selector="listLookAction:" destination="-1" eventType="touchUpInside" id="F50-Nm-f73"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HGA-20-0jq">
+                            <rect key="frame" x="139" y="39" width="60" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="所有资源">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="loadAllContentsAction:" destination="-1" eventType="touchUpInside" id="FTQ-94-Odj"/>
                             </connections>
                         </button>
                     </subviews>

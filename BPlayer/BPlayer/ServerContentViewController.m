@@ -1,35 +1,25 @@
 //
-//  ItemsViewController.m
-//  MediaBrowserTest
+//  ServerContentViewController.m
+//  BPlayer
 //
-//  Created by Eason Zhao on 15/6/25.
-//  Copyright (c) 2015年 Eason. All rights reserved.
+//  Created by Bruce on 15/6/30.
+//  Copyright (c) 2015年 Bruce. All rights reserved.
 //
 
-#import "ServerContentController.h"
+#import "ServerContentViewController.h"
 #import "AppDelegate.h"
 
-@interface ServerContentController ()<MediaServerBrowserDelegate>
-
+@interface ServerContentViewController ()
 @property (nonatomic, strong) NSArray* itemArr;
 @property (nonatomic)BOOL browserRoot;
 @property (nonatomic,copy)NSString *browserObjID;
 @property (nonatomic)CGRect selfFrame;
 @end
 
-@implementation ServerContentController
-
-@synthesize browser = browser_;
-@synthesize itemArr = itemArr_;
-
-
-
-- (id)initWithFrame:(CGRect)frame root:(BOOL)rootOrNot objectId:(NSString*)anObjectId
-{
+@implementation ServerContentViewController
+- (id)initWithFrame:(CGRect)frame root:(BOOL)rootOrNot objectId:(NSString *)anObjectId{
     self=[super init];
     if(self){
-//        self.tableView.frame=frame;
-
         self.itemArr=[NSArray array];
         self.browserRoot=rootOrNot;
         self.browserObjID=anObjectId;
@@ -38,16 +28,17 @@
         
         AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
         self.browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:self];
-
-        
-        
-
     }
     return self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"viewDidLoad");
+    
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+    
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.tableView.frame=self.selfFrame;
     NSLog(@"browser is :%@",self.browser);
     if(self.browserRoot){
@@ -55,7 +46,7 @@
         [self.browser browseRoot];
     }
     else{
-        NSLog(@"broser objid:%@",self.browseID);
+        NSLog(@"broser objid:%@",self.browserObjID);
         [self.browser browse:self.browserObjID];
     }
 }
@@ -73,30 +64,16 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-//    NSLog(@"item arr:%@",itemArr_);
-    return itemArr_.count;
+    //    NSLog(@"item arr:%@",itemArr_);
+    return self.itemArr.count;
 }
 
-- (void)onBrowseResult:(int)res
-                  path:(NSString*)path
-                 items:(NSArray*)items
-{
-    if (res == 0) {
-        itemArr_ = items;
-        NSLog(@"items:%@",itemArr_);
-        
-        [self.tableView reloadData];
-//        dispatch_sync(dispatch_get_main_queue(), ^{
-//            [self.tableView reloadData];
-//        });
-    }
-//    NSLog(@"items 2:%@",items);
-}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
-    MediaServerItem * item = [itemArr_ objectAtIndex:indexPath.row];
+    MediaServerItem * item = [self.itemArr objectAtIndex:indexPath.row];
     cell.textLabel.text = item.title;
     return cell;
 }
@@ -107,18 +84,19 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Navigation logic may go here, for example:
-    MediaServerItem * item = [itemArr_ objectAtIndex:indexPath.row];
-
+    MediaServerItem * item = [self.itemArr objectAtIndex:indexPath.row];
+    
     if(item.type==FOLDER){
         NSLog(@"folder:%@",self.navigationController.viewControllers);
         NSLog(@"item objid:%@",item.objID);
-        ServerContentController *sContentController=[[ServerContentController alloc]initWithFrame:self.tableView.bounds root:NO objectId:item.objID];
+        ServerContentViewController *sContentController=[[ServerContentViewController alloc]initWithFrame:self.tableView.bounds root:NO objectId:item.objID];
         NSLog(@"view:%@",sContentController);
         
-        TestTableViewController *test=[[TestTableViewController alloc]init];
+//        TestTableViewController *test=[[TestTableViewController alloc]init];
         
-        [self.navigationController pushViewController:test animated:YES];
-
+//        [self.navigationController pushViewController:sContentController animated:YES];
+        [self presentViewController:sContentController animated:YES completion:nil];
+        
     }
     else if(item.type==AUDIO){
         //如果是音频文件播放，则要在主界面控制
@@ -129,7 +107,20 @@
         NSLog(@"暂不支持播放:%d",item.type);
     }
 }
-
-
-
+#pragma mark Browser delegate
+- (void)onBrowseResult:(int)res
+                  path:(NSString*)path
+                 items:(NSArray*)items
+{
+    if (res == 0) {
+        self.itemArr = items;
+        NSLog(@"items:%@",self.itemArr);
+        
+        [self.tableView reloadData];
+        //        dispatch_sync(dispatch_get_main_queue(), ^{
+        //            [self.tableView reloadData];
+        //        });
+    }
+    //    NSLog(@"items 2:%@",items);
+}
 @end
