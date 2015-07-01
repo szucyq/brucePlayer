@@ -62,6 +62,36 @@
                                 <action selector="serverBtAction:" destination="-1" eventType="touchUpInside" id="jhX-lf-Yzd"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Vsi-O5-kzS">
+                            <rect key="frame" x="25" y="316" width="60" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="播放列表">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="playlistAction:" destination="-1" eventType="touchUpInside" id="4iR-7t-xgv"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HGA-20-0jq">
+                            <rect key="frame" x="20" y="241" width="60" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="所有资源">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="loadAllContentsAction:" destination="-1" eventType="touchUpInside" id="FTQ-94-Odj"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="4Sz-8j-cB3">
+                            <rect key="frame" x="25" y="279" width="45" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="收藏夹">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="favouriteAction:" destination="-1" eventType="touchUpInside" id="odQ-IS-Quf"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -224,16 +254,6 @@
                             </state>
                             <connections>
                                 <action selector="listLookAction:" destination="-1" eventType="touchUpInside" id="F50-Nm-f73"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HGA-20-0jq">
-                            <rect key="frame" x="139" y="39" width="60" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="所有资源">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="loadAllContentsAction:" destination="-1" eventType="touchUpInside" id="FTQ-94-Odj"/>
                             </connections>
                         </button>
                     </subviews>

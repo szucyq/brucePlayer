@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BPlayer/ServerViewController.m"
-            timestampString = "457407933.08202"
+            timestampString = "457408152.195135"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
             landmarkName = "-onCrawlResult:"
             landmarkType = "5">
          </BreakpointContent>
@@ -256,6 +256,22 @@
             startingLineNumber = "154"
             endingLineNumber = "154"
             landmarkName = "-onBrowseResult:path:items:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BPlayer/ServerViewController.m"
+            timestampString = "457408149.388209"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "-rightToAction:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -63,7 +63,8 @@
 - (IBAction)renderBtAction:(id)sender;
 - (IBAction)serverBtAction:(id)sender;
 - (IBAction)loadAllContentsAction:(id)sender;
-
+- (IBAction)favouriteAction:(id)sender;
+- (IBAction)playlistAction:(id)sender;
 
 //底部actions
 - (IBAction)preBtAction:(id)sender;

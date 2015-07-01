@@ -73,6 +73,7 @@
         //
         MediaServerBrowser *browser=[[MediaServerBrowserService instance] findBrowser:appDelagete.serverUuid];
         if(browser){
+            NSLog(@"browser:%@",browser);
            [[MediaServerBrowserService instance]destroyBrowser:browser];
         }
         

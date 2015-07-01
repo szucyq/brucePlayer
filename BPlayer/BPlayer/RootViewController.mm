@@ -126,6 +126,7 @@
 }
 
 - (IBAction)loadAllContentsAction:(id)sender {
+    NSLog(@"加载所有资源，等资源做效果");
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     
     
@@ -138,6 +139,14 @@
         [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
         return;
     }
+}
+
+- (IBAction)favouriteAction:(id)sender {
+    NSLog(@"收藏夹，等资源做效果");
+}
+
+- (IBAction)playlistAction:(id)sender {
+    NSLog(@"播放列表，等资源做效果");
 }
 
 - (IBAction)settingAction:(id)sender {
