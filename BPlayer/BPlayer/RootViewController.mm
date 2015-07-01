@@ -325,6 +325,27 @@
 }
 #pragma mark - notion controls
 - (void)playWithAvItem:(NSNotification *)sender{
+    NSDictionary *userinfo=[sender userInfo];
+    MediaServerItem *item = [userinfo objectForKey:@"item"];
+    NSLog(@"objID:%@",item.objID);
+    NSLog(@"title:%@",item.title);
+    NSLog(@"uri:%@",item.uri);
+    NSLog(@"size:%lld",item.size);
+    NSLog(@"type:%d",item.type);
+    NSLog(@"artist:%@",item.artist);
+    NSLog(@"date:%@",item.date);
+    NSLog(@"composer:%@",item.composer);
+    NSLog(@"trackList:%@",item.trackList);
+    NSLog(@"codeType:%@",item.codeType);
+    NSLog(@"contentFormat:%@",item.contentFormat);
+    NSLog(@"mimeType:%@",item.mimeType);
+    NSLog(@"extention:%@",item.extention);
+    NSLog(@"albumArtURI:%@",item.albumArtURI);
+    NSLog(@"thumbnailUrl:%@",item.thumbnailUrl);
+    NSLog(@"smallImageUrl:%@",item.smallImageUrl);
+    NSLog(@"mediumImageUrl:%@",item.mediumImageUrl);
+    NSLog(@"largeImageUrl:%@",item.largeImageUrl);
+    
 //    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     [SVProgressHUD showErrorWithStatus:@"请选择播放器" maskType:SVProgressHUDMaskTypeBlack];
     

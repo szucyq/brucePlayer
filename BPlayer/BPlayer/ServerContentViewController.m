@@ -143,7 +143,8 @@
     }
     else if(item.type==AUDIO){
         //如果是音频文件播放，则要在主界面控制
-        NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:@"音频",@"item", nil];
+        NSLog(@"audio :%@",item);
+        NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:item,@"item", nil];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"kPlay" object:nil userInfo:userinfo];
     }
     else{

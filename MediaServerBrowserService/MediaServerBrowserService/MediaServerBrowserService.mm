@@ -38,7 +38,6 @@ class MediaServerListener;
 @synthesize largeImageUrl;
 
 @end
-
 @implementation MediaServerBrowserService
 {
     PLT_MediaBrowser *browser_;
