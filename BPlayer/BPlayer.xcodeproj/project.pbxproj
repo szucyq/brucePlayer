@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3254A3351B4374820059A7D2 /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3254A2E41B4374820059A7D2 /* add@2x.png */; };
+		3254A3371B4374820059A7D2 /* backTo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3254A2E61B4374820059A7D2 /* backTo.png */; };
 		3297F4A01B3DCACB0006EDFA /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3297F49F1B3DCACB0006EDFA /* SettingViewController.m */; };
 		3297F4B21B3FC8CE0006EDFA /* RootView-iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */; };
 		32DB6A7A1B3FF8FB0030E86F /* RenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DB6A791B3FF8FB0030E86F /* RenderViewController.m */; };
-		32DB6A831B413CCE0030E86F /* SubItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DB6A821B413CCE0030E86F /* SubItemsViewController.m */; };
 		32DCC7671B3DB6230063DD60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC7661B3DB6230063DD60 /* main.m */; };
 		32DCC76A1B3DB6230063DD60 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC7691B3DB6230063DD60 /* AppDelegate.mm */; };
 		32DCC7721B3DB6230063DD60 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32DCC7711B3DB6230063DD60 /* Images.xcassets */; };
@@ -65,7 +66,6 @@
 		32DCC8601B3DB9580063DD60 /* UPnPEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC85A1B3DB9580063DD60 /* UPnPEngine.mm */; };
 		32DCC8611B3DB9580063DD60 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC85C1B3DB9580063DD60 /* Util.m */; };
 		32DCC8691B3DB9700063DD60 /* ServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC8641B3DB9700063DD60 /* ServerViewController.m */; };
-		32DCC86A1B3DB9700063DD60 /* ItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC8661B3DB9700063DD60 /* ItemsViewController.m */; };
 		32DCC86B1B3DB9700063DD60 /* AllMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC8681B3DB9700063DD60 /* AllMusicController.m */; };
 		32DCC86D1B3DB9920063DD60 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32DCC86C1B3DB9920063DD60 /* AVFoundation.framework */; };
 		32DCC86F1B3DB9A10063DD60 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 32DCC86E1B3DB9A10063DD60 /* libxml2.2.dylib */; };
@@ -76,7 +76,6 @@
 		32DCC89A1B3DC2B20063DD60 /* Platinum.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32DCC8071B3DB8B40063DD60 /* Platinum.framework */; };
 		32DE23051B421B0000B62958 /* TestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DE23041B421B0000B62958 /* TestTableViewController.m */; };
 		32DE230A1B42631100B62958 /* ServerContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DE23091B42631100B62958 /* ServerContentViewController.m */; };
-		32DE230D1B42650F00B62958 /* ServerContentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DE230B1B42650F00B62958 /* ServerContentController.m */; };
 		32DE230E1B4267E100B62958 /* MediaServerBrowserService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3297F4A61B3DCCBF0006EDFA /* MediaServerBrowserService.framework */; };
 		32DE230F1B4267E100B62958 /* MediaServerBrowserService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3297F4A61B3DCCBF0006EDFA /* MediaServerBrowserService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -120,14 +119,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3254A2E41B4374820059A7D2 /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
+		3254A2E61B4374820059A7D2 /* backTo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backTo.png; sourceTree = "<group>"; };
 		3297F49E1B3DCACB0006EDFA /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		3297F49F1B3DCACB0006EDFA /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		3297F4A11B3DCCBF0006EDFA /* MediaServerBrowserService.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MediaServerBrowserService.xcodeproj; path = ../MediaServerBrowserService/MediaServerBrowserService.xcodeproj; sourceTree = "<group>"; };
 		3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "RootView-iPhone.xib"; sourceTree = "<group>"; };
 		32DB6A781B3FF8FB0030E86F /* RenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderViewController.h; sourceTree = "<group>"; };
 		32DB6A791B3FF8FB0030E86F /* RenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderViewController.m; sourceTree = "<group>"; };
-		32DB6A811B413CCE0030E86F /* SubItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubItemsViewController.h; sourceTree = "<group>"; };
-		32DB6A821B413CCE0030E86F /* SubItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubItemsViewController.m; sourceTree = "<group>"; };
 		32DCC7611B3DB6230063DD60 /* BPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32DCC7651B3DB6230063DD60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32DCC7661B3DB6230063DD60 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -240,8 +239,6 @@
 		32DCC85C1B3DB9580063DD60 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		32DCC8631B3DB9700063DD60 /* ServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerViewController.h; sourceTree = "<group>"; };
 		32DCC8641B3DB9700063DD60 /* ServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerViewController.m; sourceTree = "<group>"; };
-		32DCC8651B3DB9700063DD60 /* ItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemsViewController.h; sourceTree = "<group>"; };
-		32DCC8661B3DB9700063DD60 /* ItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemsViewController.m; sourceTree = "<group>"; };
 		32DCC8671B3DB9700063DD60 /* AllMusicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllMusicController.h; sourceTree = "<group>"; };
 		32DCC8681B3DB9700063DD60 /* AllMusicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllMusicController.m; sourceTree = "<group>"; };
 		32DCC86C1B3DB9920063DD60 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -254,8 +251,6 @@
 		32DE23041B421B0000B62958 /* TestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewController.m; sourceTree = "<group>"; };
 		32DE23081B42631100B62958 /* ServerContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerContentViewController.h; sourceTree = "<group>"; };
 		32DE23091B42631100B62958 /* ServerContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerContentViewController.m; sourceTree = "<group>"; };
-		32DE230B1B42650F00B62958 /* ServerContentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerContentController.m; sourceTree = "<group>"; };
-		32DE230C1B42650F00B62958 /* ServerContentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerContentController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,25 +279,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3254A2E31B4374820059A7D2 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				3254A2E41B4374820059A7D2 /* add@2x.png */,
+				3254A2E61B4374820059A7D2 /* backTo.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		3297F4A21B3DCCBF0006EDFA /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				3297F4A61B3DCCBF0006EDFA /* MediaServerBrowserService.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		32DB6A891B414D710030E86F /* 无用 */ = {
-			isa = PBXGroup;
-			children = (
-				32DE230C1B42650F00B62958 /* ServerContentController.h */,
-				32DE230B1B42650F00B62958 /* ServerContentController.m */,
-				32DCC8651B3DB9700063DD60 /* ItemsViewController.h */,
-				32DCC8661B3DB9700063DD60 /* ItemsViewController.m */,
-				32DB6A811B413CCE0030E86F /* SubItemsViewController.h */,
-				32DB6A821B413CCE0030E86F /* SubItemsViewController.m */,
-			);
-			name = "无用";
 			sourceTree = "<group>";
 		};
 		32DCC7581B3DB6230063DD60 = {
@@ -353,6 +344,7 @@
 		32DCC7641B3DB6230063DD60 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3254A2E31B4374820059A7D2 /* images */,
 				32DCC8761B3DB9CE0063DD60 /* CoreMedia.framework */,
 				32DCC8741B3DB9C80063DD60 /* CoreAudio.framework */,
 				32DCC8721B3DB9BD0063DD60 /* AssetsLibrary.framework */,
@@ -551,7 +543,6 @@
 		32DCC8621B3DB9650063DD60 /* DMC */ = {
 			isa = PBXGroup;
 			children = (
-				32DB6A891B414D710030E86F /* 无用 */,
 				32DCC8631B3DB9700063DD60 /* ServerViewController.h */,
 				32DCC8641B3DB9700063DD60 /* ServerViewController.m */,
 				32DE23081B42631100B62958 /* ServerContentViewController.h */,
@@ -663,9 +654,11 @@
 				32DCC78E1B3DB6AC0063DD60 /* RootView.xib in Resources */,
 				32DCC83F1B3DB8B40063DD60 /* SVProgressHUD.bundle in Resources */,
 				32DCC7751B3DB6230063DD60 /* LaunchScreen.xib in Resources */,
+				3254A3371B4374820059A7D2 /* backTo.png in Resources */,
 				3297F4B21B3FC8CE0006EDFA /* RootView-iPhone.xib in Resources */,
 				32DCC8311B3DB8B40063DD60 /* MJRefresh.bundle in Resources */,
 				32DCC7721B3DB6230063DD60 /* Images.xcassets in Resources */,
+				3254A3351B4374820059A7D2 /* add@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -690,10 +683,8 @@
 				32DCC8481B3DB8B40063DD60 /* UIWebView+AFNetworking.m in Sources */,
 				32DCC82A1B3DB8B40063DD60 /* AFURLSessionManager.m in Sources */,
 				32DCC8461B3DB8B40063DD60 /* UIProgressView+AFNetworking.m in Sources */,
-				32DB6A831B413CCE0030E86F /* SubItemsViewController.m in Sources */,
 				32DCC8411B3DB8B40063DD60 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				32DCC7C81B3DB8780063DD60 /* WithRequestViewController.m in Sources */,
-				32DCC86A1B3DB9700063DD60 /* ItemsViewController.m in Sources */,
 				32DCC8691B3DB9700063DD60 /* ServerViewController.m in Sources */,
 				32DCC84C1B3DB8E80063DD60 /* Singleton.m in Sources */,
 				32DCC8271B3DB8B40063DD60 /* AFURLConnectionOperation.m in Sources */,
@@ -709,7 +700,6 @@
 				32DCC78D1B3DB6AC0063DD60 /* RootViewController.mm in Sources */,
 				32DCC8251B3DB8B40063DD60 /* AFNetworkReachabilityManager.m in Sources */,
 				32DCC7C41B3DB8780063DD60 /* UICustomLineLabel.m in Sources */,
-				32DE230D1B42650F00B62958 /* ServerContentController.m in Sources */,
 				32DCC8601B3DB9580063DD60 /* UPnPEngine.mm in Sources */,
 				32DCC7C61B3DB8780063DD60 /* ImageView.m in Sources */,
 				32DCC85D1B3DB9580063DD60 /* ItunesMusicDMSDelegate.mm in Sources */,

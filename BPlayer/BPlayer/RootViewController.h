@@ -15,7 +15,7 @@
 #import <MediaServerBrowserService/MediaServerCrawler.h>
 
 #import "ServerViewController.h"
-#import "ItemsViewController.h"
+
 //#import "ServerContentController.h"
 #import "ServerContentViewController.h"
 

@@ -3,15 +3,16 @@
 #import "WithTableViewController.h"
 
 #import <MediaServerBrowserService/MediaServerBrowserService.h>
-#import "ItemsViewController.h"
+#import <MediaServerBrowserService/MediaServerCrawler.h>
+
 
 #import "TestTableViewController.h"
 
-@interface ServerViewController : WithTableViewController <MediaServerBrowserServiceDelegate>
+@interface ServerViewController : WithTableViewController <MediaServerBrowserServiceDelegate,MediaServerCrawlerDelegate>
 
 
 @property (nonatomic, retain) NSArray* dataSource;
 @property (nonatomic, retain) NSArray* renderers;
 @property (nonatomic,retain) NSMutableDictionary* dmsArr;
-
+@property (nonatomic,retain)NSIndexPath *lastIndexPath;
 @end

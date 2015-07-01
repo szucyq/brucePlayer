@@ -50,7 +50,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    self.title = @"root";
+//    self.title = @"root";
     self.itemArr=[NSArray array];
     self.browserRoot = YES;
     [self.objIDArr removeAllObjects];
@@ -75,6 +75,10 @@
     //    NSLog(@"item arr:%@",itemArr_);
     if (self.browserRoot) {
         return self.itemArr.count;
+    }
+    else{
+        if(self.itemArr.count==0)
+            return 0;
     }
     return self.itemArr.count + 1;
 }
@@ -103,6 +107,7 @@
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MediaServerItem * item;
     //go back
     if ( !self.browserRoot
         && indexPath.row == 0) {
@@ -113,9 +118,16 @@
         return;
     }
     // Navigation logic may go here, for example:
-    MediaServerItem * item = [self.itemArr objectAtIndex:indexPath.row];
     
+    else if(self.browserRoot){
+        item = [self.itemArr objectAtIndex:indexPath.row];
+    }
+    else{
+        item = [self.itemArr objectAtIndex:indexPath.row-1];
+    }
+    //根据类型判断处理
     if(item.type==FOLDER){
+        
         NSLog(@"folder:%@",self.navigationController.viewControllers);
         NSLog(@"item objid:%@",item.objID);
         
@@ -148,7 +160,9 @@
         NSString *currentObjID = [self.objIDArr lastObject];
         if ( ![currentObjID isEqualToString:path] ) {
             [self.objIDArr addObject:path];
+            NSLog(@"objid arr:%@",self.objIDArr);
         }
+        
         self.itemArr = items;
         NSLog(@"items:%@",self.itemArr);
         [self.tableView reloadData];

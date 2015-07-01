@@ -28,14 +28,6 @@
 
 @synthesize contentController = contentController_;
 
-//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//{
-//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-//    if (self) {
-//        self.title = NSLocalizedString(@"DLNA Server", @"Master");
-//    }
-//    return self;
-//}
 
 
 
@@ -49,25 +41,49 @@
 
 - (void)viewDidLoad
 {
-    
+    _lastIndexPath=[NSIndexPath indexPathForRow:-1 inSection:0];
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.dmsArr=[NSMutableDictionary dictionary];
     self.title=@"选择服务器";
+//    [self setCustomRightButtonText:@"预加载资源" withImgName:nil];
+//    [self setCustomBackButtonText:@"返回" withImgName:nil];
+
+    UIBarButtonItem *rightBt=[[UIBarButtonItem alloc]initWithTitle:@"预加载资源" style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonAction)];
+    self.navigationItem.rightBarButtonItem = rightBt;
     //先停止
     [[MediaServerBrowserService instance] stopService];
     //启动
     [[MediaServerBrowserService instance] startService:self];
     
 }
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    
-//}
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    //停止
-//    [[MediaServerBrowserService instance]stopService];
+- (void)rightButtonAction{
+    [self performSelector:@selector(rightToAction:) withObject:nil];
+}
+- (void)backToAction:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (void)rightToAction:(id)sender{
+    NSLog(@"实现自己navigation bar 右侧按钮的方法，如果没有实现会出现该提示");
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    
+    
+    if(appDelagete.serverUuid){
+        NSLog(@"server uuid :%@",appDelagete.serverUuid);
+        //
+        MediaServerBrowser *browser=[[MediaServerBrowserService instance] findBrowser:appDelagete.serverUuid];
+        if(browser){
+           [[MediaServerBrowserService instance]destroyBrowser:browser];
+        }
+        
+        //
+        MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithUUID:appDelagete.serverUuid delegate:self];
+        [crawler crawl];
+    }
+    else{
+        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
+        return;
+    }
 }
 - (void)viewDidLayoutSubviews{
     self.navigationController.navigationBarHidden=NO;
@@ -165,6 +181,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSInteger newRow = [indexPath row];
+    NSInteger oldRow = [_lastIndexPath row];
+    if (newRow != oldRow){
+        UITableViewCell *newCell = [tableView cellForRowAtIndexPath:                                                                indexPath];
+        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
+        UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:                                                                _lastIndexPath];
+        oldCell.accessoryType = UITableViewCellAccessoryNone;        _lastIndexPath = indexPath;
+    }
+    
+    
     //只是选择server，并不进入浏览。
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     NSString *uuid = [[_dmsArr allKeys] objectAtIndex:indexPath.row];
@@ -173,25 +201,18 @@
     [SVProgressHUD showSuccessWithStatus:@"已选择媒体服务器" maskType:SVProgressHUDMaskTypeBlack];
     
     //此处选择server后，传递server信息，让前端刷新对应server内容
-//    NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:uuid,@"server", nil];
-//    [[NSNotificationCenter defaultCenter]postNotificationName:@"kSelectServer" object:nil userInfo:userinfo];
-    
+    NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:uuid,@"server", nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"kSelectServer" object:nil userInfo:userinfo];
+    return;
     //暂时跳转下级目录测试
-    if (contentController_ == nil) {
-        contentController_ = [[ServerContentViewController alloc]initWithFrame:self.view.bounds];
-    }
-    //ServerContentViewController *sContentController=[[ServerContentViewController alloc]initWithFrame:self.view.bounds root:YES objectId:nil];
-    contentController_.title=@"root";
-    NSLog(@"view:%@", contentController_);
-    contentController_.browser = [[MediaServerBrowserService instance] browserWithUUID:uuid delegate:contentController_];
-    
-    //TestTableViewController *test=[[TestTableViewController alloc]init];
-    [self.navigationController pushViewController:contentController_ animated:YES];
-
-    
-    
-
-//    [self.navigationController pushViewController:controller animated:YES];
+//    if (contentController_ == nil) {
+//        contentController_ = [[ServerContentViewController alloc]initWithFrame:self.view.bounds];
+//    }
+//    contentController_.title=@"root";
+//    NSLog(@"view:%@", contentController_);
+//    contentController_.browser = [[MediaServerBrowserService instance] browserWithUUID:uuid delegate:contentController_];
+//
+//    [self.navigationController pushViewController:contentController_ animated:YES];
 }
 
 #pragma mark -
@@ -212,4 +233,9 @@
      NSLog(@"remove uuid:%@",uuid);
     [_dmsArr removeObjectForKey:friendlyName];
 }
+#pragma mark Media server content crawler delegate
+- (void)onCrawlResult:(NSArray *)items{
+    NSLog(@"craw items:%@",items);
+}
+
 @end

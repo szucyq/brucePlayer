@@ -351,8 +351,9 @@
         return;
     }
     
-    ServerContentViewController *itemController=[[ServerContentViewController alloc]initWithFrame:frame];
+    ServerContentViewController *contentController=[[ServerContentViewController alloc]initWithFrame:frame];
 
+    contentController.browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:contentController];
     //catalogNav视图用于按照目录层级的方式进行访问server资源
     if(self.catalogNav){
         NSLog(@"如果已有目录浏览视图，则先删除");
@@ -360,7 +361,7 @@
         
         //add catalog style nav 添加层级目录浏览界面
         
-        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:itemController];
+        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:contentController];
 
         self.catalogNav.view.frame=frame;
         self.catalogNav.view.tag=10000;
@@ -369,7 +370,7 @@
     else{
         NSLog(@"如果没有目录浏览视图，则添加");
         //add catalog style nav 添加层级目录浏览界面
-        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:itemController];
+        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:contentController];
         self.catalogNav.view.frame=frame;
         self.catalogNav.view.tag=10000;
         [self.view addSubview:self.catalogNav.view];
