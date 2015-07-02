@@ -20,7 +20,48 @@ FOUNDATION_EXPORT const unsigned char MediaServerBrowserServiceVersionString[];
 
 @class MediaServerBrowser;
 
-@class MediaServerCrawler;
+///DMS浏览服务器
+///@note MediaServerAddedNotification dms服务器上线
+///      MediaServerRemovedNotification dms服务器下线
+@interface MediaServerBrowserService : NSObject
+
++ (instancetype)instance;
+
+///启动服务
+- (BOOL)startService;
+
+///停止服务
+///@note DMSRemovedNotification会被触发
+- (void)stopService;
+
+///创建DMS浏览对象
+///@param [in] uuid dms唯一标示
+- (MediaServerBrowser*)browserWithUUID:(NSString*)uuid;
+
+///在线的DMS
+@property (nonatomic, readonly) NSDictionary *mediaServers;
+
+@end
+
+
+@interface MediaServerBrowser : NSObject
+
+;
+///浏览根目录
+- (void)browseRoot:(void (^)(BOOL ret, NSString* objID, NSArray*items))handler;
+
+///浏览dms中某一个目录
+///@param[in] objID 文件夹object ID
+- (void)browse:(NSString*)objID handler:(void (^)(BOOL ret, NSString *objID, NSArray*items))handler;
+
+///唯一标示
+@property(nonatomic, readonly) NSString* UUID;
+
+@property(nonatomic, readonly) NSString* friendlyName;
+
+@end
+
+@class MediaServerBrowser;
 
 enum MediaServerItemType {
     UNKNOW = 0,
@@ -32,14 +73,13 @@ enum MediaServerItemType {
 
 @interface MediaServerItem : NSObject
 
-
 @property (nonatomic, strong) NSString *objID;
 
 @property (nonatomic, strong) NSString *title;
 
 @property (nonatomic, strong) NSString *uri;
 
-@property (nonatomic) long long size;
+@property (nonatomic) NSUInteger size;
 
 @property (nonatomic) enum MediaServerItemType type;
 
@@ -69,53 +109,3 @@ enum MediaServerItemType {
 
 @property (nonatomic, strong) NSString *largeImageUrl;
 @end
-
-@protocol MediaServerBrowserServiceDelegate <NSObject>
-
-- (BOOL)onMediaServerBrowserAdded:(NSString*)friendlyName uuid:(NSString*)uuid;
-
-- (void)onMediaServerBrowserRemoved:(NSString*)friendlyName uuid:(NSString*)uuid;
-
-@end
-
-
-@interface MediaServerBrowserService : NSObject
-
-+ (id)instance;
-
-- (BOOL)startService:(id)delegate;
-
-- (void)stopService;
-
-///创建
-- (MediaServerBrowser*)browserWithUUID:(NSString*)uuid delegate:(id)delegate;
-
-- (void)destroyBrowser:(MediaServerBrowser*)browser;
-
-///查询
-- (MediaServerBrowser*)findBrowser:(NSString*)uuid;
-@end
-
-@protocol MediaServerBrowserDelegate <NSObject>
-
-///@params items out array of MediaServerItem*
-- (void)onBrowseResult:(int)res
-                  path:(NSString*)path
-                 items:(NSArray*)items;
-
-@end
-
-@interface MediaServerBrowser : NSObject
-
-- (void)browseRoot;
-
-- (void)browse:(NSString*)objID;
-
-@property(nonatomic, readonly) NSString* UUID;
-
-@property(nonatomic, readonly) NSString* friendlyName;
-
-@property(nonatomic, readonly) id delegate;
-
-@end
-

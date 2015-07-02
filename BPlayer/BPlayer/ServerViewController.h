@@ -8,7 +8,7 @@
 
 #import "TestTableViewController.h"
 
-@interface ServerViewController : WithTableViewController <MediaServerBrowserServiceDelegate,MediaServerCrawlerDelegate>
+@interface ServerViewController : WithTableViewController 
 
 
 @property (nonatomic, retain) NSArray* dataSource;

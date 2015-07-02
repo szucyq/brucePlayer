@@ -132,8 +132,8 @@
     
     if(appDelagete.serverUuid){
         NSLog(@"server uuid :%@",appDelagete.serverUuid);
-        MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithUUID:appDelagete.serverUuid delegate:self];
-        [crawler crawl];
+        //MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithUUID:appDelagete.serverUuid delegate:self];
+        //[crawler crawl];
     }
     else{
         [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
@@ -330,7 +330,7 @@
     NSLog(@"objID:%@",item.objID);
     NSLog(@"title:%@",item.title);
     NSLog(@"uri:%@",item.uri);
-    NSLog(@"size:%lld",item.size);
+    NSLog(@"size:%lu",(unsigned long)item.size);
     NSLog(@"type:%d",item.type);
     NSLog(@"artist:%@",item.artist);
     NSLog(@"date:%@",item.date);
@@ -383,7 +383,7 @@
     
     ServerContentViewController *contentController=[[ServerContentViewController alloc]initWithFrame:frame];
 
-    contentController.browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:contentController];
+    //contentController.browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:contentController];
     //catalogNav视图用于按照目录层级的方式进行访问server资源
     if(self.catalogNav){
         NSLog(@"如果已有目录浏览视图，则先删除");

@@ -10,7 +10,7 @@
 #import <MediaServerBrowserService/MediaServerBrowserService.h>
 
 
-@interface ServerContentViewController : UITableViewController<MediaServerBrowserDelegate>
+@interface ServerContentViewController : UITableViewController
 
 @property (nonatomic, retain) MediaServerBrowser* browser;
 

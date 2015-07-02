@@ -56,7 +56,7 @@
     [self.objIDArr removeAllObjects];
     //[self.objIDArr addObject:@"0"];
 
-    [self.browser browseRoot];
+    //[self.browser browseRoot];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -114,7 +114,7 @@
 
         [self.objIDArr removeLastObject];
         NSString *parentObjID = [self.objIDArr lastObject];
-        [self.browser browse:parentObjID];
+        //[self.browser browse:parentObjID];
         return;
     }
     // Navigation logic may go here, for example:
@@ -131,7 +131,7 @@
         NSLog(@"folder:%@",self.navigationController.viewControllers);
         NSLog(@"item objid:%@",item.objID);
         
-        [self.browser browse:item.objID];
+        //[self.browser browse:item.objID];
         //ServerContentViewController *sContentController=[[ServerContentViewController alloc]initWithFrame:self.tableView.bounds root:NO objectId:item.objID];
         //NSLog(@"view:%@",sContentController);
         
@@ -152,6 +152,7 @@
     }
 }
 #pragma mark Browser delegate
+/*
 - (void)onBrowseResult:(int)res
                   path:(NSString*)path
                  items:(NSArray*)items
@@ -169,5 +170,5 @@
         [self.tableView reloadData];
     }
     //    NSLog(@"items 2:%@",items);
-}
+}*/
 @end

@@ -52,9 +52,9 @@
     UIBarButtonItem *rightBt=[[UIBarButtonItem alloc]initWithTitle:@"预加载资源" style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonAction)];
     self.navigationItem.rightBarButtonItem = rightBt;
     //先停止
-    [[MediaServerBrowserService instance] stopService];
+    //[[MediaServerBrowserService instance] stopService];
     //启动
-    [[MediaServerBrowserService instance] startService:self];
+    [[MediaServerBrowserService instance] startService];
     
 }
 - (void)rightButtonAction{
@@ -70,16 +70,18 @@
     
     if(appDelagete.serverUuid){
         NSLog(@"server uuid :%@",appDelagete.serverUuid);
-        //
+        /*
         MediaServerBrowser *browser=[[MediaServerBrowserService instance] findBrowser:appDelagete.serverUuid];
         if(browser){
             NSLog(@"browser:%@",browser);
            [[MediaServerBrowserService instance]destroyBrowser:browser];
         }
-        
+        */
         //
+        /*
         MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithUUID:appDelagete.serverUuid delegate:self];
         [crawler crawl];
+         */
     }
     else{
         [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
@@ -218,6 +220,7 @@
 
 #pragma mark -
 #pragma mark MediaServerBrowserDelegate
+/*
 //service delegate
 - (BOOL)onMediaServerBrowserAdded:(NSString *)friendlyName uuid:(NSString *)uuid
 {
@@ -234,9 +237,11 @@
      NSLog(@"remove uuid:%@",uuid);
     [_dmsArr removeObjectForKey:friendlyName];
 }
+ */
+/*
 #pragma mark Media server content crawler delegate
 - (void)onCrawlResult:(NSArray *)items{
     NSLog(@"craw items:%@",items);
 }
-
+*/
 @end

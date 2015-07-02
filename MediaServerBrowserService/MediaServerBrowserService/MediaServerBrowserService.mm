@@ -14,6 +14,9 @@
 
 #include "upnpdeamon.h"
 
+#define MEDIASERVERADDEDNOTIFICATION @"MediaServerAddedNotification"
+#define MEDIASERVERREMOVEDNOTIFICATION @"MediaServerRemovedNotification"
+
 class MediaServerListener;
 
 @implementation MediaServerItem
@@ -38,6 +41,7 @@ class MediaServerListener;
 @synthesize largeImageUrl;
 
 @end
+
 @implementation MediaServerBrowserService
 {
     PLT_MediaBrowser *browser_;
@@ -45,6 +49,9 @@ class MediaServerListener;
     MediaServerListener *listener_;
     NSMutableDictionary *browserDic_;
 }
+
+//double MediaServerBrowserServiceVersionNumber = 2.0;
+//const unsigned char MediaServerBrowserServiceVersionString[] = "2.0";
 
 - (id)init
 {
@@ -57,7 +64,7 @@ class MediaServerListener;
     return self;
 }
 
-+ (id)instance
++ (instancetype)instance
 {
     static MediaServerBrowserService* instance = nil;
     static dispatch_once_t onceToken;
@@ -67,14 +74,14 @@ class MediaServerListener;
     return instance;
 }
 
-- (BOOL)startService:(id)delegate
+- (BOOL)startService
 {
     if (browser_ != NULL) {
         NSLog(@"[MediaServerBrowserService] [startService] DMS-C already start!");
         return YES;
     }
     ref_ = new PLT_CtrlPoint();
-    listener_ = new MediaServerListener(self, delegate);
+    listener_ = new MediaServerListener();
     browser_ = new PLT_MediaBrowser(ref_, listener_);
     UPnPDeamon::instance()->addCtrlPoint(ref_);
     NSLog(@"[MediaServerBrowserService] [startService] success");
@@ -97,15 +104,13 @@ class MediaServerListener;
     NSLog(@"[MediaServerBrowserService] [stopService] success!");
 }
 
-- (MediaServerBrowser*)browserWithUUID:(NSString *)uuid delegate:(id)delegate
+- (MediaServerBrowser*)browserWithUUID:(NSString *)uuid
 {
     NSLog(@"[MediaServerBrowserService] [browserWithUUID] uuid = %@", uuid);
     MediaServerBrowser* browser = [browserDic_ valueForKey:uuid];
     if (!browser) {
         PLT_DeviceDataReference device = listener_->device([uuid UTF8String]);
-        browser = [[MediaServerBrowserImpl alloc] initWithDelegate:delegate
-                                                            device:device
-                                                        controller:browser_];
+        browser = [[MediaServerBrowserImpl alloc] initWithDevice:device controller:browser_];
         [browserDic_ setObject:browser forKey:uuid];
     } 
     return browser;
@@ -116,17 +121,20 @@ class MediaServerListener;
     return [browserDic_ valueForKey:uuid];
 }
 
-- (void)destroyBrowser:(MediaServerBrowser*)browser
+- (NSDictionary*)mediaServer
 {
-    [browserDic_ removeObjectForKey:[browser UUID]];
+    NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
+    for( NSString* key in [browserDic_ allKeys] ) {
+        MediaServerBrowser * browser = [browserDic_ valueForKey:key];
+        [temp setObject:browser.friendlyName forKey:key];
+    }
+    return [temp copy];
 }
 
 class MediaServerListener : public PLT_MediaBrowserDelegate
 {
 public:
-    MediaServerListener(MediaServerBrowserService* service, id delegate) :
-        service_(service)
-        , delegate_(delegate)
+    MediaServerListener()
     {
         
     }
@@ -134,27 +142,29 @@ public:
     bool OnMSAdded(PLT_DeviceDataReference& device ) {
         NSLog(@"[OnMSAdded] ms add %s", device->GetFriendlyName().GetChars());
         devices_.push_back(device);
-        __block BOOL isAdd = NO;
         NSString *friendlyName = [NSString stringWithUTF8String: device->GetFriendlyName().GetChars()];
         NSString *uuid = [NSString stringWithUTF8String: device->GetUUID().GetChars()];
+        
         //call back
         dispatch_async(dispatch_get_main_queue(), ^{
-            if ([delegate_ respondsToSelector:@selector(onMediaServerBrowserAdded:uuid:)]) {
-                isAdd = [delegate_ onMediaServerBrowserAdded:friendlyName uuid:uuid];
-            }
-            if (!isAdd) {
-                devices_.remove(device);
-            }
+            NSDictionary *value = [NSDictionary dictionaryWithObjects:@[uuid,friendlyName]
+                                                              forKeys:@[@"UUID", @"FriendlyName"]];
+            NSNotification *ntf = [NSNotification notificationWithName:MEDIASERVERADDEDNOTIFICATION object:value];
+            [[NSNotificationCenter defaultCenter] postNotification:ntf];
         });
-        return (isAdd == YES) ? true : false;
+        return true;
     }
     
     void OnMSRemoved(PLT_DeviceDataReference& device ) {
         NSString *friendlyName = [NSString stringWithUTF8String: device->GetFriendlyName().GetChars()];
         NSString *uuid = [NSString stringWithUTF8String: device->GetUUID().GetChars()];
-        if ([delegate_ respondsToSelector:@selector(onMediaServerBrowserRemoved:uuid:)]) {
-            [delegate_ onMediaServerBrowserRemoved:friendlyName uuid:uuid];
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSDictionary *value = [NSDictionary dictionaryWithObjects:@[uuid,friendlyName]
+                                                              forKeys:@[@"UUID", @"FriendlyName"]];
+            NSNotification *ntf = [NSNotification notificationWithName:MEDIASERVERREMOVEDNOTIFICATION
+                                                                object:value];
+            [[NSNotificationCenter defaultCenter] postNotification:ntf];
+        });
         devices_.remove(device);
     }
     
@@ -182,7 +192,6 @@ public:
             item.size = obj->m_Resources.GetFirstItem()->m_Size;
         }
         obj->m_Date.GetChars();
-        
 
     };
 
@@ -194,13 +203,7 @@ public:
         NSLog(@"[OnBrowseResult] res = %d, item count = %d"
               , res
               , res == 0 ? info->items->GetItemCount() : 0);
-        NSString *uuid = [NSString stringWithUTF8String:device->GetUUID().GetChars()];
-        id delegate;
-        if ([service_ findBrowser:uuid] != nil) {
-            delegate = [service_ findBrowser:uuid].delegate;
-        }
-        //
-        int ret = res;
+        //NSString *uuid = [NSString stringWithUTF8String:device->GetUUID().GetChars()];
         NSMutableArray *tmp = nil;
         NSString *path = nil;
         if (NPT_SUCCEEDED(res)) {
@@ -219,13 +222,12 @@ public:
             path = [NSString stringWithUTF8String:info->object_id.GetChars()];
         }
         NSArray *items = tmp == nil ? nil : [tmp copy];
-        
+        void (^callback)(BOOL ret, NSString* objID, NSArray* items);
+        callback = (__bridge void (^)(BOOL ret, NSString* objID, NSArray*items))userData;
         //
-        if ([delegate respondsToSelector:@selector(onBrowseResult:path:items:)]) {
-            dispatch_async( dispatch_get_main_queue(), ^{
-                [delegate onBrowseResult:ret path:path items:items];
-            });
-        }
+        dispatch_async( dispatch_get_main_queue(), ^{
+            callback(res==0, path, items);
+        });
     }
     
     PLT_DeviceDataReference device(const char *uuid) {
@@ -242,7 +244,6 @@ public:
     }
     
 private:
-    id<MediaServerBrowserServiceDelegate> delegate_;
     MediaServerBrowserService* service_;
     std::list<PLT_DeviceDataReference> devices_;
 };

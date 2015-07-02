@@ -14,16 +14,12 @@
     NPT_Reference<PLT_MediaBrowser> browserController_;
 }
 
-@synthesize delegate = delegate_;
-
-- (id)initWithDelegate:(id)delegate
-                device:(PLT_DeviceDataReference)device
+- (id)initWithDevice:(PLT_DeviceDataReference)device
             controller:(PLT_MediaBrowser*)controller
 {
     self = [super init];
     if (self) {
         device_ = device;
-        delegate_ = delegate;
         browserController_ = controller;
     }
     return self;
@@ -41,17 +37,20 @@
     return friendlyName;
 }
 
-- (void)browseRoot
+- (void)browseRoot:(void (^)(BOOL ret, NSString* objID, NSArray*items))handler
 {
-    const char objectID[] = "0";
-    int index = 0;
-    browserController_->Browse(device_, objectID, index);
+    [self browse:@"0" handler:handler];
 }
 
-- (void)browse:(NSString *)path
+- (void)browse:(NSString *)objID
+       handler:(void (^)(BOOL, NSString *, NSArray *))handler
 {
-    int index = 0;
-    browserController_->Browse(device_, [path UTF8String], index);
+    NPT_UInt32 start_index = 0;
+    NPT_UInt32 count = 30;
+    bool browse_metadata = false;
+    const char* filter = "dc:date,upnp:genre,res,res@duration,res@size,upnp:albumArtURI,upnp:originalTrackNumber,upnp:album,upnp:artist,upnp:author";
+    const char* sort_criteria = "";
+    browserController_->Browse(device_, [objID UTF8String], start_index, count, browse_metadata, filter,sort_criteria, (void*)handler);
 }
 @end
 

@@ -22,7 +22,7 @@
 #import "AllMusicController.h"
 
 
-@interface RootViewController : WithTableViewController<MediaServerCrawlerDelegate>
+@interface RootViewController : WithTableViewController
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *rightView;

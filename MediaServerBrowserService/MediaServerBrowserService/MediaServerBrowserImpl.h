@@ -11,8 +11,7 @@
 
 @interface MediaServerBrowserImpl : MediaServerBrowser 
 
-- (id)initWithDelegate:(id)delegate
-                device:(PLT_DeviceDataReference) device
+- (id)initWithDevice:(PLT_DeviceDataReference) device
             controller:(PLT_MediaBrowser*)controller;
 
 @end

@@ -9,7 +9,7 @@
 #import "MediaServerCrawler.h"
 
 #import "MediaServerBrowserService.h"
-
+/*
 @interface MediaServerCrawler()<MediaServerBrowserDelegate>
 
 @property (nonatomic) id delegate;
@@ -80,3 +80,4 @@
     [browser_ browse:path];
 }
 @end
+*/
