@@ -44,7 +44,7 @@ class MediaServerListener;
 
 @implementation MediaServerBrowserService
 {
-    PLT_MediaBrowser *browser_;
+    NPT_Reference<PLT_MediaBrowser> browser_;
     PLT_CtrlPointReference ref_;
     MediaServerListener *listener_;
     NSMutableDictionary *browserDic_;
@@ -76,7 +76,7 @@ class MediaServerListener;
 
 - (BOOL)startService
 {
-    if (browser_ != NULL) {
+    if ( !browser_.IsNull() ) {
         NSLog(@"[MediaServerBrowserService] [startService] DMS-C already start!");
         return YES;
     }
@@ -90,22 +90,15 @@ class MediaServerListener;
 
 - (void)stopService
 {
-    if (browser_ == NULL) {
+    if (browser_.IsNull() ) {
         NSLog(@"[MediaServerBrowserService] [stopService] DMS-C not start!");
         return;
     }
     UPnPDeamon::instance()->removeCtrlPoint(ref_);
-    delete browser_;
-    browser_ = NULL;
-    ref_ = NULL;
+    [browserDic_ removeAllObjects];
+    ref_.Detach();
     delete listener_;
     listener_ = NULL;
-    if(browserDic_){
-        NSLog(@"browser dic:%@",browserDic_);
-        [browserDic_ removeAllObjects];
-        NSLog(@"browser dic 2:%@",browserDic_);
-    }
-    
     NSLog(@"[MediaServerBrowserService] [stopService] success!");
 }
 
@@ -115,7 +108,7 @@ class MediaServerListener;
     MediaServerBrowser* browser = [browserDic_ valueForKey:uuid];
     if (!browser) {
         PLT_DeviceDataReference device = listener_->device([uuid UTF8String]);
-        browser = [[MediaServerBrowserImpl alloc] initWithDevice:device controller:browser_];
+        browser = [[MediaServerBrowserImpl alloc] initWithDevice:device controller:browser_.AsPointer()];
         [browserDic_ setObject:browser forKey:uuid];
     } 
     return browser;
