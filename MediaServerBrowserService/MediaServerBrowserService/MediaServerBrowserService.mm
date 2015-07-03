@@ -96,6 +96,7 @@ class MediaServerListener;
     }
     UPnPDeamon::instance()->removeCtrlPoint(ref_);
     [browserDic_ removeAllObjects];
+    browser_.Detach();
     ref_.Detach();
     delete listener_;
     listener_ = NULL;
