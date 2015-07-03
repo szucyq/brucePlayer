@@ -9,18 +9,18 @@
 #import "MediaServerCrawler.h"
 
 #import "MediaServerBrowserService.h"
-/*
-@interface MediaServerCrawler()<MediaServerBrowserDelegate>
 
-@property (nonatomic) id delegate;
+@interface MediaServerCrawler() {
+    void (^callback_)(BOOL ret, NSArray*items);
+}
+
 @property (nonatomic) MediaServerBrowser *browser;
 @property (nonatomic) NSMutableArray *dirArr;
 @property (nonatomic) NSMutableArray *crawlItemArr;
+
 @end
 
 @implementation MediaServerCrawler
-
-@synthesize delegate = delegate_;
 
 @synthesize browser = browser_;
 
@@ -28,56 +28,59 @@
 
 @synthesize crawlItemArr = crawlItemArr_;
 
-- (id)initWithUUID:(NSString*)UUID delegate:(id)delegate
+@synthesize isCrawling = isCrawling_;
+
+- (id)initWithBrowser:(MediaServerBrowser *)browser
 {
+    
     self = [super init];
     if ( self ) {
-        delegate_ = delegate;
-        browser_ = [[MediaServerBrowserService instance] browserWithUUID:UUID delegate:self];
-        dirArr_ = [[NSMutableArray alloc] init];
-        [dirArr_ addObject:@"0"];
+        browser_ = browser;
         crawlItemArr_ = [[NSMutableArray alloc] init];
+        isCrawling_ = NO;
     }
     return self;
 }
 
-- (void)onBrowseResult:(int)res path:(NSString *)path items:(NSArray *)items
-{
-    if (res == 0) {
-        [dirArr_ removeObject:path];
-        for (NSInteger i=0; i<items.count; i++ ) {
-            MediaServerItem *item = [items objectAtIndex:i];
-            switch (item.type) {
-                case FOLDER:
-                    [dirArr_ addObject:item.objID];
-                    break;
-                default:
-                    NSLog(@"[MediaServerCrawler] [onBrowseResult] add %@", item.title);
-                    [crawlItemArr_ addObject:item];
-                    
-                    break;
-            }
-        }
-        if ( [dirArr_ count] == 0 ) {
-            if ( [delegate_ respondsToSelector:@selector(onCrawlResult:)] ) {
-                [delegate_ onCrawlResult:crawlItemArr_==nil?nil:[crawlItemArr_ copy]];
-            }
-        } else {
-            [self crawl];
-        }
-    } else {
-        NSLog(@"[MediaServerCrawler] [onBrowseResult] failure!!!");
-    }
-}
-
-- (void)crawl
+- (void)browseFolder
 {
     NSString *path = [dirArr_ firstObject];
-    if (path == nil) {
+    NSLog(@"[MediaServerCrawler] [browseFolder] path = %@", path);
+    if ( path == nil ) { //遍历结束
+        callback_(YES, [crawlItemArr_ copy]);
+        isCrawling_ = NO;
         return;
     }
-    NSLog(@"[MediaServerCrawler] [crawl] path = %@", path);
-    [browser_ browse:path];
+    [browser_ browse:path handler:^(BOOL ret, NSString *objID, NSArray *items) {
+        [dirArr_ removeObject:objID];
+        if (ret) {
+            for ( NSInteger i=0; i<items.count; i++ ) {
+                MediaServerItem *item = [items objectAtIndex:i];
+                switch (item.type) {
+                    case FOLDER:
+                        [dirArr_ addObject:item.objID];
+                        break;
+                    default:
+                        NSLog(@"[MediaServerCrawler] [onBrowseResult] add %@", item.title);
+                        [crawlItemArr_ addObject:item];
+                        break;
+                }
+            }
+        } else {
+            NSLog(@"[MediaServerCrawler] [onBrowseResult] failure!!!");
+        }
+        [self browseFolder];
+    }];
+}
+
+- (void)crawl:(void (^)(BOOL ret, NSArray*items))handler
+{
+    if ( isCrawling_ )
+        return;
+    isCrawling_ = YES;
+    callback_ = handler;
+    dirArr_ = [[NSMutableArray alloc] init];
+    [dirArr_ addObject:@"0"];
+    [self browseFolder];
 }
 @end
-*/

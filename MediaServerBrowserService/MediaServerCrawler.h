@@ -7,17 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@protocol MediaServerCrawlerDelegate <NSObject>
-
-- (void)onCrawlResult:(NSArray*)items;
-
-@end
+#import "MediaServerBrowserService/MediaServerBrowserService.h"
 
 @interface MediaServerCrawler : NSObject
 
-- (id)initWithUUID:(NSString*)UUID delegate:(id)delegate;
+- (id)initWithBrowser:(MediaServerBrowser*)browser;
 
-- (void)crawl;
+- (void)crawl:(void (^)(BOOL ret, NSArray*items))handler;
+
+@property (nonatomic, readonly) BOOL isCrawling;
 
 @end

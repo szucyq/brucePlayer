@@ -8,11 +8,20 @@
 
 #import "MediaServerBrowserImpl.h"
 
+@interface MediaServerBrowserImpl()
+
+@property (nonatomic) NSMutableDictionary *blockDic;
+
+@end
+
+
 @implementation MediaServerBrowserImpl
 {
     PLT_DeviceDataReference device_;
     NPT_Reference<PLT_MediaBrowser> browserController_;
 }
+
+@synthesize blockDic = blockDic_;
 
 - (id)initWithDevice:(PLT_DeviceDataReference)device
             controller:(PLT_MediaBrowser*)controller
@@ -21,6 +30,7 @@
     if (self) {
         device_ = device;
         browserController_ = controller;
+        blockDic_ = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -45,12 +55,14 @@
 - (void)browse:(NSString *)objID
        handler:(void (^)(BOOL, NSString *, NSArray *))handler
 {
+    [blockDic_ setObject:handler forKey:objID];
     NPT_UInt32 start_index = 0;
     NPT_UInt32 count = 30;
     bool browse_metadata = false;
     const char* filter = "dc:date,upnp:genre,res,res@duration,res@size,upnp:albumArtURI,upnp:originalTrackNumber,upnp:album,upnp:artist,upnp:author";
     const char* sort_criteria = "";
-    browserController_->Browse(device_, [objID UTF8String], start_index, count, browse_metadata, filter,sort_criteria, (void*)handler);
+    //
+    browserController_->Browse(device_, [objID UTF8String], start_index, count, browse_metadata, filter,sort_criteria, (__bridge void*)blockDic_);
 }
 @end
 

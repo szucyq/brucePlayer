@@ -29,8 +29,6 @@
 @synthesize contentController = contentController_;
 
 
-
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -48,11 +46,22 @@
     self.title=@"选择服务器";
 //    [self setCustomRightButtonText:@"预加载资源" withImgName:nil];
 //    [self setCustomBackButtonText:@"返回" withImgName:nil];
-
+    
     UIBarButtonItem *rightBt=[[UIBarButtonItem alloc]initWithTitle:@"预加载资源" style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonAction)];
     self.navigationItem.rightBarButtonItem = rightBt;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mediaServerAdded:)
+                                                 name:@"MediaServerAddedNotification"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mediaServerRemove:)
+                                                 name:@"MediaServerRemovedNotification"
+                                               object:nil];
+    
     //先停止
-    //[[MediaServerBrowserService instance] stopService];
+    [[MediaServerBrowserService instance] stopService];
     //启动
     [[MediaServerBrowserService instance] startService];
     
@@ -70,18 +79,17 @@
     
     if(appDelagete.serverUuid){
         NSLog(@"server uuid :%@",appDelagete.serverUuid);
-        /*
-        MediaServerBrowser *browser=[[MediaServerBrowserService instance] findBrowser:appDelagete.serverUuid];
-        if(browser){
-            NSLog(@"browser:%@",browser);
-           [[MediaServerBrowserService instance]destroyBrowser:browser];
-        }
-        */
+        
+        MediaServerBrowser *browser=[[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid];
+        
+        
         //
-        /*
-        MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithUUID:appDelagete.serverUuid delegate:self];
-        [crawler crawl];
-         */
+        
+        MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithBrowser:browser];
+        [crawler crawl:^(BOOL ret, NSArray *items) {
+            NSLog(@"crawler items = %@", items);
+        }];
+         
     }
     else{
         [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
@@ -97,8 +105,6 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
-
-
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -220,6 +226,24 @@
 
 #pragma mark -
 #pragma mark MediaServerBrowserDelegate
+
+- (void)mediaServerAdded:(NSNotification*)notification
+{
+    NSDictionary *msg = notification.object;
+    NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
+    NSString *uuid = [msg valueForKey:@"UUID"];
+    [_dmsArr setObject:friendlyName forKey:uuid];
+    [self.listTableView reloadData];
+}
+
+- (void)mediaServerRemove:(NSNotification*)notification
+{
+    NSDictionary *msg = notification.object;
+    //NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
+    NSString *uuid = [msg valueForKey:@"UUID"];
+    [_dmsArr removeObjectForKey:uuid];
+    [self.listTableView reloadData];
+}
 /*
 //service delegate
 - (BOOL)onMediaServerBrowserAdded:(NSString *)friendlyName uuid:(NSString *)uuid

@@ -222,12 +222,15 @@ public:
             path = [NSString stringWithUTF8String:info->object_id.GetChars()];
         }
         NSArray *items = tmp == nil ? nil : [tmp copy];
-        void (^callback)(BOOL ret, NSString* objID, NSArray* items);
-        callback = (__bridge void (^)(BOOL ret, NSString* objID, NSArray*items))userData;
-        //
+        
+        NSMutableDictionary *dic = (__bridge NSMutableDictionary*)userData;//
+        NSString *key = [NSString stringWithUTF8String:info->object_id.GetChars()];
+        
+        void (^callback)(BOOL ret, NSString* objID, NSArray* items) = [dic valueForKey:key];
         dispatch_async( dispatch_get_main_queue(), ^{
             callback(res==0, path, items);
         });
+        [dic removeObjectForKey:key];
     }
     
     PLT_DeviceDataReference device(const char *uuid) {
