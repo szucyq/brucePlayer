@@ -14,7 +14,7 @@
 @property (nonatomic)BOOL browserRoot;
 @property (nonatomic) NSMutableArray *objIDArr;
 @property (nonatomic)CGRect selfFrame;
-
+@property (nonatomic)NSString *objID;
 @end
 
 @implementation ServerContentViewController
@@ -28,7 +28,15 @@
     }
     return self;
 }
-
+- (id)initWithFrame:(CGRect)frame root:(BOOL)rootOrNot objectId:(NSString *)anObjectId{
+    self=[super init];
+    if(self){
+        self.selfFrame=frame;
+        self.browserRoot=rootOrNot;
+        self.objID=anObjectId;
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.objIDArr = [[NSMutableArray alloc] init];
@@ -38,26 +46,42 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.tableView.frame=self.selfFrame;
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    MediaServerBrowser *browser=[[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid];
     
+    self.tableView.frame=self.selfFrame;
+    if(self.browserRoot){
+        [browser browseRoot:^(BOOL ret, NSString* objID, NSArray*items){
+            NSLog(@"root items:%@",items);
+            self.itemArr=items;
+            [self.tableView reloadData];
+        }];
+    }
+    else{
+        [browser browse:self.objID handler:^(BOOL ret, NSString* objID, NSArray*items){
+            NSLog(@"root items:%@",items);
+            self.itemArr=items;
+            [self.tableView reloadData];
+        }];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    self.itemArr = nil;
-    [self.tableView reloadData];
+//    self.itemArr = nil;
+//    [self.tableView reloadData];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-//    self.title = @"root";
-    self.itemArr=[NSArray array];
-    self.browserRoot = YES;
-    [self.objIDArr removeAllObjects];
-    //[self.objIDArr addObject:@"0"];
-
-    //[self.browser browseRoot];
-}
+//- (void)viewDidAppear:(BOOL)animated
+//{
+////    self.title = @"root";
+//    self.itemArr=[NSArray array];
+//    self.browserRoot = YES;
+//    [self.objIDArr removeAllObjects];
+//    //[self.objIDArr addObject:@"0"];
+//
+//    //[self.browser browseRoot];
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -73,32 +97,42 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     //    NSLog(@"item arr:%@",itemArr_);
-    if (self.browserRoot) {
-        return self.itemArr.count;
-    }
-    else{
-        if(self.itemArr.count==0)
-            return 0;
-    }
-    return self.itemArr.count + 1;
+//    if (self.browserRoot) {
+//        return self.itemArr.count;
+//    }
+//    else{
+//        if(self.itemArr.count==0)
+//            return 0;
+//    }
+//    return self.itemArr.count + 1;
+    return self.itemArr.count;
 }
 
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
-    if ( !self.browserRoot ) {
-        if (indexPath.row == 0) {
-            cell.textLabel.text = @"..";
-        } else {
-            MediaServerItem *item = [self.itemArr objectAtIndex:indexPath.row - 1];
-            cell.textLabel.text = item.title;
-        }
-    } else {
-        MediaServerItem *item = [self.itemArr objectAtIndex:indexPath.row];
-        cell.textLabel.text = item.title;
+//    UITableViewCell *cell = [[UITableViewCell alloc] init];
+//    if ( !self.browserRoot ) {
+//        if (indexPath.row == 0) {
+//            cell.textLabel.text = @"..";
+//        } else {
+//            MediaServerItem *item = [self.itemArr objectAtIndex:indexPath.row - 1];
+//            cell.textLabel.text = item.title;
+//        }
+//    } else {
+//        MediaServerItem *item = [self.itemArr objectAtIndex:indexPath.row];
+//        cell.textLabel.text = item.title;
+//    }
+    static NSString *identifier=@"serverCell";
+    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    if(cell==nil){
+        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
+    
+    MediaServerItem *item = [self.itemArr objectAtIndex:indexPath.row];
+    cell.textLabel.text = item.title;
     return cell;
 }
 
@@ -107,24 +141,24 @@
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    MediaServerItem * item;
+    MediaServerItem * item=[self.itemArr objectAtIndex:indexPath.row];;
     //go back
-    if ( !self.browserRoot
-        && indexPath.row == 0) {
-
-        [self.objIDArr removeLastObject];
-        NSString *parentObjID = [self.objIDArr lastObject];
-        //[self.browser browse:parentObjID];
-        return;
-    }
-    // Navigation logic may go here, for example:
-    
-    else if(self.browserRoot){
-        item = [self.itemArr objectAtIndex:indexPath.row];
-    }
-    else{
-        item = [self.itemArr objectAtIndex:indexPath.row-1];
-    }
+//    if ( !self.browserRoot
+//        && indexPath.row == 0) {
+//
+//        [self.objIDArr removeLastObject];
+//        NSString *parentObjID = [self.objIDArr lastObject];
+//        //[self.browser browse:parentObjID];
+//        return;
+//    }
+//    // Navigation logic may go here, for example:
+//    
+//    else if(self.browserRoot){
+//        item = [self.itemArr objectAtIndex:indexPath.row];
+//    }
+//    else{
+//        item = [self.itemArr objectAtIndex:indexPath.row-1];
+//    }
     //根据类型判断处理
     if(item.type==FOLDER){
         
@@ -132,13 +166,13 @@
         NSLog(@"item objid:%@",item.objID);
         
         //[self.browser browse:item.objID];
-        //ServerContentViewController *sContentController=[[ServerContentViewController alloc]initWithFrame:self.tableView.bounds root:NO objectId:item.objID];
+        ServerContentViewController *sContentController=[[ServerContentViewController alloc]initWithFrame:self.tableView.bounds root:NO objectId:item.objID];
         //NSLog(@"view:%@",sContentController);
         
 //        TestTableViewController *test=[[TestTableViewController alloc]init];
         
-        //[self.navigationController pushViewController:sContentController animated:YES];
-//        [self presentViewController:sContentController animated:YES completion:nil];
+        [self.navigationController pushViewController:sContentController animated:YES];
+
         
     }
     else if(item.type==AUDIO){

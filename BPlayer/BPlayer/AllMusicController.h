@@ -7,7 +7,7 @@
 //
 
 #import "WithTableViewController.h"
-
+#import <MediaServerBrowserService/MediaServerCrawler.h>
 @interface AllMusicController : WithTableViewController
 @property (nonatomic,copy)NSString *byType;
 @property (nonatomic,copy)NSString *serverUuid;

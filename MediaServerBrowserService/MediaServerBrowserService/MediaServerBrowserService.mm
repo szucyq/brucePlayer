@@ -100,7 +100,12 @@ class MediaServerListener;
     ref_ = NULL;
     delete listener_;
     listener_ = NULL;
-    [browserDic_ removeAllObjects];
+    if(browserDic_){
+        NSLog(@"browser dic:%@",browserDic_);
+        [browserDic_ removeAllObjects];
+        NSLog(@"browser dic 2:%@",browserDic_);
+    }
+    
     NSLog(@"[MediaServerBrowserService] [stopService] success!");
 }
 

@@ -129,11 +129,15 @@
     NSLog(@"加载所有资源，等资源做效果");
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     
-    
     if(appDelagete.serverUuid){
         NSLog(@"server uuid :%@",appDelagete.serverUuid);
-        //MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithUUID:appDelagete.serverUuid delegate:self];
-        //[crawler crawl];
+        MediaServerBrowser *browser=[[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid];
+
+        //
+        MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithBrowser:browser];
+        [crawler crawl:^(BOOL ret, NSArray *items) {
+            NSLog(@"crawler items = %@", items);
+        }];
     }
     else{
         [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
@@ -381,7 +385,7 @@
         return;
     }
     
-    ServerContentViewController *contentController=[[ServerContentViewController alloc]initWithFrame:frame];
+    ServerContentViewController *contentController=[[ServerContentViewController alloc]initWithFrame:frame root:YES objectId:nil];
 
     //contentController.browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:contentController];
     //catalogNav视图用于按照目录层级的方式进行访问server资源
@@ -407,9 +411,6 @@
     }
     
 }
-#pragma mark Media server content crawler delegate
-- (void)onCrawlResult:(NSArray *)items{
-    NSLog(@"craw items:%@",items);
-}
+
 @end
 

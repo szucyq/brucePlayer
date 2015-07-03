@@ -14,7 +14,7 @@
 
 @property (nonatomic, retain) MediaServerBrowser* browser;
 
-//- (id)initWithFrame:(CGRect)frame root:(BOOL)rootOrNot objectId:(NSString*)anObjectId;
+- (id)initWithFrame:(CGRect)frame root:(BOOL)rootOrNot objectId:(NSString*)anObjectId;
 
 - (id)initWithFrame:(CGRect)frame;
 @end
