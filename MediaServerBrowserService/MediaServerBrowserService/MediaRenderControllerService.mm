@@ -12,13 +12,15 @@
 #include "upnpdeamon.h"
 #include "MediaRenderControllerServiceListener.h"
 
+#import "MediaRenderControllerImpl.h"
+
 class MediaRenderLinster;
 
 @implementation MediaRenderControllerService
 {
     NPT_Reference<PLT_MediaController> controller_;
     PLT_CtrlPointReference ctrlPoint_;
-    NSMutableDictionary *renderDic_;
+    NSMutableDictionary *controllerDic_;
     MediaRenderControllerServiceListener *listener_;
 }
 
@@ -36,7 +38,7 @@ class MediaRenderLinster;
 {
     self = [super init];
     if (self) {
-        renderDic_ = [[NSMutableDictionary alloc] init];
+        controllerDic_ = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -63,7 +65,7 @@ class MediaRenderLinster;
         return;
     }
     UPnPDeamon::instance()->removeCtrlPoint(ctrlPoint_);
-    [renderDic_ removeAllObjects];
+    [controllerDic_ removeAllObjects];
     controller_.Detach();
     delete listener_;
     listener_ = NULL;
@@ -71,27 +73,22 @@ class MediaRenderLinster;
 
 - (MediaRenderController*)controllerWithUUID:(NSString*)UUID
 {
-    /*
-    MediaRenderController *renderCtr = NULL;
-    PLT_DeviceDataReference device;
-    NPT_Result res = controller_->FindRenderer([UUID UTF8String], device);
-    if ( NPT_SUCCEEDED(res) ) {
-        renderCtr = [renderDic_ valueForKey:UUID];
-        if (renderCtr == nil) {
-            //renderCtr = [[MediaRenderController alloc] init];
-            //[renderDic_ setObject:renderCtr forKey:UUID];
+    MediaRenderController *controller = [controllerDic_ objectForKey:UUID];
+    if ( controller == nil ) {
+        PLT_DeviceDataReference device;
+        NPT_Result res = controller_->FindRenderer([UUID UTF8String], device);
+        if ( NPT_SUCCEEDED(res) ) {
+            if (controller == nil) {
+                controller = [[MediaRenderControllerImpl alloc] initWithController:device controller:controller_.AsPointer()];
+            }
         }
     }
-    return renderCtr;
-     */
-    return nil;
+    return controller;
 }
 
 - (NSDictionary*)renderDic
 {
-    NSMutableDictionary *renders = [[NSMutableDictionary alloc] init];
-
-    return [renders copy];
+    return listener_->allRenders();
 }
 
 @end

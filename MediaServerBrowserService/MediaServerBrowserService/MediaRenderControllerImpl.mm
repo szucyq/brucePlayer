@@ -13,25 +13,18 @@
 @implementation MediaRenderControllerImpl
 {
     NPT_Reference<PLT_MediaController> controller_;
-    id delegate_;
     PLT_DeviceDataReference device_;
 }
 
 @synthesize UUID = UUID_;
 
-- (id)initWithController:(PLT_MediaController *)controller
-                    UUID:(NSString *)UUID
-                delegate:(id)delegate
+- (id)initWithController:(PLT_DeviceDataReference)device
+              controller:(PLT_MediaController *)controller
 {
     self = [super init];
     if (self) {
         controller_ = controller;
-        UUID_ = UUID;
-        delegate_ = delegate;
-        NPT_Result ret = controller_->FindRenderer([UUID_ UTF8String], device_);
-        if ( NPT_FAILED(ret) ) {
-            NSLog(@"[MediaRenderControllerImpl] [initWithController] failure!!!");
-        }
+        device_ = device;
     }
     return self;
 }

@@ -11,8 +11,8 @@
 
 @interface MediaRenderControllerImpl : MediaRenderController
 
-- (id)initWithController:(PLT_MediaController*)controller
-                    UUID:(NSString*)UUID
-                delegate:(id)delegate;
+- (id)initWithController:(PLT_DeviceDataReference)device
+              controller:(PLT_MediaController*)controller;
+
 
 @end
