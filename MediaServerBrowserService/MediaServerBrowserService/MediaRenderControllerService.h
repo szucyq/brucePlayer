@@ -23,6 +23,8 @@
 
 - (MediaRenderController*)controllerWithUUID:(NSString*)UUID;
 
+///获取所有在线的render
+///@note key = UUID, value = friendlyName
 @property (nonatomic, readonly)NSDictionary *renderDic;
 
 @end
@@ -30,16 +32,14 @@
 @interface MediaRenderController : NSObject
 
 enum RenderStatu{
-    UNKNOW = 0,
+    STOPED = 0,
     PLAYING,
     PAUSED,
-    STOPED,
     LOADING
 };
 //get
 @property(nonatomic, readonly)NSString *UUID;
 @property(nonatomic, readonly)NSString *friendlyName;
-@property(nonatomic, readonly)id delegate;
 
 // async get
 - (void)getCurPos:(void*)userData;

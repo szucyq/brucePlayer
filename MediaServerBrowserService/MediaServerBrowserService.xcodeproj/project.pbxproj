@@ -15,7 +15,7 @@
 		9B96712B1B3B9830008F38A4 /* MediaServerBrowserImpl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9B9671291B3B9830008F38A4 /* MediaServerBrowserImpl.mm */; };
 		9B9671CF1B3D4518008F38A4 /* MediaServerBrowserImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B9671281B3B9830008F38A4 /* MediaServerBrowserImpl.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		9B9671D21B3D470D008F38A4 /* upnpdeamon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9B9671D11B3D470D008F38A4 /* upnpdeamon.cpp */; };
-		9BAF4A151B3E243100123DEB /* MediaRenderControllerService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BAF4A131B3E243100123DEB /* MediaRenderControllerService.h */; };
+		9BAF4A151B3E243100123DEB /* MediaRenderControllerService.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BAF4A131B3E243100123DEB /* MediaRenderControllerService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9BAF4A161B3E243100123DEB /* MediaRenderControllerService.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9BAF4A141B3E243100123DEB /* MediaRenderControllerService.mm */; };
 		9BF5C6691B412F5C00715A2C /* MediaRenderControllerImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BF5C6671B412F5C00715A2C /* MediaRenderControllerImpl.h */; };
 		9BF5C66A1B412F5C00715A2C /* MediaRenderControllerImpl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9BF5C6681B412F5C00715A2C /* MediaRenderControllerImpl.mm */; };
@@ -136,9 +136,9 @@
 			files = (
 				9BF5C66D1B413D5D00715A2C /* MediaRenderControllerServiceListener.h in Headers */,
 				9BF5C6761B41554100715A2C /* MediaServerCrawler.h in Headers */,
+				9BAF4A151B3E243100123DEB /* MediaRenderControllerService.h in Headers */,
 				9B96710A1B3A54EE008F38A4 /* MediaServerBrowserService.h in Headers */,
 				9B9671CF1B3D4518008F38A4 /* MediaServerBrowserImpl.h in Headers */,
-				9BAF4A151B3E243100123DEB /* MediaRenderControllerService.h in Headers */,
 				9BF5C6691B412F5C00715A2C /* MediaRenderControllerImpl.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

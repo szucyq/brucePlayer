@@ -9,6 +9,8 @@
 #import "RenderViewController.h"
 #import "AppDelegate.h"
 
+#import <MediaServerBrowserService/MediaRenderControllerService.h>
+
 @interface RenderViewController ()
 
 @end
@@ -19,6 +21,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title=@"选择播放器";
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mediaRenderAdded:)
+                                                 name:@"MediaRenderAddedNotification"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mediaRenderRemove:)
+                                                 name:@"MediaRenderRemovedNotification"
+                                               object:nil];
+    
+    //先停止
+    //[[MediaRenderControllerService instance] stopService];
+    //启动
+    [[MediaRenderControllerService instance] startService];
 }
 - (void)viewDidLayoutSubviews{
     self.navigationController.navigationBarHidden=NO;
@@ -41,10 +58,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return self.listArray.count;
+    return [MediaRenderControllerService instance].renderDic.count;
 }
-
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -54,12 +69,12 @@
     if(cell==nil){
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%@%ld",@"render",indexPath.row];
+    NSDictionary *renders = [MediaRenderControllerService instance].renderDic;
+    NSString *UUID = [[renders allKeys] objectAtIndex:indexPath.row];
+    cell.textLabel.text = [renders valueForKey:UUID];
+    //cell.textLabel.text = [NSString stringWithFormat:@"%@%ld",@"render",(long)indexPath.row];
     return cell;
 }
-
-
-
 
 #pragma mark - Table view delegate
 
@@ -72,5 +87,15 @@
     [SVProgressHUD showSuccessWithStatus:@"已选择播放器" maskType:SVProgressHUDMaskTypeBlack];
 }
 
+
+- (void)mediaRenderAdded:(NSNotification*)notification
+{
+    [self.listTableView reloadData];
+}
+
+- (void)mediaRenderRemove:(NSNotification*)notification
+{
+    [self.listTableView reloadData];
+}
 
 @end

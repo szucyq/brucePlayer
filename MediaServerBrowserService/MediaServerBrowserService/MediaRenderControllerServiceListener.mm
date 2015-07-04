@@ -56,9 +56,8 @@ NSDictionary* MediaRenderControllerServiceListener::allRenders()
     std::list<PLT_DeviceDataReference>::iterator iter = renders_.begin();
     while ( iter != renders_.end() ) {
         NSString *UUID = [NSString stringWithUTF8String:(*iter)->GetUUID().GetChars()];
-        [tmp setObject:UUID forKey:@"UUID"];
         NSString *friendlyName = [NSString stringWithUTF8String:(*iter)->GetFriendlyName().GetChars()];
-        [tmp setObject:friendlyName forKey:@"FriendlyName"];
+        [tmp setObject:friendlyName forKey:UUID];
         iter++;
     }
     return [tmp copy];
