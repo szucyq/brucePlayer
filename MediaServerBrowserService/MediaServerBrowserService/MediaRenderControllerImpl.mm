@@ -36,7 +36,7 @@
 
 - (void)setUri:(NSString *)url
           name:(NSString *)name
-       handler:(void (^)(BOOL ret))handler
+       handler:(void (^)(BOOL))handler
 {
     PLT_MediaObjectListReference objs(new PLT_MediaObjectList());
     //create && fill PLT_MediaItem
@@ -67,9 +67,9 @@
     didl += tmp;
     didl += didl_footer;
     
-    NSDictionary *dic = [[NSDictionary alloc] init];
-    [dic setValue:handler forKey:@"setUri"];
-    controller_->SetAVTransportURI(device_, DEFAULT_INSTANCE_ID, [url UTF8String], didl.GetChars(), (__bridge void*)dic);
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:handler forKey:@"setUri"];
+    controller_->SetAVTransportURI(device_, DEFAULT_INSTANCE_ID, [url UTF8String], didl.GetChars(), (void*)CFBridgingRetain(dic));
 }
 
 - (void)getCurPos:(void *)userData

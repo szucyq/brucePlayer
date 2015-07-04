@@ -43,14 +43,14 @@ class MediaRenderLinster;
     return self;
 }
 
-- (BOOL)isRuning
+- (BOOL)isRunning
 {
-    return controller_.IsNull() != false ? YES : NO;
+    return controller_.IsNull() ? NO : YES;
 }
 
 - (BOOL)startService
 {
-    if ( self.isRuning ) {
+    if ( self.isRunning ) {
         NSLog(@"[MediaRenderControllerService] [startService] services is already start");
         return YES;
     }
@@ -65,7 +65,7 @@ class MediaRenderLinster;
 
 - (void)stopService
 {
-    if ( !self.isRuning ) {
+    if ( !self.isRunning ) {
         NSLog(@"[MediaRenderControllerService] [stopService] services isn't start");
         return;
     }
@@ -78,6 +78,7 @@ class MediaRenderLinster;
 
 - (MediaRenderController*)controllerWithUUID:(NSString*)UUID
 {
+    NSLog(@"[MediaRenderControllerService] [controllerWithUUID] uuid = %@", UUID);
     MediaRenderController *controller = [controllerDic_ objectForKey:UUID];
     if ( controller == nil ) {
         PLT_DeviceDataReference device;
@@ -93,7 +94,7 @@ class MediaRenderLinster;
 
 - (NSDictionary*)renderDic
 {
-    return listener_->allRenders();
+    return listener_ == NULL ? nil: listener_->allRenders();
 }
 
 @end

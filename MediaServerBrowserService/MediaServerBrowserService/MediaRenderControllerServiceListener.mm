@@ -65,7 +65,7 @@ NSDictionary* MediaRenderControllerServiceListener::allRenders()
 
 void MediaRenderControllerServiceListener::OnSetAVTransportURIResult(NPT_Result res, PLT_DeviceDataReference &device, void *userData)
 {
-    NSDictionary *dic = (__bridge NSDictionary*)userData;
+    NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userData);
     void (^callback)(BOOL) = [dic valueForKey:@"setUri"];
     dispatch_async(dispatch_get_main_queue(), ^{
         callback(NPT_SUCCEEDED(res) ? YES : NO);

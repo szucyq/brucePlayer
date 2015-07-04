@@ -64,6 +64,11 @@ class MediaServerListener;
     return self;
 }
 
+- (BOOL)isRunning
+{
+    return browser_.IsNull() ? NO : YES;
+}
+
 + (instancetype)instance
 {
     static MediaServerBrowserService* instance = nil;
@@ -76,7 +81,7 @@ class MediaServerListener;
 
 - (BOOL)startService
 {
-    if ( !browser_.IsNull() ) {
+    if ( self.isRunning ) {
         NSLog(@"[MediaServerBrowserService] [startService] DMS-C already start!");
         return YES;
     }
@@ -90,7 +95,7 @@ class MediaServerListener;
 
 - (void)stopService
 {
-    if (browser_.IsNull() ) {
+    if ( !self.isRunning ) {
         NSLog(@"[MediaServerBrowserService] [stopService] DMS-C not start!");
         return;
     }

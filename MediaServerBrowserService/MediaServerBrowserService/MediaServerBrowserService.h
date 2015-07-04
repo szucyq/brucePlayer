@@ -41,6 +41,8 @@ FOUNDATION_EXPORT const unsigned char MediaServerBrowserServiceVersionString[];
 ///在线的DMS
 @property (nonatomic, readonly) NSDictionary *mediaServers;
 
+@property (nonatomic, readonly) BOOL isRunning;
+
 @end
 
 
