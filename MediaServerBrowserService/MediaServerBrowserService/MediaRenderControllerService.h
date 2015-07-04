@@ -23,6 +23,8 @@
 
 - (MediaRenderController*)controllerWithUUID:(NSString*)UUID;
 
+@property (nonatomic, readonly)NSDictionary *renderDic;
+
 @end
 
 @interface MediaRenderController : NSObject

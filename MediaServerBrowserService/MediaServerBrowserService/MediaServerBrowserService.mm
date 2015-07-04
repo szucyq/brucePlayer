@@ -122,12 +122,7 @@ class MediaServerListener;
 
 - (NSDictionary*)mediaServer
 {
-    NSMutableDictionary *temp = [[NSMutableDictionary alloc] init];
-    for( NSString* key in [browserDic_ allKeys] ) {
-        MediaServerBrowser * browser = [browserDic_ valueForKey:key];
-        [temp setObject:browser.friendlyName forKey:key];
-    }
-    return [temp copy];
+    return listener_->allDevice();
 }
 
 class MediaServerListener : public PLT_MediaBrowserDelegate
@@ -191,7 +186,6 @@ public:
             item.size = obj->m_Resources.GetFirstItem()->m_Size;
         }
         obj->m_Date.GetChars();
-
     };
 
     void OnBrowseResult( NPT_Result res
@@ -245,6 +239,18 @@ public:
         return device;
     }
     
+    NSDictionary* allDevice() {
+        NSMutableDictionary *devs = [[NSMutableDictionary alloc] init];
+        std::list<PLT_DeviceDataReference>::iterator iter = devices_.begin();
+        while ( iter != devices_.end() ) {
+            NSString *UUID = [NSString stringWithUTF8String:(*iter)->GetUUID().GetChars()];
+            [devs setObject:UUID forKey:@"UUID"];
+            NSString *friendlyName = [NSString stringWithUTF8String:(*iter)->GetFriendlyName().GetChars()];
+            [devs setObject:friendlyName forKey:@"FriendlyName"];
+            iter++;
+        }
+        return [devs copy];
+    }
 private:
     MediaServerBrowserService* service_;
     std::list<PLT_DeviceDataReference> devices_;
