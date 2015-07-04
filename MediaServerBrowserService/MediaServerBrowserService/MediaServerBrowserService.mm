@@ -15,7 +15,7 @@
 #include "upnpdeamon.h"
 
 #define MEDIASERVERADDEDNOTIFICATION @"MediaServerAddedNotification"
-#define MEDIASERVERREMOVEDNOTIFICATION @"MediaServerRemovedNotification"
+#define MEDIASERVERMOVEDNOTIFICATION @"MediaServerRemovedNotification"
 
 class MediaServerListener;
 
@@ -160,7 +160,7 @@ public:
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *value = [NSDictionary dictionaryWithObjects:@[uuid,friendlyName]
                                                               forKeys:@[@"UUID", @"FriendlyName"]];
-            NSNotification *ntf = [NSNotification notificationWithName:MEDIASERVERREMOVEDNOTIFICATION
+            NSNotification *ntf = [NSNotification notificationWithName:MEDIASERVERMOVEDNOTIFICATION
                                                                 object:value];
             [[NSNotificationCenter defaultCenter] postNotification:ntf];
         });

@@ -10,19 +10,14 @@
 
 @class MediaRenderController;
 
-@protocol MediaRenderControllerServiceDelegate <NSObject>
-
-- (BOOL)onMediaRenderAdded:(NSString*)friendlyName UUID:(NSString*)UUID;
-
-- (void)onMediaRenderRemoved:(NSString*)friendlyName UUID:(NSString*)UUID;
-
-@end
-
+///dmr控制服务
+///@note MediaRenderAddedNotification dms服务器上线
+///      MediaRenderRemovedNotification dms服务器下线
 @interface MediaRenderControllerService : NSObject
 
-+ (id)instance;
++ (instancetype)instance;
 
-- (BOOL)startService:(id)delegate;
+- (BOOL)startService;
 
 - (void)stopService;
 
