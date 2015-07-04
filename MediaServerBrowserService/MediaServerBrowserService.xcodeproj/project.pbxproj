@@ -35,8 +35,8 @@
 		9B9671261B3ACB39008F38A4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9B9671281B3B9830008F38A4 /* MediaServerBrowserImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaServerBrowserImpl.h; sourceTree = "<group>"; };
 		9B9671291B3B9830008F38A4 /* MediaServerBrowserImpl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MediaServerBrowserImpl.mm; sourceTree = "<group>"; };
-		9B9671D01B3D46EC008F38A4 /* upnpdeamon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = upnpdeamon.h; sourceTree = "<group>"; };
-		9B9671D11B3D470D008F38A4 /* upnpdeamon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = upnpdeamon.cpp; sourceTree = "<group>"; };
+		9B9671D01B3D46EC008F38A4 /* upnpdeamon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = upnpdeamon.h; path = MediaServerBrowserService/upnpdeamon.h; sourceTree = "<group>"; };
+		9B9671D11B3D470D008F38A4 /* upnpdeamon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = upnpdeamon.cpp; path = MediaServerBrowserService/upnpdeamon.cpp; sourceTree = "<group>"; };
 		9BAF4A131B3E243100123DEB /* MediaRenderControllerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MediaRenderControllerService.h; path = MediaServerBrowserService/MediaRenderControllerService.h; sourceTree = "<group>"; };
 		9BAF4A141B3E243100123DEB /* MediaRenderControllerService.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MediaRenderControllerService.mm; path = MediaServerBrowserService/MediaRenderControllerService.mm; sourceTree = "<group>"; };
 		9BF5C6671B412F5C00715A2C /* MediaRenderControllerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MediaRenderControllerImpl.h; path = MediaServerBrowserService/MediaRenderControllerImpl.h; sourceTree = "<group>"; };
@@ -64,6 +64,7 @@
 		9B9670FA1B3A54EE008F38A4 = {
 			isa = PBXGroup;
 			children = (
+				9BF5C6811B47C28600715A2C /* common */,
 				9B9671261B3ACB39008F38A4 /* UIKit.framework */,
 				9B9671241B3AC97D008F38A4 /* Platinum.framework */,
 				9B9671221B3AC575008F38A4 /* Foundation.framework */,
@@ -90,8 +91,6 @@
 				9B9671201B3AC43E008F38A4 /* MediaServerBrowserService.mm */,
 				9B9671281B3B9830008F38A4 /* MediaServerBrowserImpl.h */,
 				9B9671291B3B9830008F38A4 /* MediaServerBrowserImpl.mm */,
-				9B9671D01B3D46EC008F38A4 /* upnpdeamon.h */,
-				9B9671D11B3D470D008F38A4 /* upnpdeamon.cpp */,
 			);
 			path = MediaServerBrowserService;
 			sourceTree = "<group>";
@@ -125,6 +124,15 @@
 				9BF5C66C1B413D5D00715A2C /* MediaRenderControllerServiceListener.mm */,
 			);
 			name = MediaRenderControllerService;
+			sourceTree = "<group>";
+		};
+		9BF5C6811B47C28600715A2C /* common */ = {
+			isa = PBXGroup;
+			children = (
+				9B9671D01B3D46EC008F38A4 /* upnpdeamon.h */,
+				9B9671D11B3D470D008F38A4 /* upnpdeamon.cpp */,
+			);
+			name = common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

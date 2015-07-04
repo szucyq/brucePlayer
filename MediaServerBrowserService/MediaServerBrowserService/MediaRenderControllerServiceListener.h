@@ -19,7 +19,10 @@ public:
     MediaRenderControllerServiceListener();
     
     bool OnMRAdded(PLT_DeviceDataReference& device);
+    
     void OnMRRemoved(PLT_DeviceDataReference& device);
+    
+    void OnSetAVTransportURIResult(NPT_Result, PLT_DeviceDataReference&, void*);
     
     NSDictionary* allRenders();
     

@@ -27,6 +27,7 @@
 ///@note key = UUID, value = friendlyName
 @property (nonatomic, readonly)NSDictionary *renderDic;
 
+@property (nonatomic, readonly)BOOL isRuning;
 @end
 
 @interface MediaRenderController : NSObject
@@ -51,7 +52,7 @@ enum RenderStatu{
 - (void)getStat:(void*)userData;
 
 //set
-- (void)setUri:(NSURL*)url userData:(void*)userData;
+- (void)setUri:(NSString*)url name:(NSString*)name handler:(void (^)(BOOL ret))handler;
 
 - (void)play:(void*)userData;
 

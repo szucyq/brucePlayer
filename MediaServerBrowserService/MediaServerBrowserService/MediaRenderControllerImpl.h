@@ -14,5 +14,4 @@
 - (id)initWithController:(PLT_DeviceDataReference)device
               controller:(PLT_MediaController*)controller;
 
-
 @end

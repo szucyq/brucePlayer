@@ -35,7 +35,10 @@
     //先停止
     //[[MediaRenderControllerService instance] stopService];
     //启动
-    [[MediaRenderControllerService instance] startService];
+    if ( ![MediaRenderControllerService instance].isRuning ) {
+        [[MediaRenderControllerService instance] startService];
+    }
+    
 }
 - (void)viewDidLayoutSubviews{
     self.navigationController.navigationBarHidden=NO;

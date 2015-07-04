@@ -13,7 +13,7 @@
 
 MediaRenderControllerServiceListener::MediaRenderControllerServiceListener()
 {
-    
+
 }
 
 bool MediaRenderControllerServiceListener::OnMRAdded(PLT_DeviceDataReference &device)
@@ -61,4 +61,13 @@ NSDictionary* MediaRenderControllerServiceListener::allRenders()
         iter++;
     }
     return [tmp copy];
+}
+
+void MediaRenderControllerServiceListener::OnSetAVTransportURIResult(NPT_Result res, PLT_DeviceDataReference &device, void *userData)
+{
+    NSDictionary *dic = (__bridge NSDictionary*)userData;
+    void (^callback)(BOOL) = [dic valueForKey:@"setUri"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        callback(NPT_SUCCEEDED(res) ? YES : NO);
+    });
 }

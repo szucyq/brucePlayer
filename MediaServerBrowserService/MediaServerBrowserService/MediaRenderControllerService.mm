@@ -43,9 +43,14 @@ class MediaRenderLinster;
     return self;
 }
 
+- (BOOL)isRuning
+{
+    return controller_.IsNull() != false ? YES : NO;
+}
+
 - (BOOL)startService
 {
-    if ( !controller_.IsNull() ) {
+    if ( self.isRuning ) {
         NSLog(@"[MediaRenderControllerService] [startService] services is already start");
         return YES;
     }
@@ -60,7 +65,7 @@ class MediaRenderLinster;
 
 - (void)stopService
 {
-    if ( controller_.IsNull()) {
+    if ( !self.isRuning ) {
         NSLog(@"[MediaRenderControllerService] [stopService] services isn't start");
         return;
     }
