@@ -35,7 +35,7 @@
     //先停止
     //[[MediaRenderControllerService instance] stopService];
     //启动
-    if ( ![MediaRenderControllerService instance].isRuning ) {
+    if ( ![MediaRenderControllerService instance].isRunning ) {
         [[MediaRenderControllerService instance] startService];
     }
     
@@ -84,12 +84,26 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //保存render信息，供播放时使用
-    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    //AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     //    appDelagete.avRenderer = (CGUpnpAvRenderer*)[self.dataSource objectAtIndex:indexPath.row];
     //    [self dismissViewControllerAnimated:YES completion:nil];
     [SVProgressHUD showSuccessWithStatus:@"已选择播放器" maskType:SVProgressHUDMaskTypeBlack];
+    NSString *friendlyName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+    NSDictionary *dic = [MediaRenderControllerService instance].renderDic;
+    NSString *UUID = nil;
+    for (NSString *key in dic.allKeys) {
+        NSString *tmp = [dic valueForKey:key];
+        if ( [tmp isEqualToString:friendlyName] ) {
+            UUID = key;
+        }
+    }
+    MediaRenderController *controller = [[MediaRenderControllerService instance] controllerWithUUID:UUID];
+    [controller setUri:@"http://172.16.204.104/yu.mp4"
+                  name:@"yu"
+               handler:^(BOOL ret) {
+                   NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!ret = %hhd", ret);
+               }];
 }
-
 
 - (void)mediaRenderAdded:(NSNotification*)notification
 {
