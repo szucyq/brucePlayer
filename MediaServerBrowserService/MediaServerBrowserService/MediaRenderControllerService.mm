@@ -8,12 +8,9 @@
 
 #import "MediaRenderControllerService.h"
 
-#include <list>
 #include "Platinum/Platinum.h"
 #include "upnpdeamon.h"
-
-#define MEDIARENDERADDEDNOTIFICATION @"MediaRenderAddedNotification"
-#define MEDIARENDERREMOVEDNOTIFICATION @"MediaRenderRemovedNotification"
+#include "MediaRenderControllerServiceListener.h"
 
 class MediaRenderLinster;
 
@@ -22,7 +19,7 @@ class MediaRenderLinster;
     NPT_Reference<PLT_MediaController> controller_;
     PLT_CtrlPointReference ctrlPoint_;
     NSMutableDictionary *renderDic_;
-    MediaRenderLinster *listener_;
+    MediaRenderControllerServiceListener *listener_;
 }
 
 + (instancetype)instance
@@ -53,7 +50,7 @@ class MediaRenderLinster;
     if (ctrlPoint_.IsNull()) {
         ctrlPoint_ = new PLT_CtrlPoint();
     }
-    listener_ = new MediaRenderLinster();
+    listener_ = new MediaRenderControllerServiceListener();
     controller_ = new PLT_MediaController(ctrlPoint_, listener_);
     UPnPDeamon::instance()->addCtrlPoint(ctrlPoint_);
     return YES;
@@ -96,60 +93,5 @@ class MediaRenderLinster;
 
     return [renders copy];
 }
-
-class MediaRenderLinster : public PLT_MediaControllerDelegate
-{
-public:
-    MediaRenderLinster() {
-        
-    }
-    
-    bool OnMRAdded( PLT_DeviceDataReference& device ) {
-        NSLog(@"[MediaRenderLinster] [OnMRAdded] render add %s", device->GetFriendlyName().GetChars());
-        NSString *friendlyName = [NSString stringWithUTF8String: device->GetFriendlyName().GetChars()];
-        NSString *uuid = [NSString stringWithUTF8String: device->GetUUID().GetChars()];
-        
-        //call back
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSDictionary *value = [NSDictionary dictionaryWithObjects:@[uuid,friendlyName]
-                                                              forKeys:@[@"UUID", @"FriendlyName"]];
-            NSNotification *ntf = [NSNotification notificationWithName:MEDIARENDERADDEDNOTIFICATION object:value];
-            [[NSNotificationCenter defaultCenter] postNotification:ntf];
-        });
-        renders_.push_back(device);
-        return true;
-    }
-    
-    void OnMRRemoved(PLT_DeviceDataReference& device) {
-        NSLog(@"[MediaRenderLinster] [OnMRRemoved] render add %s", device->GetFriendlyName().GetChars());
-        NSString *friendlyName = [NSString stringWithUTF8String: device->GetFriendlyName().GetChars()];
-        NSString *uuid = [NSString stringWithUTF8String: device->GetUUID().GetChars()];
-        
-        //call back
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSDictionary *value = [NSDictionary dictionaryWithObjects:@[uuid,friendlyName]
-                                                              forKeys:@[@"UUID", @"FriendlyName"]];
-            NSNotification *ntf = [NSNotification notificationWithName:MEDIARENDERREMOVEDNOTIFICATION object:value];
-            [[NSNotificationCenter defaultCenter] postNotification:ntf];
-        });
-        renders_.remove(device);
-    }
-    
-    NSDictionary* allRender() {
-        NSMutableDictionary *tmp = [[NSMutableDictionary alloc] init];
-        std::list<PLT_DeviceDataReference>::iterator iter = renders_.begin();
-        while ( iter != renders_.end() ) {
-            NSString *UUID = [NSString stringWithUTF8String:(*iter)->GetUUID().GetChars()];
-            [tmp setObject:UUID forKey:@"UUID"];
-            NSString *friendlyName = [NSString stringWithUTF8String:(*iter)->GetFriendlyName().GetChars()];
-            [tmp setObject:friendlyName forKey:@"FriendlyName"];
-            iter++;
-        }
-        return [tmp copy];
-    }
-    
-private:
-    std::list<PLT_DeviceDataReference> renders_;
-};
 
 @end

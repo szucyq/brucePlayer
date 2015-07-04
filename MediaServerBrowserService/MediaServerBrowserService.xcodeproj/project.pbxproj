@@ -37,12 +37,12 @@
 		9B9671291B3B9830008F38A4 /* MediaServerBrowserImpl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MediaServerBrowserImpl.mm; sourceTree = "<group>"; };
 		9B9671D01B3D46EC008F38A4 /* upnpdeamon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = upnpdeamon.h; sourceTree = "<group>"; };
 		9B9671D11B3D470D008F38A4 /* upnpdeamon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = upnpdeamon.cpp; sourceTree = "<group>"; };
-		9BAF4A131B3E243100123DEB /* MediaRenderControllerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaRenderControllerService.h; sourceTree = "<group>"; };
-		9BAF4A141B3E243100123DEB /* MediaRenderControllerService.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MediaRenderControllerService.mm; sourceTree = "<group>"; };
-		9BF5C6671B412F5C00715A2C /* MediaRenderControllerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaRenderControllerImpl.h; sourceTree = "<group>"; };
-		9BF5C6681B412F5C00715A2C /* MediaRenderControllerImpl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MediaRenderControllerImpl.mm; sourceTree = "<group>"; };
-		9BF5C66B1B413D5D00715A2C /* MediaRenderControllerServiceListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaRenderControllerServiceListener.h; sourceTree = "<group>"; };
-		9BF5C66C1B413D5D00715A2C /* MediaRenderControllerServiceListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MediaRenderControllerServiceListener.mm; sourceTree = "<group>"; };
+		9BAF4A131B3E243100123DEB /* MediaRenderControllerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MediaRenderControllerService.h; path = MediaServerBrowserService/MediaRenderControllerService.h; sourceTree = "<group>"; };
+		9BAF4A141B3E243100123DEB /* MediaRenderControllerService.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MediaRenderControllerService.mm; path = MediaServerBrowserService/MediaRenderControllerService.mm; sourceTree = "<group>"; };
+		9BF5C6671B412F5C00715A2C /* MediaRenderControllerImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MediaRenderControllerImpl.h; path = MediaServerBrowserService/MediaRenderControllerImpl.h; sourceTree = "<group>"; };
+		9BF5C6681B412F5C00715A2C /* MediaRenderControllerImpl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MediaRenderControllerImpl.mm; path = MediaServerBrowserService/MediaRenderControllerImpl.mm; sourceTree = "<group>"; };
+		9BF5C66B1B413D5D00715A2C /* MediaRenderControllerServiceListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MediaRenderControllerServiceListener.h; path = MediaServerBrowserService/MediaRenderControllerServiceListener.h; sourceTree = "<group>"; };
+		9BF5C66C1B413D5D00715A2C /* MediaRenderControllerServiceListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MediaRenderControllerServiceListener.mm; path = MediaServerBrowserService/MediaRenderControllerServiceListener.mm; sourceTree = "<group>"; };
 		9BF5C6741B41554100715A2C /* MediaServerCrawler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaServerCrawler.h; sourceTree = "<group>"; };
 		9BF5C6751B41554100715A2C /* MediaServerCrawler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaServerCrawler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,7 +67,9 @@
 				9B9671261B3ACB39008F38A4 /* UIKit.framework */,
 				9B9671241B3AC97D008F38A4 /* Platinum.framework */,
 				9B9671221B3AC575008F38A4 /* Foundation.framework */,
+				9B9671071B3A54EE008F38A4 /* Supporting Files */,
 				9B9671061B3A54EE008F38A4 /* MediaServerBrowserService */,
+				9BF5C6801B4786EC00715A2C /* MediaRenderControllerService */,
 				9BF5C6731B41551200715A2C /* crawler */,
 				9B9671051B3A54EE008F38A4 /* Products */,
 			);
@@ -88,15 +90,8 @@
 				9B9671201B3AC43E008F38A4 /* MediaServerBrowserService.mm */,
 				9B9671281B3B9830008F38A4 /* MediaServerBrowserImpl.h */,
 				9B9671291B3B9830008F38A4 /* MediaServerBrowserImpl.mm */,
-				9BAF4A131B3E243100123DEB /* MediaRenderControllerService.h */,
-				9BAF4A141B3E243100123DEB /* MediaRenderControllerService.mm */,
 				9B9671D01B3D46EC008F38A4 /* upnpdeamon.h */,
 				9B9671D11B3D470D008F38A4 /* upnpdeamon.cpp */,
-				9BF5C6671B412F5C00715A2C /* MediaRenderControllerImpl.h */,
-				9BF5C6681B412F5C00715A2C /* MediaRenderControllerImpl.mm */,
-				9BF5C66B1B413D5D00715A2C /* MediaRenderControllerServiceListener.h */,
-				9BF5C66C1B413D5D00715A2C /* MediaRenderControllerServiceListener.mm */,
-				9B9671071B3A54EE008F38A4 /* Supporting Files */,
 			);
 			path = MediaServerBrowserService;
 			sourceTree = "<group>";
@@ -107,6 +102,7 @@
 				9B9671081B3A54EE008F38A4 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			path = MediaServerBrowserService;
 			sourceTree = "<group>";
 		};
 		9BF5C6731B41551200715A2C /* crawler */ = {
@@ -116,6 +112,19 @@
 				9BF5C6751B41554100715A2C /* MediaServerCrawler.m */,
 			);
 			name = crawler;
+			sourceTree = "<group>";
+		};
+		9BF5C6801B4786EC00715A2C /* MediaRenderControllerService */ = {
+			isa = PBXGroup;
+			children = (
+				9BAF4A131B3E243100123DEB /* MediaRenderControllerService.h */,
+				9BAF4A141B3E243100123DEB /* MediaRenderControllerService.mm */,
+				9BF5C6671B412F5C00715A2C /* MediaRenderControllerImpl.h */,
+				9BF5C6681B412F5C00715A2C /* MediaRenderControllerImpl.mm */,
+				9BF5C66B1B413D5D00715A2C /* MediaRenderControllerServiceListener.h */,
+				9BF5C66C1B413D5D00715A2C /* MediaRenderControllerServiceListener.mm */,
+			);
+			name = MediaRenderControllerService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -10,17 +10,21 @@
 #define MEDIARENDERCONTROLLERSERVICELISTENER_H
 
 #include "Platinum/Platinum.h"
+#include <list>
+#import <Foundation/Foundation.h>
 
 class MediaRenderControllerServiceListener : public PLT_MediaControllerDelegate
 {
 public:
-    MediaRenderControllerServiceListener(id serviceDelegate);
+    MediaRenderControllerServiceListener();
     
     bool OnMRAdded(PLT_DeviceDataReference& device);
     void OnMRRemoved(PLT_DeviceDataReference& device);
     
+    NSDictionary* allRenders();
+    
 private:
-    id serviceDelegate_;
+    std::list<PLT_DeviceDataReference> renders_;
 };
 
 #endif
