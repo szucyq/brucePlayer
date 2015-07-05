@@ -10,6 +10,7 @@
 #import <Platinum/Platinum.h>
 #import "AppDelegate.h"
 
+
 @implementation RootViewController
 - (void)didReceiveMemoryWarning
 {
@@ -34,6 +35,18 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playWithAvItem:) name:@"kPlay" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getServerAction:) name:@"kSelectServer" object:nil];
+    //启动查找设备
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mediaServerAdded:)
+                                                 name:@"MediaServerAddedNotification"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mediaServerRemove:)
+                                                 name:@"MediaServerRemovedNotification"
+                                               object:nil];
+    [[MediaServerBrowserService instance] startService];
+    self.dmsDic=[NSMutableDictionary dictionary];
     
 }
 
@@ -137,6 +150,25 @@
         MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithBrowser:browser];
         [crawler crawl:^(BOOL ret, NSArray *items) {
             NSLog(@"crawler items = %@", items);
+            //添加music 数据
+            for (int i=0; i<items.count; i++) {
+                MediaServerItem *item=[items objectAtIndex:i];
+                
+                NSString *title=[NSString stringWithFormat:@"%@",item.title];
+                NSString *uri=[NSString stringWithFormat:@"%@",item.uri];
+                NSString *album=[NSString stringWithFormat:@"%@",item.albumArtURI];
+                NSString *genres=[NSString stringWithFormat:@"%@",item.mimeType];
+                NSString *date=[NSString stringWithFormat:@"%@",item.date];
+                NSString *sql=[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@",@"insert into music (title,uri,album,genres,date) values('",title,@"','",uri,@"','",album,@"','",genres,@"','",date,@"')"];
+                NSLog(@"sql:%@",sql);
+                BOOL musicAdd=[CoreFMDB executeUpdate:sql];
+                if(musicAdd){
+                    NSLog(@"success:%d",i);
+                }
+                else{
+                    NSLog(@"fail:%d",i);
+                }
+            }
         }];
     }
     else{
@@ -161,6 +193,24 @@
         popoverController.contentViewController.contentSizeForViewInPopover=CGSizeMake(300, 500);
         
         [popoverController presentPopoverFromRect:self.setupBt.frame inView:self.rightView permittedArrowDirections:UIPopoverArrowDirectionRight animated:YES];
+    }
+    else{
+        [SVProgressHUD showErrorWithStatus:@"iphone 暂不支持该操作" maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
+
+- (IBAction)searchAction:(id)sender {
+}
+
+- (IBAction)searchDevicesAction:(id)sender {
+    NSLog(@"dms:%@",self.dmsDic);
+    if(kIS_IPAD){
+        ServerViewController *server=[[ServerViewController alloc]initWithDevices:self.dmsDic frame:CGRectMake(0, 0, 300, 300)];
+        server.preferredContentSize=CGSizeMake(300, 300);
+        UIPopoverController *popoverController=[[UIPopoverController alloc]initWithContentViewController:server];
+//        popoverController.contentViewController.contentSizeForViewInPopover=CGSizeMake(300, 300);
+        
+        [popoverController presentPopoverFromRect:self.deviceBt.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     }
     else{
         [SVProgressHUD showErrorWithStatus:@"iphone 暂不支持该操作" maskType:SVProgressHUDMaskTypeBlack];
@@ -355,22 +405,6 @@
     
 }
 - (void)getServerAction:(NSNotification *)sender{
-//    NSDictionary *userinfo=[sender userInfo];
-//    NSString *serverUuid = [userinfo objectForKey:@"server"];
-    
-//    if(self.allMusicController){
-////        self.allMusicController.server=serverUuid;
-//        [self.view bringSubviewToFront:self.allMusicController.view];
-//    }
-//    else{
-//        CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
-//        self.allMusicController = [[AllMusicController alloc]initWithFrame:frame];
-//        self.allMusicController.view.frame=frame;
-////        self.allMusicController.server = serverUuid;
-//
-//        [self.view addSubview:self.allMusicController.view];
-//    }
-    
     [self bringCatagoryViewToFront];
     CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
     
@@ -387,7 +421,6 @@
     
     ServerContentViewController *contentController=[[ServerContentViewController alloc]initWithFrame:frame root:YES objectId:nil];
 
-    //contentController.browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:contentController];
     //catalogNav视图用于按照目录层级的方式进行访问server资源
     if(self.catalogNav){
         NSLog(@"如果已有目录浏览视图，则先删除");
@@ -409,8 +442,30 @@
         self.catalogNav.view.tag=10000;
         [self.view addSubview:self.catalogNav.view];
     }
+    //提醒开始同步该服务器资源
+    [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
+}
+#pragma mark -
+#pragma mark MediaServerBrowserDelegate
+
+- (void)mediaServerAdded:(NSNotification*)notification
+{
+    NSDictionary *msg = notification.object;
+    NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
+    NSString *uuid = [msg valueForKey:@"UUID"];
+    [self.dmsDic setObject:friendlyName forKey:uuid];
+    //    _dmsArr=[NSMutableDictionary dictionaryWithDictionary:[[MediaServerBrowserService instance] mediaServers]];
     
+//    [self.listTableView reloadData];
 }
 
+- (void)mediaServerRemove:(NSNotification*)notification
+{
+    NSDictionary *msg = notification.object;
+    //NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
+    NSString *uuid = [msg valueForKey:@"UUID"];
+    [self.dmsDic removeObjectForKey:uuid];
+//    [self.listTableView reloadData];
+}
 @end
 

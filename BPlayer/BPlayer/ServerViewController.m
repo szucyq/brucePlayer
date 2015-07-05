@@ -11,10 +11,6 @@
 #import "AppDelegate.h"
 
 
-//#import "RendererTableViewController.h"
-
-//#include <cybergarage/upnp/cupnp.h>
-//#include <cybergarage/xml/cxml.h>
 
 @interface ServerViewController()
 @property (nonatomic, strong) ServerContentViewController* contentController;
@@ -28,7 +24,16 @@
 
 @synthesize contentController = contentController_;
 
-
+- (id)initWithDevices:(NSMutableDictionary *)sender frame:(CGRect)frame{
+    self=[super init];
+    if(self){
+        self.dmsArr=sender;
+        self.view.frame=frame;
+        self.listTableView.frame=frame;
+        [self.listTableView reloadData];
+    }
+    return self;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -61,9 +66,17 @@
                                                object:nil];
     
     //先停止
-    [[MediaServerBrowserService instance] stopService];
+//    [[MediaServerBrowserService instance] stopService];
     //启动
-    [[MediaServerBrowserService instance] startService];
+//    if([[MediaServerBrowserService instance] startService]){
+//        _dmsArr=[NSMutableDictionary dictionaryWithDictionary:[[MediaServerBrowserService instance] mediaServers]];
+//        [self.listTableView reloadData];
+//    }
+//    AppDelegate *appDelegate=[[UIApplication sharedApplication]delegate];
+//    self.dmsArr=appDelegate.serverItems;
+//    NSLog(@"app:%@",appDelegate.serverItems);
+//    
+//    [self.listTableView reloadData];
     
 }
 - (void)rightButtonAction{
@@ -233,6 +246,8 @@
     NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
     NSString *uuid = [msg valueForKey:@"UUID"];
     [_dmsArr setObject:friendlyName forKey:uuid];
+//    _dmsArr=[NSMutableDictionary dictionaryWithDictionary:[[MediaServerBrowserService instance] mediaServers]];
+    
     [self.listTableView reloadData];
 }
 

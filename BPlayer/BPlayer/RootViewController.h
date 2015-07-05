@@ -20,7 +20,7 @@
 #import "ServerContentViewController.h"
 
 #import "AllMusicController.h"
-
+#import "CoreFMDB.h"
 
 @interface RootViewController : WithTableViewController
 
@@ -50,6 +50,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *seekSlider;
 @property (weak, nonatomic) IBOutlet UIButton *muteBt;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *deviceBt;
 
 //其他
 //@property (nonatomic,retain)ServerContentViewController *serverContentView;
@@ -57,6 +58,7 @@
 @property (nonatomic,retain)ServerViewController *serverController;
 @property (nonatomic,retain)UINavigationController *catalogNav;
 @property (nonatomic) BOOL isPlay;
+@property (nonatomic,retain)NSMutableDictionary* dmsDic;
 //@property (nonatomic,retain)ItemsViewController *itemsViewController;
 @property (nonatomic,retain)AllMusicController *allMusicController;
 //右侧actions
@@ -74,6 +76,9 @@
 - (IBAction)seekAction:(id)sender;
 - (IBAction)muteAction:(id)sender;
 - (IBAction)settingAction:(id)sender;
+- (IBAction)searchAction:(id)sender;
+- (IBAction)searchDevicesAction:(id)sender;
+
 //顶端actions
 - (IBAction)catalogBtAction:(id)sender;
 - (IBAction)listLookAction:(id)sender;

@@ -11,6 +11,7 @@
 #import "UPnPEngine.h"
 #import "Util.h"
 #import "Macro.h"
+#import "CoreFMDB.h"
 
 @interface AppDelegate ()
 
@@ -40,7 +41,11 @@
     }
     
     NSLog(@"window frame:%@",[NSValue valueWithCGRect:self.window.frame]);
-    
+    //启动
+//    [[MediaServerBrowserService instance] startService];
+    //create db
+    [self creatFolder];
+    [self createDBTable];
     return YES;
 }
 
@@ -91,5 +96,61 @@
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
     [[UPnPEngine getEngine] stopUPnP];
+}
+#pragma mark -
+#pragma mark MediaServerBrowserDelegate
+
+- (void)mediaServerAdded:(NSNotification*)notification
+{
+    NSDictionary *msg = notification.object;
+    NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
+    NSString *uuid = [msg valueForKey:@"UUID"];
+        [self.serverItems setObject:friendlyName forKey:uuid];
+//    _dmsArr=[NSMutableDictionary dictionaryWithDictionary:[[MediaServerBrowserService instance] mediaServers]];
+    
+}
+
+- (void)mediaServerRemove:(NSNotification*)notification
+{
+    NSDictionary *msg = notification.object;
+    //NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
+    NSString *uuid = [msg valueForKey:@"UUID"];
+    [self.serverItems removeObjectForKey:uuid];
+
+}
+#pragma mark -
+-(void)creatFolder{
+    NSFileManager *fileManager=[NSFileManager defaultManager];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *path = [[paths objectAtIndex:0]stringByAppendingPathComponent:@"player"];
+
+    NSLog(@"---path:%@",path);
+    BOOL isDirectory=[fileManager fileExistsAtPath:path isDirectory:nil];
+    if(!isDirectory){
+        if([fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil]==NO){
+            NSLog(@"创建文件夹失败");
+            [Singleton sharedInstance].cacheDoc=path;
+            
+            return;
+        }
+        else{
+            [Singleton sharedInstance].cacheDoc=path;
+            NSLog(@"创建成功");
+        }
+    }
+    else {
+        [Singleton sharedInstance].cacheDoc=path;
+        NSLog(@"文件夹存在");
+    }
+}
+- (void)createDBTable{
+    //创建音乐表
+    BOOL musicBool=[CoreFMDB executeUpdate:@"create table if not exists music(id integer primary key autoIncrement,uri text,title text,size integer,artist text,album text,genres text,date text);"];
+    if(musicBool){
+        NSLog(@"创建music table success");
+    }
+    else{
+        NSLog(@"创建music table fail");
+    }
 }
 @end
