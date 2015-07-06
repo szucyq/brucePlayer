@@ -14,7 +14,7 @@
 
 @interface ServerViewController()
 @property (nonatomic, strong) ServerContentViewController* contentController;
-
+@property (nonatomic)CGRect viewFrame;
 @end
 @implementation ServerViewController
 
@@ -28,9 +28,8 @@
     self=[super init];
     if(self){
         self.dmsArr=sender;
-        self.view.frame=frame;
-        self.listTableView.frame=frame;
-        [self.listTableView reloadData];
+        self.viewFrame=frame;
+        
     }
     return self;
 }
@@ -41,9 +40,18 @@
 }
 
 #pragma mark - View lifecycle
-
+- (void)viewDidLayoutSubviews{
+    self.navigationController.navigationBarHidden=NO;
+    
+    self.view.frame=self.viewFrame;
+    self.listTableView.frame=CGRectMake(0, 0, self.viewFrame.size.width, self.viewFrame.size.height);
+    [self.listTableView reloadData];
+}
 - (void)viewDidLoad
 {
+    
+    NSLog(@"self view frame:%@",[NSValue valueWithCGRect:self.view.frame]);
+   
     _lastIndexPath=[NSIndexPath indexPathForRow:-1 inSection:0];
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
@@ -109,9 +117,7 @@
         return;
     }
 }
-- (void)viewDidLayoutSubviews{
-    self.navigationController.navigationBarHidden=NO;
-}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];

@@ -11,7 +11,7 @@
 #define kScreenWidth [[UIScreen mainScreen] bounds].size.width
 
 #define kBottomTabHeight 49
-#define kContentBaseY (IS_IOS_7?64:0)
+#define kContentBaseY (IS_IOS_7?20:0)
 
 #define kContentViewHeight (kScreenHeight -kBottomTabHeight-kContentBaseY)
 #define kContentViewHeightNoTab (kScreenHeight-kContentBaseY)

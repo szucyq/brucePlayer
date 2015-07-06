@@ -10,7 +10,7 @@
 #import <Platinum/Platinum.h>
 #import "AppDelegate.h"
 
-
+#define kLeftViewWidth 150
 @implementation RootViewController
 - (void)didReceiveMemoryWarning
 {
@@ -35,7 +35,7 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playWithAvItem:) name:@"kPlay" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getServerAction:) name:@"kSelectServer" object:nil];
-    //启动查找设备
+    //启动查找服务器
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(mediaServerAdded:)
                                                  name:@"MediaServerAddedNotification"
@@ -47,9 +47,83 @@
                                                object:nil];
     [[MediaServerBrowserService instance] startService];
     self.dmsDic=[NSMutableDictionary dictionary];
+    //首页左右滑动手势
+    //---swip left
+    UISwipeGestureRecognizer *swipLeft=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(gestureAction:)];
+    swipLeft.direction=UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipLeft];
+
+    
+    //--swip right
+    UISwipeGestureRecognizer *swipRight=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(gestureAction:)];
+    [self.view addGestureRecognizer:swipRight];
+
+}
+- (void)gestureAction:(UIGestureRecognizer *)sender{
+    if([sender isKindOfClass:[UISwipeGestureRecognizer class]]){
+        NSLog(@"轻扫");
+        UISwipeGestureRecognizerDirection direction = [(UISwipeGestureRecognizer *) sender direction];
+        switch (direction) {
+            case UISwipeGestureRecognizerDirectionUp:
+                NSLog(@"up");
+                break;
+            case UISwipeGestureRecognizerDirectionDown:
+                NSLog(@"down");
+                break;
+            case UISwipeGestureRecognizerDirectionLeft:
+                NSLog(@"left");
+                [self leftAction];
+                break;
+            case UISwipeGestureRecognizerDirectionRight:
+                NSLog(@"right");
+                [self rightAction];
+                break;
+            default:
+                break;
+        }
+    }
     
 }
+- (void)leftAction{
+    NSLog(@"left action");
 
+    if(self.serverController){
+        [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+        [UIView setAnimationDuration:0.3f];
+        
+        CGRect rect=CGRectMake(-kLeftViewWidth, 0, kLeftViewWidth, self.view.frame.size.height);
+        self.serverController.view.frame=rect;
+        [UIView commitAnimations];
+    }
+    
+}
+- (void)rightAction{
+    NSLog(@"right action");
+    
+    
+    
+    if(self.serverController){
+        
+    }
+    else{
+        self.serverController=[[ServerViewController alloc]initWithDevices:self.dmsDic frame:CGRectMake(0, 0, kLeftViewWidth, kContentViewHeightNoTab)];
+
+        [self.view addSubview:self.serverController.view];
+        
+        UIButton *settingBt=[UIButton buttonWithType:UIButtonTypeCustom];
+        settingBt.frame=CGRectMake(0, kContentViewHeightNoTab-self.serverController.view.frame.size.height, 56, 56);
+        [settingBt addTarget:self action:@selector(settingAction:) forControlEvents:UIControlEventTouchUpInside];
+        [settingBt setBackgroundImage:[UIImage imageNamed:@"temp.png"] forState:UIControlStateNormal];
+        [self.view addSubview:settingBt];
+    }
+    
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:0.3f];
+    
+    CGRect rect=CGRectMake(0,0.0f,kLeftViewWidth,self.view.frame.size.height);
+    self.serverController.view.frame=rect;
+    [UIView commitAnimations];
+}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden=YES;
@@ -57,14 +131,14 @@
 - (void)viewDidLayoutSubviews{
 //    self.navigationController.navigationBarHidden=YES;
     //top view
-    self.topView.frame=CGRectMake(0, kContentBaseY, kContentViewWidth-_rightView.frame.size.width, _topView.frame.size.height);
+    self.topView.frame=CGRectMake(0, kContentBaseY, kContentViewWidth, _topView.frame.size.height);
     //right view
-    self.rightView.frame=CGRectMake(kContentViewWidth-_rightView.frame.size.width, kContentBaseY, _rightView.frame.size.width, kContentViewHeightNoTab);
+//    self.rightView.frame=CGRectMake(kContentViewWidth-_rightView.frame.size.width, kContentBaseY, _rightView.frame.size.width, kContentViewHeightNoTab);
     //bottom view
-    self.bottomView.frame=CGRectMake(0, self.view.frame.size.height-_bottomView.frame.size.height, kContentViewWidth-_rightView.frame.size.width, _bottomView.frame.size.height);
+    self.bottomView.frame=CGRectMake(0,_topView.frame.size.height+_topView.frame.origin.y, kContentViewWidth, _bottomView.frame.size.height);
     NSLog(@"bottom view frame:%@",[NSValue valueWithCGRect:self.bottomView.frame]);
     //all music view && catalog view
-    CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
+    CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height+self.bottomView.frame.size.height, kContentViewWidth, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
     self.allMusicController.view.frame=frame;
     self.allMusicController.listTableView.frame=CGRectMake(0, 0, frame.size.width, frame.size.height);
     
@@ -397,7 +471,7 @@
         [self.view addSubview:self.allMusicController.view];
     }
 }
-#pragma mark - notion controls
+#pragma mark - notificationon controls
 - (void)playWithAvItem:(NSNotification *)sender{
     NSDictionary *userinfo=[sender userInfo];
     MediaServerItem *item = [userinfo objectForKey:@"item"];

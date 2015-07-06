@@ -60,8 +60,8 @@
 @property (nonatomic,retain)UINavigationController *catalogNav;
 @property (nonatomic) BOOL isPlay;
 @property (nonatomic,retain)NSMutableDictionary* dmsDic;
-//@property (nonatomic,retain)ItemsViewController *itemsViewController;
 @property (nonatomic,retain)AllMusicController *allMusicController;
+
 //右侧actions
 - (IBAction)renderBtAction:(id)sender;
 - (IBAction)serverBtAction:(id)sender;
