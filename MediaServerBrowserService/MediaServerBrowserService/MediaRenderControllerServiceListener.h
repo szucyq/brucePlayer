@@ -22,8 +22,49 @@ public:
     
     void OnMRRemoved(PLT_DeviceDataReference& device);
     
-    void OnSetAVTransportURIResult(NPT_Result, PLT_DeviceDataReference&, void*);
+    void OnSetAVTransportURIResult( NPT_Result res
+                                   , PLT_DeviceDataReference& device
+                                   , void* userdata );
     
+    void OnGetPositionInfoResult( NPT_Result res
+                                 , PLT_DeviceDataReference& device
+                                 , PLT_PositionInfo* info
+                                 , void*  userdata );
+    
+    void OnGetVolumeResult( NPT_Result res
+                           , PLT_DeviceDataReference& device
+                           , const char*  channel
+                           , NPT_UInt32	volume
+                           , void* userdata );
+    
+    void OnGetMediaInfoResult( NPT_Result res
+                              , PLT_DeviceDataReference& device
+                              , PLT_MediaInfo* info
+                              , void* userdata );
+    
+    void OnPlayResult( NPT_Result res
+                      , PLT_DeviceDataReference& device
+                      , void* userdata );
+    
+    void OnPauseResult( NPT_Result res
+                      , PLT_DeviceDataReference& device
+                      , void* userdata );
+    
+    void OnStopResult( NPT_Result res
+                       , PLT_DeviceDataReference& device
+                       , void* userdata );
+    
+    void OnSeekResult( NPT_Result res
+                      , PLT_DeviceDataReference& device
+                      , void* userdata );
+    
+    void OnSetVolumeResult( NPT_Result res
+                      , PLT_DeviceDataReference& device
+                      , void* userdata );
+    
+    void OnSetMuteResult( NPT_Result res
+                           , PLT_DeviceDataReference& device
+                           , void* userdata );
     NSDictionary* allRenders();
     
 private:

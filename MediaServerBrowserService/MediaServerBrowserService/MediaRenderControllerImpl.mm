@@ -72,25 +72,79 @@
     controller_->SetAVTransportURI(device_, DEFAULT_INSTANCE_ID, [url UTF8String], didl.GetChars(), (void*)CFBridgingRetain(dic));
 }
 
-- (void)getCurPos:(void *)userData
+- (void)getCurPos:(void (^)(BOOL, NSTimeInterval))handler
 {
-    controller_->GetPositionInfo(device_, DEFAULT_INSTANCE_ID, userData);
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:handler forKey:@"getCurPos"];
+    controller_->GetPositionInfo(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
 }
 
-- (void)getCurUri:(void *)userData
+- (void)getCurUri:(void (^)(BOOL, NSString *))handler
 {
-    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:handler forKey:@"getCurUri"];
+    controller_->GetMediaInfo(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
 }
 
-- (void)getVolume:(void *)userData
+- (void)getVolume:(void (^)(BOOL, NSInteger))handler
 {
     const char *channel = "1";
-    controller_->GetVolume(device_, DEFAULT_INSTANCE_ID, channel, userData);
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:handler forKey:@"getVolume"];
+    controller_->GetVolume(device_, DEFAULT_INSTANCE_ID, channel, (void*)CFBridgingRetain(dic));
 }
 
-- (void)getStat:(void *)userData
+- (void)getStat:(void (^)(BOOL, int))handler
 {
-    
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:handler forKey:@"getStat"];
+}
+
+- (void)play:(void (^)(BOOL))handler
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:handler forKey:@"play"];
+    const char* speed = "1";
+    controller_->Play(device_, DEFAULT_INSTANCE_ID, speed, (void*)CFBridgingRetain(dic));
+}
+
+- (void)pause:(void (^)(BOOL))handler
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:handler forKey:@"pause"];
+    controller_->Pause(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+}
+
+- (void)stop:(void (^)(BOOL))handler
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:handler forKey:@"stop"];
+    controller_->Stop(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+}
+
+- (void)seek:(NSTimeInterval)pos handler:(void (^)(BOOL))handler
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:handler forKey:@"seek"];
+    const char *posStr = "00:00:00";
+    const char *target = "0";
+    controller_->Seek(device_, DEFAULT_INSTANCE_ID, posStr, target, (void*)CFBridgingRetain(dic));
+}
+
+- (void)setVolume:(int)vol handler:(void (^)(BOOL))handler
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:handler forKey:@"setVolume"];
+    const char *channel = "1";
+    controller_->SetVolume(device_, DEFAULT_INSTANCE_ID, channel, vol, (void*)CFBridgingRetain(dic));
+}
+
+- (void)setMute:(BOOL)isMute handler:(void (^)(BOOL))handler
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:handler forKey:@"setMute"];
+    const char *channel = "1";
+    controller_->SetMute(device_, DEFAULT_INSTANCE_ID, channel, isMute==YES ? true : false, (void*)CFBridgingRetain(dic));
 }
 
 @end

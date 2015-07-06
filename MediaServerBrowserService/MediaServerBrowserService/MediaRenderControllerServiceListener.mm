@@ -71,3 +71,112 @@ void MediaRenderControllerServiceListener::OnSetAVTransportURIResult(NPT_Result 
         callback(NPT_SUCCEEDED(res) ? YES : NO);
     });
 }
+
+void MediaRenderControllerServiceListener::OnGetPositionInfoResult(NPT_Result res
+                                                                   , PLT_DeviceDataReference &device
+                                                                   , PLT_PositionInfo *info
+                                                                   , void *userdata)
+{
+    NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userdata);
+    void (^callback)(BOOL, NSTimeInterval) = [dic valueForKey:@"getCurPos"];
+    NSTimeInterval pos = info ? info->abs_time.ToSeconds() : 0;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        callback(NPT_SUCCEEDED(res) ? YES : NO, pos);
+    });
+}
+
+void MediaRenderControllerServiceListener::OnGetVolumeResult(NPT_Result res
+                                                             , PLT_DeviceDataReference &device
+                                                             , const char *channel
+                                                             , NPT_UInt32 volume
+                                                             , void *userdata)
+{
+    NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userdata);
+    void (^callback)(BOOL, NSInteger) = [dic valueForKey:@"getVolume"];
+    NSInteger vol = volume;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        callback(NPT_SUCCEEDED(res) ? YES : NO, vol);
+    });
+}
+
+void MediaRenderControllerServiceListener::OnGetMediaInfoResult(NPT_Result res
+                                                                , PLT_DeviceDataReference &device
+                                                                , PLT_MediaInfo *info
+                                                                , void *userdata)
+{
+    NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userdata);
+    NSString *key = [[dic allKeys] firstObject];
+    if ( [key isEqualToString:@"getCurUri"] ) {
+        void (^callback)(BOOL, NSString*) = [dic valueForKey:@"getCurUri"];
+        NSString *uri = [NSString stringWithUTF8String: info->cur_uri.GetChars()];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            callback(NPT_SUCCEEDED(res) ? YES : NO, uri);
+        });
+    }
+}
+
+void MediaRenderControllerServiceListener::OnPlayResult(NPT_Result res
+                                                        , PLT_DeviceDataReference &device
+                                                        , void *userdata)
+{
+    NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userdata);
+    void (^callback)(BOOL) = [dic valueForKey:@"play"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        callback(NPT_SUCCEEDED(res) ? YES : NO);
+    });
+}
+
+void MediaRenderControllerServiceListener::OnPauseResult(NPT_Result res
+                                                         , PLT_DeviceDataReference &device
+                                                         , void *userdata)
+{
+    NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userdata);
+    void (^callback)(BOOL) = [dic valueForKey:@"pause"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        callback(NPT_SUCCEEDED(res) ? YES : NO);
+    });
+}
+
+void MediaRenderControllerServiceListener::OnStopResult(NPT_Result res
+                                                         , PLT_DeviceDataReference &device
+                                                         , void *userdata)
+{
+    NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userdata);
+    void (^callback)(BOOL) = [dic valueForKey:@"stop"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        callback(NPT_SUCCEEDED(res) ? YES : NO);
+    });
+}
+
+void MediaRenderControllerServiceListener::OnSeekResult(NPT_Result res
+                                                        , PLT_DeviceDataReference &device
+                                                        , void *userdata)
+{
+    NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userdata);
+    void (^callback)(BOOL) = [dic valueForKey:@"seek"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        callback(NPT_SUCCEEDED(res) ? YES : NO);
+    });
+}
+
+void MediaRenderControllerServiceListener::OnSetVolumeResult(NPT_Result res
+                                                        , PLT_DeviceDataReference &device
+                                                        , void *userdata)
+{
+    NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userdata);
+    void (^callback)(BOOL) = [dic valueForKey:@"setVolume"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        callback(NPT_SUCCEEDED(res) ? YES : NO);
+    });
+}
+
+void MediaRenderControllerServiceListener::OnSetMuteResult(NPT_Result res
+                                                             , PLT_DeviceDataReference &device
+                                                             , void *userdata)
+{
+    NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userdata);
+    void (^callback)(BOOL) = [dic valueForKey:@"setMute"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        callback(NPT_SUCCEEDED(res) ? YES : NO);
+    });
+}

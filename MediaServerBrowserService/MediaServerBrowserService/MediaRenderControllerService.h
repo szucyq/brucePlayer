@@ -43,25 +43,26 @@ enum RenderStatu{
 @property(nonatomic, readonly)NSString *friendlyName;
 
 // async get
-- (void)getCurPos:(void*)userData;
+- (void)getCurPos:(void (^)(BOOL,NSTimeInterval))handler;
 
-- (void)getVolume:(void*)userData;
+- (void)getVolume:(void (^)(BOOL,NSInteger))handler;
 
-- (void)getCurUri:(void*)userData;
+- (void)getCurUri:(void (^)(BOOL,NSString*))handler;
 
-- (void)getStat:(void*)userData;
+- (void)getStat:(void (^)(BOOL,int))handler;
 
 //set
 - (void)setUri:(NSString*)url name:(NSString*)name handler:(void (^)(BOOL))handler;
 
-- (void)play:(void*)userData;
+- (void)play:(void (^)(BOOL))handler;
 
-- (void)pause:(void*)userData;
+- (void)pause:(void (^)(BOOL))handler;
 
-- (void)stop:(void*)userData;
+- (void)stop:(void (^)(BOOL))handler;
 
-- (void)seek:(NSTimeInterval)pos userData:(void*)userData;
+- (void)seek:(NSTimeInterval)pos handler:(void (^)(BOOL))handler;
 
-- (void)setVolume:(int)vol userData:(void*)userData;
+- (void)setVolume:(int)vol handler:(void (^)(BOOL))handler;
 
+- (void)setMute:(BOOL)isMute handler:(void (^)(BOOL))handler;
 @end
