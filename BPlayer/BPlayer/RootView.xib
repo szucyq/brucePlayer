@@ -59,34 +59,24 @@
                                 <action selector="settingAction:" destination="-1" eventType="touchUpInside" id="2Yo-uU-q9q"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7Wy-3j-h0u">
-                            <rect key="frame" x="5" y="265" width="90" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="t9E-g6-anv">
+                            <rect key="frame" x="21" y="374" width="56" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="加载所有资源">
+                            <state key="normal" image="playlist.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="loadAllContentsAction:" destination="-1" eventType="touchUpInside" id="aZr-qw-CWY"/>
+                                <action selector="playlistAction:" destination="-1" eventType="touchUpInside" id="lQI-ZT-ATK"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uvB-sG-g86">
-                            <rect key="frame" x="28" y="328" width="45" height="30"/>
+                            <rect key="frame" x="27" y="302" width="45" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="收藏夹">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
                                 <action selector="favouriteAction:" destination="-1" eventType="touchUpInside" id="Avz-0Y-UMs"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="t9E-g6-anv">
-                            <rect key="frame" x="21" y="387" width="60" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="播放列表">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="playlistAction:" destination="-1" eventType="touchUpInside" id="lQI-ZT-ATK"/>
                             </connections>
                         </button>
                     </subviews>
@@ -130,8 +120,8 @@
                                 <action selector="seekAction:" destination="-1" eventType="valueChanged" id="7OJ-ol-rqv"/>
                             </connections>
                         </slider>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="时间进度显示" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fpx-H4-RIc">
-                            <rect key="frame" x="504" y="12" width="102" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="03:12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Fpx-H4-RIc">
+                            <rect key="frame" x="504" y="12" width="43" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -222,7 +212,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="d3V-5e-asj">
-                            <rect key="frame" x="698" y="25" width="56" height="56"/>
+                            <rect key="frame" x="717" y="27" width="56" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="menu_icon.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -251,9 +241,12 @@
                             <state key="normal" image="menu_list_icon.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="listIconAction:" destination="-1" eventType="touchUpInside" id="cUa-NG-Ot6"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AhX-DV-P0u">
-                            <rect key="frame" x="768" y="25" width="56" height="56"/>
+                            <rect key="frame" x="773" y="27" width="56" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="menu_list_no_icon.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -261,6 +254,13 @@
                             <connections>
                                 <action selector="listLookAction:" destination="-1" eventType="touchUpInside" id="F50-Nm-f73"/>
                             </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fgA-UV-1BZ">
+                            <rect key="frame" x="659" y="27" width="56" height="56"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="menu_favourite.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -278,11 +278,13 @@
         <image name="by_Genres.png" width="56" height="56"/>
         <image name="by_Songs.png" width="56" height="56"/>
         <image name="by_Years.png" width="56" height="56"/>
+        <image name="menu_favourite.png" width="56" height="56"/>
         <image name="menu_icon.png" width="56" height="56"/>
         <image name="menu_list_icon.png" width="56" height="56"/>
         <image name="menu_list_no_icon.png" width="56" height="56"/>
         <image name="next_unselected.png" width="56" height="56"/>
         <image name="play.png" width="129" height="127"/>
+        <image name="playlist.png" width="56" height="56"/>
         <image name="privous_unselected.png" width="56" height="56"/>
         <image name="search.png" width="41" height="40"/>
         <image name="servers.png" width="56" height="56"/>

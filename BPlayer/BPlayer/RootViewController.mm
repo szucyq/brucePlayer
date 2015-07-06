@@ -200,6 +200,8 @@
 }
 
 - (IBAction)searchAction:(id)sender {
+    SearchViewController *search=[[SearchViewController alloc]init];
+    [self.navigationController pushViewController:search animated:YES];
 }
 
 - (IBAction)searchDevicesAction:(id)sender {
@@ -218,7 +220,7 @@
 }
 
 - (IBAction)catalogBtAction:(id)sender {
-    [self bringCatagoryViewToFront];
+
     CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
     
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
@@ -266,6 +268,9 @@
         [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
         return;
     }
+    NSLog(@"按作曲浏览");
+    
+    [self refreshAllMusicByType:@"list"];
 }
 
 - (IBAction)iconLookAction:(id)sender {
@@ -275,8 +280,21 @@
         [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
         return;
     }
+    NSLog(@"按作曲浏览");
+    
+    [self refreshAllMusicByType:@"icon"];
 }
-
+- (IBAction)listIconAction:(id)sender {
+    NSLog(@"列表－图标浏览");
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    if(!appDelagete.serverUuid){
+        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
+        return;
+    }
+    NSLog(@"按作曲浏览");
+    
+    [self refreshAllMusicByType:@"list_icon"];
+}
 - (IBAction)bySongAction:(id)sender {
     NSLog(@"按歌曲浏览");
     [self refreshAllMusicByType:@"music"];
@@ -285,7 +303,7 @@
 
 - (IBAction)byZuoquAction:(id)sender {
     NSLog(@"按作曲浏览");
-    [self bringAllMusicViewToFront];
+
     [self refreshAllMusicByType:@"zuoqu"];
 }
 
@@ -298,6 +316,8 @@
     NSLog(@"按专辑浏览");
     [self refreshAllMusicByType:@"album"];
 }
+
+
 
 - (IBAction)preBtAction:(id)sender {
     NSLog(@"上一首");
@@ -341,24 +361,24 @@
 //    NSLog(@"action %@", [action description]);
 //    return YES;
 //}
-- (void)bringAllMusicViewToFront{
-    if(self.allMusicController){
-        [self.view bringSubviewToFront:self.allMusicController.view];
-    }
-}
-- (void)bringCatagoryViewToFront{
-    if(self.catalogNav){
-        [self.view bringSubviewToFront:self.catalogNav.view];
-    }
-}
+//- (void)bringAllMusicViewToFront{
+//    if(self.allMusicController){
+//        [self.view bringSubviewToFront:self.allMusicController.view];
+//    }
+//}
+//- (void)bringCatagoryViewToFront{
+//    if(self.catalogNav){
+//        [self.view bringSubviewToFront:self.catalogNav.view];
+//    }
+//}
 - (void)refreshAllMusicByType:(NSString*)type{
     //取得当前的server
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     NSString *serverUuid=appDelagete.serverUuid;
-    if(!serverUuid){
-        [SVProgressHUD showErrorWithStatus:@"请先选择一个服务器" maskType:SVProgressHUDMaskTypeBlack];
-        return;
-    }
+//    if(!serverUuid){
+//        [SVProgressHUD showErrorWithStatus:@"请先选择一个服务器" maskType:SVProgressHUDMaskTypeBlack];
+//        return;
+//    }
     //刷新当前server内容
     if(self.allMusicController){
         self.allMusicController.serverUuid=serverUuid;
@@ -405,7 +425,7 @@
     
 }
 - (void)getServerAction:(NSNotification *)sender{
-    [self bringCatagoryViewToFront];
+
     CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
     
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];

@@ -33,6 +33,9 @@
 		3216EE281B4977E600FEDAC0 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3216EE1D1B4977E600FEDAC0 /* FMDatabaseQueue.m */; };
 		3216EE291B4977E600FEDAC0 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3216EE201B4977E600FEDAC0 /* FMResultSet.m */; };
 		3216EE2B1B49780D00FEDAC0 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3216EE2A1B49780D00FEDAC0 /* libsqlite3.dylib */; };
+		3216EE2F1B4A028800FEDAC0 /* menu_favourite.png in Resources */ = {isa = PBXBuildFile; fileRef = 3216EE2E1B4A028800FEDAC0 /* menu_favourite.png */; };
+		3216EE311B4A039E00FEDAC0 /* playlist.png in Resources */ = {isa = PBXBuildFile; fileRef = 3216EE301B4A039E00FEDAC0 /* playlist.png */; };
+		3216EE341B4A082900FEDAC0 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3216EE321B4A082900FEDAC0 /* SearchViewController.m */; };
 		3254A3351B4374820059A7D2 /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3254A2E41B4374820059A7D2 /* add@2x.png */; };
 		3254A3371B4374820059A7D2 /* backTo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3254A2E61B4374820059A7D2 /* backTo.png */; };
 		3297F4A01B3DCACB0006EDFA /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3297F49F1B3DCACB0006EDFA /* SettingViewController.m */; };
@@ -180,6 +183,10 @@
 		3216EE201B4977E600FEDAC0 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		3216EE221B4977E600FEDAC0 /* CoreFMDBSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreFMDBSingleton.h; sourceTree = "<group>"; };
 		3216EE2A1B49780D00FEDAC0 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		3216EE2E1B4A028800FEDAC0 /* menu_favourite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_favourite.png; sourceTree = "<group>"; };
+		3216EE301B4A039E00FEDAC0 /* playlist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playlist.png; sourceTree = "<group>"; };
+		3216EE321B4A082900FEDAC0 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		3216EE331B4A082900FEDAC0 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		3254A2E41B4374820059A7D2 /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		3254A2E61B4374820059A7D2 /* backTo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backTo.png; sourceTree = "<group>"; };
 		3297F49E1B3DCACB0006EDFA /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -402,6 +409,7 @@
 				3216EE081B496B7D00FEDAC0 /* menu_icon.png */,
 				3216EE091B496B7D00FEDAC0 /* menu_list_icon.png */,
 				3216EE0A1B496B7D00FEDAC0 /* menu_list_no_icon.png */,
+				3216EE2E1B4A028800FEDAC0 /* menu_favourite.png */,
 				3216EDFC1B496A0800FEDAC0 /* by_Albums.png */,
 				3216EDFD1B496A0800FEDAC0 /* by_Artists.png */,
 				3216EDFE1B496A0800FEDAC0 /* by_Folder.png */,
@@ -411,6 +419,7 @@
 				3254A2E41B4374820059A7D2 /* add@2x.png */,
 				3254A2E61B4374820059A7D2 /* backTo.png */,
 				3216EDFA1B49677900FEDAC0 /* volumn.png */,
+				3216EE301B4A039E00FEDAC0 /* playlist.png */,
 				3216EDEA1B49674400FEDAC0 /* next_selected.png */,
 				3216EDEB1B49674400FEDAC0 /* next_unselected.png */,
 				3216EDEC1B49674400FEDAC0 /* pause.png */,
@@ -467,6 +476,8 @@
 				3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */,
 				3297F49E1B3DCACB0006EDFA /* SettingViewController.h */,
 				3297F49F1B3DCACB0006EDFA /* SettingViewController.m */,
+				3216EE331B4A082900FEDAC0 /* SearchViewController.h */,
+				3216EE321B4A082900FEDAC0 /* SearchViewController.m */,
 				32DCC7711B3DB6230063DD60 /* Images.xcassets */,
 				32DCC7731B3DB6230063DD60 /* LaunchScreen.xib */,
 				32DE23031B421B0000B62958 /* TestTableViewController.h */,
@@ -801,6 +812,7 @@
 				3216EE0D1B496B7D00FEDAC0 /* menu_list_no_icon.png in Resources */,
 				3216EDFB1B49677900FEDAC0 /* volumn.png in Resources */,
 				3216EDF41B49674400FEDAC0 /* pause.png in Resources */,
+				3216EE2F1B4A028800FEDAC0 /* menu_favourite.png in Resources */,
 				3216EDF51B49674400FEDAC0 /* play.png in Resources */,
 				3216EDF21B49674400FEDAC0 /* next_selected.png in Resources */,
 				3216EDF91B49674400FEDAC0 /* servers.png in Resources */,
@@ -812,6 +824,7 @@
 				32DCC7721B3DB6230063DD60 /* Images.xcassets in Resources */,
 				3216EDF31B49674400FEDAC0 /* next_unselected.png in Resources */,
 				3216EE071B496A1C00FEDAC0 /* by_Years.png in Resources */,
+				3216EE311B4A039E00FEDAC0 /* playlist.png in Resources */,
 				3216EE021B496A0800FEDAC0 /* by_Artists.png in Resources */,
 				3254A3351B4374820059A7D2 /* add@2x.png in Resources */,
 			);
@@ -841,6 +854,7 @@
 				32DCC8461B3DB8B40063DD60 /* UIProgressView+AFNetworking.m in Sources */,
 				32DCC8411B3DB8B40063DD60 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				32DCC7C81B3DB8780063DD60 /* WithRequestViewController.m in Sources */,
+				3216EE341B4A082900FEDAC0 /* SearchViewController.m in Sources */,
 				32DCC8691B3DB9700063DD60 /* ServerViewController.m in Sources */,
 				32DCC84C1B3DB8E80063DD60 /* Singleton.m in Sources */,
 				32DCC8271B3DB8B40063DD60 /* AFURLConnectionOperation.m in Sources */,

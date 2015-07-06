@@ -21,6 +21,7 @@
 
 #import "AllMusicController.h"
 #import "CoreFMDB.h"
+#import "SearchViewController.h"
 
 @interface RootViewController : WithTableViewController
 
@@ -87,5 +88,6 @@
 - (IBAction)byZuoquAction:(id)sender;
 - (IBAction)byArtistAction:(id)sender;
 - (IBAction)byAlbumAction:(id)sender;
+- (IBAction)listIconAction:(id)sender;
 
 @end

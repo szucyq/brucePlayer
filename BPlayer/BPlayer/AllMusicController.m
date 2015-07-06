@@ -43,8 +43,8 @@
         
     }
     else{
-        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
-        return;
+//        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
+//        return;
     }
 }
 - (void)didReceiveMemoryWarning {
