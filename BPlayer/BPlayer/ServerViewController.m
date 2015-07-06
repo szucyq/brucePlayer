@@ -11,14 +11,10 @@
 #import "AppDelegate.h"
 
 
-//#import "RendererTableViewController.h"
-
-//#include <cybergarage/upnp/cupnp.h>
-//#include <cybergarage/xml/cxml.h>
 
 @interface ServerViewController()
 @property (nonatomic, strong) ServerContentViewController* contentController;
-
+@property (nonatomic)CGRect viewFrame;
 @end
 @implementation ServerViewController
 
@@ -28,7 +24,15 @@
 
 @synthesize contentController = contentController_;
 
-
+- (id)initWithDevices:(NSMutableDictionary *)sender frame:(CGRect)frame{
+    self=[super init];
+    if(self){
+        self.dmsArr=sender;
+        self.viewFrame=frame;
+        
+    }
+    return self;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -36,9 +40,18 @@
 }
 
 #pragma mark - View lifecycle
-
+- (void)viewDidLayoutSubviews{
+    self.navigationController.navigationBarHidden=NO;
+    
+    self.view.frame=self.viewFrame;
+    self.listTableView.frame=CGRectMake(0, 0, self.viewFrame.size.width, self.viewFrame.size.height);
+    [self.listTableView reloadData];
+}
 - (void)viewDidLoad
 {
+    
+    NSLog(@"self view frame:%@",[NSValue valueWithCGRect:self.view.frame]);
+   
     _lastIndexPath=[NSIndexPath indexPathForRow:-1 inSection:0];
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
@@ -61,9 +74,17 @@
                                                object:nil];
     
     //先停止
-    [[MediaServerBrowserService instance] stopService];
+//    [[MediaServerBrowserService instance] stopService];
     //启动
-    [[MediaServerBrowserService instance] startService];
+//    if([[MediaServerBrowserService instance] startService]){
+//        _dmsArr=[NSMutableDictionary dictionaryWithDictionary:[[MediaServerBrowserService instance] mediaServers]];
+//        [self.listTableView reloadData];
+//    }
+//    AppDelegate *appDelegate=[[UIApplication sharedApplication]delegate];
+//    self.dmsArr=appDelegate.serverItems;
+//    NSLog(@"app:%@",appDelegate.serverItems);
+//    
+//    [self.listTableView reloadData];
     
 }
 - (void)rightButtonAction{
@@ -96,9 +117,7 @@
         return;
     }
 }
-- (void)viewDidLayoutSubviews{
-    self.navigationController.navigationBarHidden=NO;
-}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -233,6 +252,8 @@
     NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
     NSString *uuid = [msg valueForKey:@"UUID"];
     [_dmsArr setObject:friendlyName forKey:uuid];
+//    _dmsArr=[NSMutableDictionary dictionaryWithDictionary:[[MediaServerBrowserService instance] mediaServers]];
+    
     [self.listTableView reloadData];
 }
 

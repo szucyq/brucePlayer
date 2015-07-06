@@ -8,6 +8,7 @@
 
 #import "AllMusicController.h"
 #import "AppDelegate.h"
+#import "CoreFMDB.h"
 @interface AllMusicController ()
 
 @end
@@ -23,24 +24,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    //
     self.view.backgroundColor=[UIColor redColor];
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     
     if(appDelagete.serverUuid){
         NSLog(@"server uuid :%@",appDelagete.serverUuid);
-        MediaServerBrowser *browser=[[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid];
+//        MediaServerBrowser *browser=[[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid];
         
         //
-        MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithBrowser:browser];
-        [crawler crawl:^(BOOL ret, NSArray *items) {
-            NSLog(@"crawler items = %@", items);
-            self.listArray=items;
-            [self.listTableView reloadData];
-        }];
+//        MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithBrowser:browser];
+//        [crawler crawl:^(BOOL ret, NSArray *items) {
+//            NSLog(@"crawler items = %@", items);
+//            self.listArray=items;
+//            [self.listTableView reloadData];
+//        }];
+        
     }
     else{
-        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
-        return;
+//        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
+//        return;
     }
 }
 - (void)didReceiveMemoryWarning {
@@ -64,9 +68,22 @@
     
 }
 - (void)setByType:(NSString *)byType{
+    [self.listArray removeAllObjects];
     NSLog(@"set byType:%@",byType);
     if([byType isEqualToString:@"music"]){
 //        self.listArray=[NSMutableArray arrayWithObjects:@"1",@"2",@"3", nil];
+        //查询数据
+        [CoreFMDB executeQuery:@"select * from music;" queryResBlock:^(FMResultSet *set) {
+            
+            while ([set next]) {
+                NSLog(@"%@-%@",[set stringForColumn:@"title"],[set stringForColumn:@"uri"]);
+                MediaServerItem *item=[[MediaServerItem alloc]init];
+                item.title=[set stringForColumn:@"title"];
+                item.uri=[set stringForColumn:@"uri"];
+                [self.listArray addObject:item];
+            }
+            
+        }];
     }
     else{
 //        self.listArray=[NSMutableArray arrayWithObjects:@"11",@"22",@"33", nil];

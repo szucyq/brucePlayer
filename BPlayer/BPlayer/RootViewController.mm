@@ -10,6 +10,7 @@
 #import <Platinum/Platinum.h>
 #import "AppDelegate.h"
 
+#define kLeftViewWidth 150
 @implementation RootViewController
 - (void)didReceiveMemoryWarning
 {
@@ -34,9 +35,95 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playWithAvItem:) name:@"kPlay" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getServerAction:) name:@"kSelectServer" object:nil];
+    //启动查找服务器
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mediaServerAdded:)
+                                                 name:@"MediaServerAddedNotification"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(mediaServerRemove:)
+                                                 name:@"MediaServerRemovedNotification"
+                                               object:nil];
+    [[MediaServerBrowserService instance] startService];
+    self.dmsDic=[NSMutableDictionary dictionary];
+    //首页左右滑动手势
+    //---swip left
+    UISwipeGestureRecognizer *swipLeft=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(gestureAction:)];
+    swipLeft.direction=UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipLeft];
+
+    
+    //--swip right
+    UISwipeGestureRecognizer *swipRight=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(gestureAction:)];
+    [self.view addGestureRecognizer:swipRight];
+
+}
+- (void)gestureAction:(UIGestureRecognizer *)sender{
+    if([sender isKindOfClass:[UISwipeGestureRecognizer class]]){
+        NSLog(@"轻扫");
+        UISwipeGestureRecognizerDirection direction = [(UISwipeGestureRecognizer *) sender direction];
+        switch (direction) {
+            case UISwipeGestureRecognizerDirectionUp:
+                NSLog(@"up");
+                break;
+            case UISwipeGestureRecognizerDirectionDown:
+                NSLog(@"down");
+                break;
+            case UISwipeGestureRecognizerDirectionLeft:
+                NSLog(@"left");
+                [self leftAction];
+                break;
+            case UISwipeGestureRecognizerDirectionRight:
+                NSLog(@"right");
+                [self rightAction];
+                break;
+            default:
+                break;
+        }
+    }
     
 }
+- (void)leftAction{
+    NSLog(@"left action");
 
+    if(self.serverController){
+        [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+        [UIView setAnimationDuration:0.3f];
+        
+        CGRect rect=CGRectMake(-kLeftViewWidth, 0, kLeftViewWidth, self.view.frame.size.height);
+        self.serverController.view.frame=rect;
+        [UIView commitAnimations];
+    }
+    
+}
+- (void)rightAction{
+    NSLog(@"right action");
+    
+    
+    
+    if(self.serverController){
+        
+    }
+    else{
+        self.serverController=[[ServerViewController alloc]initWithDevices:self.dmsDic frame:CGRectMake(0, 0, kLeftViewWidth, kContentViewHeightNoTab)];
+
+        [self.view addSubview:self.serverController.view];
+        
+        UIButton *settingBt=[UIButton buttonWithType:UIButtonTypeCustom];
+        settingBt.frame=CGRectMake(0, kContentViewHeightNoTab-self.serverController.view.frame.size.height, 56, 56);
+        [settingBt addTarget:self action:@selector(settingAction:) forControlEvents:UIControlEventTouchUpInside];
+        [settingBt setBackgroundImage:[UIImage imageNamed:@"temp.png"] forState:UIControlStateNormal];
+        [self.view addSubview:settingBt];
+    }
+    
+    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    [UIView setAnimationDuration:0.3f];
+    
+    CGRect rect=CGRectMake(0,0.0f,kLeftViewWidth,self.view.frame.size.height);
+    self.serverController.view.frame=rect;
+    [UIView commitAnimations];
+}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden=YES;
@@ -44,14 +131,14 @@
 - (void)viewDidLayoutSubviews{
 //    self.navigationController.navigationBarHidden=YES;
     //top view
-    self.topView.frame=CGRectMake(0, kContentBaseY, kContentViewWidth-_rightView.frame.size.width, _topView.frame.size.height);
+    self.topView.frame=CGRectMake(0, kContentBaseY, kContentViewWidth, _topView.frame.size.height);
     //right view
-    self.rightView.frame=CGRectMake(kContentViewWidth-_rightView.frame.size.width, kContentBaseY, _rightView.frame.size.width, kContentViewHeightNoTab);
+//    self.rightView.frame=CGRectMake(kContentViewWidth-_rightView.frame.size.width, kContentBaseY, _rightView.frame.size.width, kContentViewHeightNoTab);
     //bottom view
-    self.bottomView.frame=CGRectMake(0, self.view.frame.size.height-_bottomView.frame.size.height, kContentViewWidth-_rightView.frame.size.width, _bottomView.frame.size.height);
+    self.bottomView.frame=CGRectMake(0,_topView.frame.size.height+_topView.frame.origin.y, kContentViewWidth, _bottomView.frame.size.height);
     NSLog(@"bottom view frame:%@",[NSValue valueWithCGRect:self.bottomView.frame]);
     //all music view && catalog view
-    CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
+    CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height+self.bottomView.frame.size.height, kContentViewWidth, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
     self.allMusicController.view.frame=frame;
     self.allMusicController.listTableView.frame=CGRectMake(0, 0, frame.size.width, frame.size.height);
     
@@ -137,6 +224,25 @@
         MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithBrowser:browser];
         [crawler crawl:^(BOOL ret, NSArray *items) {
             NSLog(@"crawler items = %@", items);
+            //添加music 数据
+            for (int i=0; i<items.count; i++) {
+                MediaServerItem *item=[items objectAtIndex:i];
+                
+                NSString *title=[NSString stringWithFormat:@"%@",item.title];
+                NSString *uri=[NSString stringWithFormat:@"%@",item.uri];
+                NSString *album=[NSString stringWithFormat:@"%@",item.albumArtURI];
+                NSString *genres=[NSString stringWithFormat:@"%@",item.mimeType];
+                NSString *date=[NSString stringWithFormat:@"%@",item.date];
+                NSString *sql=[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@",@"insert into music (title,uri,album,genres,date) values('",title,@"','",uri,@"','",album,@"','",genres,@"','",date,@"')"];
+                NSLog(@"sql:%@",sql);
+                BOOL musicAdd=[CoreFMDB executeUpdate:sql];
+                if(musicAdd){
+                    NSLog(@"success:%d",i);
+                }
+                else{
+                    NSLog(@"fail:%d",i);
+                }
+            }
         }];
     }
     else{
@@ -167,8 +273,28 @@
     }
 }
 
+- (IBAction)searchAction:(id)sender {
+    SearchViewController *search=[[SearchViewController alloc]init];
+    [self.navigationController pushViewController:search animated:YES];
+}
+
+- (IBAction)searchDevicesAction:(id)sender {
+    NSLog(@"dms:%@",self.dmsDic);
+    if(kIS_IPAD){
+        ServerViewController *server=[[ServerViewController alloc]initWithDevices:self.dmsDic frame:CGRectMake(0, 0, 300, 300)];
+        server.preferredContentSize=CGSizeMake(300, 300);
+        UIPopoverController *popoverController=[[UIPopoverController alloc]initWithContentViewController:server];
+//        popoverController.contentViewController.contentSizeForViewInPopover=CGSizeMake(300, 300);
+        
+        [popoverController presentPopoverFromRect:self.deviceBt.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    }
+    else{
+        [SVProgressHUD showErrorWithStatus:@"iphone 暂不支持该操作" maskType:SVProgressHUDMaskTypeBlack];
+    }
+}
+
 - (IBAction)catalogBtAction:(id)sender {
-    [self bringCatagoryViewToFront];
+
     CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
     
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
@@ -216,6 +342,9 @@
         [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
         return;
     }
+    NSLog(@"按作曲浏览");
+    
+    [self refreshAllMusicByType:@"list"];
 }
 
 - (IBAction)iconLookAction:(id)sender {
@@ -225,8 +354,21 @@
         [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
         return;
     }
+    NSLog(@"按作曲浏览");
+    
+    [self refreshAllMusicByType:@"icon"];
 }
-
+- (IBAction)listIconAction:(id)sender {
+    NSLog(@"列表－图标浏览");
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    if(!appDelagete.serverUuid){
+        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
+        return;
+    }
+    NSLog(@"按作曲浏览");
+    
+    [self refreshAllMusicByType:@"list_icon"];
+}
 - (IBAction)bySongAction:(id)sender {
     NSLog(@"按歌曲浏览");
     [self refreshAllMusicByType:@"music"];
@@ -235,7 +377,7 @@
 
 - (IBAction)byZuoquAction:(id)sender {
     NSLog(@"按作曲浏览");
-    [self bringAllMusicViewToFront];
+
     [self refreshAllMusicByType:@"zuoqu"];
 }
 
@@ -248,6 +390,8 @@
     NSLog(@"按专辑浏览");
     [self refreshAllMusicByType:@"album"];
 }
+
+
 
 - (IBAction)preBtAction:(id)sender {
     NSLog(@"上一首");
@@ -291,24 +435,24 @@
 //    NSLog(@"action %@", [action description]);
 //    return YES;
 //}
-- (void)bringAllMusicViewToFront{
-    if(self.allMusicController){
-        [self.view bringSubviewToFront:self.allMusicController.view];
-    }
-}
-- (void)bringCatagoryViewToFront{
-    if(self.catalogNav){
-        [self.view bringSubviewToFront:self.catalogNav.view];
-    }
-}
+//- (void)bringAllMusicViewToFront{
+//    if(self.allMusicController){
+//        [self.view bringSubviewToFront:self.allMusicController.view];
+//    }
+//}
+//- (void)bringCatagoryViewToFront{
+//    if(self.catalogNav){
+//        [self.view bringSubviewToFront:self.catalogNav.view];
+//    }
+//}
 - (void)refreshAllMusicByType:(NSString*)type{
     //取得当前的server
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     NSString *serverUuid=appDelagete.serverUuid;
-    if(!serverUuid){
-        [SVProgressHUD showErrorWithStatus:@"请先选择一个服务器" maskType:SVProgressHUDMaskTypeBlack];
-        return;
-    }
+//    if(!serverUuid){
+//        [SVProgressHUD showErrorWithStatus:@"请先选择一个服务器" maskType:SVProgressHUDMaskTypeBlack];
+//        return;
+//    }
     //刷新当前server内容
     if(self.allMusicController){
         self.allMusicController.serverUuid=serverUuid;
@@ -327,7 +471,7 @@
         [self.view addSubview:self.allMusicController.view];
     }
 }
-#pragma mark - notion controls
+#pragma mark - notificationon controls
 - (void)playWithAvItem:(NSNotification *)sender{
     NSDictionary *userinfo=[sender userInfo];
     MediaServerItem *item = [userinfo objectForKey:@"item"];
@@ -355,23 +499,7 @@
     
 }
 - (void)getServerAction:(NSNotification *)sender{
-//    NSDictionary *userinfo=[sender userInfo];
-//    NSString *serverUuid = [userinfo objectForKey:@"server"];
-    
-//    if(self.allMusicController){
-////        self.allMusicController.server=serverUuid;
-//        [self.view bringSubviewToFront:self.allMusicController.view];
-//    }
-//    else{
-//        CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
-//        self.allMusicController = [[AllMusicController alloc]initWithFrame:frame];
-//        self.allMusicController.view.frame=frame;
-////        self.allMusicController.server = serverUuid;
-//
-//        [self.view addSubview:self.allMusicController.view];
-//    }
-    
-    [self bringCatagoryViewToFront];
+
     CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
     
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
@@ -387,7 +515,6 @@
     
     ServerContentViewController *contentController=[[ServerContentViewController alloc]initWithFrame:frame root:YES objectId:nil];
 
-    //contentController.browser = [[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid delegate:contentController];
     //catalogNav视图用于按照目录层级的方式进行访问server资源
     if(self.catalogNav){
         NSLog(@"如果已有目录浏览视图，则先删除");
@@ -409,8 +536,30 @@
         self.catalogNav.view.tag=10000;
         [self.view addSubview:self.catalogNav.view];
     }
+    //提醒开始同步该服务器资源
+    [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
+}
+#pragma mark -
+#pragma mark MediaServerBrowserDelegate
+
+- (void)mediaServerAdded:(NSNotification*)notification
+{
+    NSDictionary *msg = notification.object;
+    NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
+    NSString *uuid = [msg valueForKey:@"UUID"];
+    [self.dmsDic setObject:friendlyName forKey:uuid];
+    //    _dmsArr=[NSMutableDictionary dictionaryWithDictionary:[[MediaServerBrowserService instance] mediaServers]];
     
+//    [self.listTableView reloadData];
 }
 
+- (void)mediaServerRemove:(NSNotification*)notification
+{
+    NSDictionary *msg = notification.object;
+    //NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
+    NSString *uuid = [msg valueForKey:@"UUID"];
+    [self.dmsDic removeObjectForKey:uuid];
+//    [self.listTableView reloadData];
+}
 @end
 

@@ -15,4 +15,6 @@
 @property (nonatomic, retain) NSArray* renderers;
 @property (nonatomic,retain) NSMutableDictionary* dmsArr;
 @property (nonatomic,retain)NSIndexPath *lastIndexPath;
+
+- (id)initWithDevices:(NSMutableDictionary*)sender frame:(CGRect)frame;
 @end

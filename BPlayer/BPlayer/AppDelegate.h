@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "RootViewController.h"
+#import <MediaServerBrowserService/MediaServerBrowserService.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic,copy)NSString *serverUuid;
 @property (nonatomic,retain)UINavigationController *navController;
-
+@property (nonatomic,retain)NSMutableDictionary *serverItems;
 @end
 
