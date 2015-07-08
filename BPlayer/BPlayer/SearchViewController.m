@@ -21,7 +21,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.title=@"请选择一个小区";
+    self.title=@"请输入搜索的内容";
     //add search bar
     self.musicSearchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(0, kContentBaseY, kContentViewWidth, 50)];
     

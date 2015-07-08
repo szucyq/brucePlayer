@@ -16,7 +16,13 @@
 @end
 
 @implementation RenderViewController
-
+- (id)initWithFrame:(CGRect)frame{
+    self=[super init];
+    if(self){
+        self.listTableView.frame=CGRectMake(0, 0, frame.size.width, frame.size.height);
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -36,8 +42,10 @@
     //[[MediaRenderControllerService instance] stopService];
     //启动
     if ( ![MediaRenderControllerService instance].isRunning ) {
+        NSLog(@"搜索render");
         [[MediaRenderControllerService instance] startService];
     }
+
     
 }
 - (void)viewDidLayoutSubviews{
@@ -84,7 +92,11 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //保存render信息，供播放时使用
-    //AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    NSDictionary *renders = [MediaRenderControllerService instance].renderDic;
+    NSString *renderUuid = [[renders allKeys] objectAtIndex:indexPath.row];
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    appDelagete.renderUuid=renderUuid;
+    NSLog(@"uuid 1:%@",renderUuid);
     //    appDelagete.avRenderer = (CGUpnpAvRenderer*)[self.dataSource objectAtIndex:indexPath.row];
     //    [self dismissViewControllerAnimated:YES completion:nil];
     [SVProgressHUD showSuccessWithStatus:@"已选择播放器" maskType:SVProgressHUDMaskTypeBlack];
@@ -97,12 +109,13 @@
             UUID = key;
         }
     }
-    MediaRenderController *controller = [[MediaRenderControllerService instance] controllerWithUUID:UUID];
-    [controller setUri:@"http://172.16.204.104/yu.mp4"
-                  name:@"yu"
-               handler:^(BOOL ret) {
-                   NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!ret = %hhd", ret);
-               }];
+    NSLog(@"uuid 2:%@",UUID);
+//    MediaRenderController *controller = [[MediaRenderControllerService instance] controllerWithUUID:UUID];
+//    [controller setUri:@"http://172.16.204.104/yu.mp4"
+//                  name:@"yu"
+//               handler:^(BOOL ret) {
+//                   NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!ret = %hhd", ret);
+//               }];
 }
 
 - (void)mediaRenderAdded:(NSNotification*)notification

@@ -10,5 +10,5 @@
 //#import <MediaServerBrowserService/MediaRenderControllerService.h>
 
 @interface RenderViewController : WithTableViewController
-
+- (id)initWithFrame:(CGRect)frame;
 @end

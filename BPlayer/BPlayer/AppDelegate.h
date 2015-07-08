@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic,copy)NSString *serverUuid;
+@property (nonatomic,copy)NSString *renderUuid;
 @property (nonatomic,retain)UINavigationController *navController;
 @property (nonatomic,retain)NSMutableDictionary *serverItems;
 @end

@@ -29,8 +29,8 @@
     
     
     //table view
-    self.listTableView.frame=CGRectMake(0, 300, 300, 300);
-    self.listTableView.hidden=YES;
+//    self.listTableView.frame=CGRectMake(0, 300, 300, 300);
+//    self.listTableView.hidden=YES;
     
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playWithAvItem:) name:@"kPlay" object:nil];
@@ -88,41 +88,45 @@
     NSLog(@"left action");
 
     if(self.serverController){
+        
         [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
         [UIView setAnimationDuration:0.3f];
         
-        CGRect rect=CGRectMake(-kLeftViewWidth, 0, kLeftViewWidth, self.view.frame.size.height);
+        CGRect rect=CGRectMake(-kLeftViewWidth, kContentBaseY, kLeftViewWidth, self.view.frame.size.height);
         self.serverController.view.frame=rect;
+
         [UIView commitAnimations];
+        NSLog(@"server frame 2:%@",[NSValue valueWithCGRect:self.serverController.view.frame]);
     }
     
 }
 - (void)rightAction{
     NSLog(@"right action");
     
-    
-    
     if(self.serverController){
-        
+        NSLog(@"已经有server controller");
     }
     else{
-        self.serverController=[[ServerViewController alloc]initWithDevices:self.dmsDic frame:CGRectMake(0, 0, kLeftViewWidth, kContentViewHeightNoTab)];
-
+        self.serverController=[[ServerViewController alloc]initWithDevices:self.dmsDic frame:CGRectMake(-kLeftViewWidth, kContentBaseY, kLeftViewWidth, kContentViewHeightNoTab)];
+        
         [self.view addSubview:self.serverController.view];
         
-        UIButton *settingBt=[UIButton buttonWithType:UIButtonTypeCustom];
-        settingBt.frame=CGRectMake(0, kContentViewHeightNoTab-self.serverController.view.frame.size.height, 56, 56);
-        [settingBt addTarget:self action:@selector(settingAction:) forControlEvents:UIControlEventTouchUpInside];
-        [settingBt setBackgroundImage:[UIImage imageNamed:@"temp.png"] forState:UIControlStateNormal];
-        [self.view addSubview:settingBt];
+        
     }
+    
     
     [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
     [UIView setAnimationDuration:0.3f];
     
-    CGRect rect=CGRectMake(0,0.0f,kLeftViewWidth,self.view.frame.size.height);
+    CGRect rect=CGRectMake(0,kContentBaseY,kLeftViewWidth,self.view.frame.size.height);
     self.serverController.view.frame=rect;
+    
     [UIView commitAnimations];
+    
+    
+    
+    
+    NSLog(@"server frame 1:%@",[NSValue valueWithCGRect:self.serverController.view.frame]);
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -133,7 +137,10 @@
     //top view
     self.topView.frame=CGRectMake(0, kContentBaseY, kContentViewWidth, _topView.frame.size.height);
     //right view
-//    self.rightView.frame=CGRectMake(kContentViewWidth-_rightView.frame.size.width, kContentBaseY, _rightView.frame.size.width, kContentViewHeightNoTab);
+    if(kIS_IPHONE){
+        self.rightView.frame=CGRectMake(kContentViewWidth-_rightView.frame.size.width, kContentBaseY, _rightView.frame.size.width, kContentViewHeightNoTab);
+    }
+    
     //bottom view
     self.bottomView.frame=CGRectMake(0,_topView.frame.size.height+_topView.frame.origin.y, kContentViewWidth, _bottomView.frame.size.height);
     NSLog(@"bottom view frame:%@",[NSValue valueWithCGRect:self.bottomView.frame]);
@@ -171,7 +178,19 @@
     // e.g. self.myOutlet = nil;
 }
 
-
+- (void)initRender{
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    NSString *renderUuid=appDelagete.renderUuid;
+    if(renderUuid){
+        if(!self.render){
+            self.render=[[MediaRenderControllerService instance] controllerWithUUID:renderUuid];
+        }
+    }
+    else{
+        [SVProgressHUD showErrorWithStatus:@"请选择播放器" maskType:SVProgressHUDMaskTypeBlack];
+        return;
+    }
+}
 
 //- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 //{
@@ -200,14 +219,23 @@
 #pragma mark -
 #pragma mark - actions
 - (IBAction)renderBtAction:(id)sender {
-    self.renderViewController = [[RenderViewController alloc] init];
-    
-    [self.navigationController pushViewController:self.renderViewController animated:YES];
+//    self.renderViewController = [[RenderViewController alloc] init];
+//    
+//    [self.navigationController pushViewController:self.renderViewController animated:YES];
+    if(kIS_IPAD){
+        CGRect frame=CGRectMake(0, 0, 300, 300);
+        self.renderViewController=[[RenderViewController alloc]initWithFrame:frame];
+        self.renderViewController.preferredContentSize=CGSizeMake(300, 300);
+        UIPopoverController *popoverController=[[UIPopoverController alloc]initWithContentViewController:self.renderViewController];
+//        popoverController.contentViewController.contentSizeForViewInPopover=CGSizeMake(300, 500);
+        
+        [popoverController presentPopoverFromRect:self.renderBt.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    }
 }
 
 - (IBAction)serverBtAction:(id)sender {
 //    self.serverController=[[ServerViewController alloc]init];
-    ServerViewController *serverC=[[ServerViewController alloc] init];
+    ServerViewController *serverC=[[ServerViewController alloc] initWithDevices:self.dmsDic frame:self.view.bounds];
     [self.navigationController pushViewController:serverC animated:YES];
 //    [self presentViewController:self.serverController animated:YES completion:nil];
 }
@@ -369,6 +397,12 @@
     
     [self refreshAllMusicByType:@"list_icon"];
 }
+
+- (IBAction)hideBottomAction:(id)sender {
+}
+
+- (IBAction)remoteControlAction:(id)sender {
+}
 - (IBAction)bySongAction:(id)sender {
     NSLog(@"按歌曲浏览");
     [self refreshAllMusicByType:@"music"];
@@ -400,16 +434,11 @@
 
 - (IBAction)playPauseBtAction:(id)sender {
     NSLog(@"播放、暂停");
-//    if (self.isPlay) {
-////        [self.renderer stop];
-//        [self.renderer pause];
-//        [self.playBt setTitle:@"播放" forState:UIControlStateNormal];
-//        
-//    }else {
-//        [self.renderer play];
-//        [self.playBt setTitle:@"暂定" forState:UIControlStateNormal];
-//    }
-//    self.isPlay = [self.renderer isPlaying];
+    [self initRender];
+    [self.render pause:^(BOOL value){
+        NSLog(@"pause:%d",value);
+    }];
+    
 }
 
 - (IBAction)nextBtAction:(id)sender {
@@ -419,8 +448,13 @@
 }
 
 - (IBAction)setVolumeAction:(id)sender {
-    NSLog(@"音量");
-//    [self.renderer setVolume:self.volumeBt.value];
+    
+    [self initRender];
+    int volume=[[NSString stringWithFormat:@"%f",self.volumeBt.value] intValue];
+    NSLog(@"音量:%f--%d",self.volumeBt.value,volume);
+    [self.render setVolume:volume handler:^(BOOL value){
+        NSLog(@"volume :%d",value);
+    }];
 }
 
 - (IBAction)seekAction:(id)sender {
@@ -429,6 +463,10 @@
 
 - (IBAction)muteAction:(id)sender {
     NSLog(@"静音");
+    [self initRender];
+    [self.render setMute:YES handler:^(BOOL value){
+        NSLog(@"mute:%d",value);
+    }];
 }
 //- (BOOL)device:(CGUpnpDevice *)device service:(CGUpnpService *)service actionReceived:(CGUpnpAction *)action
 //{
@@ -494,8 +532,17 @@
     NSLog(@"mediumImageUrl:%@",item.mediumImageUrl);
     NSLog(@"largeImageUrl:%@",item.largeImageUrl);
     
-//    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-    [SVProgressHUD showErrorWithStatus:@"请选择播放器" maskType:SVProgressHUDMaskTypeBlack];
+
+    [self initRender];
+    [self.render setUri:item.uri name:@"name" handler:^(BOOL ret){
+        if(ret){
+            NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!ret = %d", ret);
+        }
+    }];
+    
+    [self.render play:^(BOOL ret){
+        NSLog(@"play:%d",ret);
+    }];
     
 }
 - (void)getServerAction:(NSNotification *)sender{
@@ -522,20 +569,22 @@
         
         //add catalog style nav 添加层级目录浏览界面
         
-        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:contentController];
-
-        self.catalogNav.view.frame=frame;
-        self.catalogNav.view.tag=10000;
-        [self.view addSubview:self.catalogNav.view];
+        
     }
     else{
         NSLog(@"如果没有目录浏览视图，则添加");
         //add catalog style nav 添加层级目录浏览界面
-        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:contentController];
-        self.catalogNav.view.frame=frame;
-        self.catalogNav.view.tag=10000;
-        [self.view addSubview:self.catalogNav.view];
+//        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:contentController];
+//        self.catalogNav.view.frame=frame;
+//        self.catalogNav.view.tag=10000;
+//        [self.view addSubview:self.catalogNav.view];
     }
+    self.catalogNav=[[UINavigationController alloc]initWithRootViewController:contentController];
+    
+    self.catalogNav.view.frame=frame;
+    self.catalogNav.view.tag=10000;
+    [self.view addSubview:self.catalogNav.view];
+    [self.view sendSubviewToBack:self.catalogNav.view];
     //提醒开始同步该服务器资源
     [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
 }

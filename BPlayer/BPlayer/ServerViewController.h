@@ -8,7 +8,7 @@
 
 #import "TestTableViewController.h"
 
-@interface ServerViewController : WithTableViewController 
+@interface ServerViewController : WithTableViewController
 
 
 @property (nonatomic, retain) NSArray* dataSource;

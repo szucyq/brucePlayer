@@ -13,6 +13,7 @@
 #import "RenderViewController.h"
 #import <MediaServerBrowserService/MediaServerBrowserService.h>
 #import <MediaServerBrowserService/MediaServerCrawler.h>
+#import <MediaServerBrowserService/MediaRenderControllerService.h>
 
 #import "ServerViewController.h"
 
@@ -23,7 +24,7 @@
 #import "CoreFMDB.h"
 #import "SearchViewController.h"
 
-@interface RootViewController : WithTableViewController
+@interface RootViewController : WithLeftRightController
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *rightView;
@@ -61,7 +62,7 @@
 @property (nonatomic) BOOL isPlay;
 @property (nonatomic,retain)NSMutableDictionary* dmsDic;
 @property (nonatomic,retain)AllMusicController *allMusicController;
-
+@property (nonatomic,retain)MediaRenderController *render;
 //右侧actions
 - (IBAction)renderBtAction:(id)sender;
 - (IBAction)serverBtAction:(id)sender;
@@ -89,5 +90,7 @@
 - (IBAction)byArtistAction:(id)sender;
 - (IBAction)byAlbumAction:(id)sender;
 - (IBAction)listIconAction:(id)sender;
+- (IBAction)hideBottomAction:(id)sender;
+- (IBAction)remoteControlAction:(id)sender;
 
 @end

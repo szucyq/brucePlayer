@@ -43,14 +43,15 @@
 - (void)viewDidLayoutSubviews{
     self.navigationController.navigationBarHidden=NO;
     
-    self.view.frame=self.viewFrame;
-    self.listTableView.frame=CGRectMake(0, 0, self.viewFrame.size.width, self.viewFrame.size.height);
+//    self.view.frame=CGRectMake(0, 0, self.viewFrame.size.width, self.viewFrame.size.height);
+    self.listTableView.frame=CGRectMake(0, 0, self.viewFrame.size.width, self.viewFrame.size.height-100);
     [self.listTableView reloadData];
+    NSLog(@"self view frame 1:%@",[NSValue valueWithCGRect:self.view.frame]);
 }
 - (void)viewDidLoad
 {
     
-    NSLog(@"self view frame:%@",[NSValue valueWithCGRect:self.view.frame]);
+    NSLog(@"self view frame 2:%@",[NSValue valueWithCGRect:self.view.frame]);
    
     _lastIndexPath=[NSIndexPath indexPathForRow:-1 inSection:0];
     [super viewDidLoad];
@@ -73,19 +74,19 @@
                                                  name:@"MediaServerRemovedNotification"
                                                object:nil];
     
-    //先停止
-//    [[MediaServerBrowserService instance] stopService];
-    //启动
-//    if([[MediaServerBrowserService instance] startService]){
-//        _dmsArr=[NSMutableDictionary dictionaryWithDictionary:[[MediaServerBrowserService instance] mediaServers]];
-//        [self.listTableView reloadData];
-//    }
-//    AppDelegate *appDelegate=[[UIApplication sharedApplication]delegate];
-//    self.dmsArr=appDelegate.serverItems;
-//    NSLog(@"app:%@",appDelegate.serverItems);
-//    
-//    [self.listTableView reloadData];
+
+    //设置按钮
+    UIButton *settingBt=[UIButton buttonWithType:UIButtonTypeCustom];
+    [settingBt setFrame:CGRectMake(0,self.viewFrame.size.height-100 , 56, 56)];
+    [settingBt addTarget:self action:@selector(settingAction) forControlEvents:UIControlEventTouchUpInside];
+    [settingBt setBackgroundImage:[UIImage imageNamed:@"temp.png"] forState:UIControlStateNormal];
+    [settingBt setTitle:@"设置" forState:UIControlStateNormal];
+    [self.view addSubview:settingBt];
+    [self.view bringSubviewToFront:settingBt];
     
+}
+- (void)settingAction{
+    NSLog(@"setting action");
 }
 - (void)rightButtonAction{
     [self performSelector:@selector(rightToAction:) withObject:nil];
