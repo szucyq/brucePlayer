@@ -80,6 +80,8 @@
 - (IBAction)settingAction:(id)sender;
 - (IBAction)searchAction:(id)sender;
 - (IBAction)searchDevicesAction:(id)sender;
+- (IBAction)getVolumeAction:(id)sender;
+- (IBAction)getCurPosAction:(id)sender;
 
 //顶端actions
 - (IBAction)catalogBtAction:(id)sender;

@@ -47,6 +47,22 @@
     self.listTableView.frame=CGRectMake(0, 0, self.viewFrame.size.width, self.viewFrame.size.height-100);
     [self.listTableView reloadData];
     NSLog(@"self view frame 1:%@",[NSValue valueWithCGRect:self.view.frame]);
+    //设置按钮
+    UIView *view=[self.view viewWithTag:1001];
+    if(view){
+        
+    }
+    else{
+        UIButton *settingBt=[UIButton buttonWithType:UIButtonTypeCustom];
+        [settingBt setFrame:CGRectMake(0,self.listTableView.frame.origin.y+self.listTableView.frame.size.height , 56, 56)];
+        [settingBt addTarget:self action:@selector(settingAction) forControlEvents:UIControlEventTouchUpInside];
+        [settingBt setBackgroundImage:[UIImage imageNamed:@"temp.png"] forState:UIControlStateNormal];
+//        [settingBt setTitle:@"设置" forState:UIControlStateNormal];
+        settingBt.tag=1001;
+        [self.view addSubview:settingBt];
+        [self.view bringSubviewToFront:settingBt];
+    }
+    
 }
 - (void)viewDidLoad
 {
@@ -75,14 +91,7 @@
                                                object:nil];
     
 
-    //设置按钮
-    UIButton *settingBt=[UIButton buttonWithType:UIButtonTypeCustom];
-    [settingBt setFrame:CGRectMake(0,self.viewFrame.size.height-100 , 56, 56)];
-    [settingBt addTarget:self action:@selector(settingAction) forControlEvents:UIControlEventTouchUpInside];
-    [settingBt setBackgroundImage:[UIImage imageNamed:@"temp.png"] forState:UIControlStateNormal];
-    [settingBt setTitle:@"设置" forState:UIControlStateNormal];
-    [self.view addSubview:settingBt];
-    [self.view bringSubviewToFront:settingBt];
+    
     
 }
 - (void)settingAction{

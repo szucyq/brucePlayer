@@ -182,9 +182,10 @@
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     NSString *renderUuid=appDelagete.renderUuid;
     if(renderUuid){
-        if(!self.render){
-            self.render=[[MediaRenderControllerService instance] controllerWithUUID:renderUuid];
-        }
+//        if(!self.render){
+//            self.render=[[MediaRenderControllerService instance] controllerWithUUID:renderUuid];
+//        }
+        self.render=[[MediaRenderControllerService instance] controllerWithUUID:renderUuid];
     }
     else{
         [SVProgressHUD showErrorWithStatus:@"请选择播放器" maskType:SVProgressHUDMaskTypeBlack];
@@ -321,6 +322,8 @@
     }
 }
 
+
+
 - (IBAction)catalogBtAction:(id)sender {
 
     CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
@@ -426,7 +429,7 @@
 }
 
 
-
+#pragma mark -
 - (IBAction)preBtAction:(id)sender {
     NSLog(@"上一首");
 //    [self.renderer previous];
@@ -435,9 +438,31 @@
 - (IBAction)playPauseBtAction:(id)sender {
     NSLog(@"播放、暂停");
     [self initRender];
-    [self.render pause:^(BOOL value){
-        NSLog(@"pause:%d",value);
+    [self.render getStat:^(BOOL value,int status){
+        if(status==0){
+            NSLog(@"stoped");
+            [self.render play:^(BOOL ret){
+                NSLog(@"play:%d",ret);
+            }];
+        }
+        else if(status==1){
+            NSLog(@"PLAYING");
+            [self.render pause:^(BOOL value){
+                NSLog(@"pause:%d",value);
+            }];
+        }
+        else if(status==2){
+            NSLog(@"PAUSED");
+            [self.render play:^(BOOL ret){
+                NSLog(@"play:%d",ret);
+            }];
+        }
+        else if(status==3){
+            NSLog(@"LOADING");
+        }
+        
     }];
+    
     
 }
 
@@ -446,6 +471,14 @@
 //    [self.renderer next];
 //    [self.renderer setMute:1];
 }
+- (IBAction)getVolumeAction:(id)sender {
+    NSLog(@"获取音量");
+    [self initRender];
+    [self.render getVolume:^(BOOL value,NSInteger volume){
+        NSLog(@"value:%d--volume:%ld",value,volume);
+    }];
+}
+
 
 - (IBAction)setVolumeAction:(id)sender {
     
@@ -456,9 +489,21 @@
         NSLog(@"volume :%d",value);
     }];
 }
-
+- (IBAction)getCurPosAction:(id)sender {
+    NSLog(@"获取当前位置");
+    [self initRender];
+    [self.render getCurPos:^(BOOL value,NSTimeInterval time){
+        NSLog(@"当前位置:%f",time);
+    }];
+}
 - (IBAction)seekAction:(id)sender {
     NSLog(@"进度条控制");
+    [self initRender];
+    NSTimeInterval time;
+    [self.render seek:time handler:^(BOOL value){
+        
+    }];
+
 }
 
 - (IBAction)muteAction:(id)sender {
