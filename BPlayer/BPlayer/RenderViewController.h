@@ -10,5 +10,6 @@
 //#import <MediaServerBrowserService/MediaRenderControllerService.h>
 
 @interface RenderViewController : WithTableViewController
+@property (nonatomic,retain)NSIndexPath *lastIndexPath;
 - (id)initWithFrame:(CGRect)frame;
 @end

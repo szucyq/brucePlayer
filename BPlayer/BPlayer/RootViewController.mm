@@ -577,6 +577,7 @@
     NSLog(@"mediumImageUrl:%@",item.mediumImageUrl);
     NSLog(@"largeImageUrl:%@",item.largeImageUrl);
     
+    self.curSong.text=item.title;
 
     [self initRender];
     [self.render setUri:item.uri name:@"name" handler:^(BOOL ret){

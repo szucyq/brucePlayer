@@ -48,6 +48,7 @@
 		327137761B4A38E400CE69D6 /* current_music.png in Resources */ = {isa = PBXBuildFile; fileRef = 327137751B4A38E400CE69D6 /* current_music.png */; };
 		3297F4A01B3DCACB0006EDFA /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3297F49F1B3DCACB0006EDFA /* SettingViewController.m */; };
 		3297F4B21B3FC8CE0006EDFA /* RootView-iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */; };
+		32D442B01B4E479A00960EC0 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D442AF1B4E479A00960EC0 /* Icon.png */; };
 		32DB6A7A1B3FF8FB0030E86F /* RenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DB6A791B3FF8FB0030E86F /* RenderViewController.m */; };
 		32DCC7671B3DB6230063DD60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC7661B3DB6230063DD60 /* main.m */; };
 		32DCC76A1B3DB6230063DD60 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC7691B3DB6230063DD60 /* AppDelegate.mm */; };
@@ -209,6 +210,7 @@
 		3297F49F1B3DCACB0006EDFA /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		3297F4A11B3DCCBF0006EDFA /* MediaServerBrowserService.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MediaServerBrowserService.xcodeproj; path = ../MediaServerBrowserService/MediaServerBrowserService.xcodeproj; sourceTree = "<group>"; };
 		3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "RootView-iPhone.xib"; sourceTree = "<group>"; };
+		32D442AF1B4E479A00960EC0 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		32DB6A781B3FF8FB0030E86F /* RenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderViewController.h; sourceTree = "<group>"; };
 		32DB6A791B3FF8FB0030E86F /* RenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderViewController.m; sourceTree = "<group>"; };
 		32DCC7611B3DB6230063DD60 /* BPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -439,6 +441,7 @@
 				3216EDFF1B496A0800FEDAC0 /* by_Genres.png */,
 				3216EE001B496A0800FEDAC0 /* by_Songs.png */,
 				327137691B4A33D900CE69D6 /* setting_selected.png */,
+				32D442AF1B4E479A00960EC0 /* Icon.png */,
 				3271376A1B4A33D900CE69D6 /* setting_unselected.png */,
 				3254A2E41B4374820059A7D2 /* add@2x.png */,
 				3254A2E61B4374820059A7D2 /* backTo.png */,
@@ -845,6 +848,7 @@
 				3216EE2F1B4A028800FEDAC0 /* menu_favourite.png in Resources */,
 				3216EDF51B49674400FEDAC0 /* play.png in Resources */,
 				3216EDF21B49674400FEDAC0 /* next_selected.png in Resources */,
+				32D442B01B4E479A00960EC0 /* Icon.png in Resources */,
 				3216EDF91B49674400FEDAC0 /* servers.png in Resources */,
 				3297F4B21B3FC8CE0006EDFA /* RootView-iPhone.xib in Resources */,
 				3216EDF61B49674400FEDAC0 /* privous_selected.png in Resources */,

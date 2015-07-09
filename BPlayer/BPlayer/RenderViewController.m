@@ -25,8 +25,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _lastIndexPath=[NSIndexPath indexPathForRow:-1 inSection:0];
     // Do any additional setup after loading the view.
-    self.title=@"选择播放器";
+    self.title=@"设备";
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(mediaRenderAdded:)
@@ -91,6 +92,16 @@
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSInteger newRow = [indexPath row];
+    NSInteger oldRow = [_lastIndexPath row];
+    if (newRow != oldRow){
+        UITableViewCell *newCell = [tableView cellForRowAtIndexPath:                                                                indexPath];
+        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
+        UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:                                                                _lastIndexPath];
+        oldCell.accessoryType = UITableViewCellAccessoryNone;        _lastIndexPath = indexPath;
+    }
     //保存render信息，供播放时使用
     NSDictionary *renders = [MediaRenderControllerService instance].renderDic;
     NSString *renderUuid = [[renders allKeys] objectAtIndex:indexPath.row];
