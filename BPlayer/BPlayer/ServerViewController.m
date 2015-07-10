@@ -38,7 +38,9 @@
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
 }
-
+- (void)setVisible:(BOOL)visible {
+    self.view.hidden = !visible;
+}
 #pragma mark - View lifecycle
 - (void)viewDidLayoutSubviews{
     self.navigationController.navigationBarHidden=NO;
@@ -91,8 +93,15 @@
                                                object:nil];
     
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadLeftView:) name:@"LeftRefresh" object:nil];
     
     
+}
+- (void)reloadLeftView:(NSNotification*)sender{
+    NSDictionary *dic=[sender userInfo];
+    self.dmsArr=[dic objectForKey:@"server"];
+    NSLog(@"servers:%@",self.dmsArr);
+    [self.listTableView reloadData];
 }
 - (void)settingAction{
     NSLog(@"setting action");

@@ -10,7 +10,7 @@
 #import <Platinum/Platinum.h>
 #import "AppDelegate.h"
 
-#define kLeftViewWidth 150
+//#define kLeftViewWidth 150
 @implementation RootViewController
 - (void)didReceiveMemoryWarning
 {
@@ -87,47 +87,47 @@
 - (void)leftAction{
     NSLog(@"left action");
 
-    if(self.serverController){
-        
-        [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
-        [UIView setAnimationDuration:0.3f];
-        
-        CGRect rect=CGRectMake(-kLeftViewWidth, kContentBaseY, kLeftViewWidth, self.view.frame.size.height);
-        self.serverController.view.frame=rect;
-
-        [UIView commitAnimations];
-        NSLog(@"server frame 2:%@",[NSValue valueWithCGRect:self.serverController.view.frame]);
-    }
+//    if(self.serverController){
+//        
+//        [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+//        [UIView setAnimationDuration:0.3f];
+//        
+//        CGRect rect=CGRectMake(-kLeftViewWidth, kContentBaseY, kLeftViewWidth, self.view.frame.size.height);
+//        self.serverController.view.frame=rect;
+//
+//        [UIView commitAnimations];
+//        NSLog(@"server frame 2:%@",[NSValue valueWithCGRect:self.serverController.view.frame]);
+//    }
     
 }
-- (void)rightAction{
-    NSLog(@"right action");
-    
-    if(self.serverController){
-        NSLog(@"已经有server controller");
-    }
-    else{
-        self.serverController=[[ServerViewController alloc]initWithDevices:self.dmsDic frame:CGRectMake(-kLeftViewWidth, kContentBaseY, kLeftViewWidth, kContentViewHeightNoTab)];
-        
-        [self.view addSubview:self.serverController.view];
-        
-        
-    }
-    
-    
-    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
-    [UIView setAnimationDuration:0.3f];
-    
-    CGRect rect=CGRectMake(0,kContentBaseY,kLeftViewWidth,self.view.frame.size.height);
-    self.serverController.view.frame=rect;
-    
-    [UIView commitAnimations];
-    
-    
-    
-    
-    NSLog(@"server frame 1:%@",[NSValue valueWithCGRect:self.serverController.view.frame]);
-}
+//- (void)rightAction{
+//    NSLog(@"right action");
+//    
+//    if(self.serverController){
+//        NSLog(@"已经有server controller");
+//    }
+//    else{
+//        self.serverController=[[ServerViewController alloc]initWithDevices:self.dmsDic frame:CGRectMake(-kLeftViewWidth, kContentBaseY, kLeftViewWidth, kContentViewHeightNoTab)];
+//        
+//        [self.view addSubview:self.serverController.view];
+//        
+//        
+//    }
+//    
+//    
+//    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+//    [UIView setAnimationDuration:0.3f];
+//    
+//    CGRect rect=CGRectMake(0,kContentBaseY,kLeftViewWidth,self.view.frame.size.height);
+//    self.serverController.view.frame=rect;
+//    
+//    [UIView commitAnimations];
+//    
+//    
+//    
+//    
+//    NSLog(@"server frame 1:%@",[NSValue valueWithCGRect:self.serverController.view.frame]);
+//}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden=YES;
@@ -554,6 +554,53 @@
         [self.view addSubview:self.allMusicController.view];
     }
 }
+#pragma mark - Swip Left Right
+- (void)restoreViewLocation {
+    [(AppDelegate*)[[UIApplication sharedApplication] delegate] makeLeftViewUnVisible];
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                        
+                         [[(AppDelegate *)[[UIApplication sharedApplication] delegate] window].rootViewController.view setFrame:CGRectMake(0, 0, kContentViewWidth, kContentViewHeightNoTab)];
+                     }
+                     completion:^(BOOL finished){
+                         UIControl *overView = (UIControl *)[[[[UIApplication sharedApplication] delegate] window] viewWithTag:10086];
+                         [overView removeFromSuperview];
+                         
+                     }];
+}
+// animate home view to side rect
+- (void)animateHomeViewToSide:(CGRect)newViewRect {
+    CGRect oldFrame=[[[UIApplication sharedApplication] delegate] window].rootViewController.view.frame;
+    NSLog(@"old rect:%@",[NSValue valueWithCGRect:oldFrame]);
+    NSLog(@"new rect:%@",[NSValue valueWithCGRect:newViewRect]);
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         [[(AppDelegate *)[[UIApplication sharedApplication] delegate] window].rootViewController.view setFrame:newViewRect];
+                     }
+                     completion:^(BOOL finished){
+                         UIControl *overView = [[UIControl alloc] init];
+                         overView.tag = 10086;
+                         overView.backgroundColor = [UIColor clearColor];
+                         overView.frame=[(AppDelegate *)[[UIApplication sharedApplication] delegate] window].rootViewController.view.frame;
+                         NSLog(@"-------key window:%@",[[[UIApplication sharedApplication] delegate] window]);
+                         [overView addTarget:self action:@selector(restoreViewLocation) forControlEvents:UIControlEventTouchDown];
+                         [[[[UIApplication sharedApplication] delegate] window] addSubview:overView];
+//                         [overView release];
+                     }];
+}
+- (void)rightAction{
+    NSLog(@"swipRightAction");
+
+    
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] makeLeftViewVisible];
+    [self animateHomeViewToSide:CGRectMake(kLeftViewWidth,
+                                           0,
+                                           kContentViewWidth,
+                                           kContentViewHeightNoTab)];
+    
+
+}
+
 #pragma mark - notificationon controls
 - (void)playWithAvItem:(NSNotification *)sender{
     NSDictionary *userinfo=[sender userInfo];
@@ -645,7 +692,9 @@
     [self.dmsDic setObject:friendlyName forKey:uuid];
     //    _dmsArr=[NSMutableDictionary dictionaryWithDictionary:[[MediaServerBrowserService instance] mediaServers]];
     
+    NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:self.dmsDic,@"server", nil];
 //    [self.listTableView reloadData];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LeftRefresh" object:nil userInfo:dic];
 }
 
 - (void)mediaServerRemove:(NSNotification*)notification

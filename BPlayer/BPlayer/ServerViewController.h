@@ -17,4 +17,5 @@
 @property (nonatomic,retain)NSIndexPath *lastIndexPath;
 
 - (id)initWithDevices:(NSMutableDictionary*)sender frame:(CGRect)frame;
+- (void)setVisible:(BOOL)visible;
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RootViewController.h"
 #import <MediaServerBrowserService/MediaServerBrowserService.h>
+#import "ServerViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -17,5 +18,8 @@
 @property (nonatomic,copy)NSString *renderUuid;
 @property (nonatomic,retain)UINavigationController *navController;
 @property (nonatomic,retain)NSMutableDictionary *serverItems;
+@property (nonatomic,retain)ServerViewController *leftView;
+- (void)makeLeftViewVisible;
+- (void)makeLeftViewUnVisible;
 @end
 

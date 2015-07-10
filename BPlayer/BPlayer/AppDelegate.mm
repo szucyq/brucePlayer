@@ -46,6 +46,7 @@
     //create db
     [self creatFolder];
     [self createDBTable];
+    [self createLeftView];
     return YES;
 }
 
@@ -170,4 +171,62 @@
         NSLog(@"创建playlist table fail");
     }
 }
+#pragma mark -Dismiss Cover
+//-(void)dissmissCover:(NSNotification*)sender{
+//    //[[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+//    [[UIApplication sharedApplication]setStatusBarHidden:NO];
+//    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:NO];
+//    [coverViewController.view removeFromSuperview];
+//    [coverViewController release];
+//    coverViewController=nil;
+//    
+//    //----------left view
+//    LeftViewController *left=[[LeftViewController alloc]initWithNibName:@"LeftView" bundle:nil];
+//    self.leftView=left;
+//    leftView.view.frame=CGRectMake(0, 20, 160, self.window.frame.size.height-20);
+//    
+//    [self.window addSubview:self.leftView.view];
+//    self.window.backgroundColor=[UIColor colorWithRed:88.0/255 green:88.0/255 blue:88.0/255 alpha:1.0];
+//    [left release];
+//    left=nil;
+//    
+//    [leftView setVisible:NO];
+//    
+//    //----------root view
+//    RootViewController *rootController=[[RootViewController alloc]init];
+//    self.rootViewController=rootController;
+//    [self.window addSubview:rootViewController.view];
+//    [rootController.view setFrame:CGRectMake(0, 20, 320, self.window.frame.size.height-20)];
+//    [rootController release];
+//    
+//}
+- (void)createLeftView{
+    //----------left view
+    CGRect frame=CGRectMake(0, kContentBaseY, kLeftViewWidth-2, kContentViewHeightNoTab);
+    self.leftView=[[ServerViewController alloc]initWithDevices:nil frame:frame];
+
+    self.leftView.view.frame=frame;
+    
+    [self.window addSubview:self.leftView.view];
+    
+    [self.leftView setVisible:NO];
+    
+    
+}
+
+- (void)makeLeftViewVisible {
+    self.window.rootViewController.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.window.rootViewController.view.layer.shadowOpacity = 0.4f;
+    self.window.rootViewController.view.layer.shadowOffset = CGSizeMake(-12.0, 1.0f);
+    self.window.rootViewController.view.layer.shadowRadius = 7.0f;
+    self.window.rootViewController.view.layer.masksToBounds = NO;
+    
+    [self.leftView setVisible:YES];
+    //self.rootViewController.view.frame=CGRectMake(160, 20, 320, 460);
+    //[self.window bringSubviewToFront:self.leftView.view];
+}
+- (void)makeLeftViewUnVisible{
+    [self.leftView setVisible:NO];
+}
+
 @end

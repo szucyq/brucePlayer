@@ -14,8 +14,10 @@
 #define kContentBaseY (IS_IOS_7?20:0)
 
 #define kContentViewHeight (kScreenHeight -kBottomTabHeight-kContentBaseY)
-#define kContentViewHeightNoTab (kScreenHeight-kContentBaseY)
+#define kContentViewHeightNoTab kScreenHeight
 #define kContentViewWidth kScreenWidth
+
+#define kLeftViewWidth 150
 
 //列表分页
 #define kPerPage 15
