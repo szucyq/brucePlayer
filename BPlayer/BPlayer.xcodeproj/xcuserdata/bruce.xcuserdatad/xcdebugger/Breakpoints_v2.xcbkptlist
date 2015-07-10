@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BPlayer/RootViewController.mm"
-            timestampString = "458197006.421666"
+            timestampString = "458201132.825773"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "580"
-            endingLineNumber = "580"
+            startingLineNumber = "605"
+            endingLineNumber = "605"
             landmarkName = "-animateHomeViewToSide:"
             landmarkType = "5">
          </BreakpointContent>

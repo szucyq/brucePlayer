@@ -11,7 +11,6 @@
                 <outlet property="bottomView" destination="QqI-Fa-cdd" id="daR-5o-QlP"/>
                 <outlet property="catalogBt" destination="rCa-xa-tnb" id="Syr-qt-AlC"/>
                 <outlet property="composerBt" destination="ByP-wK-cpq" id="C85-zH-n0E"/>
-                <outlet property="curSong" destination="r9u-sa-JzC" id="osk-FF-mM9"/>
                 <outlet property="iconBt" destination="d3V-5e-asj" id="V0c-wN-n7b"/>
                 <outlet property="listBt" destination="AhX-DV-P0u" id="hCP-AL-zC2"/>
                 <outlet property="muteBt" destination="gYv-fX-rpZ" id="x4X-Ud-93O"/>
@@ -21,10 +20,8 @@
                 <outlet property="renderBt" destination="aJX-Qf-5SU" id="qpr-Ig-DfS"/>
                 <outlet property="rightView" destination="27O-a3-inE" id="OoU-5Q-eEe"/>
                 <outlet property="seekSlider" destination="wcW-Nq-40H" id="5eg-Dv-msO"/>
-                <outlet property="serverBt" destination="pl5-T2-8qm" id="lu4-3S-mQi"/>
                 <outlet property="setupBt" destination="pPU-WF-bYG" id="2Am-9t-xVa"/>
                 <outlet property="songBt" destination="wsM-nc-c2B" id="8qP-va-fjS"/>
-                <outlet property="timeLabel" destination="V6S-hc-EuT" id="lHl-66-h5x"/>
                 <outlet property="topView" destination="3H1-QA-3Wf" id="Zg4-aK-hE9"/>
                 <outlet property="view" destination="iN0-l3-epB" id="yHh-fV-Ixc"/>
                 <outlet property="volumeBt" destination="mQs-Jt-xjn" id="mFg-TP-D2M"/>
