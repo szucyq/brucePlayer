@@ -146,7 +146,7 @@
 }
 - (void)createDBTable{
     //创建音乐表
-    BOOL musicBool=[CoreFMDB executeUpdate:@"create table if not exists music(id integer primary key autoIncrement,uri text,title text,size integer,artist text,album text,genres text,date text);"];
+    BOOL musicBool=[CoreFMDB executeUpdate:@"create table if not exists music(id integer primary key autoIncrement,server text,uri text,title text,size integer,artist text,album text,genres text,date text);"];
     if(musicBool){
         NSLog(@"创建music table success");
     }
@@ -155,7 +155,7 @@
     }
     
     //创建收藏表
-    BOOL favouriteBool=[CoreFMDB executeUpdate:@"create table if not exists favourite(id integer primary key autoIncrement,uri text,title text,size integer,artist text,album text,genres text,date text);"];
+    BOOL favouriteBool=[CoreFMDB executeUpdate:@"create table if not exists favourite(id integer primary key autoIncrement,server text,uri text,title text,size integer,artist text,album text,genres text,date text);"];
     if(favouriteBool){
         NSLog(@"创建favourite table success");
     }
@@ -163,7 +163,7 @@
         NSLog(@"创建favourite table fail");
     }
     //创建播放列表
-    BOOL playlistBool=[CoreFMDB executeUpdate:@"create table if not exists playlist(id integer primary key autoIncrement,uri text,title text,size integer,artist text,album text,genres text,date text);"];
+    BOOL playlistBool=[CoreFMDB executeUpdate:@"create table if not exists playlist(id integer primary key autoIncrement,server text,uri text,title text,size integer,artist text,album text,genres text,date text);"];
     if(playlistBool){
         NSLog(@"创建playlist table success");
     }

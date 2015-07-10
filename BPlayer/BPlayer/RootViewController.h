@@ -35,15 +35,19 @@
 @property (weak, nonatomic) IBOutlet UIButton *composerBt;
 @property (weak, nonatomic) IBOutlet UIButton *songBt;
 @property (weak, nonatomic) IBOutlet UIButton *catalogBt;
-@property (weak, nonatomic) IBOutlet UILabel *curSong;
 @property (weak, nonatomic) IBOutlet UIButton *iconBt;
 @property (weak, nonatomic) IBOutlet UIButton *listBt;
+@property (weak, nonatomic) IBOutlet UIImageView *curMusicIv;
+@property (weak, nonatomic) IBOutlet UILabel *curMusicFormatLabel;
+@property (weak, nonatomic) IBOutlet UILabel *curMusicBitLabel;
+@property (weak, nonatomic) IBOutlet UILabel *curMusicTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *curMusicNameLabel;
 
 //右侧控件
-@property (weak, nonatomic) IBOutlet UIButton *renderBt;
-@property (weak, nonatomic) IBOutlet UIButton *serverBt;
-//底部控件
 
+//@property (weak, nonatomic) IBOutlet UIButton *serverBt;
+//底部控件
+@property (weak, nonatomic) IBOutlet UIButton *renderBt;
 @property (weak, nonatomic) IBOutlet UISlider *volumeBt;
 @property (weak, nonatomic) IBOutlet UIButton *preBt;
 @property (weak, nonatomic) IBOutlet UIButton *playBt;
@@ -51,8 +55,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *setupBt;
 @property (weak, nonatomic) IBOutlet UISlider *seekSlider;
 @property (weak, nonatomic) IBOutlet UIButton *muteBt;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *deviceBt;
+@property (weak, nonatomic) IBOutlet UILabel *curTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lengthTimeLabel;
+
 
 //其他
 //@property (nonatomic,retain)ServerContentViewController *serverContentView;
@@ -94,5 +100,6 @@
 - (IBAction)listIconAction:(id)sender;
 - (IBAction)hideBottomAction:(id)sender;
 - (IBAction)remoteControlAction:(id)sender;
+- (IBAction)byDateAction:(id)sender;
 
 @end

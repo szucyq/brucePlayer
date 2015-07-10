@@ -232,6 +232,10 @@
         
         [popoverController presentPopoverFromRect:self.renderBt.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     }
+    else{
+        self.renderViewController=[[RenderViewController alloc]initWithFrame:CGRectMake(0, 0, kContentViewWidth, kContentViewHeightNoTab)];
+        [self.navigationController pushViewController:self.renderViewController animated:YES];
+    }
 }
 
 - (IBAction)serverBtAction:(id)sender {
@@ -406,6 +410,11 @@
 
 - (IBAction)remoteControlAction:(id)sender {
 }
+
+- (IBAction)byDateAction:(id)sender {
+    NSLog(@"按日期浏览");
+    [self refreshAllMusicByType:@"date"];
+}
 - (IBAction)bySongAction:(id)sender {
     NSLog(@"按歌曲浏览");
     [self refreshAllMusicByType:@"music"];
@@ -433,6 +442,7 @@
 - (IBAction)preBtAction:(id)sender {
     NSLog(@"上一首");
 //    [self.renderer previous];
+    [self refreshCurrentMusicInfoWithItem:nil];
 }
 
 - (IBAction)playPauseBtAction:(id)sender {
@@ -470,6 +480,7 @@
     NSLog(@"下一首");
 //    [self.renderer next];
 //    [self.renderer setMute:1];
+    [self refreshCurrentMusicInfoWithItem:nil];
 }
 - (IBAction)getVolumeAction:(id)sender {
     NSLog(@"获取音量");
@@ -494,6 +505,8 @@
     [self initRender];
     [self.render getCurPos:^(BOOL value,NSTimeInterval time){
         NSLog(@"当前位置:%f",time);
+        //刷新当前时间
+        [self refreshCurrentMusicTime:nil time:nil];
     }];
 }
 - (IBAction)seekAction:(id)sender {
@@ -528,6 +541,22 @@
 //        [self.view bringSubviewToFront:self.catalogNav.view];
 //    }
 //}
+- (void)refreshCurrentMusicInfoWithItem:(MediaServerItem*)item{
+    //名字
+    self.curMusicNameLabel.text=item.title;
+    //格式
+    self.curMusicFormatLabel.text=item.extention;
+    //比特率
+    self.curMusicBitLabel.text=item.mimeType;
+    //当前播放时间进度
+    self.curMusicTimeLabel.text=@"";//定时刷新显示 ？
+    //当前歌曲长度
+//    self.lengthTimeLabel.text=;//长度是哪个字段？
+}
+- (void)refreshCurrentMusicTime:(MediaServerItem*)item time:(NSTimeInterval*)time{
+    self.curMusicTimeLabel.text=@"";
+    self.curTimeLabel.text=@"";
+}
 - (void)refreshAllMusicByType:(NSString*)type{
     //取得当前的server
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
@@ -624,19 +653,25 @@
     NSLog(@"mediumImageUrl:%@",item.mediumImageUrl);
     NSLog(@"largeImageUrl:%@",item.largeImageUrl);
     
-    self.curSong.text=item.title;
+    
 
+    //播放
     [self initRender];
     [self.render setUri:item.uri name:@"name" handler:^(BOOL ret){
         if(ret){
             NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!ret = %d", ret);
+            [self.render play:^(BOOL ret){
+                NSLog(@"play:%d",ret);
+            }];
+        }
+        else{
+            [SVProgressHUD showErrorWithStatus:@"该文件播放错误，请重试" maskType:SVProgressHUDMaskTypeBlack];
         }
     }];
     
-    [self.render play:^(BOOL ret){
-        NSLog(@"play:%d",ret);
-    }];
     
+    //刷新当前播放音乐的显示信息
+    [self refreshCurrentMusicInfoWithItem:item];
 }
 - (void)getServerAction:(NSNotification *)sender{
 

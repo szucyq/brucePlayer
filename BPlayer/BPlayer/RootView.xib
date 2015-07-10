@@ -10,8 +10,14 @@
                 <outlet property="artistBt" destination="4Ez-Wz-C6s" id="iJO-bG-18Q"/>
                 <outlet property="bottomView" destination="QqI-Fa-cdd" id="daR-5o-QlP"/>
                 <outlet property="catalogBt" destination="rCa-xa-tnb" id="Syr-qt-AlC"/>
-                <outlet property="curSong" destination="r9u-sa-JzC" id="osk-FF-mM9"/>
+                <outlet property="curMusicBitLabel" destination="IIu-iR-Ewo" id="A01-E1-KMn"/>
+                <outlet property="curMusicFormatLabel" destination="Nnq-G2-vYp" id="Pog-ky-pIy"/>
+                <outlet property="curMusicIv" destination="pt1-WV-MCw" id="loZ-Tt-Ryl"/>
+                <outlet property="curMusicNameLabel" destination="r9u-sa-JzC" id="Uao-ki-vpj"/>
+                <outlet property="curMusicTimeLabel" destination="i6Y-Is-nGz" id="oQc-OB-XUD"/>
+                <outlet property="curTimeLabel" destination="Fpx-H4-RIc" id="M0L-EJ-apj"/>
                 <outlet property="iconBt" destination="d3V-5e-asj" id="V0c-wN-n7b"/>
+                <outlet property="lengthTimeLabel" destination="EkX-ex-1fB" id="z61-kf-8O4"/>
                 <outlet property="listBt" destination="AhX-DV-P0u" id="hCP-AL-zC2"/>
                 <outlet property="nextBt" destination="rwl-Ny-XA3" id="3wj-Sp-qPX"/>
                 <outlet property="playBt" destination="4Jh-yU-kVg" id="XlV-cU-VHi"/>
@@ -19,7 +25,6 @@
                 <outlet property="renderBt" destination="aJX-Qf-5SU" id="qpr-Ig-DfS"/>
                 <outlet property="seekSlider" destination="wcW-Nq-40H" id="5eg-Dv-msO"/>
                 <outlet property="songBt" destination="wsM-nc-c2B" id="8qP-va-fjS"/>
-                <outlet property="timeLabel" destination="Fpx-H4-RIc" id="for-9a-GLR"/>
                 <outlet property="topView" destination="3H1-QA-3Wf" id="Zg4-aK-hE9"/>
                 <outlet property="view" destination="iN0-l3-epB" id="vll-EM-CgS"/>
                 <outlet property="volumeBt" destination="mQs-Jt-xjn" id="mFg-TP-D2M"/>
@@ -91,6 +96,9 @@
                             <state key="normal" image="by_Genres.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="byZuoquAction:" destination="-1" eventType="touchUpInside" id="ZWa-Vk-rBH"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0Tb-bg-UcC">
                             <rect key="frame" x="214" y="45" width="44" height="44"/>
@@ -98,6 +106,9 @@
                             <state key="normal" image="by_Years.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="byDateAction:" destination="-1" eventType="touchUpInside" id="0hB-MA-o1m"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WIG-pr-Lyk">
                             <rect key="frame" x="921" y="45" width="44" height="44"/>
@@ -130,7 +141,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前音乐名字" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="r9u-sa-JzC">
-                            <rect key="frame" x="421" y="27" width="149" height="21"/>
+                            <rect key="frame" x="415" y="27" width="149" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -151,15 +162,15 @@
                                 <action selector="playPauseBtAction:" destination="-1" eventType="touchUpInside" id="oZS-dK-g9Q"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="码流" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nnq-G2-vYp">
-                            <rect key="frame" x="421" y="68" width="96" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="文件格式 " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nnq-G2-vYp">
+                            <rect key="frame" x="411" y="68" width="62" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="时间" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="i6Y-Is-nGz">
-                            <rect key="frame" x="539" y="68" width="96" height="21"/>
+                            <rect key="frame" x="542" y="68" width="96" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -199,6 +210,13 @@
                                 <action selector="favouriteAction:" destination="-1" eventType="touchUpInside" id="Avz-0Y-UMs"/>
                             </connections>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="比特率" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IIu-iR-Ewo">
+                            <rect key="frame" x="472" y="68" width="62" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
