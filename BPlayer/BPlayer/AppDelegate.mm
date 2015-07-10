@@ -153,7 +153,13 @@
     else{
         NSLog(@"创建music table fail");
     }
-    
+//    BOOL clearMusic=[CoreFMDB executeUpdate:@"delete  from music;"];
+//    if(clearMusic){
+//        NSLog(@"清除music成功");
+//    }
+//    else{
+//        NSLog(@"清除music失败");
+//    }
     //创建收藏表
     BOOL favouriteBool=[CoreFMDB executeUpdate:@"create table if not exists favourite(id integer primary key autoIncrement,server text,uri text,title text,size integer,artist text,album text,genres text,date text);"];
     if(favouriteBool){

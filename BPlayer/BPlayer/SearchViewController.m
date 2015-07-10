@@ -23,7 +23,7 @@
     
     self.title=@"请输入搜索的内容";
     //add search bar
-    self.musicSearchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(0, kContentBaseY, kContentViewWidth, 50)];
+    self.musicSearchBar=[[UISearchBar alloc]initWithFrame:CGRectMake(0, 64, kContentViewWidth, 50)];
     
     _musicSearchBar.delegate=self;
     _musicSearchBar.placeholder=@"请输入歌曲名字";
@@ -32,7 +32,7 @@
     
     
     //add table view
-    self.listTableView.frame=CGRectMake(0, kContentBaseY+55, kContentViewWidth, kContentViewHeightNoTab-55);
+    self.listTableView.frame=CGRectMake(0, self.musicSearchBar.frame.origin.y+self.musicSearchBar.frame.size.height, kContentViewWidth, kContentViewHeightNoTab-self.musicSearchBar.frame.size.height);
     
 }
 //- (void)viewWillAppear:(BOOL)animated{

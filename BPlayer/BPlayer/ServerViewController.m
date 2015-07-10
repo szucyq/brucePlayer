@@ -250,7 +250,7 @@
     //此处选择server后，传递server信息，让前端刷新对应server内容
     NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:uuid,@"server", nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"kSelectServer" object:nil userInfo:userinfo];
-    return;
+//    return;
     //暂时跳转下级目录测试
 //    if (contentController_ == nil) {
 //        contentController_ = [[ServerContentViewController alloc]initWithFrame:self.view.bounds];

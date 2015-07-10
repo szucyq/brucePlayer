@@ -228,7 +228,6 @@
         self.renderViewController=[[RenderViewController alloc]initWithFrame:frame];
         self.renderViewController.preferredContentSize=CGSizeMake(300, 300);
         UIPopoverController *popoverController=[[UIPopoverController alloc]initWithContentViewController:self.renderViewController];
-//        popoverController.contentViewController.contentSizeForViewInPopover=CGSizeMake(300, 500);
         
         [popoverController presentPopoverFromRect:self.renderBt.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     }
@@ -266,7 +265,7 @@
                 NSString *album=[NSString stringWithFormat:@"%@",item.albumArtURI];
                 NSString *genres=[NSString stringWithFormat:@"%@",item.mimeType];
                 NSString *date=[NSString stringWithFormat:@"%@",item.date];
-                NSString *sql=[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@",@"insert into music (title,uri,album,genres,date) values('",title,@"','",uri,@"','",album,@"','",genres,@"','",date,@"')"];
+                NSString *sql=[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@",@"insert into music (server,title,uri,album,genres,date) values('",appDelagete.serverUuid,@"','",title,@"','",uri,@"','",album,@"','",genres,@"','",date,@"')"];
                 NSLog(@"sql:%@",sql);
                 BOOL musicAdd=[CoreFMDB executeUpdate:sql];
                 if(musicAdd){
@@ -694,18 +693,9 @@
     if(self.catalogNav){
         NSLog(@"如果已有目录浏览视图，则先删除");
         [self.catalogNav.view removeFromSuperview];
-        
-        //add catalog style nav 添加层级目录浏览界面
-        
-        
     }
     else{
         NSLog(@"如果没有目录浏览视图，则添加");
-        //add catalog style nav 添加层级目录浏览界面
-//        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:contentController];
-//        self.catalogNav.view.frame=frame;
-//        self.catalogNav.view.tag=10000;
-//        [self.view addSubview:self.catalogNav.view];
     }
     self.catalogNav=[[UINavigationController alloc]initWithRootViewController:contentController];
     
@@ -714,6 +704,7 @@
     [self.view addSubview:self.catalogNav.view];
     [self.view sendSubviewToBack:self.catalogNav.view];
     //提醒开始同步该服务器资源
+    [SVProgressHUD showInfoWithStatus:@"正在为您同步资源" maskType:SVProgressHUDMaskTypeBlack];
     [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
 }
 #pragma mark -
