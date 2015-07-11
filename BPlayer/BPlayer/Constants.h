@@ -17,7 +17,7 @@
 #define kContentViewHeightNoTab kScreenHeight
 #define kContentViewWidth kScreenWidth
 
-#define kLeftViewWidth 150
+#define kLeftViewWidth 170
 
 //列表分页
 #define kPerPage 15
@@ -32,7 +32,7 @@
 #define RGB(r, g, b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a/1.0]
 #define RGBGreen RGB(138,192,78,1)
 #define RGBGray  RGB(245,245,245,1)
-
+#define RGBCell  RGB(137,156,176,1)
 
 
 

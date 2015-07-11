@@ -548,6 +548,20 @@
         [bgView addSubview:headImageView];
     }
     
+    //点击cell颜色
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+    cell.selectedBackgroundView.backgroundColor=RGBCell;
+    //奇偶行颜色
+//    UIView *backgrdView = [[UIView alloc] initWithFrame:cell.frame];
+//    backgrdView.backgroundColor = [UIColor blueColor];
+    cell.backgroundView = [[UIView alloc] initWithFrame:cell.frame];
+    if(indexPath.row%1){
+        //偶
+        cell.backgroundColor=[UIColor whiteColor];
+    }
+    else{
+        cell.backgroundColor=[UIColor grayColor];
+    }
     
     
     

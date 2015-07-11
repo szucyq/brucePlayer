@@ -10,7 +10,8 @@
 #import <Platinum/Platinum.h>
 #import "AppDelegate.h"
 
-//#define kLeftViewWidth 150
+static BOOL displayBottom;
+
 @implementation RootViewController
 - (void)didReceiveMemoryWarning
 {
@@ -27,10 +28,6 @@
     
     self.view.backgroundColor=[UIColor whiteColor];
     
-    
-    //table view
-//    self.listTableView.frame=CGRectMake(0, 300, 300, 300);
-//    self.listTableView.hidden=YES;
     
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playWithAvItem:) name:@"kPlay" object:nil];
@@ -57,6 +54,9 @@
     //--swip right
     UISwipeGestureRecognizer *swipRight=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(gestureAction:)];
     [self.view addGestureRecognizer:swipRight];
+    
+    //
+    displayBottom=YES;
 
 }
 - (void)gestureAction:(UIGestureRecognizer *)sender{
@@ -84,22 +84,7 @@
     }
     
 }
-- (void)leftAction{
-    NSLog(@"left action");
 
-//    if(self.serverController){
-//        
-//        [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
-//        [UIView setAnimationDuration:0.3f];
-//        
-//        CGRect rect=CGRectMake(-kLeftViewWidth, kContentBaseY, kLeftViewWidth, self.view.frame.size.height);
-//        self.serverController.view.frame=rect;
-//
-//        [UIView commitAnimations];
-//        NSLog(@"server frame 2:%@",[NSValue valueWithCGRect:self.serverController.view.frame]);
-//    }
-    
-}
 //- (void)rightAction{
 //    NSLog(@"right action");
 //    
@@ -405,6 +390,14 @@
 }
 
 - (IBAction)hideBottomAction:(id)sender {
+    if(displayBottom){
+        self.bottomView.hidden=YES;
+    }
+    else{
+        self.bottomView.hidden=NO;
+    }
+    displayBottom=!displayBottom;
+    
 }
 
 - (IBAction)remoteControlAction:(id)sender {
@@ -606,14 +599,14 @@
                          [[(AppDelegate *)[[UIApplication sharedApplication] delegate] window].rootViewController.view setFrame:newViewRect];
                      }
                      completion:^(BOOL finished){
-                         UIControl *overView = [[UIControl alloc] init];
-                         overView.tag = 10086;
-                         overView.backgroundColor = [UIColor clearColor];
-                         overView.frame=[(AppDelegate *)[[UIApplication sharedApplication] delegate] window].rootViewController.view.frame;
-                         NSLog(@"-------key window:%@",[[[UIApplication sharedApplication] delegate] window]);
-                         [overView addTarget:self action:@selector(restoreViewLocation) forControlEvents:UIControlEventTouchDown];
-                         [[[[UIApplication sharedApplication] delegate] window] addSubview:overView];
-//                         [overView release];
+//                         UIControl *overView = [[UIControl alloc] init];
+//                         overView.tag = 10086;
+//                         overView.backgroundColor = [UIColor clearColor];
+//                         overView.frame=[(AppDelegate *)[[UIApplication sharedApplication] delegate] window].rootViewController.view.frame;
+//                         NSLog(@"-------key window:%@",[[[UIApplication sharedApplication] delegate] window]);
+//                         [overView addTarget:self action:@selector(restoreViewLocation) forControlEvents:UIControlEventTouchDown];
+//                         [[[[UIApplication sharedApplication] delegate] window] addSubview:overView];
+
                      }];
 }
 - (void)rightAction{
@@ -628,7 +621,22 @@
     
 
 }
-
+- (void)leftAction{
+    NSLog(@"left action");
+    [self restoreViewLocation];
+    //    if(self.serverController){
+    //
+    //        [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+    //        [UIView setAnimationDuration:0.3f];
+    //
+    //        CGRect rect=CGRectMake(-kLeftViewWidth, kContentBaseY, kLeftViewWidth, self.view.frame.size.height);
+    //        self.serverController.view.frame=rect;
+    //
+    //        [UIView commitAnimations];
+    //        NSLog(@"server frame 2:%@",[NSValue valueWithCGRect:self.serverController.view.frame]);
+    //    }
+    
+}
 #pragma mark - notificationon controls
 - (void)playWithAvItem:(NSNotification *)sender{
     NSDictionary *userinfo=[sender userInfo];

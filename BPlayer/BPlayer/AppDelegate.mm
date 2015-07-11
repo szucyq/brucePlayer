@@ -223,13 +223,12 @@
 - (void)makeLeftViewVisible {
     self.window.rootViewController.view.layer.shadowColor = [UIColor blackColor].CGColor;
     self.window.rootViewController.view.layer.shadowOpacity = 0.4f;
-    self.window.rootViewController.view.layer.shadowOffset = CGSizeMake(-12.0, 1.0f);
-    self.window.rootViewController.view.layer.shadowRadius = 7.0f;
+    self.window.rootViewController.view.layer.shadowOffset = CGSizeMake(-1.0, 1.0f);
+    self.window.rootViewController.view.layer.shadowRadius = 1.0f;
     self.window.rootViewController.view.layer.masksToBounds = NO;
     
     [self.leftView setVisible:YES];
-    //self.rootViewController.view.frame=CGRectMake(160, 20, 320, 460);
-    //[self.window bringSubviewToFront:self.leftView.view];
+
 }
 - (void)makeLeftViewUnVisible{
     [self.leftView setVisible:NO];
