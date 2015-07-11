@@ -371,11 +371,11 @@
 
 - (IBAction)listLookAction:(id)sender {
     NSLog(@"列表浏览");
-    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-    if(!appDelagete.serverUuid){
-        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
-        return;
-    }
+//    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+//    if(!appDelagete.serverUuid){
+//        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
+//        return;
+//    }
     NSLog(@"按作曲浏览");
     
     [self refreshAllMusicByType:@"list"];
@@ -383,22 +383,22 @@
 
 - (IBAction)iconLookAction:(id)sender {
     NSLog(@"图标浏览");
-    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-    if(!appDelagete.serverUuid){
-        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
-        return;
-    }
-    NSLog(@"按作曲浏览");
+//    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+//    if(!appDelagete.serverUuid){
+//        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
+//        return;
+//    }
+    
     
     [self refreshAllMusicByType:@"icon"];
 }
 - (IBAction)listIconAction:(id)sender {
     NSLog(@"列表－图标浏览");
-    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-    if(!appDelagete.serverUuid){
-        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
-        return;
-    }
+//    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+//    if(!appDelagete.serverUuid){
+//        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
+//        return;
+//    }
     NSLog(@"按作曲浏览");
     
     [self refreshAllMusicByType:@"list_icon"];

@@ -5,8 +5,8 @@
 //  Created by Bruce on 15/6/26.
 //  Copyright (c) 2015年 Bruce. All rights reserved.
 //
-#define kMusicViewWidth 900
-#define kMusicViewHeight 600
+//#define kMusicViewWidth 900
+//#define kMusicViewHeight 600
 #define kMusicTableRowHeigth 60
 
 #import "AllMusicController.h"
@@ -17,6 +17,9 @@
     BOOL  islistIcon;
     BOOL  islist;
     UIView *scrollerview;
+    float kMusicViewWidth;
+    float kMusicViewHeight;
+    
 }
 
 
@@ -27,9 +30,12 @@
     self=[super init];
     if(self){
         self.listTableView.frame=CGRectMake(0, 0, frame.size.width, frame.size.height);
+        kMusicViewWidth=frame.size.width;
+        kMusicViewHeight=frame.size.height;
         isicon=NO;
         islistIcon=YES;
-        self.scrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kMusicViewWidth, kMusicViewHeight)];
+        islist=NO;
+        self.scrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         [self.view addSubview:self.scrollView];
         self.scrollView.backgroundColor=[UIColor blueColor];
         self.scrollView.hidden=YES;
@@ -112,7 +118,7 @@
     }
     
     scrollerview=[[UIView alloc]init];
-    scrollerview.backgroundColor=[UIColor redColor];
+    scrollerview.backgroundColor=[UIColor clearColor];
     UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
                                                         initWithTarget:self
                                                         action:@selector(handlePinch:)];
@@ -200,19 +206,26 @@
 }
 -(void)tapAction:(UIButton*)sender{
     
-    NSLog(@"tap icon:%d",[sender tag]);
+    NSLog(@"tap icon:%ld",[sender tag]);
 }
 - (void)setByType:(NSString *)byType{
     [self.listArray removeAllObjects];
-    NSLog(@"set byType:%@",byType);
+    NSLog(@"set byType-------:%@",byType);
     if([byType isEqualToString:@"music"]){
         [self songpress];
+    }
+    else if([byType isEqualToString:@"album"]){
+        [self albumpress];
+    }
+    
+    else if([byType isEqualToString:@"artist"]){
+        [self artistpress];
     }
     else if([byType isEqualToString:@"zuoqu"]){
         [self composerpress];
     }
-    else if([byType isEqualToString:@"artist"]){
-        [self artistpress];
+    else if([byType isEqualToString:@"date"]){
+        [self datepress];
     }
     else if([byType isEqualToString:@"list"]){
         [self showlistIconAction];
@@ -258,6 +271,7 @@
 }
 #pragma mark - 几种浏览方式
 - (void)showiconAction{
+    NSLog(@"showiconAction");
     [self.view bringSubviewToFront:self.scrollView];
     isicon=YES;
     islistIcon=NO;
@@ -268,6 +282,7 @@
 }
 
 - (void)showlistIconAction{
+    NSLog(@"showlistIconAction");
     islistIcon=YES;
     isicon=NO;
     islist=NO;
@@ -276,6 +291,7 @@
     
 }
 - (void)showlistAction{
+    NSLog(@"showlistAction");
     islistIcon=YES;
     isicon=NO;
     islist=NO;
@@ -305,13 +321,39 @@
         [self addscroller];
         
     }
-    NSLog(@"44444444");
+    NSLog(@"11111111111");
+    
+}
+- (void)albumpress{
+    //    currentIndex=2;
+    
+    NSLog(@"2222222");
+    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"album"
+                                                                              ascending:YES
+                                                                               selector:@selector(localizedStandardCompare:)];
+    NSArray *temparray=[self.listArray sortedArrayUsingDescriptors:@[firstNameSortDescriptor]];
+    [self.listArray removeAllObjects];
+    self.listArray=[temparray mutableCopy];
+    if (islistIcon==YES) {
+        [self.listTableView reloadData];
+    }else{
+        
+        for (UIView *subView in self.scrollView.subviews)
+            
+        {
+            
+            [subView removeFromSuperview];
+            
+        }
+        [self addscroller];
+        
+    }
     
 }
 - (void)artistpress{
 //    currentIndex=2;
     
-    NSLog(@"2222222");
+    NSLog(@"333333333");
     NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"artist"
                                                                               ascending:YES
                                                                                selector:@selector(localizedStandardCompare:)];
@@ -337,7 +379,7 @@
 - (void)composerpress{
 //    currentIndex=3;
     
-    NSLog(@"33333333");
+    NSLog(@"4444444");
     NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"artist"
                                                                               ascending:YES
                                                                                selector:@selector(localizedStandardCompare:)];
@@ -358,6 +400,32 @@
         [self addscroller];
         
     }
+}
+- (void)datepress{
+    //    currentIndex=2;
+    
+    NSLog(@"55555555");
+    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"artist"
+                                                                              ascending:YES
+                                                                               selector:@selector(localizedStandardCompare:)];
+    NSArray *temparray=[self.listArray sortedArrayUsingDescriptors:@[firstNameSortDescriptor]];
+    [self.listArray removeAllObjects];
+    self.listArray=[temparray mutableCopy];
+    if (islistIcon==YES) {
+        [self.listTableView reloadData];
+    }else{
+        
+        for (UIView *subView in self.scrollView.subviews)
+            
+        {
+            
+            [subView removeFromSuperview];
+            
+        }
+        [self addscroller];
+        
+    }
+    
 }
 #pragma mark - Table view data source
 
