@@ -11,5 +11,6 @@
 @interface AllMusicController : WithTableViewController
 @property (nonatomic,copy)NSString *byType;
 @property (nonatomic,copy)NSString *serverUuid;
+@property (nonatomic,retain)UIScrollView *scrollView;
 - (id)initWithFrame:(CGRect)frame;
 @end
