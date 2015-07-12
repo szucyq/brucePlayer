@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3203C1651B52A4D500B02398 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3203C1641B52A4D500B02398 /* SettingViewController.xib */; };
 		3216EDF21B49674400FEDAC0 /* next_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 3216EDEA1B49674400FEDAC0 /* next_selected.png */; };
 		3216EDF31B49674400FEDAC0 /* next_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 3216EDEB1B49674400FEDAC0 /* next_unselected.png */; };
 		3216EDF41B49674400FEDAC0 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 3216EDEC1B49674400FEDAC0 /* pause.png */; };
@@ -157,6 +158,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3203C1641B52A4D500B02398 /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
 		3216EDEA1B49674400FEDAC0 /* next_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next_selected.png; sourceTree = "<group>"; };
 		3216EDEB1B49674400FEDAC0 /* next_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next_unselected.png; sourceTree = "<group>"; };
 		3216EDEC1B49674400FEDAC0 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
@@ -503,6 +505,7 @@
 				3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */,
 				3297F49E1B3DCACB0006EDFA /* SettingViewController.h */,
 				3297F49F1B3DCACB0006EDFA /* SettingViewController.m */,
+				3203C1641B52A4D500B02398 /* SettingViewController.xib */,
 				3216EE331B4A082900FEDAC0 /* SearchViewController.h */,
 				3216EE321B4A082900FEDAC0 /* SearchViewController.m */,
 				32DCC7711B3DB6230063DD60 /* Images.xcassets */,
@@ -841,6 +844,7 @@
 				3254A3371B4374820059A7D2 /* backTo.png in Resources */,
 				3216EE031B496A0800FEDAC0 /* by_Folder.png in Resources */,
 				3216EE0D1B496B7D00FEDAC0 /* menu_list_no_icon.png in Resources */,
+				3203C1651B52A4D500B02398 /* SettingViewController.xib in Resources */,
 				3216EDFB1B49677900FEDAC0 /* volumn.png in Resources */,
 				3216EDF41B49674400FEDAC0 /* pause.png in Resources */,
 				327137711B4A37C900CE69D6 /* play_auto.png in Resources */,

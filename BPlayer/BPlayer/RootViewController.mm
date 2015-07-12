@@ -57,6 +57,8 @@ static BOOL displayBottom;
     
     //
     displayBottom=YES;
+    //setting通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(settingAction:) name:@"setting" object:nil];
 
 }
 - (void)gestureAction:(UIGestureRecognizer *)sender{
@@ -276,18 +278,34 @@ static BOOL displayBottom;
     NSLog(@"播放列表，等资源做效果");
 }
 
-- (IBAction)settingAction:(id)sender {
+- (void)settingAction:(NSNotification*)sender {
     NSLog(@"设置");
-    if(kIS_IPAD){
-        SettingViewController *setting=[[SettingViewController alloc]init];
-        UIPopoverController *popoverController=[[UIPopoverController alloc]initWithContentViewController:setting];
-        popoverController.contentViewController.contentSizeForViewInPopover=CGSizeMake(300, 500);
-        
-        [popoverController presentPopoverFromRect:self.setupBt.frame inView:self.rightView permittedArrowDirections:UIPopoverArrowDirectionRight animated:YES];
+    NSDictionary *userinfo=[sender userInfo];
+    NSString *display=[userinfo valueForKey:@"setting"];
+    if([display isEqualToString:@"1"]){
+        NSLog(@"display:%@",display);
+        self.settingController=[[SettingViewController alloc]initWithNibName:@"SettingViewController" bundle:nil];
+        self.settingController.view.frame=self.view.frame;
+        [self.view addSubview:self.settingController.view];
     }
     else{
-        [SVProgressHUD showErrorWithStatus:@"iphone 暂不支持该操作" maskType:SVProgressHUDMaskTypeBlack];
+        NSLog(@"else display:%@",display);
+        if(self.settingController){
+            [self.settingController.view removeFromSuperview];
+            self.settingController=nil;
+        }
+        
     }
+//    if(kIS_IPAD){
+//        SettingViewController *setting=[[SettingViewController alloc]init];
+//        UIPopoverController *popoverController=[[UIPopoverController alloc]initWithContentViewController:setting];
+//        popoverController.contentViewController.contentSizeForViewInPopover=CGSizeMake(300, 500);
+//        
+//        [popoverController presentPopoverFromRect:self.setupBt.frame inView:self.rightView permittedArrowDirections:UIPopoverArrowDirectionRight animated:YES];
+//    }
+//    else{
+//        [SVProgressHUD showErrorWithStatus:@"iphone 暂不支持该操作" maskType:SVProgressHUDMaskTypeBlack];
+//    }
 }
 
 - (IBAction)searchAction:(id)sender {

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BPlayer/RootViewController.mm"
-            timestampString = "458310935.194837"
+            timestampString = "458401600.032799"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "332"
-            endingLineNumber = "332"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
             landmarkName = "-catalogBtAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BPlayer/RootViewController.mm"
-            timestampString = "458310935.194837"
+            timestampString = "458399836.487624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
+            startingLineNumber = "249"
+            endingLineNumber = "249"
             landmarkName = "-loadAllContentsAction:"
             landmarkType = "5">
          </BreakpointContent>

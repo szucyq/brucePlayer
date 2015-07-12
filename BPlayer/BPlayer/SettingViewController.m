@@ -8,6 +8,8 @@
 
 #import "SettingViewController.h"
 
+#define kSettingTvWidth 250
+
 @interface SettingViewController ()
 
 @end
@@ -16,8 +18,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view.
-    self.listTableView.frame=CGRectMake(0, 0, 300, 500);
+    self.listTableView.frame=CGRectMake(0, kContentBaseY, kSettingTvWidth, kContentViewHeight);
+    [self.view bringSubviewToFront:self.listTableView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,6 +67,6 @@
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSLog(@"row:%d",indexPath.row);
 }
 @end

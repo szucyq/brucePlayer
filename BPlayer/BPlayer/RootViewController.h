@@ -69,6 +69,7 @@
 @property (nonatomic,retain)NSMutableDictionary* dmsDic;
 @property (nonatomic,retain)AllMusicController *allMusicController;
 @property (nonatomic,retain)MediaRenderController *render;
+@property (nonatomic,retain)SettingViewController *settingController;
 //右侧actions
 - (IBAction)renderBtAction:(id)sender;
 - (IBAction)serverBtAction:(id)sender;

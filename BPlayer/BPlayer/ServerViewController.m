@@ -7,10 +7,9 @@
 //
 
 #import "ServerViewController.h"
-//#import "DetailViewController.h"
 #import "AppDelegate.h"
 
-
+static BOOL displaySetting=NO;
 
 @interface ServerViewController()
 @property (nonatomic, strong) ServerContentViewController* contentController;
@@ -105,6 +104,16 @@
 }
 - (void)settingAction{
     NSLog(@"setting action");
+    displaySetting=!displaySetting;
+    NSString *display;
+    if(displaySetting){
+        display=@"1";
+    }
+    else{
+        display=@"0";
+    }
+    NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:display,@"setting", nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"setting" object:nil userInfo:userinfo];
 }
 - (void)rightButtonAction{
     [self performSelector:@selector(rightToAction:) withObject:nil];

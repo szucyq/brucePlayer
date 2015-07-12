@@ -13,7 +13,7 @@
 #define kBottomTabHeight 49
 #define kContentBaseY (IS_IOS_7?20:0)
 
-#define kContentViewHeight (kScreenHeight -kBottomTabHeight-kContentBaseY)
+#define kContentViewHeight (kScreenHeight-kContentBaseY)
 #define kContentViewHeightNoTab kScreenHeight
 #define kContentViewWidth kScreenWidth
 
