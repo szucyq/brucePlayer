@@ -83,8 +83,9 @@
     }];
 }
 -(void)addscroller{
-    int imageWidth=100;
-    int imagecount=6;
+    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+    int imageWidth=[[defaults valueForKey:kIconWidth] intValue];
+    int imagecount=[[defaults valueForKey:kIconNumber] intValue];
     //    int imageWidth;
     //
     //    int imagecount;

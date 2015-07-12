@@ -55,9 +55,9 @@ static BOOL displaySetting=NO;
     }
     else{
         UIButton *settingBt=[UIButton buttonWithType:UIButtonTypeCustom];
-        [settingBt setFrame:CGRectMake(0,self.listTableView.frame.origin.y+self.listTableView.frame.size.height , 56, 56)];
+        [settingBt setFrame:CGRectMake((kLeftViewWidth-56)/2.0,self.listTableView.frame.origin.y+self.listTableView.frame.size.height , 56, 56)];
         [settingBt addTarget:self action:@selector(settingAction) forControlEvents:UIControlEventTouchUpInside];
-        [settingBt setBackgroundImage:[UIImage imageNamed:@"temp.png"] forState:UIControlStateNormal];
+        [settingBt setBackgroundImage:[UIImage imageNamed:@"setting_unselected.png"] forState:UIControlStateNormal];
 //        [settingBt setTitle:@"设置" forState:UIControlStateNormal];
         settingBt.tag=1001;
         [self.view addSubview:settingBt];

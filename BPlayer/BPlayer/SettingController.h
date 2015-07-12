@@ -9,5 +9,7 @@
 #import "WithTableViewController.h"
 
 @interface SettingController : WithTableViewController
+@property (weak, nonatomic) IBOutlet UIView *iconNumView;
+- (IBAction)iconNumAction:(id)sender;
 
 @end

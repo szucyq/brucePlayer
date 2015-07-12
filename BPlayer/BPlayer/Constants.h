@@ -34,7 +34,9 @@
 #define RGBGray  RGB(245,245,245,1)
 #define RGBCell  RGB(137,156,176,1)
 
-
+//图标方式
+#define kIconNumber @"kIconNumber"
+#define kIconWidth  @"kIconWidth"
 
 //--------------------------
 

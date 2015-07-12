@@ -685,18 +685,37 @@ static BOOL displayBottom;
     [self.render setUri:item.uri name:@"name" handler:^(BOOL ret){
         if(ret){
             NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!ret = %d", ret);
-            [self.render play:^(BOOL ret){
-                NSLog(@"play:%d",ret);
-            }];
+            
         }
         else{
             [SVProgressHUD showErrorWithStatus:@"该文件播放错误，请重试" maskType:SVProgressHUDMaskTypeBlack];
+            return ;
         }
     }];
-    
+    //play
+    [self.render play:^(BOOL ret){
+        NSLog(@"play:%d",ret);
+    }];
     
     //刷新当前播放音乐的显示信息
     [self refreshCurrentMusicInfoWithItem:item];
+    //add
+    
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    NSString *title=[NSString stringWithFormat:@"%@",item.title];
+    NSString *uri=[NSString stringWithFormat:@"%@",item.uri];
+    NSString *album=[NSString stringWithFormat:@"%@",item.albumArtURI];
+    NSString *genres=[NSString stringWithFormat:@"%@",item.mimeType];
+    NSString *date=[NSString stringWithFormat:@"%@",item.date];
+    NSString *sql=[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@",@"insert into music (server,title,uri,album,genres,date) values('",appDelagete.serverUuid,@"','",title,@"','",uri,@"','",album,@"','",genres,@"','",date,@"')"];
+    NSLog(@"sql:%@",sql);
+    BOOL musicAdd=[CoreFMDB executeUpdate:sql];
+    if(musicAdd){
+        NSLog(@"success");
+    }
+    else{
+        NSLog(@"fail");
+    }
 }
 - (void)getServerAction:(NSNotification *)sender{
 
@@ -731,7 +750,7 @@ static BOOL displayBottom;
     [self.view sendSubviewToBack:self.catalogNav.view];
     //提醒开始同步该服务器资源
     [SVProgressHUD showInfoWithStatus:@"正在为您同步资源" maskType:SVProgressHUDMaskTypeBlack];
-    [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
+//    [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
 }
 #pragma mark -
 #pragma mark MediaServerBrowserDelegate
