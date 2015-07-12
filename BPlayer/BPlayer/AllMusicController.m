@@ -70,46 +70,20 @@
 //        return;
     }
     //查询数据
-    [CoreFMDB executeQuery:@"select * from music;" queryResBlock:^(FMResultSet *set) {
-        
-        while ([set next]) {
-            NSLog(@"%@-%@",[set stringForColumn:@"title"],[set stringForColumn:@"uri"]);
-            MediaServerItem *item=[[MediaServerItem alloc]init];
-            item.title=[set stringForColumn:@"title"];
-            item.uri=[set stringForColumn:@"uri"];
-            [self.listArray addObject:item];
-        }
-        
-    }];
+    [self getAllMusicData];
 }
 -(void)addscroller{
+    //
     NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
     int imageWidth=[[defaults valueForKey:kIconWidth] intValue];
     int imagecount=[[defaults valueForKey:kIconNumber] intValue];
-    //    int imageWidth;
-    //
-    //    int imagecount;
-    //    if (scrollerscale>=900) {
-    //        imageWidth=140;
-    //        imagecount=5;
-    //    }else if (scrollerscale>=600&&scrollerscale<900){
-    //        imageWidth=120;
-    //
-    //        imagecount=4;
-    //
-    //    }else if (scrollerscale>=300&&scrollerscale<600){
-    //        imageWidth=100;
-    //        imagecount=6;
-    //
-    //
-    //    }else{
-    //
-    //        imageWidth=80;
-    //        imagecount=7;
-    //
-    //    }
-    
-    
+    NSLog(@"width1:%d--number1:%d",imageWidth,imagecount);
+    if(imagecount==0 || imageWidth==0){
+        imageWidth=120;
+        imagecount=5;
+    }
+    NSLog(@"width:%d--number:%d",imageWidth,imagecount);
+
     for (UIView *subView in self.scrollView.subviews)
     {
         [subView removeFromSuperview];
@@ -134,16 +108,17 @@
     float paddingY=paddingX+40;
     
     for (int i=0; i<self.listArray.count; i++) {
-        NSDictionary *record=[self.listArray objectAtIndex:i];
+        MediaServerItem *record=[self.listArray objectAtIndex:i];
         
         float x=i%imagecount*(imageWidth)+(i%imagecount+1)*paddingX;
         float y=i/imagecount*(imageWidth)+(i/imagecount+1)*paddingY;
+        NSLog(@"x:%f--y:%f",x,y);
         UIImageView *iconimage=[[UIImageView alloc]initWithFrame:CGRectMake(x, y, imageWidth, imageWidth)];
-        NSString *stringimage=[NSString stringWithFormat:@"%@",[record objectForKey:@"albumimage"]];
+        NSString *stringimage=record.albumArtURI;
         if ([stringimage isEqualToString:@"(null)"]) {
             [iconimage setImage:[UIImage imageNamed:@"temp"]];
         }else{
-            [iconimage setImage:[record objectForKey:@"albumimage"]];
+            [iconimage setImage:[UIImage imageNamed:@"temp"]];
         }
         [self.scrollView addSubview:iconimage];
         
@@ -157,8 +132,8 @@
         titleText.backgroundColor = [UIColor clearColor];
         titleText.textAlignment = NSTextAlignmentCenter;
         titleText.font            = [UIFont systemFontOfSize:14.0];
-        if([record objectForKey:@"title"]){
-            [titleText setText:[record objectForKey:@"title"]];
+        if(record.title){
+            [titleText setText:record.title];
         }
         else{
             [titleText setText:[NSString stringWithFormat:@"%@%d",@"music:",i+1]];
@@ -211,6 +186,7 @@
 }
 - (void)setByType:(NSString *)byType{
     [self.listArray removeAllObjects];
+    [self getAllMusicData];
     NSLog(@"set byType-------:%@",byType);
     if([byType isEqualToString:@"music"]){
         [self songpress];
@@ -229,7 +205,7 @@
         [self datepress];
     }
     else if([byType isEqualToString:@"list"]){
-        [self showlistIconAction];
+        [self showlistAction];
     }
     else if([byType isEqualToString:@"icon"]){
         [self showiconAction];
@@ -270,6 +246,21 @@
 //    }
     
 }
+- (void)getAllMusicData{
+    //查询数据
+    [CoreFMDB executeQuery:@"select * from music;" queryResBlock:^(FMResultSet *set) {
+        
+        while ([set next]) {
+            NSLog(@"%@-%@",[set stringForColumn:@"title"],[set stringForColumn:@"uri"]);
+            MediaServerItem *item=[[MediaServerItem alloc]init];
+            item.title=[set stringForColumn:@"title"];
+            item.uri=[set stringForColumn:@"uri"];
+            [self.listArray addObject:item];
+        }
+        
+    }];
+    NSLog(@"items:%@",self.listArray);
+}
 #pragma mark - 几种浏览方式
 - (void)showiconAction{
     NSLog(@"showiconAction");
@@ -292,7 +283,7 @@
     
 }
 - (void)showlistAction{
-    NSLog(@"showlistAction");
+    NSLog(@"showlistAction:%@",self.listArray);
     islistIcon=YES;
     isicon=NO;
     islist=NO;
@@ -329,7 +320,7 @@
     //    currentIndex=2;
     
     NSLog(@"2222222");
-    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"album"
+    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"uri"
                                                                               ascending:YES
                                                                                selector:@selector(localizedStandardCompare:)];
     NSArray *temparray=[self.listArray sortedArrayUsingDescriptors:@[firstNameSortDescriptor]];
@@ -355,7 +346,7 @@
 //    currentIndex=2;
     
     NSLog(@"333333333");
-    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"artist"
+    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title"
                                                                               ascending:YES
                                                                                selector:@selector(localizedStandardCompare:)];
     NSArray *temparray=[self.listArray sortedArrayUsingDescriptors:@[firstNameSortDescriptor]];
@@ -381,7 +372,7 @@
 //    currentIndex=3;
     
     NSLog(@"4444444");
-    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"artist"
+    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title"
                                                                               ascending:YES
                                                                                selector:@selector(localizedStandardCompare:)];
     NSArray *temparray=[self.listArray sortedArrayUsingDescriptors:@[firstNameSortDescriptor]];
@@ -406,7 +397,7 @@
     //    currentIndex=2;
     
     NSLog(@"55555555");
-    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"artist"
+    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title"
                                                                               ascending:YES
                                                                                selector:@selector(localizedStandardCompare:)];
     NSArray *temparray=[self.listArray sortedArrayUsingDescriptors:@[firstNameSortDescriptor]];
@@ -448,8 +439,10 @@
     if(cell==nil){
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
-//    MediaServerItem *item=[self.listArray objectAtIndex:indexPath.row];
-//    cell.textLabel.text = item.title;
+
+    for(UIView *view in cell.subviews){
+        [view removeFromSuperview];
+    }
     
     UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMusicViewWidth, kMusicTableRowHeigth)];
     [bgView setBackgroundColor:[UIColor whiteColor]];

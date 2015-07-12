@@ -506,9 +506,9 @@ static BOOL displayBottom;
     [self initRender];
     int volume=[[NSString stringWithFormat:@"%f",self.volumeBt.value] intValue];
     NSLog(@"音量:%f--%d",self.volumeBt.value,volume);
-    [self.render setVolume:volume handler:^(BOOL value){
-        NSLog(@"volume :%d",value);
-    }];
+//    [self.render setVolume:volume handler:^(BOOL value){
+//        NSLog(@"volume :%d",value);
+//    }];
 }
 - (IBAction)getCurPosAction:(id)sender {
     NSLog(@"获取当前位置");
@@ -678,7 +678,23 @@ static BOOL displayBottom;
     NSLog(@"mediumImageUrl:%@",item.mediumImageUrl);
     NSLog(@"largeImageUrl:%@",item.largeImageUrl);
     
+    //add
     
+//    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+//    NSString *title=[NSString stringWithFormat:@"%@",item.title];
+//    NSString *uri=[NSString stringWithFormat:@"%@",item.uri];
+//    NSString *album=[NSString stringWithFormat:@"%@",item.albumArtURI];
+//    NSString *genres=[NSString stringWithFormat:@"%@",item.mimeType];
+//    NSString *date=[NSString stringWithFormat:@"%@",item.date];
+//    NSString *sql=[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@",@"insert into music (server,title,uri,album,genres,date) values('",appDelagete.serverUuid,@"','",title,@"','",uri,@"','",album,@"','",genres,@"','",date,@"')"];
+//    NSLog(@"sql:%@",sql);
+//    BOOL musicAdd=[CoreFMDB executeUpdate:sql];
+//    if(musicAdd){
+//        NSLog(@"success");
+//    }
+//    else{
+//        NSLog(@"fail");
+//    }
 
     //播放
     [self initRender];
@@ -699,23 +715,7 @@ static BOOL displayBottom;
     
     //刷新当前播放音乐的显示信息
     [self refreshCurrentMusicInfoWithItem:item];
-    //add
     
-    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-    NSString *title=[NSString stringWithFormat:@"%@",item.title];
-    NSString *uri=[NSString stringWithFormat:@"%@",item.uri];
-    NSString *album=[NSString stringWithFormat:@"%@",item.albumArtURI];
-    NSString *genres=[NSString stringWithFormat:@"%@",item.mimeType];
-    NSString *date=[NSString stringWithFormat:@"%@",item.date];
-    NSString *sql=[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@",@"insert into music (server,title,uri,album,genres,date) values('",appDelagete.serverUuid,@"','",title,@"','",uri,@"','",album,@"','",genres,@"','",date,@"')"];
-    NSLog(@"sql:%@",sql);
-    BOOL musicAdd=[CoreFMDB executeUpdate:sql];
-    if(musicAdd){
-        NSLog(@"success");
-    }
-    else{
-        NSLog(@"fail");
-    }
 }
 - (void)getServerAction:(NSNotification *)sender{
 
@@ -750,7 +750,7 @@ static BOOL displayBottom;
     [self.view sendSubviewToBack:self.catalogNav.view];
     //提醒开始同步该服务器资源
     [SVProgressHUD showInfoWithStatus:@"正在为您同步资源" maskType:SVProgressHUDMaskTypeBlack];
-//    [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
+    [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
 }
 #pragma mark -
 #pragma mark MediaServerBrowserDelegate

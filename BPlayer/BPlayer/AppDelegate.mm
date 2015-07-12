@@ -145,6 +145,9 @@
     }
 }
 - (void)createDBTable{
+//    [CoreFMDB executeUpdate:@"drop table music;"];
+//    [CoreFMDB executeUpdate:@"drop table favourite;"];
+//    [CoreFMDB executeUpdate:@"drop table playlist;"];
     //创建音乐表
     BOOL musicBool=[CoreFMDB executeUpdate:@"create table if not exists music(id integer primary key autoIncrement,server text,uri text,title text,size integer,artist text,album text,genres text,date text);"];
     if(musicBool){
