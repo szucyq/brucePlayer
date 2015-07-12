@@ -284,7 +284,7 @@ static BOOL displayBottom;
     NSString *display=[userinfo valueForKey:@"setting"];
     if([display isEqualToString:@"1"]){
         NSLog(@"display:%@",display);
-        self.settingController=[[SettingViewController alloc]initWithNibName:@"SettingViewController" bundle:nil];
+        self.settingController=[[SettingController alloc]initWithNibName:@"SettingController" bundle:nil];
         self.settingController.view.frame=self.view.frame;
         [self.view addSubview:self.settingController.view];
     }

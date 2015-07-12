@@ -1,26 +1,33 @@
 //
-//  SettingViewController.m
-//  SuperPlayer
+//  SettingController.m
+//  BPlayer
 //
-//  Created by Bruce on 15/6/26.
+//  Created by Bruce on 15/7/12.
 //  Copyright (c) 2015年 Bruce. All rights reserved.
 //
 
-#import "SettingViewController.h"
+#import "SettingController.h"
 
 #define kSettingTvWidth 250
 
-@interface SettingViewController ()
+@interface SettingController ()
 
 @end
 
-@implementation SettingViewController
+@implementation SettingController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     // Do any additional setup after loading the view.
+    if(self.listTableView){
+        [self.listTableView removeFromSuperview];
+    }
+    self.listTableView=[[UITableView alloc]init];
+    self.listTableView.delegate=self;
+    self.listTableView.dataSource=self;
     self.listTableView.frame=CGRectMake(0, kContentBaseY, kSettingTvWidth, kContentViewHeight);
+    [self.view addSubview:self.listTableView];
     [self.view bringSubviewToFront:self.listTableView];
 }
 
@@ -30,19 +37,19 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-//    return self.listArray.count;
+    //    return self.listArray.count;
     return 20;
 }
 

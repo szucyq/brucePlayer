@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WithTableViewController.h"
-#import "SettingViewController.h"
-
+#import "SettingController.h"
 #import "RenderViewController.h"
 #import <MediaServerBrowserService/MediaServerBrowserService.h>
 #import <MediaServerBrowserService/MediaServerCrawler.h>
@@ -69,7 +68,8 @@
 @property (nonatomic,retain)NSMutableDictionary* dmsDic;
 @property (nonatomic,retain)AllMusicController *allMusicController;
 @property (nonatomic,retain)MediaRenderController *render;
-@property (nonatomic,retain)SettingViewController *settingController;
+//@property (nonatomic,retain)SettingViewController *settingController;
+@property (nonatomic,retain)SettingController *settingController;
 //右侧actions
 - (IBAction)renderBtAction:(id)sender;
 - (IBAction)serverBtAction:(id)sender;

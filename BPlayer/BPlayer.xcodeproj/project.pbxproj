@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3203C1651B52A4D500B02398 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3203C1641B52A4D500B02398 /* SettingViewController.xib */; };
+		3203C1691B52AA2D00B02398 /* SettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3203C1671B52AA2D00B02398 /* SettingController.m */; };
+		3203C16A1B52AA2D00B02398 /* SettingController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3203C1681B52AA2D00B02398 /* SettingController.xib */; };
 		3216EDF21B49674400FEDAC0 /* next_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 3216EDEA1B49674400FEDAC0 /* next_selected.png */; };
 		3216EDF31B49674400FEDAC0 /* next_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 3216EDEB1B49674400FEDAC0 /* next_unselected.png */; };
 		3216EDF41B49674400FEDAC0 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 3216EDEC1B49674400FEDAC0 /* pause.png */; };
@@ -47,7 +48,6 @@
 		327137731B4A37C900CE69D6 /* play_list.png in Resources */ = {isa = PBXBuildFile; fileRef = 3271376F1B4A37C900CE69D6 /* play_list.png */; };
 		327137741B4A37C900CE69D6 /* play_single.png in Resources */ = {isa = PBXBuildFile; fileRef = 327137701B4A37C900CE69D6 /* play_single.png */; };
 		327137761B4A38E400CE69D6 /* current_music.png in Resources */ = {isa = PBXBuildFile; fileRef = 327137751B4A38E400CE69D6 /* current_music.png */; };
-		3297F4A01B3DCACB0006EDFA /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3297F49F1B3DCACB0006EDFA /* SettingViewController.m */; };
 		3297F4B21B3FC8CE0006EDFA /* RootView-iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */; };
 		32D442B01B4E479A00960EC0 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D442AF1B4E479A00960EC0 /* Icon.png */; };
 		32DB6A7A1B3FF8FB0030E86F /* RenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DB6A791B3FF8FB0030E86F /* RenderViewController.m */; };
@@ -158,7 +158,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3203C1641B52A4D500B02398 /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		3203C1661B52AA2D00B02398 /* SettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingController.h; sourceTree = "<group>"; };
+		3203C1671B52AA2D00B02398 /* SettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingController.m; sourceTree = "<group>"; };
+		3203C1681B52AA2D00B02398 /* SettingController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingController.xib; sourceTree = "<group>"; };
 		3216EDEA1B49674400FEDAC0 /* next_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next_selected.png; sourceTree = "<group>"; };
 		3216EDEB1B49674400FEDAC0 /* next_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next_unselected.png; sourceTree = "<group>"; };
 		3216EDEC1B49674400FEDAC0 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
@@ -208,8 +210,6 @@
 		3271376F1B4A37C900CE69D6 /* play_list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_list.png; sourceTree = "<group>"; };
 		327137701B4A37C900CE69D6 /* play_single.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_single.png; sourceTree = "<group>"; };
 		327137751B4A38E400CE69D6 /* current_music.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = current_music.png; sourceTree = "<group>"; };
-		3297F49E1B3DCACB0006EDFA /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
-		3297F49F1B3DCACB0006EDFA /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		3297F4A11B3DCCBF0006EDFA /* MediaServerBrowserService.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MediaServerBrowserService.xcodeproj; path = ../MediaServerBrowserService/MediaServerBrowserService.xcodeproj; sourceTree = "<group>"; };
 		3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "RootView-iPhone.xib"; sourceTree = "<group>"; };
 		32D442AF1B4E479A00960EC0 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -503,9 +503,9 @@
 				32DCC78B1B3DB6AC0063DD60 /* RootViewController.mm */,
 				32DCC78C1B3DB6AC0063DD60 /* RootView.xib */,
 				3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */,
-				3297F49E1B3DCACB0006EDFA /* SettingViewController.h */,
-				3297F49F1B3DCACB0006EDFA /* SettingViewController.m */,
-				3203C1641B52A4D500B02398 /* SettingViewController.xib */,
+				3203C1661B52AA2D00B02398 /* SettingController.h */,
+				3203C1671B52AA2D00B02398 /* SettingController.m */,
+				3203C1681B52AA2D00B02398 /* SettingController.xib */,
 				3216EE331B4A082900FEDAC0 /* SearchViewController.h */,
 				3216EE321B4A082900FEDAC0 /* SearchViewController.m */,
 				32DCC7711B3DB6230063DD60 /* Images.xcassets */,
@@ -836,6 +836,7 @@
 				32DCC83F1B3DB8B40063DD60 /* SVProgressHUD.bundle in Resources */,
 				3216EE0C1B496B7D00FEDAC0 /* menu_list_icon.png in Resources */,
 				3216EE011B496A0800FEDAC0 /* by_Albums.png in Resources */,
+				3203C16A1B52AA2D00B02398 /* SettingController.xib in Resources */,
 				327137741B4A37C900CE69D6 /* play_single.png in Resources */,
 				3216EDF71B49674400FEDAC0 /* privous_unselected.png in Resources */,
 				3216EE0B1B496B7D00FEDAC0 /* menu_icon.png in Resources */,
@@ -844,7 +845,6 @@
 				3254A3371B4374820059A7D2 /* backTo.png in Resources */,
 				3216EE031B496A0800FEDAC0 /* by_Folder.png in Resources */,
 				3216EE0D1B496B7D00FEDAC0 /* menu_list_no_icon.png in Resources */,
-				3203C1651B52A4D500B02398 /* SettingViewController.xib in Resources */,
 				3216EDFB1B49677900FEDAC0 /* volumn.png in Resources */,
 				3216EDF41B49674400FEDAC0 /* pause.png in Resources */,
 				327137711B4A37C900CE69D6 /* play_auto.png in Resources */,
@@ -899,7 +899,6 @@
 				32DCC84C1B3DB8E80063DD60 /* Singleton.m in Sources */,
 				32DCC8271B3DB8B40063DD60 /* AFURLConnectionOperation.m in Sources */,
 				32DCC8361B3DB8B40063DD60 /* MJRefreshGifHeader.m in Sources */,
-				3297F4A01B3DCACB0006EDFA /* SettingViewController.m in Sources */,
 				32DCC8231B3DB8B40063DD60 /* AFHTTPRequestOperationManager.m in Sources */,
 				32DCC8391B3DB8B40063DD60 /* MJRefreshLegendHeader.m in Sources */,
 				32DCC83A1B3DB8B40063DD60 /* UIScrollView+MJExtension.m in Sources */,
@@ -918,6 +917,7 @@
 				32DCC8261B3DB8B40063DD60 /* AFSecurityPolicy.m in Sources */,
 				3216EE251B4977E600FEDAC0 /* FMDatabase.m in Sources */,
 				32DCC83E1B3DB8B40063DD60 /* SVIndefiniteAnimatedView.m in Sources */,
+				3203C1691B52AA2D00B02398 /* SettingController.m in Sources */,
 				3216EE271B4977E600FEDAC0 /* FMDatabasePool.m in Sources */,
 				32DCC8281B3DB8B40063DD60 /* AFURLRequestSerialization.m in Sources */,
 				32DCC7CA1B3DB8780063DD60 /* WithTableViewController.m in Sources */,
