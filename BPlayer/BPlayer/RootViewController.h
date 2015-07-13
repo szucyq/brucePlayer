@@ -24,6 +24,12 @@
 #import "SearchViewController.h"
 
 @interface RootViewController : WithLeftRightController
+enum PlayStyle {
+    Single = 0,
+    Playlist,
+    Circle,
+    Random
+};
 
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIView *rightView;
@@ -60,7 +66,6 @@
 
 
 //其他
-//@property (nonatomic,retain)ServerContentViewController *serverContentView;
 @property (nonatomic,retain)RenderViewController *renderViewController;
 @property (nonatomic,retain)ServerViewController *serverController;
 @property (nonatomic,retain)UINavigationController *catalogNav;
@@ -68,8 +73,10 @@
 @property (nonatomic,retain)NSMutableDictionary* dmsDic;
 @property (nonatomic,retain)AllMusicController *allMusicController;
 @property (nonatomic,retain)MediaRenderController *render;
-//@property (nonatomic,retain)SettingViewController *settingController;
 @property (nonatomic,retain)SettingController *settingController;
+@property (nonatomic) enum PlayStyle playStyle;
+@property (weak, nonatomic) IBOutlet UIButton *playStyleBt;
+
 //右侧actions
 - (IBAction)renderBtAction:(id)sender;
 - (IBAction)serverBtAction:(id)sender;
@@ -89,6 +96,7 @@
 - (IBAction)searchDevicesAction:(id)sender;
 - (IBAction)getVolumeAction:(id)sender;
 - (IBAction)getCurPosAction:(id)sender;
+- (IBAction)playStyleAction:(id)sender;
 
 //顶端actions
 - (IBAction)catalogBtAction:(id)sender;

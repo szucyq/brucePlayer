@@ -12,6 +12,7 @@
 
 static BOOL displayBottom;
 
+
 @implementation RootViewController
 - (void)didReceiveMemoryWarning
 {
@@ -27,7 +28,12 @@ static BOOL displayBottom;
     // Do any additional setup after loading the view, typically from a nib.
     
     self.view.backgroundColor=[UIColor whiteColor];
-    
+    //初始化播放方式
+    _playStyle=Circle;
+    [self.playStyleBt setBackgroundImage:[UIImage imageNamed:@"play_circle.png"] forState:UIControlStateNormal];
+    //初始化颜色
+    self.bottomView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bottom_bg.png"]];
+    self.topView.backgroundColor=RGB(236, 234, 234, 1);
     
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playWithAvItem:) name:@"kPlay" object:nil];
@@ -518,6 +524,26 @@ static BOOL displayBottom;
         //刷新当前时间
         [self refreshCurrentMusicTime:nil time:nil];
     }];
+}
+
+- (IBAction)playStyleAction:(id)sender {
+    if(_playStyle==Single){
+        _playStyle=Playlist;
+        [self.playStyleBt setBackgroundImage:[UIImage imageNamed:@"play_list.png"] forState:UIControlStateNormal];
+    }
+    else if(_playStyle==Playlist){
+        _playStyle=Circle;
+        [self.playStyleBt setBackgroundImage:[UIImage imageNamed:@"play_circle.png"] forState:UIControlStateNormal];
+    }
+    else if(_playStyle==Circle){
+        _playStyle=Random;
+        [self.playStyleBt setBackgroundImage:[UIImage imageNamed:@"play_random.png"] forState:UIControlStateNormal];
+    }
+    else if(_playStyle==Random){
+        _playStyle=Single;
+        [self.playStyleBt setBackgroundImage:[UIImage imageNamed:@"play_single.png"] forState:UIControlStateNormal];
+    }
+    
 }
 - (IBAction)seekAction:(id)sender {
     NSLog(@"进度条控制");

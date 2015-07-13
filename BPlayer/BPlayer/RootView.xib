@@ -21,6 +21,7 @@
                 <outlet property="listBt" destination="AhX-DV-P0u" id="hCP-AL-zC2"/>
                 <outlet property="nextBt" destination="rwl-Ny-XA3" id="3wj-Sp-qPX"/>
                 <outlet property="playBt" destination="4Jh-yU-kVg" id="XlV-cU-VHi"/>
+                <outlet property="playStyleBt" destination="NlU-pv-mqn" id="FSy-rO-EaN"/>
                 <outlet property="preBt" destination="Tl3-o0-hOr" id="Igb-Zu-fLC"/>
                 <outlet property="renderBt" destination="aJX-Qf-5SU" id="qpr-Ig-DfS"/>
                 <outlet property="seekSlider" destination="wcW-Nq-40H" id="5eg-Dv-msO"/>
@@ -130,16 +131,6 @@
                                 <action selector="listLookAction:" destination="-1" eventType="touchUpInside" id="F50-Nm-f73"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="w2j-l9-mtg">
-                            <rect key="frame" x="810" y="0.0" width="44" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="search.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="searchAction:" destination="-1" eventType="touchUpInside" id="epv-MP-gQD"/>
-                            </connections>
-                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前音乐名字" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="r9u-sa-JzC">
                             <rect key="frame" x="415" y="27" width="149" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -148,7 +139,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <searchBar contentMode="redraw" id="HSK-A2-JZa">
-                            <rect key="frame" x="857" y="-2" width="167" height="44"/>
+                            <rect key="frame" x="956" y="-2" width="68" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
@@ -180,20 +171,20 @@
                             <rect key="frame" x="318" y="5" width="90" height="90"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="t1L-N7-FVM">
-                            <rect key="frame" x="681" y="56" width="44" height="44"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="t1L-N7-FVM">
+                            <rect key="frame" x="675" y="67" width="56" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="显示">
+                            <state key="normal" image="hide.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
                                 <action selector="hideBottomAction:" destination="-1" eventType="touchUpInside" id="Tin-3J-QJt"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BjY-No-UXZ">
-                            <rect key="frame" x="748" y="64" width="44" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BjY-No-UXZ">
+                            <rect key="frame" x="752" y="28" width="40" height="72"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="遥控">
+                            <state key="normal" image="control.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -217,11 +208,21 @@
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="w2j-l9-mtg">
+                            <rect key="frame" x="912" y="1" width="44" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="search.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="searchAction:" destination="-1" eventType="touchUpInside" id="epv-MP-gQD"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="QqI-Fa-cdd">
-                    <rect key="frame" x="0.0" y="101" width="1024" height="67"/>
+                    <rect key="frame" x="0.0" y="101" width="1024" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="wcW-Nq-40H">
@@ -239,7 +240,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rwl-Ny-XA3">
-                            <rect key="frame" x="181" y="9" width="44" height="44"/>
+                            <rect key="frame" x="141" y="9" width="44" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="next_unselected.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -256,7 +257,7 @@
                             </connections>
                         </slider>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="t9E-g6-anv">
-                            <rect key="frame" x="248" y="9" width="44" height="44"/>
+                            <rect key="frame" x="259" y="9" width="44" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="playlist.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -299,7 +300,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Tl3-o0-hOr">
-                            <rect key="frame" x="103" y="10" width="44" height="44"/>
+                            <rect key="frame" x="77" y="10" width="44" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="privous_unselected.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -325,6 +326,16 @@
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NlU-pv-mqn">
+                            <rect key="frame" x="200" y="8" width="44" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="play_circle.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="playStyleAction:" destination="-1" eventType="touchUpInside" id="oXH-aC-y76"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -341,13 +352,16 @@
         <image name="by_Genres.png" width="56" height="56"/>
         <image name="by_Songs.png" width="56" height="56"/>
         <image name="by_Years.png" width="56" height="56"/>
+        <image name="control.png" width="40" height="72"/>
         <image name="current_music.png" width="152" height="153"/>
+        <image name="hide.png" width="56" height="16"/>
         <image name="menu_favourite.png" width="56" height="56"/>
         <image name="menu_icon.png" width="56" height="56"/>
         <image name="menu_list_icon.png" width="56" height="56"/>
         <image name="menu_list_no_icon.png" width="56" height="56"/>
         <image name="next_unselected.png" width="56" height="56"/>
         <image name="play.png" width="129" height="127"/>
+        <image name="play_circle.png" width="56" height="56"/>
         <image name="playlist.png" width="56" height="56"/>
         <image name="privous_unselected.png" width="56" height="56"/>
         <image name="search.png" width="41" height="40"/>
