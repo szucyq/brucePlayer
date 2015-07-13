@@ -425,6 +425,8 @@ static BOOL displayBottom;
 }
 
 - (IBAction)remoteControlAction:(id)sender {
+//    RemoteControlController *remote=[[RemoteControlController alloc]init];
+//    [self presentModalViewController:remote animated:YES];
 }
 
 - (IBAction)byDateAction:(id)sender {

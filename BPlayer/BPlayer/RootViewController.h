@@ -15,13 +15,13 @@
 #import <MediaServerBrowserService/MediaRenderControllerService.h>
 
 #import "ServerViewController.h"
-
-//#import "ServerContentController.h"
 #import "ServerContentViewController.h"
 
 #import "AllMusicController.h"
 #import "CoreFMDB.h"
 #import "SearchViewController.h"
+
+#import "RemoteControlController.h"
 
 @interface RootViewController : WithLeftRightController
 enum PlayStyle {

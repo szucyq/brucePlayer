@@ -51,6 +51,8 @@
 		328CD88E1B5387FB002523E4 /* hide.png in Resources */ = {isa = PBXBuildFile; fileRef = 328CD88D1B5387FB002523E4 /* hide.png */; };
 		328CD8901B5388BF002523E4 /* control.png in Resources */ = {isa = PBXBuildFile; fileRef = 328CD88F1B5388BF002523E4 /* control.png */; };
 		328CD8921B538C3A002523E4 /* bottom_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 328CD8911B538C3A002523E4 /* bottom_bg.png */; };
+		328CD89B1B539747002523E4 /* RemoteControlController.m in Sources */ = {isa = PBXBuildFile; fileRef = 328CD8991B539747002523E4 /* RemoteControlController.m */; };
+		328CD89C1B539747002523E4 /* RemoteControlController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 328CD89A1B539747002523E4 /* RemoteControlController.xib */; };
 		3297F4B21B3FC8CE0006EDFA /* RootView-iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */; };
 		32D442B01B4E479A00960EC0 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D442AF1B4E479A00960EC0 /* Icon.png */; };
 		32DB6A7A1B3FF8FB0030E86F /* RenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DB6A791B3FF8FB0030E86F /* RenderViewController.m */; };
@@ -216,6 +218,9 @@
 		328CD88D1B5387FB002523E4 /* hide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hide.png; sourceTree = "<group>"; };
 		328CD88F1B5388BF002523E4 /* control.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = control.png; sourceTree = "<group>"; };
 		328CD8911B538C3A002523E4 /* bottom_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottom_bg.png; sourceTree = "<group>"; };
+		328CD8981B539747002523E4 /* RemoteControlController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteControlController.h; sourceTree = "<group>"; };
+		328CD8991B539747002523E4 /* RemoteControlController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteControlController.m; sourceTree = "<group>"; };
+		328CD89A1B539747002523E4 /* RemoteControlController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemoteControlController.xib; sourceTree = "<group>"; };
 		3297F4A11B3DCCBF0006EDFA /* MediaServerBrowserService.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MediaServerBrowserService.xcodeproj; path = ../MediaServerBrowserService/MediaServerBrowserService.xcodeproj; sourceTree = "<group>"; };
 		3297F4B11B3FC8CE0006EDFA /* RootView-iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "RootView-iPhone.xib"; sourceTree = "<group>"; };
 		32D442AF1B4E479A00960EC0 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -517,6 +522,9 @@
 				3203C1681B52AA2D00B02398 /* SettingController.xib */,
 				3216EE331B4A082900FEDAC0 /* SearchViewController.h */,
 				3216EE321B4A082900FEDAC0 /* SearchViewController.m */,
+				328CD8981B539747002523E4 /* RemoteControlController.h */,
+				328CD8991B539747002523E4 /* RemoteControlController.m */,
+				328CD89A1B539747002523E4 /* RemoteControlController.xib */,
 				32DCC7711B3DB6230063DD60 /* Images.xcassets */,
 				32DCC7731B3DB6230063DD60 /* LaunchScreen.xib */,
 				32DE23031B421B0000B62958 /* TestTableViewController.h */,
@@ -863,6 +871,7 @@
 				327137681B4A2ADF00CE69D6 /* temp.png in Resources */,
 				3216EE2F1B4A028800FEDAC0 /* menu_favourite.png in Resources */,
 				3216EDF51B49674400FEDAC0 /* play.png in Resources */,
+				328CD89C1B539747002523E4 /* RemoteControlController.xib in Resources */,
 				3216EDF21B49674400FEDAC0 /* next_selected.png in Resources */,
 				32D442B01B4E479A00960EC0 /* Icon.png in Resources */,
 				3216EDF91B49674400FEDAC0 /* servers.png in Resources */,
@@ -901,6 +910,7 @@
 				32DCC8221B3DB8B40063DD60 /* AFHTTPRequestOperation.m in Sources */,
 				32DCC7C71B3DB8780063DD60 /* ColorTitle.m in Sources */,
 				32DCC7CB1B3DB8780063DD60 /* WithTVRefreshController.m in Sources */,
+				328CD89B1B539747002523E4 /* RemoteControlController.m in Sources */,
 				32DCC8481B3DB8B40063DD60 /* UIWebView+AFNetworking.m in Sources */,
 				32DCC82A1B3DB8B40063DD60 /* AFURLSessionManager.m in Sources */,
 				32DCC8461B3DB8B40063DD60 /* UIProgressView+AFNetworking.m in Sources */,
