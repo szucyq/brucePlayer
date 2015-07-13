@@ -76,7 +76,7 @@ enum PlayStyle {
 @property (nonatomic,retain)SettingController *settingController;
 @property (nonatomic) enum PlayStyle playStyle;
 @property (weak, nonatomic) IBOutlet UIButton *playStyleBt;
-
+@property (nonatomic,retain)NSTimer *playTimer;
 //右侧actions
 - (IBAction)renderBtAction:(id)sender;
 - (IBAction)serverBtAction:(id)sender;

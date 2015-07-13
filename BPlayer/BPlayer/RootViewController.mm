@@ -741,7 +741,15 @@ static BOOL displayBottom;
     
     //刷新当前播放音乐的显示信息
     [self refreshCurrentMusicInfoWithItem:item];
+    //timer
+//    if([self.playTimer isValid]){
+//        [self.playTimer invalidate];
+//    }
+//    self.playTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
     
+}
+-(void)timeFireMethod{
+    [self refreshCurrentMusicTime:nil time:nil];
 }
 - (void)getServerAction:(NSNotification *)sender{
 
