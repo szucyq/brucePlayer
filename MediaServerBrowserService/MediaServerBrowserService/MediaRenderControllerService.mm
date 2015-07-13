@@ -84,9 +84,8 @@ class MediaRenderLinster;
         PLT_DeviceDataReference device;
         NPT_Result res = controller_->FindRenderer([UUID UTF8String], device);
         if ( NPT_SUCCEEDED(res) ) {
-            if (controller == nil) {
-                controller = [[MediaRenderControllerImpl alloc] initWithController:device controller:controller_.AsPointer()];
-            }
+            controller = [[MediaRenderControllerImpl alloc] initWithController:device controller:controller_.AsPointer()];
+            [controllerDic_ setObject:controller forKey:UUID];
         }
     }
     return controller;

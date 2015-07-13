@@ -126,9 +126,9 @@
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"seek"];
-    const char *posStr = "00:00:00";
+    NPT_String posStr( (NPT_TimeStamp(pos)) );
     const char *target = "0";
-    controller_->Seek(device_, DEFAULT_INSTANCE_ID, posStr, target, (void*)CFBridgingRetain(dic));
+    controller_->Seek(device_, DEFAULT_INSTANCE_ID, posStr.GetChars(), target, (void*)CFBridgingRetain(dic));
 }
 
 - (void)setVolume:(int)vol handler:(void (^)(BOOL))handler
