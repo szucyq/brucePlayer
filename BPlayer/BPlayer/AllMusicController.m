@@ -544,17 +544,18 @@
     
     //点击cell颜色
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-    cell.selectedBackgroundView.backgroundColor=RGBCell;
+    cell.selectedBackgroundView.backgroundColor=[UIColor redColor];
     //奇偶行颜色
-//    UIView *backgrdView = [[UIView alloc] initWithFrame:cell.frame];
-//    backgrdView.backgroundColor = [UIColor blueColor];
-    cell.backgroundView = [[UIView alloc] initWithFrame:cell.frame];
-    if(indexPath.row%1){
+    UIView *backgrdView = [[UIView alloc] initWithFrame:cell.frame];
+    NSLog(@"点击:%ld",indexPath.row%2);
+    if(indexPath.row%2){
         //偶
-        cell.backgroundColor=[UIColor whiteColor];
+        backgrdView.backgroundColor = [UIColor blueColor];
+        cell.backgroundView=backgrdView;
     }
     else{
-        cell.backgroundColor=[UIColor grayColor];
+        backgrdView.backgroundColor = [UIColor greenColor];
+        cell.backgroundView=backgrdView;
     }
     
     
