@@ -51,6 +51,10 @@ enum RenderStatu{
 
 - (void)getStat:(void (^)(BOOL,int))handler;
 
+- (void)next:(void (^)(BOOL))handler;
+
+- (void)previous:(void (^)(BOOL))handler;
+
 //set
 - (void)setUri:(NSString*)url name:(NSString*)name handler:(void (^)(BOOL))handler;
 

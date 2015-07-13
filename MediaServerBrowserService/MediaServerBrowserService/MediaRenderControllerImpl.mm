@@ -147,6 +147,20 @@
     controller_->SetMute(device_, DEFAULT_INSTANCE_ID, channel, isMute==YES ? true : false, (void*)CFBridgingRetain(dic));
 }
 
+- (void)next:(void (^)(BOOL))handler
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:handler forKey:@"next"];
+    controller_->Next(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+}
+
+- (void)previous:(void (^)(BOOL))handler
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:handler forKey:@"previous"];
+    controller_->Previous(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+}
+
 @end
 
 @implementation MediaRenderController

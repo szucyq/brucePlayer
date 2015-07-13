@@ -180,3 +180,25 @@ void MediaRenderControllerServiceListener::OnSetMuteResult(NPT_Result res
         callback(NPT_SUCCEEDED(res) ? YES : NO);
     });
 }
+
+void MediaRenderControllerServiceListener::OnNextResult(NPT_Result res
+                                                           , PLT_DeviceDataReference &device
+                                                           , void *userdata)
+{
+    NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userdata);
+    void (^callback)(BOOL) = [dic valueForKey:@"next"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        callback(NPT_SUCCEEDED(res) ? YES : NO);
+    });
+}
+
+void MediaRenderControllerServiceListener::OnPreviousResult(NPT_Result res
+                                                        , PLT_DeviceDataReference &device
+                                                        , void *userdata)
+{
+    NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userdata);
+    void (^callback)(BOOL) = [dic valueForKey:@"previous"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        callback(NPT_SUCCEEDED(res) ? YES : NO);
+    });
+}

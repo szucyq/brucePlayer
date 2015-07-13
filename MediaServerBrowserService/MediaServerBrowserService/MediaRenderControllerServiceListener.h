@@ -65,6 +65,15 @@ public:
     void OnSetMuteResult( NPT_Result res
                            , PLT_DeviceDataReference& device
                            , void* userdata );
+    
+    void OnNextResult( NPT_Result res
+                      , PLT_DeviceDataReference& device
+                      , void* userdata );
+    
+    void OnPreviousResult( NPT_Result res
+                      , PLT_DeviceDataReference& device
+                      , void* userdata );
+
     NSDictionary* allRenders();
     
 private:
