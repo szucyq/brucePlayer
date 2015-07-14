@@ -520,9 +520,9 @@ static BOOL displayMute=NO;
     [self initRender];
     int volume=[[NSString stringWithFormat:@"%f",self.volumeBt.value] intValue];
     NSLog(@"音量:%f--%d",self.volumeBt.value,volume);
-//    [self.render setVolume:volume handler:^(BOOL value){
-//        NSLog(@"volume :%d",value);
-//    }];
+    [self.render setVolume:volume handler:^(BOOL value){
+        NSLog(@"volume :%d",value);
+    }];
 }
 - (IBAction)getCurPosAction:(id)sender {
     NSLog(@"获取当前位置");
@@ -554,11 +554,11 @@ static BOOL displayMute=NO;
     
 }
 - (IBAction)seekAction:(id)sender {
-    NSLog(@"进度条控制");
+    NSLog(@"进度条控制:%f",self.seekSlider.value);
     [self initRender];
-    NSTimeInterval time;
+    NSTimeInterval time=self.seekSlider.value;
     [self.render seek:time handler:^(BOOL value){
-        
+        NSLog(@"进度条控制 value:%d",value);
     }];
 
 }
@@ -804,7 +804,7 @@ static BOOL displayMute=NO;
     [self.view sendSubviewToBack:self.catalogNav.view];
     //提醒开始同步该服务器资源
     [SVProgressHUD showInfoWithStatus:@"正在为您同步资源" maskType:SVProgressHUDMaskTypeBlack];
-    [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
+//    [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
 }
 #pragma mark -
 #pragma mark MediaServerBrowserDelegate
