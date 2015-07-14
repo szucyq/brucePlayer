@@ -55,14 +55,17 @@
 - (void)browse:(NSString *)objID
        handler:(void (^)(BOOL, NSString *, NSArray *))handler
 {
-    [blockDic_ setObject:handler forKey:objID];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:handler forKey:@"browse"];
+
     NPT_UInt32 start_index = 0;
     NPT_UInt32 count = 30;
     bool browse_metadata = false;
     const char* filter = "dc:date,upnp:genre,res,res@duration,res@size,upnp:albumArtURI,upnp:originalTrackNumber,upnp:album,upnp:artist,upnp:author";
     const char* sort_criteria = "";
+    
     //
-    browserController_->Browse(device_, [objID UTF8String], start_index, count, browse_metadata, filter,sort_criteria, (__bridge void*)blockDic_);
+    browserController_->Browse(device_, [objID UTF8String], start_index, count, browse_metadata, filter,sort_criteria, (void*)CFBridgingRetain(dic));
 }
 @end
 
