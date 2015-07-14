@@ -255,10 +255,11 @@ static BOOL displayBottom;
                 
                 NSString *title=[NSString stringWithFormat:@"%@",item.title];
                 NSString *uri=[NSString stringWithFormat:@"%@",item.uri];
+                NSString *composer=[NSString stringWithFormat:@"%@",item.composer];
                 NSString *album=[NSString stringWithFormat:@"%@",item.albumArtURI];
                 NSString *genres=[NSString stringWithFormat:@"%@",item.mimeType];
                 NSString *date=[NSString stringWithFormat:@"%@",item.date];
-                NSString *sql=[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@",@"insert into music (server,title,uri,album,genres,date) values('",appDelagete.serverUuid,@"','",title,@"','",uri,@"','",album,@"','",genres,@"','",date,@"')"];
+                NSString *sql=[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",@"insert into music (server,title,uri,composer,album,genres,date) values('",appDelagete.serverUuid,@"','",title,@"','",uri,@"','",composer,@"','",album,@"','",genres,@"','",date,@"')"];
                 NSLog(@"sql:%@",sql);
                 BOOL musicAdd=[CoreFMDB executeUpdate:sql];
                 if(musicAdd){
@@ -459,7 +460,10 @@ static BOOL displayBottom;
 #pragma mark -
 - (IBAction)preBtAction:(id)sender {
     NSLog(@"上一首");
-//    [self.renderer previous];
+    [self initRender];
+    [self.render previous:^(BOOL value){
+        NSLog(@"previous:%d",value);
+    }];
     [self refreshCurrentMusicInfoWithItem:nil];
 }
 
@@ -496,8 +500,10 @@ static BOOL displayBottom;
 
 - (IBAction)nextBtAction:(id)sender {
     NSLog(@"下一首");
-//    [self.renderer next];
-//    [self.renderer setMute:1];
+    [self initRender];
+    [self.render next:^(BOOL value){
+        NSLog(@"next:%d",value);
+    }];
     [self refreshCurrentMusicInfoWithItem:nil];
 }
 - (IBAction)getVolumeAction:(id)sender {

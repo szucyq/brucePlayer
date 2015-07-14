@@ -252,9 +252,24 @@
         
         while ([set next]) {
             NSLog(@"%@-%@",[set stringForColumn:@"title"],[set stringForColumn:@"uri"]);
+            NSString *dateStr=[set stringForColumn:@"date"];
+            NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+            dateFormatter.dateFormat= @"yyyy-MM-dd";
+            
+            
+            NSDate *date=[dateFormatter dateFromString:dateStr];
+            NSLog(@"date:%@",date);
+
+            
             MediaServerItem *item=[[MediaServerItem alloc]init];
             item.title=[set stringForColumn:@"title"];
             item.uri=[set stringForColumn:@"uri"];
+            item.composer=[set stringForColumn:@"composer"];
+            item.date=date;
+            item.albumArtURI=[set stringForColumn:@"album"];
+            item.contentFormat=[set stringForColumn:@"genres"];
+            item.artist=[set stringForColumn:@"artist"];
+            
             [self.listArray addObject:item];
         }
         
@@ -320,7 +335,7 @@
     //    currentIndex=2;
     
     NSLog(@"2222222");
-    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"uri"
+    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"albumArtURI"
                                                                               ascending:YES
                                                                                selector:@selector(localizedStandardCompare:)];
     NSArray *temparray=[self.listArray sortedArrayUsingDescriptors:@[firstNameSortDescriptor]];
@@ -346,7 +361,7 @@
 //    currentIndex=2;
     
     NSLog(@"333333333");
-    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title"
+    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"artist"
                                                                               ascending:YES
                                                                                selector:@selector(localizedStandardCompare:)];
     NSArray *temparray=[self.listArray sortedArrayUsingDescriptors:@[firstNameSortDescriptor]];
@@ -372,7 +387,7 @@
 //    currentIndex=3;
     
     NSLog(@"4444444");
-    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title"
+    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"composer"
                                                                               ascending:YES
                                                                                selector:@selector(localizedStandardCompare:)];
     NSArray *temparray=[self.listArray sortedArrayUsingDescriptors:@[firstNameSortDescriptor]];
@@ -397,7 +412,7 @@
     //    currentIndex=2;
     
     NSLog(@"55555555");
-    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"title"
+    NSSortDescriptor *firstNameSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date"
                                                                               ascending:YES
                                                                                selector:@selector(localizedStandardCompare:)];
     NSArray *temparray=[self.listArray sortedArrayUsingDescriptors:@[firstNameSortDescriptor]];
