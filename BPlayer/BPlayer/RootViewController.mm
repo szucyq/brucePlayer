@@ -804,7 +804,7 @@ static BOOL displayMute=NO;
     [self.view sendSubviewToBack:self.catalogNav.view];
     //提醒开始同步该服务器资源
     [SVProgressHUD showInfoWithStatus:@"正在为您同步资源" maskType:SVProgressHUDMaskTypeBlack];
-//    [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
+    [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
 }
 #pragma mark -
 #pragma mark MediaServerBrowserDelegate
