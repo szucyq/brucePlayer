@@ -147,13 +147,32 @@
     }
 }
 
+NSString *stringFromInterval(NSTimeInterval timeInterval)
+{
+#define SECONDS_PER_MINUTE (60)
+#define MINUTES_PER_HOUR (60)
+#define SECONDS_PER_HOUR (SECONDS_PER_MINUTE * MINUTES_PER_HOUR)
+#define HOURS_PER_DAY (24)
+    
+    // convert the time to an integer, as we don't need double precision, and we do need to use the modulous operator
+    int ti = round(timeInterval);
+    
+    return [NSString stringWithFormat:@"%.2d:%.2d:%.2d", (ti / SECONDS_PER_HOUR) % HOURS_PER_DAY, (ti / SECONDS_PER_MINUTE) % MINUTES_PER_HOUR, ti % SECONDS_PER_MINUTE];
+    
+#undef SECONDS_PER_MINUTE
+#undef MINUTES_PER_HOUR
+#undef SECONDS_PER_HOUR
+#undef HOURS_PER_DAY
+}
+
 - (void)seek:(NSTimeInterval)pos handler:(void (^)(BOOL))handler
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"seek"];
-    NPT_String posStr( (NPT_TimeStamp(pos)) );
-    const char *target = "0";
-    NPT_Result result = controller_->Seek(device_, DEFAULT_INSTANCE_ID, posStr.GetChars(), target, (void*)CFBridgingRetain(dic));
+    NSString *target = stringFromInterval(pos);
+    NSLog(@"[MediaRenderControllerImpl] [seek] pos = %f, target = %@", pos, target);
+    const char *uint = "REL_TIME";
+    NPT_Result result = controller_->Seek(device_, DEFAULT_INSTANCE_ID, uint, [target UTF8String], (void*)CFBridgingRetain(dic));
     if ( NPT_FAILED(result) ) {
         NSLog(@"[MediaRenderControllerImpl] [seek] failure res = %d", result);
     }
