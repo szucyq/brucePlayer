@@ -9,5 +9,6 @@
 #import "WithLeftRightController.h"
 
 @interface RemoteControlController : WithLeftRightController
+- (IBAction)closeAction:(id)sender;
 
 @end
