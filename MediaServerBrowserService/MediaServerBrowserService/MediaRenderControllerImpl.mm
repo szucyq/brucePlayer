@@ -163,7 +163,7 @@
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"setVolume"];
-    const char *channel = "1";
+    const char *channel = "Master";
     NPT_Result result = controller_->SetVolume(device_, DEFAULT_INSTANCE_ID, channel, vol, (void*)CFBridgingRetain(dic));
     if ( NPT_FAILED(result) ) {
         NSLog(@"[MediaRenderControllerImpl] [setVolume] failure res = %d", result);
