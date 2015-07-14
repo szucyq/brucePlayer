@@ -36,7 +36,8 @@ enum RenderStatu{
     STOPED = 0,
     PLAYING,
     PAUSED,
-    LOADING
+    LOADING,
+    STAT_UNKNOW
 };
 //get
 @property(nonatomic, readonly)NSString *UUID;

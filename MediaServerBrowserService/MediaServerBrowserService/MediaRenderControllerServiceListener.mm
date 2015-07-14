@@ -202,3 +202,29 @@ void MediaRenderControllerServiceListener::OnPreviousResult(NPT_Result res
         callback(NPT_SUCCEEDED(res) ? YES : NO);
     });
 }
+
+void MediaRenderControllerServiceListener::OnGetTransportInfoResult(NPT_Result res
+                                                                    , PLT_DeviceDataReference& device
+                                                                    , PLT_TransportInfo* info
+                                                                    , void* userdata )
+{
+    NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userdata);
+    void (^callback)(BOOL,int) = [dic valueForKey:@"getStat"];
+    NSString *stStr = [NSString stringWithUTF8String:info->cur_transport_state.GetChars()];
+    int st = 4; //unknow
+    stStr = [stStr lowercaseString];
+    if ( [stStr isEqualToString:@"stopped"] ) {
+        st = 0;
+    } else if ( [stStr isEqualToString:@"paused_playback"] ) {
+        st = 2;
+    } else if ( [stStr isEqualToString:@"playing"] ) {
+        st = 1;
+    } else if ( [stStr isEqualToString:@"transitioning"] ) {
+        st = 3;
+    } else if ( [stStr isEqualToString:@"no_media_present"] ) {
+        st = 0;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        callback(NPT_SUCCEEDED(res) ? YES : NO, st);
+    });
+}

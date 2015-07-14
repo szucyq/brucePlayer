@@ -74,6 +74,11 @@ public:
                       , PLT_DeviceDataReference& device
                       , void* userdata );
 
+    void OnGetTransportInfoResult( NPT_Result res
+                                  , PLT_DeviceDataReference& device
+                                  , PLT_TransportInfo* info
+                                  , void* userdata );
+    
     NSDictionary* allRenders();
     
 private:

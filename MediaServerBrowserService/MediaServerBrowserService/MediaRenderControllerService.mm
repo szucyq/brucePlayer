@@ -78,7 +78,7 @@ class MediaRenderLinster;
 
 - (MediaRenderController*)controllerWithUUID:(NSString*)UUID
 {
-    NSLog(@"[MediaRenderControllerService] [controllerWithUUID] uuid = %@", UUID);
+    //NSLog(@"[MediaRenderControllerService] [controllerWithUUID] uuid = %@", UUID);
     MediaRenderController *controller = [controllerDic_ objectForKey:UUID];
     if ( controller == nil ) {
         PLT_DeviceDataReference device;

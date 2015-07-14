@@ -69,21 +69,30 @@
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"setUri"];
-    controller_->SetAVTransportURI(device_, DEFAULT_INSTANCE_ID, [url UTF8String], didl.GetChars(), (void*)CFBridgingRetain(dic));
+    NPT_Result result = controller_->SetAVTransportURI(device_, DEFAULT_INSTANCE_ID, [url UTF8String], didl.GetChars(), (void*)CFBridgingRetain(dic));
+    if ( NPT_FAILED(result) ) {
+        NSLog(@"[MediaRenderControllerImpl] [setUri] failure res = %d", result);
+    }
 }
 
 - (void)getCurPos:(void (^)(BOOL, NSTimeInterval))handler
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"getCurPos"];
-    controller_->GetPositionInfo(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+    NPT_Result result = controller_->GetPositionInfo(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+    if ( NPT_FAILED(result) ) {
+        NSLog(@"[MediaRenderControllerImpl] [getCurPos] failure res = %d", result);
+    }
 }
 
 - (void)getCurUri:(void (^)(BOOL, NSString *))handler
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"getCurUri"];
-    controller_->GetMediaInfo(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+    NPT_Result result = controller_->GetMediaInfo(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+    if ( NPT_FAILED(result) ) {
+        NSLog(@"[MediaRenderControllerImpl] [getCurUri] failure res = %d", result);
+    }
 }
 
 - (void)getVolume:(void (^)(BOOL, NSInteger))handler
@@ -91,13 +100,20 @@
     const char *channel = "1";
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"getVolume"];
-    controller_->GetVolume(device_, DEFAULT_INSTANCE_ID, channel, (void*)CFBridgingRetain(dic));
+    NPT_Result result = controller_->GetVolume(device_, DEFAULT_INSTANCE_ID, channel, (void*)CFBridgingRetain(dic));
+    if ( NPT_FAILED(result) ) {
+        NSLog(@"[MediaRenderControllerImpl] [getVolume] failure res = %d", result);
+    }
 }
 
 - (void)getStat:(void (^)(BOOL, int))handler
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"getStat"];
+    NPT_Result result = controller_->GetTransportInfo(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+    if ( NPT_FAILED(result) ) {
+        NSLog(@"[MediaRenderControllerImpl] [getStat] failure res = %d", result);
+    }
 }
 
 - (void)play:(void (^)(BOOL))handler
@@ -105,21 +121,30 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"play"];
     const char* speed = "1";
-    controller_->Play(device_, DEFAULT_INSTANCE_ID, speed, (void*)CFBridgingRetain(dic));
+    NPT_Result result = controller_->Play(device_, DEFAULT_INSTANCE_ID, speed, (void*)CFBridgingRetain(dic));
+    if ( NPT_FAILED(result) ) {
+        NSLog(@"[MediaRenderControllerImpl] [play] failure res = %d", result);
+    }
 }
 
 - (void)pause:(void (^)(BOOL))handler
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"pause"];
-    controller_->Pause(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+    NPT_Result result = controller_->Pause(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+    if ( NPT_FAILED(result) ) {
+        NSLog(@"[MediaRenderControllerImpl] [pause] failure res = %d", result);
+    }
 }
 
 - (void)stop:(void (^)(BOOL))handler
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"stop"];
-    controller_->Stop(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+    NPT_Result result = controller_->Stop(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+    if ( NPT_FAILED(result) ) {
+        NSLog(@"[MediaRenderControllerImpl] [stop] failure res = %d", result);
+    }
 }
 
 - (void)seek:(NSTimeInterval)pos handler:(void (^)(BOOL))handler
@@ -128,7 +153,10 @@
     [dic setObject:handler forKey:@"seek"];
     NPT_String posStr( (NPT_TimeStamp(pos)) );
     const char *target = "0";
-    controller_->Seek(device_, DEFAULT_INSTANCE_ID, posStr.GetChars(), target, (void*)CFBridgingRetain(dic));
+    NPT_Result result = controller_->Seek(device_, DEFAULT_INSTANCE_ID, posStr.GetChars(), target, (void*)CFBridgingRetain(dic));
+    if ( NPT_FAILED(result) ) {
+        NSLog(@"[MediaRenderControllerImpl] [seek] failure res = %d", result);
+    }
 }
 
 - (void)setVolume:(int)vol handler:(void (^)(BOOL))handler
@@ -136,29 +164,41 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"setVolume"];
     const char *channel = "1";
-    controller_->SetVolume(device_, DEFAULT_INSTANCE_ID, channel, vol, (void*)CFBridgingRetain(dic));
+    NPT_Result result = controller_->SetVolume(device_, DEFAULT_INSTANCE_ID, channel, vol, (void*)CFBridgingRetain(dic));
+    if ( NPT_FAILED(result) ) {
+        NSLog(@"[MediaRenderControllerImpl] [setVolume] failure res = %d", result);
+    }
 }
 
 - (void)setMute:(BOOL)isMute handler:(void (^)(BOOL))handler
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"setMute"];
-    const char *channel = "1";
-    controller_->SetMute(device_, DEFAULT_INSTANCE_ID, channel, isMute==YES ? true : false, (void*)CFBridgingRetain(dic));
+    const char *channel = "Master";
+    NPT_Result result = controller_->SetMute(device_, DEFAULT_INSTANCE_ID, channel, isMute!=YES ? true : false, (void*)CFBridgingRetain(dic));
+    if ( NPT_FAILED(result) ) {
+        NSLog(@"[MediaRenderControllerImpl] [setMute] failure res = %d", result);
+    }
 }
 
 - (void)next:(void (^)(BOOL))handler
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"next"];
-    controller_->Next(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+    NPT_Result result = controller_->Next(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+    if ( NPT_FAILED(result) ) {
+        NSLog(@"[MediaRenderControllerImpl] [next] failure res = %d", result);
+    }
 }
 
 - (void)previous:(void (^)(BOOL))handler
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"previous"];
-    controller_->Previous(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+    NPT_Result result = controller_->Previous(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+    if ( NPT_FAILED(result) ) {
+        NSLog(@"[MediaRenderControllerImpl] [previous] failure res = %d", result);
+    }
 }
 
 @end
