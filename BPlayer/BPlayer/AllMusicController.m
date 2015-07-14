@@ -284,9 +284,9 @@
 }
 - (void)showlistAction{
     NSLog(@"showlistAction:%@",self.listArray);
-    islistIcon=YES;
+    islistIcon=NO;
     isicon=NO;
-    islist=NO;
+    islist=YES;
     self.listTableView.hidden=NO;
     self.scrollView.hidden=YES;
     
@@ -445,7 +445,7 @@
     }
     
     UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kMusicViewWidth, kMusicTableRowHeigth)];
-    [bgView setBackgroundColor:[UIColor whiteColor]];
+    [bgView setBackgroundColor:[UIColor clearColor]];
     [cell addSubview:bgView];
     
 //    NSDictionary *record=[self.listArray objectAtIndex:indexPath.row];
@@ -529,7 +529,7 @@
     }
     [bgView addSubview:typeLabel];
     
-    if(islist){
+    if(islistIcon){
         UIImageView *headImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 50, 50)];
         NSString *stringimage=[NSString stringWithFormat:@"%@",item.smallImageUrl];
         if (!stringimage) {
@@ -544,17 +544,17 @@
     
     //点击cell颜色
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-    cell.selectedBackgroundView.backgroundColor=[UIColor redColor];
+    cell.selectedBackgroundView.backgroundColor=[UIColor blueColor];
     //奇偶行颜色
     UIView *backgrdView = [[UIView alloc] initWithFrame:cell.frame];
     NSLog(@"点击:%ld",indexPath.row%2);
     if(indexPath.row%2){
         //偶
-        backgrdView.backgroundColor = [UIColor blueColor];
+        backgrdView.backgroundColor = [UIColor whiteColor];
         cell.backgroundView=backgrdView;
     }
     else{
-        backgrdView.backgroundColor = [UIColor greenColor];
+        backgrdView.backgroundColor = RGB(236, 234, 234, 1);
         cell.backgroundView=backgrdView;
     }
     

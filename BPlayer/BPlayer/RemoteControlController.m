@@ -34,4 +34,7 @@
 }
 */
 
+- (IBAction)closeAction:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

@@ -30,7 +30,8 @@
     [self.view addSubview:self.listTableView];
     [self.view bringSubviewToFront:self.listTableView];
     //
-    self.listArray=[NSMutableArray arrayWithObjects:@"图标浏览方式显示数量",@"自动锁屏",@"用户指南",@"用户反馈",@"版本", nil];
+//    self.listArray=[NSMutableArray arrayWithObjects:@"图标浏览方式显示数量",@"自动锁屏",@"用户指南",@"用户反馈",@"版本", nil];
+    self.listArray=[NSMutableArray arrayWithObjects:@"ES9018 DAC",@"WM8741 DAC",@"Analog Input",@"S/P DIF",@"DSD Output Mode",@"Default Setting",@"WIFI",@"About", nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,7 +80,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"row:%d",indexPath.row);
     if(indexPath.row==0){
-        self.iconNumView.hidden=NO;
+        self.iconNumView.hidden=YES;
     }
     else{
         self.iconNumView.hidden=YES;
