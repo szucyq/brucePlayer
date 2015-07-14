@@ -10,8 +10,8 @@
 #import <Platinum/Platinum.h>
 #import "AppDelegate.h"
 
-static BOOL displayBottom;
-
+static BOOL displayBottom=YES;
+static BOOL displayMute=NO;
 
 @implementation RootViewController
 - (void)didReceiveMemoryWarning
@@ -510,7 +510,7 @@ static BOOL displayBottom;
     NSLog(@"获取音量");
     [self initRender];
     [self.render getVolume:^(BOOL value,NSInteger volume){
-        NSLog(@"value:%d--volume:%ld",value,volume);
+        NSLog(@"value:%d--volume:%d",value,volume);
     }];
 }
 
@@ -566,9 +566,21 @@ static BOOL displayBottom;
 - (IBAction)muteAction:(id)sender {
     NSLog(@"静音");
     [self initRender];
-    [self.render setMute:YES handler:^(BOOL value){
-        NSLog(@"mute:%d",value);
-    }];
+    if(displayMute){
+        [self.render setMute:NO handler:^(BOOL value){
+            NSLog(@"mute:%d",value);
+            [self.muteBt setTitle:@"静音" forState:UIControlStateNormal];
+            displayMute=!displayMute;
+        }];
+    }
+    else{
+        [self.render setMute:YES handler:^(BOOL value){
+            NSLog(@"mute:%d",value);
+            [self.muteBt setTitle:@"原音" forState:UIControlStateNormal];
+            displayMute=!displayMute;
+        }];
+    }
+    
 }
 //- (BOOL)device:(CGUpnpDevice *)device service:(CGUpnpService *)service actionReceived:(CGUpnpAction *)action
 //{
