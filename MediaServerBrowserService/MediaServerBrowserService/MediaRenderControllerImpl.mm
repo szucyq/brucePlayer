@@ -194,7 +194,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"setMute"];
     const char *channel = "Master";
-    NPT_Result result = controller_->SetMute(device_, DEFAULT_INSTANCE_ID, channel, isMute!=YES ? true : false, (void*)CFBridgingRetain(dic));
+    NPT_Result result = controller_->SetMute(device_, DEFAULT_INSTANCE_ID, channel, isMute==YES ? true : false, (void*)CFBridgingRetain(dic));
     if ( NPT_FAILED(result) ) {
         NSLog(@"[MediaRenderControllerImpl] [setMute] failure res = %d", result);
     }
