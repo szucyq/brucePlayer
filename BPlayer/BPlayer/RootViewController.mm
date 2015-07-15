@@ -504,6 +504,13 @@ static BOOL displayMute=NO;
     [self.render next:^(BOOL value){
         NSLog(@"next:%d",value);
     }];
+    
+    [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
+        if(value){
+            NSLog(@"curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
+        }
+    }];
+    
     [self refreshCurrentMusicInfoWithItem:nil];
 }
 - (IBAction)getVolumeAction:(id)sender {
