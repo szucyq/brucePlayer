@@ -49,7 +49,7 @@
     // Do any additional setup after loading the view.
     
     //
-    self.view.backgroundColor=[UIColor redColor];
+    self.view.backgroundColor=[UIColor whiteColor];
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     
     if(appDelagete.serverUuid){
