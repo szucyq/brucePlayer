@@ -220,6 +220,16 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     }
 }
 
+- (void)getMediaInfo:(void (^)(BOOL,MediaItemInfo*))handler
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:handler forKey:@"getMediaInfo"];
+    NPT_Result result = controller_->GetMediaInfo(device_, DEFAULT_INSTANCE_ID, (void*)CFBridgingRetain(dic));
+    if ( NPT_FAILED(result) ) {
+        NSLog(@"[MediaRenderControllerImpl] [getMediaInfo] failure res = %d", result);
+    }
+}
+
 @end
 
 @implementation MediaRenderController

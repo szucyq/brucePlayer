@@ -30,6 +30,8 @@
 @property (nonatomic, readonly)BOOL isRunning;
 @end
 
+@class MediaItemInfo;
+
 @interface MediaRenderController : NSObject
 
 enum RenderStatu{
@@ -39,6 +41,7 @@ enum RenderStatu{
     LOADING,
     STAT_UNKNOW
 };
+
 //get
 @property(nonatomic, readonly)NSString *UUID;
 @property(nonatomic, readonly)NSString *friendlyName;
@@ -51,6 +54,8 @@ enum RenderStatu{
 - (void)getCurUri:(void (^)(BOOL,NSString*))handler;
 
 - (void)getStat:(void (^)(BOOL,int))handler;
+
+- (void)getMediaInfo:(void (^)(BOOL,MediaItemInfo*))handler;
 
 - (void)next:(void (^)(BOOL))handler;
 
@@ -70,4 +75,16 @@ enum RenderStatu{
 - (void)setVolume:(int)vol handler:(void (^)(BOOL))handler;
 
 - (void)setMute:(BOOL)isMute handler:(void (^)(BOOL))handler;
+@end
+
+@interface MediaItemInfo :NSObject
+
+@property (nonatomic, strong) NSString *curUrl;
+
+@property (nonatomic, strong) NSString *title;
+
+@property (nonatomic, strong) NSString *iconUri;
+
+@property (nonatomic) NSTimeInterval duration;
+
 @end

@@ -97,3 +97,12 @@ class MediaRenderLinster;
 }
 
 @end
+
+@implementation MediaItemInfo
+
+@synthesize curUrl;
+@synthesize duration;
+@synthesize title;
+
+@end
+

@@ -8,6 +8,8 @@
 
 #include "MediaRenderControllerServiceListener.h"
 
+#include "MediaRenderControllerService.h"
+
 #define MEDIARENDERADDEDNOTIFICATION @"MediaRenderAddedNotification"
 #define MEDIARENDERREMOVEDNOTIFICATION @"MediaRenderRemovedNotification"
 
@@ -79,7 +81,8 @@ void MediaRenderControllerServiceListener::OnGetPositionInfoResult(NPT_Result re
 {
     NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userdata);
     void (^callback)(BOOL, NSTimeInterval) = [dic valueForKey:@"getCurPos"];
-    NSTimeInterval pos = info ? info->abs_time.ToSeconds() : 0;
+    //
+    NSTimeInterval pos = info ? info->rel_time.ToSeconds() : 0;
     dispatch_async(dispatch_get_main_queue(), ^{
         callback(NPT_SUCCEEDED(res) ? YES : NO, pos);
     });
@@ -108,9 +111,38 @@ void MediaRenderControllerServiceListener::OnGetMediaInfoResult(NPT_Result res
     NSString *key = [[dic allKeys] firstObject];
     if ( [key isEqualToString:@"getCurUri"] ) {
         void (^callback)(BOOL, NSString*) = [dic valueForKey:@"getCurUri"];
+        if ( NPT_FAILED(res) ) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callback(NO, nil);
+            });
+            return;
+        }
         NSString *uri = [NSString stringWithUTF8String: info->cur_uri.GetChars()];
         dispatch_async(dispatch_get_main_queue(), ^{
-            callback(NPT_SUCCEEDED(res) ? YES : NO, uri);
+            callback(YES, uri);
+        });
+    } else if ( [key isEqualToString:@"getMediaInfo"] ) {
+        void (^callback)(BOOL, MediaItemInfo*) = [dic valueForKey:@"getCurUri"];
+        if ( NPT_FAILED(res) ) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callback(NO, nil);
+            });
+            return;
+        }
+        MediaItemInfo *itemInfo = [[MediaItemInfo alloc] init];
+        itemInfo.duration = info->media_duration.ToSeconds();
+        itemInfo.curUrl = [NSString stringWithUTF8String: info->cur_uri.GetChars()];
+        //
+        PLT_MediaObjectListReference objs(new PLT_MediaObjectList());
+        if (NPT_SUCCEEDED(PLT_Didl::FromDidl(info->cur_metadata, objs))) {
+            if (objs->GetItemCount() >= 1) {
+                PLT_MediaItem *p = dynamic_cast<PLT_MediaItem*>(*(objs->GetFirstItem()));
+                itemInfo.title = [NSString stringWithUTF8String:p->m_Title.GetChars()];
+                itemInfo.iconUri = [NSString stringWithUTF8String:p->m_Description.icon_uri.GetChars()];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            callback(YES, itemInfo);
         });
     }
 }
