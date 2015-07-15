@@ -564,9 +564,10 @@ static BOOL displayMute=NO;
 }
 
 - (IBAction)muteAction:(id)sender {
-    NSLog(@"静音");
+    
     [self initRender];
     if(displayMute){
+        NSLog(@"转正常音量");
         [self.render setMute:NO handler:^(BOOL value){
             NSLog(@"mute:%d",value);
             [self.muteBt setTitle:@"静音" forState:UIControlStateNormal];
@@ -574,6 +575,7 @@ static BOOL displayMute=NO;
         }];
     }
     else{
+        NSLog(@"转静音");
         [self.render setMute:YES handler:^(BOOL value){
             NSLog(@"mute:%d",value);
             [self.muteBt setTitle:@"原音" forState:UIControlStateNormal];
@@ -801,7 +803,7 @@ static BOOL displayMute=NO;
     self.catalogNav.view.frame=frame;
     self.catalogNav.view.tag=10000;
     [self.view addSubview:self.catalogNav.view];
-    [self.view sendSubviewToBack:self.catalogNav.view];
+    [self.view bringSubviewToFront:self.catalogNav.view];
     //提醒开始同步该服务器资源
     [SVProgressHUD showInfoWithStatus:@"正在为您同步资源" maskType:SVProgressHUDMaskTypeBlack];
     [self performSelector:@selector(loadAllContentsAction:) withObject:nil];

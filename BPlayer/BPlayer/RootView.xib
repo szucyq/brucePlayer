@@ -19,6 +19,7 @@
                 <outlet property="iconBt" destination="d3V-5e-asj" id="V0c-wN-n7b"/>
                 <outlet property="lengthTimeLabel" destination="EkX-ex-1fB" id="z61-kf-8O4"/>
                 <outlet property="listBt" destination="AhX-DV-P0u" id="hCP-AL-zC2"/>
+                <outlet property="muteBt" destination="lxK-So-rJN" id="pTp-yP-mTt"/>
                 <outlet property="nextBt" destination="rwl-Ny-XA3" id="3wj-Sp-qPX"/>
                 <outlet property="playBt" destination="4Jh-yU-kVg" id="XlV-cU-VHi"/>
                 <outlet property="playStyleBt" destination="NlU-pv-mqn" id="FSy-rO-EaN"/>
@@ -331,7 +332,7 @@
                                 <action selector="getCurPosAction:" destination="-1" eventType="touchUpInside" id="hdq-RM-7Kg"/>
                             </connections>
                         </button>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" id="wcW-Nq-40H">
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" id="wcW-Nq-40H">
                             <rect key="frame" x="384" y="22" width="199" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <connections>
