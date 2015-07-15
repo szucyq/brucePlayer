@@ -122,7 +122,7 @@ void MediaRenderControllerServiceListener::OnGetMediaInfoResult(NPT_Result res
             callback(YES, uri);
         });
     } else if ( [key isEqualToString:@"getMediaInfo"] ) {
-        void (^callback)(BOOL, MediaItemInfo*) = [dic valueForKey:@"getCurUri"];
+        void (^callback)(BOOL, MediaItemInfo*) = [dic valueForKey:@"getMediaInfo"];
         if ( NPT_FAILED(res) ) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 callback(NO, nil);
