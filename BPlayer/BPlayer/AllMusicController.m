@@ -183,6 +183,11 @@
 -(void)tapAction:(UIButton*)sender{
     
     NSLog(@"tap icon:%ld",[sender tag]);
+    NSInteger i=[sender tag]-1000;
+    MediaServerItem *item=[self.listArray objectAtIndex:i];
+    //如果是音频文件播放，则要在主界面控制
+    NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:item,@"item", nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"kPlay" object:nil userInfo:userinfo];
 }
 - (void)setByType:(NSString *)byType{
     [self.listArray removeAllObjects];

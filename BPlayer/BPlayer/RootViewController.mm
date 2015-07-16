@@ -628,9 +628,9 @@ static BOOL displayMute=NO;
     //格式
     self.curMusicFormatLabel.text=@"mp3";
     //比特率
-    self.curMusicBitLabel.text=@"bit";
+    self.curMusicBitLabel.text=[NSString stringWithFormat:@"%ld",item.bitRate];
     //当前播放时间进度
-    self.curMusicTimeLabel.text=@"00:00:00";//定时刷新显示 ？
+    self.curMusicTimeLabel.text=@"00:00:00";//定时刷新显示
     //当前歌曲长度
     self.lengthTimeLabel.text=stringFromInterval(item.duration);//长度
 }
@@ -778,12 +778,16 @@ static BOOL displayMute=NO;
     //格式
     self.curMusicFormatLabel.text=@"mp3";
     //比特率
-    self.curMusicBitLabel.text=@"bit";
+    self.curMusicBitLabel.text=[NSString stringWithFormat:@"%ld",item.bitrate];
     //当前播放时间进度
-    self.curMusicTimeLabel.text=@"00:00:00";//定时刷新显示 ？
+    self.curMusicTimeLabel.text=@"00:00:00";//定时刷新显示
     //当前歌曲长度
-    self.lengthTimeLabel.text=@"00";//长度
-    
+    self.lengthTimeLabel.text=stringFromInterval(item.duration);//长度
+    //slider
+    self.seekSlider.minimumValue = 0;   //最小值
+    self.seekSlider.maximumValue = item.duration;  //最大值
+    self.lengthTimeLabel.text=stringFromInterval(item.duration);
+    self.seekSlider.value=0;
     
     //timer
     if([self.playTimer isValid]){
