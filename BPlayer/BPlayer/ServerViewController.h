@@ -7,6 +7,7 @@
 
 
 #import "TestTableViewController.h"
+#import "ServerCell.h"
 
 @interface ServerViewController : WithTableViewController
 

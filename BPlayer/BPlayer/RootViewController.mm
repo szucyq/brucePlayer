@@ -757,7 +757,7 @@ static BOOL displayMute=NO;
 
     //播放
     [self initRender];
-    [self.render setUri:item.uri name:@"name" handler:^(BOOL ret){
+    [self.render setUri:item.uri name:item.title handler:^(BOOL ret){
         if(ret){
             NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!ret = %d", ret);
             
@@ -770,6 +770,9 @@ static BOOL displayMute=NO;
     //play
     [self.render play:^(BOOL ret){
         NSLog(@"play:%d",ret);
+        if(ret){
+            [self.playBt setBackgroundImage:[UIImage imageNamed:@"pause.png"] forState:UIControlStateNormal];
+        }
     }];
     
     //刷新当前播放音乐的显示信息
@@ -879,10 +882,10 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
 - (void)mediaServerAdded:(NSNotification*)notification
 {
     NSDictionary *msg = notification.object;
+    NSLog(@"dms msg:%@",msg);
     NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
     NSString *uuid = [msg valueForKey:@"UUID"];
     [self.dmsDic setObject:msg forKey:uuid];
-    //    _dmsArr=[NSMutableDictionary dictionaryWithDictionary:[[MediaServerBrowserService instance] mediaServers]];
     
     NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:self.dmsDic,@"server", nil];
 //    [self.listTableView reloadData];

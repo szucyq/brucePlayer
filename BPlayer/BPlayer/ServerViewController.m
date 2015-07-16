@@ -189,19 +189,33 @@ static BOOL displaySetting=NO;
     // ip地址，名字，图标
     //
     static NSString *identifier=@"serverCell";
-    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:identifier];
+//    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:identifier];
+//    
+//    if(cell==nil){
+//        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+//    }
+    ServerCell *cell=(ServerCell*)[tableView dequeueReusableCellWithIdentifier:identifier];
     
     if(cell==nil){
-        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        NSArray *array=[[NSBundle mainBundle]loadNibNamed:@"ServerCell" owner:self options:nil];
+        cell=[array objectAtIndex:0];
+        
     }
-    cell.textLabel.text = [[[_dmsArr
-                            allValues] objectAtIndex:indexPath.row] valueForKey:@"FriendlyName"];
-    cell.detailTextLabel.text=[[[_dmsArr
-                                 allValues] objectAtIndex:indexPath.row] valueForKey:@"IP"];
-    NSString *iconUrl=[[[_dmsArr
-                         allValues] objectAtIndex:indexPath.row] valueForKey:@"iconUrl"];
+    
+    
+    
+    NSString *key=[[_dmsArr allKeys] objectAtIndex:indexPath.row];
+    cell.friendlyNameLabel.text=[[_dmsArr objectForKey:key] valueForKey:@"FriendlyName"];
+    cell.ipLabel.text=[[_dmsArr objectForKey:key] valueForKey:@"IP"];
+    
+    NSString *iconUrl=[[_dmsArr objectForKey:key] valueForKey:@"iconUrl"];
     NSLog(@"server icon:%@",iconUrl);
-    cell.imageView.image=[UIImage imageNamed:@"icon.png"];
+//    if(iconUrl){
+//        ImageView *iv=[[ImageView alloc]initWithFrame:cell.iconIv.frame imageURLStr:iconUrl plactHolderImgName:@"icon.png" scale:NO];
+//        
+//        [cell.contentView addSubview:iv];
+//    }
+
     return cell;
 }
 
@@ -242,7 +256,9 @@ static BOOL displaySetting=NO;
     return YES;
 }
 */
-
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 62.0;
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -259,7 +275,8 @@ static BOOL displaySetting=NO;
     
     //只是选择server，并不进入浏览。
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-    NSString *uuid = [[[_dmsArr allKeys] objectAtIndex:indexPath.row] valueForKey:@"UUID"];
+    NSString *key = [[_dmsArr allKeys] objectAtIndex:indexPath.row];
+    NSString *uuid=[[_dmsArr objectForKey:key] valueForKey:@"UUID"];
     appDelagete.serverUuid=uuid;
 
     [SVProgressHUD showSuccessWithStatus:@"已选择媒体服务器" maskType:SVProgressHUDMaskTypeBlack];
