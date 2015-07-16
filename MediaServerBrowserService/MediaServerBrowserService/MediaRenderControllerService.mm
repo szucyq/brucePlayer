@@ -103,6 +103,8 @@ class MediaRenderLinster;
 @synthesize curUrl;
 @synthesize duration;
 @synthesize title;
+@synthesize bitRate;
+//@synthesize format;
 
 @end
 

@@ -131,6 +131,7 @@ void MediaRenderControllerServiceListener::OnGetMediaInfoResult(NPT_Result res
         }
         MediaItemInfo *itemInfo = [[MediaItemInfo alloc] init];
         itemInfo.duration = info->media_duration.ToSeconds();
+
         itemInfo.curUrl = [NSString stringWithUTF8String: info->cur_uri.GetChars()];
         //
         PLT_MediaObjectListReference objs(new PLT_MediaObjectList());
@@ -139,6 +140,9 @@ void MediaRenderControllerServiceListener::OnGetMediaInfoResult(NPT_Result res
                 PLT_MediaItem *p = dynamic_cast<PLT_MediaItem*>(*(objs->GetFirstItem()));
                 itemInfo.title = [NSString stringWithUTF8String:p->m_Title.GetChars()];
                 itemInfo.iconUri = [NSString stringWithUTF8String:p->m_Description.icon_uri.GetChars()];
+                if ( p->m_Resources.GetItemCount() > 0 ) {
+                    itemInfo.bitRate = p->m_Resources.GetFirstItem()->m_Bitrate;
+                }
             }
         }
         dispatch_async(dispatch_get_main_queue(), ^{

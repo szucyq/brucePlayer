@@ -87,4 +87,7 @@ enum RenderStatu{
 
 @property (nonatomic) NSTimeInterval duration;
 
+@property (nonatomic) NSInteger bitRate;
+
+//@property (nonatomic, strong) NSString* format;
 @end

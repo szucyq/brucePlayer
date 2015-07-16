@@ -61,6 +61,10 @@ FOUNDATION_EXPORT const unsigned char MediaServerBrowserServiceVersionString[];
 
 @property(nonatomic, readonly) NSString* friendlyName;
 
+@property(nonatomic, readonly) NSString* IP;
+
+@property(nonatomic, readonly) NSString* iconUrl;
+
 @end
 
 @class MediaServerBrowser;
@@ -82,6 +86,10 @@ enum MediaServerItemType {
 @property (nonatomic, strong) NSString *uri;
 
 @property (nonatomic) NSUInteger size;
+
+@property (nonatomic) NSTimeInterval duration;
+
+@property (nonatomic) NSInteger bitrate;
 
 @property (nonatomic) enum MediaServerItemType type;
 

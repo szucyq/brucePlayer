@@ -25,6 +25,8 @@ class MediaServerListener;
 @synthesize title;
 @synthesize uri;
 @synthesize size;
+@synthesize duration;
+@synthesize bitrate;
 @synthesize type;
 @synthesize artist;
 @synthesize date;
@@ -180,7 +182,7 @@ public:
         } else {
             item.type = UNKNOW;
         }
-        
+    
         item.objID = [NSString stringWithUTF8String:obj->m_ObjectID.GetChars()];
         
         item.title = [NSString stringWithUTF8String:obj->m_Title.GetChars()];
@@ -189,8 +191,10 @@ public:
             item.uri = [NSString stringWithUTF8String:
                         obj->m_Resources.GetFirstItem()->m_Uri.GetChars()];
             item.size = obj->m_Resources.GetFirstItem()->m_Size;
+            item.duration = obj->m_Resources.GetFirstItem()->m_Duration;
+            item.bitrate = obj->m_Resources.GetFirstItem()->m_Bitrate;
         }
-        obj->m_Date.GetChars();
+        //obj->m_Date.GetChars();
     };
 
     void OnBrowseResult( NPT_Result res

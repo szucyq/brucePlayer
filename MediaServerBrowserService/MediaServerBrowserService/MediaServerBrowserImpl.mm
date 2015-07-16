@@ -47,6 +47,18 @@
     return friendlyName;
 }
 
+- (NSString*)IP
+{
+    NSString *IPStr = [NSString stringWithUTF8String:device_->GetLocalIP().ToString().GetChars()];
+    return IPStr;
+}
+
+- (NSString*)iconUrl
+{
+    NSString *url = [NSString stringWithUTF8String:device_->GetIconUrl().GetChars()];
+    return url;
+}
+
 - (void)browseRoot:(void (^)(BOOL ret, NSString* objID, NSArray*items))handler
 {
     [self browse:@"0" handler:handler];
