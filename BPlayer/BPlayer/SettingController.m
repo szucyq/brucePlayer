@@ -31,7 +31,7 @@
     [self.view bringSubviewToFront:self.listTableView];
     //
 //    self.listArray=[NSMutableArray arrayWithObjects:@"图标浏览方式显示数量",@"自动锁屏",@"用户指南",@"用户反馈",@"版本", nil];
-    self.listArray=[NSMutableArray arrayWithObjects:@"ES9018 DAC",@"WM8741 DAC",@"Analog Input",@"S/P DIF",@"DSD Output Mode",@"Default Setting",@"WIFI",@"About", nil];
+    self.listArray=[NSMutableArray arrayWithObjects:@"Sources",@"ES9018 DAC",@"WM8741 DAC",@"Analog Input",@"S/P DIF",@"DSD Output Mode",@"Default Setting",@"WIFI",@"About", nil];
 }
 
 - (void)didReceiveMemoryWarning {
