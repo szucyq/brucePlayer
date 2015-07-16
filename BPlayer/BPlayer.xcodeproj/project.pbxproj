@@ -142,6 +142,8 @@
 		32E55EFA1B57BAD60059EF09 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32E55EF61B57BAD60059EF09 /* Icon-72@2x.png */; };
 		32E55EFB1B57BAD60059EF09 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 32E55EF71B57BAD60059EF09 /* Icon.png */; };
 		32E55EFC1B57BAD60059EF09 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32E55EF81B57BAD60059EF09 /* Icon@2x.png */; };
+		32E55F071B57C2610059EF09 /* ServerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32E55F051B57C2610059EF09 /* ServerCell.m */; };
+		32E55F081B57C2610059EF09 /* ServerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32E55F061B57C2610059EF09 /* ServerCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -390,6 +392,9 @@
 		32E55EF61B57BAD60059EF09 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		32E55EF71B57BAD60059EF09 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		32E55EF81B57BAD60059EF09 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		32E55F041B57C2610059EF09 /* ServerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerCell.h; sourceTree = "<group>"; };
+		32E55F051B57C2610059EF09 /* ServerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerCell.m; sourceTree = "<group>"; };
+		32E55F061B57C2610059EF09 /* ServerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -809,6 +814,9 @@
 			children = (
 				32DCC8631B3DB9700063DD60 /* ServerViewController.h */,
 				32DCC8641B3DB9700063DD60 /* ServerViewController.m */,
+				32E55F041B57C2610059EF09 /* ServerCell.h */,
+				32E55F051B57C2610059EF09 /* ServerCell.m */,
+				32E55F061B57C2610059EF09 /* ServerCell.xib */,
 				32DE23081B42631100B62958 /* ServerContentViewController.h */,
 				32DE23091B42631100B62958 /* ServerContentViewController.m */,
 				32DCC8671B3DB9700063DD60 /* AllMusicController.h */,
@@ -976,6 +984,7 @@
 				3271376C1B4A33D900CE69D6 /* setting_unselected.png in Resources */,
 				3216EDF31B49674400FEDAC0 /* next_unselected.png in Resources */,
 				327137761B4A38E400CE69D6 /* current_music.png in Resources */,
+				32E55F081B57C2610059EF09 /* ServerCell.xib in Resources */,
 				3216EE071B496A1C00FEDAC0 /* by_Years.png in Resources */,
 				3216EE311B4A039E00FEDAC0 /* playlist.png in Resources */,
 				3216EE021B496A0800FEDAC0 /* by_Artists.png in Resources */,
@@ -1047,6 +1056,7 @@
 				32DCC8431B3DB8B40063DD60 /* UIAlertView+AFNetworking.m in Sources */,
 				32DCC7C91B3DB8780063DD60 /* WithLeftRightController.m in Sources */,
 				32DCC8321B3DB8B40063DD60 /* MJRefreshComponent.m in Sources */,
+				32E55F071B57C2610059EF09 /* ServerCell.m in Sources */,
 				32DCC8331B3DB8B40063DD60 /* MJRefreshConst.m in Sources */,
 				32DCC8371B3DB8B40063DD60 /* MJRefreshHeader.m in Sources */,
 				3216EE281B4977E600FEDAC0 /* FMDatabaseQueue.m in Sources */,

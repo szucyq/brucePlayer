@@ -881,7 +881,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     NSDictionary *msg = notification.object;
     NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
     NSString *uuid = [msg valueForKey:@"UUID"];
-    [self.dmsDic setObject:friendlyName forKey:uuid];
+    [self.dmsDic setObject:msg forKey:uuid];
     //    _dmsArr=[NSMutableDictionary dictionaryWithDictionary:[[MediaServerBrowserService instance] mediaServers]];
     
     NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:self.dmsDic,@"server", nil];

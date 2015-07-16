@@ -74,6 +74,7 @@ static BOOL displaySetting=NO;
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.dmsArr=[NSMutableDictionary dictionary];
+    self.listArray=[NSMutableArray array];
     self.title=@"选择服务器";
 //    [self setCustomRightButtonText:@"预加载资源" withImgName:nil];
 //    [self setCustomBackButtonText:@"返回" withImgName:nil];
@@ -178,6 +179,7 @@ static BOOL displaySetting=NO;
 {
     NSLog(@"dms arr:%@",_dmsArr);
     return [_dmsArr count];
+//    return self.listArray.count;
 }
 
 // Customize the appearance of table view cells.
@@ -192,8 +194,14 @@ static BOOL displaySetting=NO;
     if(cell==nil){
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
-    cell.textLabel.text = [[_dmsArr
-                            allValues] objectAtIndex:indexPath.row];
+    cell.textLabel.text = [[[_dmsArr
+                            allValues] objectAtIndex:indexPath.row] valueForKey:@"FriendlyName"];
+    cell.detailTextLabel.text=[[[_dmsArr
+                                 allValues] objectAtIndex:indexPath.row] valueForKey:@"IP"];
+    NSString *iconUrl=[[[_dmsArr
+                         allValues] objectAtIndex:indexPath.row] valueForKey:@"iconUrl"];
+    NSLog(@"server icon:%@",iconUrl);
+    cell.imageView.image=[UIImage imageNamed:@"icon.png"];
     return cell;
 }
 
@@ -251,7 +259,7 @@ static BOOL displaySetting=NO;
     
     //只是选择server，并不进入浏览。
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-    NSString *uuid = [[_dmsArr allKeys] objectAtIndex:indexPath.row];
+    NSString *uuid = [[[_dmsArr allKeys] objectAtIndex:indexPath.row] valueForKey:@"UUID"];
     appDelagete.serverUuid=uuid;
 
     [SVProgressHUD showSuccessWithStatus:@"已选择媒体服务器" maskType:SVProgressHUDMaskTypeBlack];
@@ -277,11 +285,15 @@ static BOOL displaySetting=NO;
 - (void)mediaServerAdded:(NSNotification*)notification
 {
     NSDictionary *msg = notification.object;
-    NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
+//    NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
     NSString *uuid = [msg valueForKey:@"UUID"];
-    [_dmsArr setObject:friendlyName forKey:uuid];
+//    NSString *ip=[msg valueForKey:@"IP"];
+//    NSString *iconUrl=[msg valueForKey:@"iconUrl"];
+    [_dmsArr setObject:msg forKey:uuid];
 //    _dmsArr=[NSMutableDictionary dictionaryWithDictionary:[[MediaServerBrowserService instance] mediaServers]];
     
+    
+//    [self.listArray addObject:msg];
     [self.listTableView reloadData];
 }
 
