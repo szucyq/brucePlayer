@@ -259,6 +259,8 @@ static BOOL displayMute=NO;
                 NSString *album=[NSString stringWithFormat:@"%@",item.albumArtURI];
                 NSString *genres=[NSString stringWithFormat:@"%@",item.mimeType];
                 NSString *date=[NSString stringWithFormat:@"%@",item.date];
+//                NSString *format=[NSString stringWithFormat:@"%@",item.contentFormat];
+//                NSTimeInterval duration=item.duration;
                 NSString *sql=[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",@"insert into music (server,title,uri,composer,album,genres,date) values('",appDelagete.serverUuid,@"','",title,@"','",uri,@"','",composer,@"','",album,@"','",genres,@"','",date,@"')"];
                 NSLog(@"sql:%@",sql);
                 BOOL musicAdd=[CoreFMDB executeUpdate:sql];

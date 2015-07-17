@@ -252,8 +252,19 @@
     
 }
 - (void)getAllMusicData{
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    
+    
+    if(!appDelagete.serverUuid){
+        NSLog(@"server uuid :%@",appDelagete.serverUuid);
+        [self.listArray removeAllObjects];
+        return;
+    }
+    NSLog(@"server uuid :%@",appDelagete.serverUuid);
+    
+    NSString *sql=[NSString stringWithFormat:@"%@%@%@",@"select * from music where server='",appDelagete.serverUuid,@"';"];
     //查询数据
-    [CoreFMDB executeQuery:@"select * from music;" queryResBlock:^(FMResultSet *set) {
+    [CoreFMDB executeQuery:sql queryResBlock:^(FMResultSet *set) {
         
         while ([set next]) {
             NSLog(@"%@-%@",[set stringForColumn:@"title"],[set stringForColumn:@"uri"]);
@@ -468,9 +479,9 @@
     [bgView setBackgroundColor:[UIColor clearColor]];
     [cell addSubview:bgView];
     
-//    NSDictionary *record=[self.listArray objectAtIndex:indexPath.row];
+
     MediaServerItem *item=[self.listArray objectAtIndex:indexPath.row];
-    
+    //----------标题列
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(80, 10, 120, 30)];
     titleLabel.font = [UIFont systemFontOfSize:16];
     titleLabel.lineBreakMode = NSLineBreakByCharWrapping;
@@ -483,6 +494,7 @@
     }
     [bgView addSubview:titleLabel];
     
+    //时长列
     UILabel *timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(200, 10, 100, 30)];
     timeLabel.font = [UIFont systemFontOfSize:16];
     timeLabel.lineBreakMode = NSLineBreakByCharWrapping;
