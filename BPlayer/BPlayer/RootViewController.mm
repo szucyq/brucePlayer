@@ -8,6 +8,7 @@
 
 #import "RootViewController.h"
 #import <Platinum/Platinum.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import "AppDelegate.h"
 
 static BOOL displayBottom=YES;
@@ -756,6 +757,14 @@ static BOOL displayMute=NO;
     NSLog(@"largeImageUrl:%@",item.largeImageUrl);
     
 
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    NSString *renderUuid=appDelagete.renderUuid;
+    if([renderUuid isEqualToString:@"self"]){
+        MPMoviePlayerViewController *playerViewController =[[MPMoviePlayerViewController alloc]initWithContentURL:[NSURL URLWithString:item.uri]];
+        [self presentMoviePlayerViewControllerAnimated:playerViewController];
+        return;
+    }
+    
 
     //播放
     [self initRender];

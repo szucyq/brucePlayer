@@ -20,6 +20,7 @@
     self=[super init];
     if(self){
         self.listTableView.frame=CGRectMake(0, 0, frame.size.width, frame.size.height);
+        
     }
     return self;
 }
@@ -28,6 +29,7 @@
     _lastIndexPath=[NSIndexPath indexPathForRow:-1 inSection:0];
     // Do any additional setup after loading the view.
     self.title=@"设备";
+    self.renderDic=[NSMutableDictionary dictionary];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(mediaRenderAdded:)
@@ -47,6 +49,11 @@
         [[MediaRenderControllerService instance] startService];
     }
 
+    NSDictionary *selfRender=[NSDictionary dictionaryWithObjectsAndKeys:[[UIDevice currentDevice]name],@"FriendlyName",@"self",@"UUID", nil];
+
+    [self.renderDic setObject:selfRender forKey:@"self"];
+    [self.listTableView reloadData];
+    NSLog(@"renders:%@",self.renderDic);
     
 }
 - (void)viewDidLayoutSubviews{
@@ -70,7 +77,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return [MediaRenderControllerService instance].renderDic.count;
+//    return [MediaRenderControllerService instance].renderDic.count;
+    return self.renderDic.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -81,9 +89,13 @@
     if(cell==nil){
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
-    NSDictionary *renders = [MediaRenderControllerService instance].renderDic;
-    NSString *UUID = [[renders allKeys] objectAtIndex:indexPath.row];
-    cell.textLabel.text = [renders valueForKey:UUID];
+    
+    
+    
+//    NSDictionary *renders = [MediaRenderControllerService instance].renderDic;
+    NSString *uuid=[[self.renderDic allKeys] objectAtIndex:indexPath.row];
+    NSDictionary *render=[self.renderDic objectForKey:uuid];
+    cell.textLabel.text = [render valueForKey:@"FriendlyName"];
     //cell.textLabel.text = [NSString stringWithFormat:@"%@%ld",@"render",(long)indexPath.row];
     return cell;
 }
@@ -103,39 +115,42 @@
         oldCell.accessoryType = UITableViewCellAccessoryNone;        _lastIndexPath = indexPath;
     }
     //保存render信息，供播放时使用
-    NSDictionary *renders = [MediaRenderControllerService instance].renderDic;
-    NSString *renderUuid = [[renders allKeys] objectAtIndex:indexPath.row];
+//    NSDictionary *renders = [MediaRenderControllerService instance].renderDic;
+    NSString *renderUuid = [[self.renderDic allKeys] objectAtIndex:indexPath.row];
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     appDelagete.renderUuid=renderUuid;
     NSLog(@"uuid 1:%@",renderUuid);
     //    appDelagete.avRenderer = (CGUpnpAvRenderer*)[self.dataSource objectAtIndex:indexPath.row];
     //    [self dismissViewControllerAnimated:YES completion:nil];
     [SVProgressHUD showSuccessWithStatus:@"已选择播放器" maskType:SVProgressHUDMaskTypeBlack];
-    NSString *friendlyName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
-    NSDictionary *dic = [MediaRenderControllerService instance].renderDic;
-    NSString *UUID = nil;
-    for (NSString *key in dic.allKeys) {
-        NSString *tmp = [dic valueForKey:key];
-        if ( [tmp isEqualToString:friendlyName] ) {
-            UUID = key;
-        }
-    }
-    NSLog(@"uuid 2:%@",UUID);
-//    MediaRenderController *controller = [[MediaRenderControllerService instance] controllerWithUUID:UUID];
-//    [controller setUri:@"http://172.16.204.104/yu.mp4"
-//                  name:@"yu"
-//               handler:^(BOOL ret) {
-//                   NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!ret = %hhd", ret);
-//               }];
+//    NSString *friendlyName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+//    NSDictionary *dic = [MediaRenderControllerService instance].renderDic;
+//    NSString *UUID = nil;
+//    for (NSString *key in dic.allKeys) {
+//        NSString *tmp = [dic valueForKey:key];
+//        if ( [tmp isEqualToString:friendlyName] ) {
+//            UUID = key;
+//        }
+//    }
+//    NSLog(@"uuid 2:%@",UUID);
+
 }
 
 - (void)mediaRenderAdded:(NSNotification*)notification
 {
+    NSDictionary *msg = notification.object;
+    //NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
+    NSString *uuid = [msg valueForKey:@"UUID"];
+    [self.renderDic setObject:msg forKey:uuid];
     [self.listTableView reloadData];
 }
 
 - (void)mediaRenderRemove:(NSNotification*)notification
 {
+    NSDictionary *msg = notification.object;
+    //NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
+    NSString *uuid = [msg valueForKey:@"UUID"];
+    [self.renderDic removeObjectForKey:uuid];
     [self.listTableView reloadData];
 }
 

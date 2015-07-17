@@ -47,6 +47,8 @@
     [self creatFolder];
     [self createDBTable];
     [self createLeftView];
+    
+    NSLog(@"%@-%@",[[UIDevice currentDevice] name],[[UIDevice currentDevice] systemName]);
     return YES;
 }
 

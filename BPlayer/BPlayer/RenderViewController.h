@@ -11,5 +11,6 @@
 
 @interface RenderViewController : WithTableViewController
 @property (nonatomic,retain)NSIndexPath *lastIndexPath;
+@property (nonatomic,retain)NSMutableDictionary *renderDic;
 - (id)initWithFrame:(CGRect)frame;
 @end

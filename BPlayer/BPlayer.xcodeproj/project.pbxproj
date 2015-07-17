@@ -402,13 +402,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32DCC8711B3DB9AF0063DD60 /* MediaPlayer.framework in Frameworks */,
 				3216EE2B1B49780D00FEDAC0 /* libsqlite3.dylib in Frameworks */,
 				32DCC89A1B3DC2B20063DD60 /* Platinum.framework in Frameworks */,
 				32DCC8771B3DB9CE0063DD60 /* CoreMedia.framework in Frameworks */,
 				32DCC8751B3DB9C80063DD60 /* CoreAudio.framework in Frameworks */,
 				32DE230E1B4267E100B62958 /* MediaServerBrowserService.framework in Frameworks */,
 				32DCC8731B3DB9BD0063DD60 /* AssetsLibrary.framework in Frameworks */,
-				32DCC8711B3DB9AF0063DD60 /* MediaPlayer.framework in Frameworks */,
 				32DCC86F1B3DB9A10063DD60 /* libxml2.2.dylib in Frameworks */,
 				32DCC86D1B3DB9920063DD60 /* AVFoundation.framework in Frameworks */,
 			);
