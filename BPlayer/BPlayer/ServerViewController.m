@@ -189,11 +189,6 @@ static BOOL displaySetting=NO;
     // ip地址，名字，图标
     //
     static NSString *identifier=@"serverCell";
-//    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:identifier];
-//    
-//    if(cell==nil){
-//        cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
-//    }
     ServerCell *cell=(ServerCell*)[tableView dequeueReusableCellWithIdentifier:identifier];
     
     if(cell==nil){
@@ -210,11 +205,16 @@ static BOOL displaySetting=NO;
     
     NSString *iconUrl=[[_dmsArr objectForKey:key] valueForKey:@"iconUrl"];
     NSLog(@"server icon:%@",iconUrl);
-//    if(iconUrl){
-//        ImageView *iv=[[ImageView alloc]initWithFrame:cell.iconIv.frame imageURLStr:iconUrl plactHolderImgName:@"icon.png" scale:NO];
-//        
-//        [cell.contentView addSubview:iv];
-//    }
+    if([iconUrl isEqual:[NSNull null]] || iconUrl==nil){
+        cell.iconIv.image=[UIImage imageNamed:@"Icon.png"];
+        
+    }
+    else{
+        ImageView *iv=[[ImageView alloc]initWithFrame:cell.iconIv.frame imageURLStr:iconUrl plactHolderImgName:@"icon.png" scale:NO];
+        
+        [cell.contentView addSubview:iv];
+    }
+    
 
     return cell;
 }

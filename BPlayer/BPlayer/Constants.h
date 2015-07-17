@@ -17,7 +17,7 @@
 #define kContentViewHeightNoTab kScreenHeight
 #define kContentViewWidth kScreenWidth
 
-#define kLeftViewWidth 170
+#define kLeftViewWidth 200
 
 //列表分页
 #define kPerPage 15
