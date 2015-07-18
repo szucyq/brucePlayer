@@ -268,13 +268,15 @@
         
         while ([set next]) {
             NSLog(@"%@-%@",[set stringForColumn:@"title"],[set stringForColumn:@"uri"]);
+            //date
             NSString *dateStr=[set stringForColumn:@"date"];
             NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
             dateFormatter.dateFormat= @"yyyy-MM-dd";
-            
-            
             NSDate *date=[dateFormatter dateFromString:dateStr];
             NSLog(@"date:%@",date);
+            //duration
+            NSString *durationStr=[set stringForColumn:@"duration"];
+            NSTimeInterval duration=[durationStr floatValue];
 
             
             MediaServerItem *item=[[MediaServerItem alloc]init];
@@ -285,6 +287,8 @@
             item.albumArtURI=[set stringForColumn:@"album"];
             item.contentFormat=[set stringForColumn:@"genres"];
             item.artist=[set stringForColumn:@"artist"];
+            item.duration=duration;
+            item.mimeType=[set stringForColumn:@"genres"];
             
             [self.listArray addObject:item];
         }

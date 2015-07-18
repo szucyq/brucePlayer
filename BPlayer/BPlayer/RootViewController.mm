@@ -259,10 +259,21 @@ static BOOL displayMute=NO;
                 NSString *composer=[NSString stringWithFormat:@"%@",item.composer];
                 NSString *album=[NSString stringWithFormat:@"%@",item.albumArtURI];
                 NSString *genres=[NSString stringWithFormat:@"%@",item.mimeType];
-                NSString *date=[NSString stringWithFormat:@"%@",item.date];
-//                NSString *format=[NSString stringWithFormat:@"%@",item.contentFormat];
-//                NSTimeInterval duration=item.duration;
-                NSString *sql=[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",@"insert into music (server,title,uri,composer,album,genres,date) values('",appDelagete.serverUuid,@"','",title,@"','",uri,@"','",composer,@"','",album,@"','",genres,@"','",date,@"')"];
+                //date
+//                NSString *date=[NSString stringWithFormat:@"%@",item.date];
+                NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+                dateFormatter.dateFormat= @"yyyy-MM-dd";
+                NSString *date=[dateFormatter stringFromDate:item.date];
+                NSLog(@"date:%@",date);
+                //
+                NSString *format=[NSString stringWithFormat:@"%@",item.contentFormat];
+                //duration
+                NSTimeInterval durationDouble=item.duration;
+                NSString *duration=[NSString stringWithFormat:@"%f",durationDouble];
+                NSLog(@"duration:%f",durationDouble);
+                
+                 NSString *sql=[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",@"insert into music (server,title,uri,composer,album,genres,date,format,duration) values('",appDelagete.serverUuid,@"','",title,@"','",uri,@"','",composer,@"','",album,@"','",genres,@"','",date,@"','",format,@"','",duration,@"');"];
+                
                 NSLog(@"sql:%@",sql);
                 BOOL musicAdd=[CoreFMDB executeUpdate:sql];
                 if(musicAdd){
@@ -755,6 +766,7 @@ static BOOL displayMute=NO;
     NSLog(@"smallImageUrl:%@",item.smallImageUrl);
     NSLog(@"mediumImageUrl:%@",item.mediumImageUrl);
     NSLog(@"largeImageUrl:%@",item.largeImageUrl);
+    NSLog(@"duration:%f",item.duration);
     
 
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
