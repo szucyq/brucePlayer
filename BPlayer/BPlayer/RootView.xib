@@ -223,7 +223,7 @@
                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="QqI-Fa-cdd">
-                    <rect key="frame" x="0.0" y="101" width="1024" height="60"/>
+                    <rect key="frame" x="0.0" y="100" width="1024" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rwl-Ny-XA3">

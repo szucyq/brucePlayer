@@ -27,7 +27,8 @@ static BOOL displayMute=NO;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
+    //
+    displayBottom=YES;
     self.view.backgroundColor=[UIColor whiteColor];
     //初始化播放方式
     _playStyle=Circle;
@@ -62,8 +63,7 @@ static BOOL displayMute=NO;
     UISwipeGestureRecognizer *swipRight=[[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(gestureAction:)];
     [self.view addGestureRecognizer:swipRight];
     
-    //
-    displayBottom=YES;
+    
     //setting通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(settingAction:) name:@"setting" object:nil];
 
@@ -128,22 +128,35 @@ static BOOL displayMute=NO;
 }
 - (void)viewDidLayoutSubviews{
 //    self.navigationController.navigationBarHidden=YES;
-    //top view
-    self.topView.frame=CGRectMake(0, kContentBaseY, kContentViewWidth, _topView.frame.size.height);
+    
     //right view
     if(kIS_IPHONE){
         self.rightView.frame=CGRectMake(kContentViewWidth-_rightView.frame.size.width, kContentBaseY, _rightView.frame.size.width, kContentViewHeightNoTab);
     }
-    
+    //top view
+    self.topView.frame=CGRectMake(0, kContentBaseY, kContentViewWidth, _topView.frame.size.height);
     //bottom view
     self.bottomView.frame=CGRectMake(0,_topView.frame.size.height+_topView.frame.origin.y, kContentViewWidth, _bottomView.frame.size.height);
-    NSLog(@"bottom view frame:%@",[NSValue valueWithCGRect:self.bottomView.frame]);
-    //all music view && catalog view
-    CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height+self.bottomView.frame.size.height, kContentViewWidth, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
-    self.allMusicController.view.frame=frame;
-    self.allMusicController.listTableView.frame=CGRectMake(0, 0, frame.size.width, frame.size.height);
+    if(displayBottom){
+        //all music view
+        CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height+self.bottomView.frame.size.height, kContentViewWidth, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
+        NSLog(@"old view frame:%@",[NSValue valueWithCGRect:frame]);
+        self.allMusicController.view.frame=frame;
+        self.allMusicController.listTableView.frame=CGRectMake(0, 0, frame.size.width, frame.size.height);
+        //catalog view
+        self.catalogNav.view.frame=frame;
+    }
+    else{
+        
+        //all music view
+        CGRect frame=CGRectMake(0, self.topView.frame.origin.y+self.topView.frame.size.height, kContentViewWidth, self.view.frame.size.height-self.topView.frame.size.height-self.topView.frame.origin.y);
+        NSLog(@"new view frame:%@",[NSValue valueWithCGRect:frame]);
+        self.allMusicController.view.frame=frame;
+        self.allMusicController.listTableView.frame=CGRectMake(0, 0, frame.size.width, frame.size.height);
+        //catalog view
+        self.catalogNav.view.frame=frame;
+    }
     
-    self.catalogNav.view.frame=frame;
     
     
 
@@ -187,30 +200,17 @@ static BOOL displayMute=NO;
     }
 }
 
-//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-//{
-//    // Return YES for supported orientations
-//    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-//    
-//}
-//- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-//{
-//    UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
-//    if (UIDeviceOrientationIsLandscape(deviceOrientation)){
-//        NSLog(@"横向");
-//        
-//        return YES;
-//    }
-//    else if(UIDeviceOrientationIsPortrait(deviceOrientation)) {
-//       NSLog(@"纵向");
-//        return NO;
-//    }
-//    else{
-//        return NO;
-//    }
-//    // // Return YES for supported orientations
-////    return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft); // 只支持向左横向, YES 表示支持所有方向
-//}
+- (void)setNewFrame:(CGRect)frame{
+    NSLog(@"new frame:%@",[NSValue valueWithCGRect:frame]);
+    //all music view
+    self.allMusicController.view.frame=frame;
+    self.allMusicController.listTableView.frame=CGRectMake(0, 0, frame.size.width, frame.size.height);
+    //catalog view
+    self.catalogNav.view.frame=frame;
+    NSLog(@"all music frame:%@",[NSValue valueWithCGRect:self.allMusicController.view.frame]);
+    NSLog(@"cata view frame:%@",[NSValue valueWithCGRect:self.catalogNav.view.frame]);
+    [self viewDidLayoutSubviews];
+}
 #pragma mark -
 #pragma mark - actions
 - (IBAction)renderBtAction:(id)sender {
@@ -429,14 +429,18 @@ static BOOL displayMute=NO;
 }
 
 - (IBAction)hideBottomAction:(id)sender {
+//    CGRect frame;
     if(displayBottom){
         self.bottomView.hidden=YES;
+//        frame=CGRectMake(0, self.topView.frame.origin.y+self.topView.frame.size.height, kContentViewWidth, self.view.frame.size.height-self.topView.frame.size.height-self.topView.frame.origin.y);
     }
     else{
+//        frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height+self.bottomView.frame.size.height, kContentViewWidth, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
         self.bottomView.hidden=NO;
     }
     displayBottom=!displayBottom;
-    
+//    [self setNewFrame:frame];
+    [self viewDidLayoutSubviews];
 }
 
 - (IBAction)remoteControlAction:(id)sender {
