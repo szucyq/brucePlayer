@@ -249,7 +249,7 @@ static BOOL displayMute=NO;
         //
         MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithBrowser:browser];
         [crawler crawl:^(BOOL ret, NSArray *items) {
-            NSLog(@"crawler items = %@", items);
+            NSLog(@"crawler items = %d", [items count]);
             //添加music 数据
             for (int i=0; i<items.count; i++) {
                 MediaServerItem *item=[items objectAtIndex:i];

@@ -263,6 +263,7 @@
     NSLog(@"server uuid :%@",appDelagete.serverUuid);
     
     NSString *sql=[NSString stringWithFormat:@"%@%@%@",@"select * from music where server='",appDelagete.serverUuid,@"';"];
+//    NSString *sql=[NSString stringWithFormat:@"%@",@"select * from music;"];
     //查询数据
     [CoreFMDB executeQuery:sql queryResBlock:^(FMResultSet *set) {
         

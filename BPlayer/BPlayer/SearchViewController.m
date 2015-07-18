@@ -8,6 +8,7 @@
 
 #import "SearchViewController.h"
 #import "CoreFMDB.h"
+#import "AppDelegate.h"
 
 
 @interface SearchViewController ()
@@ -32,7 +33,7 @@
     
     
     //add table view
-    self.listTableView.frame=CGRectMake(0, self.musicSearchBar.frame.origin.y+self.musicSearchBar.frame.size.height, kContentViewWidth, kContentViewHeightNoTab-self.musicSearchBar.frame.size.height);
+    self.listTableView.frame=CGRectMake(0, self.musicSearchBar.frame.origin.y+self.musicSearchBar.frame.size.height, kContentViewWidth, kContentViewHeightNoTab-self.musicSearchBar.frame.size.height-self.musicSearchBar.frame.origin.y);
     
 }
 //- (void)viewWillAppear:(BOOL)animated{
@@ -71,14 +72,45 @@
 #pragma mark -
 #pragma mark 搜索歌曲
 - (void)musicKeyword:(NSString*)sender{
-    NSString *sql=[NSString stringWithFormat:@"%@%@%@",@"select * from music where title like '%",sender,@"%';"];
+    [self.listArray removeAllObjects];
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    if(!appDelagete.serverUuid){
+        NSLog(@"server uuid :%@",appDelagete.serverUuid);
+        return;
+    }
+    if(!sender){
+        return;
+    }
+    NSLog(@"server uuid :%@",appDelagete.serverUuid);
+    
+    NSString *sql=[NSString stringWithFormat:@"%@%@%@%@%@",@"select * from music where server='",appDelagete.serverUuid,@"'and title like '%",sender,@"%';"];
+    
+//    NSString *sql=[NSString stringWithFormat:@"%@%@%@",@"select * from music where title like '%",sender,@"%';"];
     [CoreFMDB executeQuery:sql queryResBlock:^(FMResultSet *set) {
         
         while ([set next]) {
-            NSLog(@"%@-%@",[set stringForColumn:@"title"],[set stringForColumn:@"uri"]);
+            //date
+            NSString *dateStr=[set stringForColumn:@"date"];
+            NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+            dateFormatter.dateFormat= @"yyyy-MM-dd";
+            NSDate *date=[dateFormatter dateFromString:dateStr];
+            NSLog(@"date:%@",date);
+            //duration
+            NSString *durationStr=[set stringForColumn:@"duration"];
+            NSTimeInterval duration=[durationStr floatValue];
+            
+            
             MediaServerItem *item=[[MediaServerItem alloc]init];
             item.title=[set stringForColumn:@"title"];
             item.uri=[set stringForColumn:@"uri"];
+            item.composer=[set stringForColumn:@"composer"];
+            item.date=date;
+            item.albumArtURI=[set stringForColumn:@"album"];
+            item.contentFormat=[set stringForColumn:@"genres"];
+            item.artist=[set stringForColumn:@"artist"];
+            item.duration=duration;
+            item.mimeType=[set stringForColumn:@"genres"];
+            
             [self.listArray addObject:item];
         }
         
@@ -100,26 +132,7 @@
     if(cell==nil){
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
-    //    static NSString *CellIdentifier = @"Cell";
-    //
-    //    PhoneListCell *cell=(PhoneListCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    //
-    //    if(cell==nil){
-    //        NSArray *array=[[NSBundle mainBundle]loadNibNamed:@"PhoneListCell" owner:self options:nil];
-    //        cell=[array objectAtIndex:0];
-    //
-    //    }
-    // Configure the cell...
     
-    
-    
-//    NSString *name=[[self.listArray objectAtIndex:indexPath.row] valueForKey:@"CommunityName"];
-//    
-//    NSString *ProvinceName=[[self.listArray objectAtIndex:indexPath.row] valueForKey:@"ProvinceName"];
-//    NSString *CityName=[[self.listArray objectAtIndex:indexPath.row] valueForKey:@"CityName"];
-//    NSString *CountyName=[[self.listArray objectAtIndex:indexPath.row] valueForKey:@"CountyName"];
-//    
-//    NSString *subName=[NSString stringWithFormat:@"%@%@%@",ProvinceName,CityName,CountyName];
     
     MediaServerItem *item=[self.listArray objectAtIndex:indexPath.row];
     cell.textLabel.text = item.title;
@@ -135,7 +148,10 @@
 #pragma mark UITableView delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    MediaServerItem *item=[self.listArray objectAtIndex:indexPath.row];
+    //如果是音频文件播放，则要在主界面控制
+    NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:item,@"item", nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"kPlay" object:nil userInfo:userinfo];
     
     
     
