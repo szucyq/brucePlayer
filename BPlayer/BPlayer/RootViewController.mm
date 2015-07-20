@@ -218,9 +218,12 @@ static BOOL displayMute=NO;
 //    
 //    [self.navigationController pushViewController:self.renderViewController animated:YES];
     if(kIS_IPAD){
-        CGRect frame=CGRectMake(0, 0, 300, 300);
-        self.renderViewController=[[RenderViewController alloc]initWithFrame:frame];
-        self.renderViewController.preferredContentSize=CGSizeMake(300, 300);
+        if(!self.renderViewController){
+            CGRect frame=CGRectMake(0, 0, 300, 300);
+            self.renderViewController=[[RenderViewController alloc]initWithFrame:frame];
+            self.renderViewController.preferredContentSize=CGSizeMake(300, 300);
+        }
+        
         UIPopoverController *popoverController=[[UIPopoverController alloc]initWithContentViewController:self.renderViewController];
         
         [popoverController presentPopoverFromRect:self.renderBt.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
@@ -365,28 +368,38 @@ static BOOL displayMute=NO;
         [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
         return;
     }
-    
+    NSLog(@"frame:%@",[NSValue valueWithCGRect:frame]);
     ServerContentViewController *itemController=[[ServerContentViewController alloc]initWithFrame:frame];
     //catalogNav视图用于按照目录层级的方式进行访问server资源
     if(self.catalogNav){
         NSLog(@"如果已有目录浏览视图，则先删除");
-        [self.catalogNav.view removeFromSuperview];
+        for(UIView *view in self.view.subviews){
+            if(view.tag==10000){
+                [view removeFromSuperview];
+            }
+        }
+//        [self.catalogNav.view removeFromSuperview];
+        self.catalogNav=nil;
         
         //add catalog style nav 添加层级目录浏览界面
         
-        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:itemController];
-        self.catalogNav.view.frame=frame;
-        self.catalogNav.view.tag=10000;
-        [self.view addSubview:self.catalogNav.view];
+//        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:itemController];
+//        self.catalogNav.view.frame=frame;
+//        self.catalogNav.view.tag=10000;
+//        [self.view addSubview:self.catalogNav.view];
     }
     else{
         NSLog(@"如果没有目录浏览视图，则添加");
         //add catalog style nav 添加层级目录浏览界面
-        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:itemController];
-        self.catalogNav.view.frame=frame;
-        self.catalogNav.view.tag=10000;
-        [self.view addSubview:self.catalogNav.view];
+//        self.catalogNav=[[UINavigationController alloc]initWithRootViewController:itemController];
+//        self.catalogNav.view.frame=frame;
+//        self.catalogNav.view.tag=10000;
+//        [self.view addSubview:self.catalogNav.view];
     }
+    self.catalogNav=[[UINavigationController alloc]initWithRootViewController:itemController];
+    self.catalogNav.view.frame=frame;
+    self.catalogNav.view.tag=10000;
+    [self.view addSubview:self.catalogNav.view];
     
     
     
@@ -874,6 +887,9 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
 }
 - (void)getServerAction:(NSNotification *)sender{
 
+    //左侧消失
+    [self restoreViewLocation];
+    //
     CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
     
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
