@@ -140,6 +140,7 @@
 {
     NSDictionary *msg = notification.object;
     //NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
+    NSLog(@"renders:%@",[MediaRenderControllerService instance].renderDic);
     NSString *uuid = [msg valueForKey:@"UUID"];
     [self.renderDic setObject:msg forKey:uuid];
     [self.listTableView reloadData];

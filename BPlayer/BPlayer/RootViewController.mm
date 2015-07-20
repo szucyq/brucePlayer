@@ -257,7 +257,7 @@ static BOOL displayMute=NO;
                 NSString *title=[NSString stringWithFormat:@"%@",item.title];
                 NSString *uri=[NSString stringWithFormat:@"%@",item.uri];
                 NSString *composer=[NSString stringWithFormat:@"%@",item.composer];
-                NSString *album=[NSString stringWithFormat:@"%@",item.albumArtURI];
+                NSString *album=[NSString stringWithFormat:@"%@",item.album];
                 NSString *genres=[NSString stringWithFormat:@"%@",item.mimeType];
                 //date
 //                NSString *date=[NSString stringWithFormat:@"%@",item.date];
@@ -562,15 +562,15 @@ static BOOL displayMute=NO;
         NSLog(@"volume :%d",value);
     }];
 }
-- (IBAction)getCurPosAction:(id)sender {
-    NSLog(@"获取当前位置");
-    [self initRender];
-    [self.render getCurPos:^(BOOL value,NSTimeInterval time){
-        NSLog(@"当前位置:%f",time);
-        //刷新当前时间
-//        [self refreshCurrentMusicTime:nil time:nil];
-    }];
-}
+//- (IBAction)getCurPosAction:(id)sender {
+//    NSLog(@"获取当前位置");
+//    [self initRender];
+//    [self.render getCurPos:^(BOOL value,NSTimeInterval time){
+//        NSLog(@"当前位置:%f",time);
+//        //刷新当前时间
+////        [self refreshCurrentMusicTime:nil time:nil];
+//    }];
+//}
 
 - (IBAction)playStyleAction:(id)sender {
     if(_playStyle==Single){
@@ -653,8 +653,7 @@ static BOOL displayMute=NO;
     self.lengthTimeLabel.text=stringFromInterval(item.duration);//长度
 }
 - (void)refreshCurrentMusicItem:(MediaItemInfo*)item curTime:(NSString*)time{
-    //当前歌曲信息
-    [self refreshCurrentMusicInfoWithItem:item];
+    
     //当前时间进度
     self.curMusicTimeLabel.text=time;
     self.curTimeLabel.text=time;
@@ -787,43 +786,44 @@ static BOOL displayMute=NO;
     [self.render setUri:item.uri name:item.title handler:^(BOOL ret){
         if(ret){
             NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!ret = %d", ret);
-            
+            //play
+            [self.render play:^(BOOL ret){
+                NSLog(@"play:%d",ret);
+                if(ret){
+                    [self.playBt setBackgroundImage:[UIImage imageNamed:@"pause.png"] forState:UIControlStateNormal];
+                    //刷新当前播放音乐的显示信息
+                    //名字
+                    self.curMusicNameLabel.text=item.title;
+                    //格式
+                    self.curMusicFormatLabel.text=@"mp3";
+                    //比特率
+                    self.curMusicBitLabel.text=[NSString stringWithFormat:@"%ld",item.bitrate];
+                    //当前播放时间进度
+                    self.curMusicTimeLabel.text=@"00:00:00";//定时刷新显示
+                    //当前歌曲长度
+                    self.lengthTimeLabel.text=stringFromInterval(item.duration);//长度
+                    //slider
+                    self.seekSlider.minimumValue = 0;   //最小值
+                    self.seekSlider.maximumValue = item.duration;  //最大值
+                    self.lengthTimeLabel.text=stringFromInterval(item.duration);
+                    self.seekSlider.value=0;
+                    
+                    //timer
+                    if([self.playTimer isValid]){
+                        [self.playTimer invalidate];
+                    }
+                    self.playTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
+                }
+            }];
         }
         else{
             [SVProgressHUD showErrorWithStatus:@"该文件播放错误，请重试" maskType:SVProgressHUDMaskTypeBlack];
             return ;
         }
     }];
-    //play
-    [self.render play:^(BOOL ret){
-        NSLog(@"play:%d",ret);
-        if(ret){
-            [self.playBt setBackgroundImage:[UIImage imageNamed:@"pause.png"] forState:UIControlStateNormal];
-        }
-    }];
     
-    //刷新当前播放音乐的显示信息
-    //名字
-    self.curMusicNameLabel.text=item.title;
-    //格式
-    self.curMusicFormatLabel.text=@"mp3";
-    //比特率
-    self.curMusicBitLabel.text=[NSString stringWithFormat:@"%ld",item.bitrate];
-    //当前播放时间进度
-    self.curMusicTimeLabel.text=@"00:00:00";//定时刷新显示
-    //当前歌曲长度
-    self.lengthTimeLabel.text=stringFromInterval(item.duration);//长度
-    //slider
-    self.seekSlider.minimumValue = 0;   //最小值
-    self.seekSlider.maximumValue = item.duration;  //最大值
-    self.lengthTimeLabel.text=stringFromInterval(item.duration);
-    self.seekSlider.value=0;
     
-    //timer
-    if([self.playTimer isValid]){
-        [self.playTimer invalidate];
-    }
-    self.playTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
+    
     
 }
 NSString *stringFromInterval(NSTimeInterval timeInterval)
@@ -846,23 +846,27 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
 }
 -(void)timeFireMethod{
 
-    [self.render getCurPos:^(BOOL value,NSTimeInterval time){
-        NSLog(@"当前位置:%f",time);
+    [self.render getCurPos:^(BOOL value,NSTimeInterval time,NSTimeInterval duration){
+        NSLog(@"getCurPos:%f---duration:%f",time,duration);
     
+        self.seekSlider.minimumValue = 0;   //最小值
+        self.seekSlider.maximumValue = duration;  //最大值
+        self.lengthTimeLabel.text=stringFromInterval(duration);
+        self.seekSlider.value=time;
+        
         //----应该在play时修改slider，目前没有时间属性先显示这里
     
         [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
             if(value){
-                NSLog(@"curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
-                self.seekSlider.minimumValue = 0;   //最小值
-                self.seekSlider.maximumValue = item.duration;  //最大值
-                self.lengthTimeLabel.text=stringFromInterval(item.duration);
+                NSLog(@"getMediaInfo curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
+                
             }
-            self.seekSlider.value=time;
+            
             //刷新当前时间
             NSString *timeStr=stringFromInterval(time);
-            
             [self refreshCurrentMusicItem:item curTime:timeStr];
+            //刷新当前歌曲信息－自动切换歌曲时需要用到
+            [self refreshCurrentMusicInfoWithItem:item];
         }];
         
     }];
@@ -915,6 +919,8 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     [self.dmsDic setObject:msg forKey:uuid];
     
     NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:self.dmsDic,@"server", nil];
+    NSLog(@"servers:%@",[MediaServerBrowserService instance].mediaServers);
+//     NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:[MediaServerBrowserService instance].mediaServers,@"server", nil];
 //    [self.listTableView reloadData];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"LeftRefresh" object:nil userInfo:dic];
 }
