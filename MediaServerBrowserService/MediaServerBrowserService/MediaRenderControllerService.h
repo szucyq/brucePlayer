@@ -89,5 +89,7 @@ enum RenderStatu{
 
 @property (nonatomic) NSInteger bitRate;
 
+@property (nonatomic, strong) NSString *extention;
+
 //@property (nonatomic, strong) NSString* format;
 @end

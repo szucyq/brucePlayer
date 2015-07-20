@@ -142,6 +142,7 @@ void MediaRenderControllerServiceListener::OnGetMediaInfoResult(NPT_Result res
                 itemInfo.iconUri = [NSString stringWithUTF8String:p->m_Description.icon_uri.GetChars()];
                 if ( p->m_Resources.GetItemCount() > 0 ) {
                     itemInfo.bitRate = p->m_Resources.GetFirstItem()->m_Bitrate;
+                    itemInfo.extention = [NSString stringWithUTF8String:p->m_Resources.GetFirstItem()->m_ProtocolInfo.GetMimeTypeFromProtocolInfo("audio/mpeg").GetChars()];
                 }
             }
         }

@@ -118,4 +118,8 @@ enum MediaServerItemType {
 @property (nonatomic, strong) NSString *mediumImageUrl;
 
 @property (nonatomic, strong) NSString *largeImageUrl;
+
+@property (nonatomic, strong) NSString *album;
+
+@property (nonatomic, strong) NSArray *genres;
 @end

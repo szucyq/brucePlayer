@@ -41,6 +41,8 @@ class MediaServerListener;
 @synthesize smallImageUrl;
 @synthesize mediumImageUrl;
 @synthesize largeImageUrl;
+@synthesize album;
+@synthesize genres;
 
 @end
 
@@ -193,6 +195,13 @@ public:
             item.size = obj->m_Resources.GetFirstItem()->m_Size;
             item.duration = obj->m_Resources.GetFirstItem()->m_Duration;
             item.bitrate = obj->m_Resources.GetFirstItem()->m_Bitrate;
+            item.extention = [NSString stringWithUTF8String:obj->m_Resources.GetFirstItem()->m_ProtocolInfo.GetMimeTypeFromProtocolInfo("audio/mpeg").GetChars()];
+            item.album = [NSString stringWithUTF8String:obj->m_Affiliation.album.GetChars()];
+            NSMutableArray *genresArray = [[NSMutableArray alloc] init];
+            for( NPT_Cardinal i=0; i<obj->m_Affiliation.genres.GetItemCount(); i++) {
+                [genresArray addObject:[NSString stringWithUTF8String:obj->m_Affiliation.genres.GetItem(i)->GetChars()]];
+            }
+            item.genres = [genresArray copy];
         }
         //obj->m_Date.GetChars();
     };

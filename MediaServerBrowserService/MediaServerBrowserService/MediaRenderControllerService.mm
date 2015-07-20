@@ -104,6 +104,7 @@ class MediaRenderLinster;
 @synthesize duration;
 @synthesize title;
 @synthesize bitRate;
+@synthesize extention;
 //@synthesize format;
 
 @end
