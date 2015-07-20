@@ -47,7 +47,7 @@ enum RenderStatu{
 @property(nonatomic, readonly)NSString *friendlyName;
 
 // async get
-- (void)getCurPos:(void (^)(BOOL,NSTimeInterval))handler;
+- (void)getCurPos:(void (^)(BOOL,NSTimeInterval,NSTimeInterval))handler;
 
 - (void)getVolume:(void (^)(BOOL,NSInteger))handler;
 

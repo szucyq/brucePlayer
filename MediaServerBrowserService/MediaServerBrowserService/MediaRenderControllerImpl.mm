@@ -75,7 +75,7 @@
     }
 }
 
-- (void)getCurPos:(void (^)(BOOL, NSTimeInterval))handler
+- (void)getCurPos:(void (^)(BOOL, NSTimeInterval, NSTimeInterval))handler
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject:handler forKey:@"getCurPos"];

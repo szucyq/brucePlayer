@@ -80,11 +80,12 @@ void MediaRenderControllerServiceListener::OnGetPositionInfoResult(NPT_Result re
                                                                    , void *userdata)
 {
     NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userdata);
-    void (^callback)(BOOL, NSTimeInterval) = [dic valueForKey:@"getCurPos"];
+    void (^callback)(BOOL, NSTimeInterval, NSTimeInterval) = [dic valueForKey:@"getCurPos"];
     //
     NSTimeInterval pos = info ? info->rel_time.ToSeconds() : 0;
+    NSTimeInterval duration = info ? info->track_duration.ToSeconds() : 0;
     dispatch_async(dispatch_get_main_queue(), ^{
-        callback(NPT_SUCCEEDED(res) ? YES : NO, pos);
+        callback(NPT_SUCCEEDED(res) ? YES : NO, pos, duration);
     });
 }
 
