@@ -106,8 +106,8 @@
                             <rect key="frame" x="610" y="404" width="216" height="216"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbo-oY-sxK">
-                            <rect key="frame" x="683" y="483" width="70" height="56.5"/>
-                            <state key="normal" title="OK">
+                            <rect key="frame" x="683" y="483" width="75" height="61.5"/>
+                            <state key="normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
@@ -209,26 +209,20 @@
                             </state>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ELx-fO-5tM">
-                            <rect key="frame" x="494" y="374" width="111" height="121"/>
-                            <state key="normal" title="Button" backgroundImage="remote-love.png">
+                            <rect key="frame" x="494" y="374" width="112" height="65"/>
+                            <state key="normal" backgroundImage="remote-love.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EUv-hn-5v9">
-                            <rect key="frame" x="829" y="374" width="111" height="121"/>
-                            <state key="normal" title="Button" backgroundImage="remote-home.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G8G-5t-kX8">
-                            <rect key="frame" x="829" y="531" width="111" height="121"/>
-                            <state key="normal" title="Button" backgroundImage="remote-exit.png">
+                            <rect key="frame" x="829" y="374" width="112" height="65"/>
+                            <state key="normal" backgroundImage="remote-home.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wyq-Ng-9vO">
-                            <rect key="frame" x="494" y="531" width="111" height="121"/>
-                            <state key="normal" title="Button" backgroundImage="remote-stop.png">
+                            <rect key="frame" x="490" y="587" width="112" height="65"/>
+                            <state key="normal" backgroundImage="remote-stop.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
@@ -240,6 +234,12 @@
                             <connections>
                                 <action selector="closeAction:" destination="-1" eventType="touchUpInside" id="mja-NA-0i0"/>
                             </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G8G-5t-kX8">
+                            <rect key="frame" x="829" y="587" width="112" height="65"/>
+                            <state key="normal" backgroundImage="remote-exit.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -256,16 +256,16 @@
         <image name="remote-bg03.png" width="432" height="431"/>
         <image name="remote-close.png" width="37" height="38"/>
         <image name="remote-down.png" width="64" height="64"/>
-        <image name="remote-exit.png" width="222" height="142"/>
-        <image name="remote-home.png" width="222" height="142"/>
+        <image name="remote-exit.png" width="224" height="129"/>
+        <image name="remote-home.png" width="224" height="129"/>
         <image name="remote-left.png" width="64" height="64"/>
-        <image name="remote-love.png" width="222" height="142"/>
+        <image name="remote-love.png" width="224" height="129"/>
         <image name="remote-mute.png" width="37" height="38"/>
         <image name="remote-next.png" width="37" height="38"/>
         <image name="remote-playpause.png" width="37" height="38"/>
         <image name="remote-privous.png" width="37" height="38"/>
         <image name="remote-right.png" width="64" height="64"/>
-        <image name="remote-stop.png" width="222" height="142"/>
+        <image name="remote-stop.png" width="224" height="129"/>
         <image name="remote-up.png" width="64" height="64"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
