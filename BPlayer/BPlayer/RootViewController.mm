@@ -657,11 +657,11 @@ static BOOL displayMute=NO;
     //名字
     self.curMusicNameLabel.text=item.title;
     //格式
-    self.curMusicFormatLabel.text=@"mp3";
+    self.curMusicFormatLabel.text=item.extention;
     //比特率
     self.curMusicBitLabel.text=[NSString stringWithFormat:@"%ld",item.bitRate];
     //当前播放时间进度
-    self.curMusicTimeLabel.text=@"00:00:00";//定时刷新显示
+//    self.curMusicTimeLabel.text=@"00:00:00";//定时刷新显示
     //当前歌曲长度
     self.lengthTimeLabel.text=stringFromInterval(item.duration);//长度
 }

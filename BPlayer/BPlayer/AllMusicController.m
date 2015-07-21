@@ -704,6 +704,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     // Navigation logic may go here, for example:
     MediaServerItem *item=[self.listArray objectAtIndex:indexPath.row];
     //如果是音频文件播放，则要在主界面控制
