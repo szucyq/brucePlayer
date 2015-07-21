@@ -297,6 +297,24 @@
     }];
     NSLog(@"items:%@",self.listArray);
 }
+NSString *stringFromInterval(NSTimeInterval timeInterval)
+{
+#define SECONDS_PER_MINUTE (60)
+#define MINUTES_PER_HOUR (60)
+#define SECONDS_PER_HOUR (SECONDS_PER_MINUTE * MINUTES_PER_HOUR)
+#define HOURS_PER_DAY (24)
+    
+    // convert the time to an integer, as we don't need double precision, and we do need to use the modulous operator
+    int ti = round(timeInterval);
+    
+    //    return [NSString stringWithFormat:@"%.2d:%.2d:%.2d", (ti / SECONDS_PER_HOUR) % HOURS_PER_DAY, (ti / SECONDS_PER_MINUTE) % MINUTES_PER_HOUR, ti % SECONDS_PER_MINUTE];
+    return [NSString stringWithFormat:@"%.2d:%.2d:%.2d", (ti / SECONDS_PER_HOUR) % HOURS_PER_DAY, (ti / SECONDS_PER_MINUTE) % MINUTES_PER_HOUR, ti % SECONDS_PER_MINUTE];
+    
+#undef SECONDS_PER_MINUTE
+#undef MINUTES_PER_HOUR
+#undef SECONDS_PER_HOUR
+#undef HOURS_PER_DAY
+}
 #pragma mark - 几种浏览方式
 - (void)showiconAction{
     NSLog(@"showiconAction");
@@ -505,14 +523,14 @@
     timeLabel.lineBreakMode = NSLineBreakByCharWrapping;
     timeLabel.numberOfLines = 0;
     timeLabel.textAlignment = NSTextAlignmentCenter;
-    if (!item.title ) {
+    if (!item.duration ) {
         [timeLabel setText:@"unknow"];
     }else{
-        [timeLabel setText:@"time"];
+        [timeLabel setText:stringFromInterval(item.duration)];
     }
     [bgView addSubview:timeLabel];
     
-    
+    //artist
     UILabel *singerLabel = [[UILabel alloc]initWithFrame:CGRectMake(350, 10, 150, 30)];
     singerLabel.font = [UIFont systemFontOfSize:16];
     singerLabel.lineBreakMode = NSLineBreakByCharWrapping;
@@ -526,43 +544,53 @@
     
     [bgView addSubview:singerLabel];
     
-    
+    //album
     UILabel *albumNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(550, 10, 150, 30)];
     albumNameLabel.font = [UIFont systemFontOfSize:16];
     albumNameLabel.lineBreakMode = NSLineBreakByCharWrapping;
     albumNameLabel.numberOfLines = 0;
     albumNameLabel.textAlignment = NSTextAlignmentLeft;
-    if (!item.albumArtURI) {
+    if (!item.album) {
         [albumNameLabel setText:@"unknow"];
     }else{
-        [albumNameLabel setText:item.albumArtURI];
+        [albumNameLabel setText:item.album];
     }
     
     [bgView addSubview:albumNameLabel];
     
-    
+    //日期
     UILabel *dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(750, 10, 90, 30)];
     dateLabel.font = [UIFont systemFontOfSize:16];
     dateLabel.lineBreakMode = NSLineBreakByCharWrapping;
     dateLabel.numberOfLines = 0;
     dateLabel.textAlignment = NSTextAlignmentCenter;
-    if (!item.mimeType ) {
+    if (!item.date ) {
         [dateLabel setText:@"unknow"];
     }else{
-        [dateLabel setText:item.mimeType];
+        
+        NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+        dateFormatter.dateFormat= @"yyyy-MM-dd";
+        NSDate *date=item.date;
+        NSString *dateStr=[dateFormatter stringFromDate:date];
+        [dateLabel setText:dateStr];
     }
     
     [bgView addSubview:dateLabel];
     
+    //风格
     UILabel *typeLabel = [[UILabel alloc]initWithFrame:CGRectMake(850, 10, 100, 30)];
     typeLabel.font = [UIFont systemFontOfSize:16];
     typeLabel.lineBreakMode = NSLineBreakByCharWrapping;
     typeLabel.numberOfLines = 0;
     typeLabel.textAlignment = NSTextAlignmentCenter;
-    if (!item.codeType) {
+    if (item.genres.count==0) {
         [typeLabel setText:@"unknow"];
     }else{
-        [typeLabel setText:item.codeType];
+        NSString *str;
+        for(id obj in item.genres){
+            str=[NSString stringWithFormat:@"%@%@",str,obj];
+        }
+        [typeLabel setText:str];
     }
     [bgView addSubview:typeLabel];
     
@@ -601,7 +629,77 @@
 }
 
 
-
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if(section==0){
+        return 40;
+    }
+    return 0;
+}
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    float y=5;
+    
+    UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, kContentViewWidth, 40)];
+    //title
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(80, y, 120, 30)];
+    titleLabel.font = [UIFont systemFontOfSize:16];
+    titleLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    titleLabel.numberOfLines = 0;
+    titleLabel.textAlignment = NSTextAlignmentLeft;
+    titleLabel.text=@"标题";
+    [view addSubview:titleLabel];
+    
+    //长度
+    UILabel *timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(200, y, 100, 30)];
+    timeLabel.font = [UIFont systemFontOfSize:16];
+    timeLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    timeLabel.numberOfLines = 0;
+    timeLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text=@"时长";
+    [view addSubview:timeLabel];
+    
+    //artist
+    UILabel *singerLabel = [[UILabel alloc]initWithFrame:CGRectMake(350, y, 150, 30)];
+    singerLabel.font = [UIFont systemFontOfSize:16];
+    singerLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    singerLabel.numberOfLines = 0;
+    singerLabel.textAlignment = NSTextAlignmentLeft;
+    singerLabel.text=@"艺术家";
+    [view addSubview:singerLabel];
+    
+    
+    //album
+    UILabel *albumNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(550, y, 150, 30)];
+    albumNameLabel.font = [UIFont systemFontOfSize:16];
+    albumNameLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    albumNameLabel.numberOfLines = 0;
+    albumNameLabel.textAlignment = NSTextAlignmentLeft;
+    albumNameLabel.text=@"专辑";
+    
+    [view addSubview:albumNameLabel];
+    
+    //日期
+    UILabel *dateLabel = [[UILabel alloc]initWithFrame:CGRectMake(750, y, 90, 30)];
+    dateLabel.font = [UIFont systemFontOfSize:16];
+    dateLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    dateLabel.numberOfLines = 0;
+    dateLabel.textAlignment = NSTextAlignmentCenter;
+    dateLabel.text=@"日期";
+    
+    [view addSubview:dateLabel];
+    
+    //风格
+    UILabel *typeLabel = [[UILabel alloc]initWithFrame:CGRectMake(850, y, 100, 30)];
+    typeLabel.font = [UIFont systemFontOfSize:16];
+    typeLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    typeLabel.numberOfLines = 0;
+    typeLabel.textAlignment = NSTextAlignmentCenter;
+    typeLabel.text=@"风格";
+    [view addSubview:typeLabel];
+    
+    view.backgroundColor=[UIColor whiteColor];
+    return view;
+    
+}
 #pragma mark - Table view delegate
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
