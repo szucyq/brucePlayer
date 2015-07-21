@@ -21,6 +21,7 @@ MediaRenderControllerServiceListener::MediaRenderControllerServiceListener()
 bool MediaRenderControllerServiceListener::OnMRAdded(PLT_DeviceDataReference &device)
 {
     NSLog(@"[MediaRenderLinster] [OnMRAdded] render add %s", device->GetFriendlyName().GetChars());
+    renders_.push_back(device);
     NSString *friendlyName = [NSString stringWithUTF8String: device->GetFriendlyName().GetChars()];
     NSString *uuid = [NSString stringWithUTF8String: device->GetUUID().GetChars()];
     
@@ -31,13 +32,13 @@ bool MediaRenderControllerServiceListener::OnMRAdded(PLT_DeviceDataReference &de
         NSNotification *ntf = [NSNotification notificationWithName:MEDIARENDERADDEDNOTIFICATION object:value];
         [[NSNotificationCenter defaultCenter] postNotification:ntf];
     });
-    renders_.push_back(device);
     return true;
 }
 
 void MediaRenderControllerServiceListener::OnMRRemoved(PLT_DeviceDataReference &device)
 {
     NSLog(@"[MediaRenderLinster] [OnMRRemoved] render add %s", device->GetFriendlyName().GetChars());
+    renders_.remove(device);
     NSString *friendlyName = [NSString stringWithUTF8String: device->GetFriendlyName().GetChars()];
     NSString *uuid = [NSString stringWithUTF8String: device->GetUUID().GetChars()];
     
@@ -48,8 +49,6 @@ void MediaRenderControllerServiceListener::OnMRRemoved(PLT_DeviceDataReference &
         NSNotification *ntf = [NSNotification notificationWithName:MEDIARENDERREMOVEDNOTIFICATION object:value];
         [[NSNotificationCenter defaultCenter] postNotification:ntf];
     });
-    renders_.remove(device);
-
 }
 
 NSDictionary* MediaRenderControllerServiceListener::allRenders()

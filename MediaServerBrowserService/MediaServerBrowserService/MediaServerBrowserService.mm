@@ -188,20 +188,28 @@ public:
         item.objID = [NSString stringWithUTF8String:obj->m_ObjectID.GetChars()];
         
         item.title = [NSString stringWithUTF8String:obj->m_Title.GetChars()];
-        
+        item.album = [NSString stringWithUTF8String:obj->m_Affiliation.album.GetChars()];
+        NSMutableArray *genresArray = [[NSMutableArray alloc] init];
+        for( NPT_Cardinal i=0; i<obj->m_Affiliation.genres.GetItemCount(); i++) {
+            [genresArray addObject:[NSString stringWithUTF8String:obj->m_Affiliation.genres.GetItem(i)->GetChars()]];
+        }
+        item.genres = [genresArray copy];
         if ( obj->m_Resources.GetItemCount() > 0 ) {
-            item.uri = [NSString stringWithUTF8String:
-                        obj->m_Resources.GetFirstItem()->m_Uri.GetChars()];
-            item.size = obj->m_Resources.GetFirstItem()->m_Size;
-            item.duration = obj->m_Resources.GetFirstItem()->m_Duration;
-            item.bitrate = obj->m_Resources.GetFirstItem()->m_Bitrate;
-            item.extention = [NSString stringWithUTF8String:obj->m_Resources.GetFirstItem()->m_ProtocolInfo.GetMimeTypeFromProtocolInfo("audio/mpeg").GetChars()];
-            item.album = [NSString stringWithUTF8String:obj->m_Affiliation.album.GetChars()];
-            NSMutableArray *genresArray = [[NSMutableArray alloc] init];
-            for( NPT_Cardinal i=0; i<obj->m_Affiliation.genres.GetItemCount(); i++) {
-                [genresArray addObject:[NSString stringWithUTF8String:obj->m_Affiliation.genres.GetItem(i)->GetChars()]];
+            PLT_MediaItemResource *mr = NULL;
+            for(NPT_Cardinal i=0; i<obj->m_Resources.GetItemCount(); i++) {
+                mr = obj->m_Resources.GetItem(i);
+                if ( mr->m_Duration > 0 ) {
+                    break;
+                }
             }
-            item.genres = [genresArray copy];
+            item.uri = [NSString stringWithUTF8String:
+                        mr->m_Uri.GetChars()];
+            item.size = mr->m_Size;
+            item.duration = mr->m_Duration;
+            item.bitrate = mr->m_Bitrate;
+            NPT_String mimeType = PLT_ProtocolInfo::GetMimeTypeFromProtocolInfo(mr->m_ProtocolInfo.ToString());
+            mimeType = *(mimeType.Split("/").GetFirstItem());
+            item.extention = [NSString stringWithUTF8String:mimeType.GetChars()];
         }
         //obj->m_Date.GetChars();
     };
@@ -262,9 +270,10 @@ public:
         std::list<PLT_DeviceDataReference>::iterator iter = devices_.begin();
         while ( iter != devices_.end() ) {
             NSString *UUID = [NSString stringWithUTF8String:(*iter)->GetUUID().GetChars()];
-            [devs setObject:UUID forKey:@"UUID"];
+            //[devs setObject:UUID forKey:@"UUID"];
             NSString *friendlyName = [NSString stringWithUTF8String:(*iter)->GetFriendlyName().GetChars()];
-            [devs setObject:friendlyName forKey:@"FriendlyName"];
+            //[devs setObject:friendlyName forKey:@"FriendlyName"];
+            [devs setObject:UUID forKey:friendlyName];
             iter++;
         }
         return [devs copy];
