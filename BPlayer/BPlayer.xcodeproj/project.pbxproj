@@ -1219,6 +1219,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shenzhen City Wuwangtong Information Technology Co. Ltd. (FQPHX6B82P)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/bruce/iOS/new/播放器/ipad/brucePlayer/MediaServerBrowserService",
