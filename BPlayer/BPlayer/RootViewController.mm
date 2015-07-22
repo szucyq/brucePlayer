@@ -261,7 +261,16 @@ static BOOL displayMute=NO;
                 NSString *uri=[NSString stringWithFormat:@"%@",item.uri];
                 NSString *composer=[NSString stringWithFormat:@"%@",item.composer];
                 NSString *album=[NSString stringWithFormat:@"%@",item.album];
-                NSString *genres=[NSString stringWithFormat:@"%@",item.mimeType];
+                
+                NSString *genres=@"";
+                for(id obj in item.genres){
+                    if(![obj isEqual:[NSNull null]] && obj!=nil){
+                        
+                        genres=[genres stringByAppendingString:obj];
+                    }
+                    
+                }
+
                 //date
 //                NSString *date=[NSString stringWithFormat:@"%@",item.date];
                 NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
@@ -285,6 +294,29 @@ static BOOL displayMute=NO;
                 else{
                     NSLog(@"fail:%d",i);
                 }
+                NSLog(@"objID:%@",item.objID);
+                NSLog(@"title:%@",item.title);
+                NSLog(@"uri:%@",item.uri);
+                NSLog(@"size:%lu",(unsigned long)item.size);
+                NSLog(@"type:%d",item.type);
+                NSLog(@"artist:%@",item.artist);
+                NSLog(@"date:%@",item.date);
+                NSLog(@"composer:%@",item.composer);
+                NSLog(@"trackList:%@",item.trackList);
+                NSLog(@"codeType:%@",item.codeType);
+                NSLog(@"contentFormat:%@",item.contentFormat);
+                NSLog(@"mimeType:%@",item.mimeType);
+                NSLog(@"extention:%@",item.extention);
+                NSLog(@"albumArtURI:%@",item.albumArtURI);
+                NSLog(@"thumbnailUrl:%@",item.thumbnailUrl);
+                NSLog(@"smallImageUrl:%@",item.smallImageUrl);
+                NSLog(@"mediumImageUrl:%@",item.mediumImageUrl);
+                NSLog(@"largeImageUrl:%@",item.largeImageUrl);
+                NSLog(@"duration:%f",item.duration);
+                NSLog(@"album:%@",item.album);
+                NSLog(@"genres:%@",item.genres);
+                NSLog(@"bit:%f",item.bitrate);
+                NSLog(@"date:%@",item.date);
             }
         }];
     }
@@ -783,6 +815,9 @@ static BOOL displayMute=NO;
     NSLog(@"mediumImageUrl:%@",item.mediumImageUrl);
     NSLog(@"largeImageUrl:%@",item.largeImageUrl);
     NSLog(@"duration:%f",item.duration);
+    NSLog(@"album:%@",item.album);
+    NSLog(@"genres:%@",item.genres);
+    NSLog(@"bit:%f",item.bitrate);
     
 
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];

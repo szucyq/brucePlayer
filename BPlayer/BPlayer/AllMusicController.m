@@ -285,11 +285,12 @@
             item.uri=[set stringForColumn:@"uri"];
             item.composer=[set stringForColumn:@"composer"];
             item.date=date;
-            item.albumArtURI=[set stringForColumn:@"album"];
-            item.contentFormat=[set stringForColumn:@"genres"];
+            item.album=[set stringForColumn:@"album"];
+//            item.contentFormat=[set stringForColumn:@"genres"];
             item.artist=[set stringForColumn:@"artist"];
             item.duration=duration;
-            item.mimeType=[set stringForColumn:@"genres"];
+            NSArray *gArray=[NSArray arrayWithObject:[set stringForColumn:@"genres"]];
+            item.genres=gArray;
             
             [self.listArray addObject:item];
         }
@@ -586,11 +587,14 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     if (item.genres.count==0) {
         [typeLabel setText:@"unknow"];
     }else{
-        NSString *str;
+        NSString *genres=@"";
         for(id obj in item.genres){
-            str=[NSString stringWithFormat:@"%@%@",str,obj];
+            if(![obj isEqual:[NSNull null]] && obj!=nil){
+                genres=[genres stringByAppendingString:obj];
+            }
+            
         }
-        [typeLabel setText:str];
+        [typeLabel setText:genres];
     }
     [bgView addSubview:typeLabel];
     

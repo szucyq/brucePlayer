@@ -186,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BPlayer/RootViewController.mm"
-            timestampString = "459090552.099567"
+            timestampString = "459240970.381994"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "366"
-            endingLineNumber = "366"
+            startingLineNumber = "414"
+            endingLineNumber = "414"
             landmarkName = "-catalogBtAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,12 +202,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BPlayer/RootViewController.mm"
-            timestampString = "459090974.268422"
+            timestampString = "459240970.381994"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "398"
-            endingLineNumber = "398"
-            landmarkName = "-catalogBtAction:"
+            startingLineNumber = "822"
+            endingLineNumber = "822"
+            landmarkName = "-playWithAvItem:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -218,13 +218,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BPlayer/RootViewController.mm"
-            timestampString = "459090879.024876"
+            timestampString = "459240970.381994"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "372"
-            endingLineNumber = "372"
-            landmarkName = "-catalogBtAction:"
+            startingLineNumber = "319"
+            endingLineNumber = "319"
+            landmarkName = "-loadAllContentsAction:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__44-[RootViewController loadAllContentsAction:]_block_invoke"
+                  moduleName = "BPlayer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bruce/iOS/new/%E6%92%AD%E6%94%BE%E5%99%A8/ipad/brucePlayer/BPlayer/BPlayer/RootViewController.mm"
+                  timestampString = "459242233.294437"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "319"
+                  endingLineNumber = "319"
+                  offsetFromSymbolStart = "4732">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__44-[RootViewController loadAllContentsAction:]_block_invoke"
+                  moduleName = "BPlayer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bruce/iOS/new/%E6%92%AD%E6%94%BE%E5%99%A8/ipad/brucePlayer/BPlayer/BPlayer/RootViewController.mm"
+                  timestampString = "459242233.294617"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "319"
+                  endingLineNumber = "319"
+                  offsetFromSymbolStart = "4756">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -233,13 +265,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BPlayer/RootViewController.mm"
-            timestampString = "459090979.692968"
+            filePath = "BPlayer/AllMusicController.m"
+            timestampString = "459240475.068547"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "383"
-            endingLineNumber = "383"
-            landmarkName = "-catalogBtAction:"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
+            landmarkName = "-getAllMusicData"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
