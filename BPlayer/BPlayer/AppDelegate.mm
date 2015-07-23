@@ -25,9 +25,7 @@
     self.window=[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor=[UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    //初始化dms
-    [self initUpnpServer];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationFlag_StatusChanged object:nil];
+    
     //
     if(kIS_IPAD){
         RootViewController *root=[[RootViewController alloc]initWithNibName:@"RootView" bundle:nil];
@@ -49,6 +47,12 @@
     [self createLeftView];
     
     NSLog(@"%@-%@",[[UIDevice currentDevice] name],[[UIDevice currentDevice] systemName]);
+    
+    //初始化dms
+    [self initUpnpServer];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationFlag_StatusChanged object:nil];
+    
     return YES;
 }
 
@@ -72,6 +76,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [self destroyUpnpServer];
 }
 #pragma mark - upnp methods
 

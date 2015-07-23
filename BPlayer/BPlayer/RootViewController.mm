@@ -594,6 +594,7 @@ static BOOL displayMute=NO;
     [self initRender];
     [self.render getVolume:^(BOOL value,NSInteger volume){
         NSLog(@"value:%d--volume:%d",value,volume);
+        self.volumeBt.value=volume;
     }];
 }
 
@@ -702,7 +703,8 @@ static BOOL displayMute=NO;
     //当前时间进度
     self.curMusicTimeLabel.text=time;
     self.curTimeLabel.text=time;
-    
+    //刷新音量
+    [self getVolumeAction:nil];
 }
 - (void)refreshAllMusicByType:(NSString*)type{
     //取得当前的server

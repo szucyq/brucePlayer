@@ -133,6 +133,26 @@
     
     MediaServerItem *item = [self.itemArr objectAtIndex:indexPath.row];
     cell.textLabel.text = item.title;
+    NSLog(@"objID:%@",item.objID);
+    NSLog(@"title:%@",item.title);
+    NSLog(@"uri:%@",item.uri);
+    NSLog(@"size:%lu",(unsigned long)item.size);
+    NSLog(@"type:%d",item.type);
+    NSLog(@"artist:%@",item.artist);
+    NSLog(@"date:%@",item.date);
+    NSLog(@"composer:%@",item.composer);
+    NSLog(@"trackList:%@",item.trackList);
+    NSLog(@"codeType:%@",item.codeType);
+    NSLog(@"contentFormat:%@",item.contentFormat);
+    NSLog(@"mimeType:%@",item.mimeType);
+    NSLog(@"extention:%@",item.extention);
+    NSLog(@"albumArtURI:%@",item.albumArtURI);
+    NSLog(@"thumbnailUrl:%@",item.thumbnailUrl);
+    NSLog(@"smallImageUrl:%@",item.smallImageUrl);
+    NSLog(@"mediumImageUrl:%@",item.mediumImageUrl);
+    NSLog(@"largeImageUrl:%@",item.largeImageUrl);
+    
+    
     return cell;
 }
 
