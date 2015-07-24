@@ -16,12 +16,14 @@
                 <outlet property="curMusicNameLabel" destination="r9u-sa-JzC" id="Uao-ki-vpj"/>
                 <outlet property="curMusicTimeLabel" destination="i6Y-Is-nGz" id="oQc-OB-XUD"/>
                 <outlet property="curTimeLabel" destination="Fpx-H4-RIc" id="M0L-EJ-apj"/>
+                <outlet property="favoriteBt" destination="uvB-sG-g86" id="IzU-2y-JTs"/>
                 <outlet property="iconBt" destination="d3V-5e-asj" id="V0c-wN-n7b"/>
                 <outlet property="lengthTimeLabel" destination="EkX-ex-1fB" id="z61-kf-8O4"/>
                 <outlet property="listBt" destination="AhX-DV-P0u" id="hCP-AL-zC2"/>
                 <outlet property="muteBt" destination="lxK-So-rJN" id="pTp-yP-mTt"/>
                 <outlet property="nextBt" destination="rwl-Ny-XA3" id="3wj-Sp-qPX"/>
                 <outlet property="playBt" destination="4Jh-yU-kVg" id="XlV-cU-VHi"/>
+                <outlet property="playListBt" destination="t9E-g6-anv" id="09Q-kI-CDi"/>
                 <outlet property="playStyleBt" destination="NlU-pv-mqn" id="FSy-rO-EaN"/>
                 <outlet property="preBt" destination="Tl3-o0-hOr" id="Igb-Zu-fLC"/>
                 <outlet property="renderBt" destination="aJX-Qf-5SU" id="qpr-Ig-DfS"/>

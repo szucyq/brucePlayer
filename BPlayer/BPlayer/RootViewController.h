@@ -22,6 +22,8 @@
 #import "SearchViewController.h"
 
 #import "RemoteControlController.h"
+#import "PlayListController.h"
+#import "FavoriteListController.h"
 
 @interface RootViewController : WithLeftRightController
 enum PlayStyle {
@@ -63,6 +65,8 @@ enum PlayStyle {
 @property (weak, nonatomic) IBOutlet UIButton *deviceBt;
 @property (weak, nonatomic) IBOutlet UILabel *curTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lengthTimeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *playListBt;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteBt;
 
 
 //其他

@@ -328,10 +328,24 @@ static BOOL displayMute=NO;
 
 - (IBAction)favouriteAction:(id)sender {
     NSLog(@"收藏夹，等资源做效果");
+    CGRect frame=CGRectMake(0, 0, 300, 300);
+    FavoriteListController *favoriteListController=[[FavoriteListController alloc]initWithFrame:frame];
+    favoriteListController.preferredContentSize=CGSizeMake(300, 300);
+    
+    UIPopoverController *popoverController=[[UIPopoverController alloc]initWithContentViewController:favoriteListController];
+    
+    [popoverController presentPopoverFromRect:self.favoriteBt.frame inView:self.topView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 - (IBAction)playlistAction:(id)sender {
     NSLog(@"播放列表，等资源做效果");
+    CGRect frame=CGRectMake(0, 0, 300, 300);
+    PlayListController *playListController=[[PlayListController alloc]initWithFrame:frame];
+    playListController.preferredContentSize=CGSizeMake(300, 300);
+    
+    UIPopoverController *popoverController=[[UIPopoverController alloc]initWithContentViewController:playListController];
+    
+    [popoverController presentPopoverFromRect:self.playListBt.frame inView:self.bottomView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 - (void)settingAction:(NSNotification*)sender {

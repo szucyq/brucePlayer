@@ -658,7 +658,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     timeLabel.lineBreakMode = NSLineBreakByCharWrapping;
     timeLabel.numberOfLines = 0;
     timeLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text=@"时长";
+    timeLabel.text=@"时长";
     [view addSubview:timeLabel];
     
     //artist

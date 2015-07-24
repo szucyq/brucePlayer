@@ -171,7 +171,7 @@
 //        NSLog(@"清除music失败");
 //    }
     //创建收藏表
-    BOOL favouriteBool=[CoreFMDB executeUpdate:@"create table if not exists favourite(id integer primary key autoIncrement,server text,uri text unique,title text,size integer,artist text,composer text,album text,genres text,date text,duration text,format text);"];
+    BOOL favouriteBool=[CoreFMDB executeUpdate:@"create table if not exists favorite(id integer primary key autoIncrement,server text,uri text unique,title text,size integer,artist text,composer text,album text,genres text,date text,duration text,format text);"];
     if(favouriteBool){
         NSLog(@"创建favourite table success");
     }
