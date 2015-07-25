@@ -49,6 +49,9 @@ enum PlayStyle {
 @property (weak, nonatomic) IBOutlet UILabel *curMusicBitLabel;
 @property (weak, nonatomic) IBOutlet UILabel *curMusicTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *curMusicNameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *dateBt;
+@property (weak, nonatomic) IBOutlet UIButton *genresBt;
+@property (weak, nonatomic) IBOutlet UIButton *listIconBt;
 
 //右侧控件
 

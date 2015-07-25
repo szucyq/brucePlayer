@@ -16,10 +16,13 @@
                 <outlet property="curMusicNameLabel" destination="r9u-sa-JzC" id="Uao-ki-vpj"/>
                 <outlet property="curMusicTimeLabel" destination="i6Y-Is-nGz" id="oQc-OB-XUD"/>
                 <outlet property="curTimeLabel" destination="Fpx-H4-RIc" id="M0L-EJ-apj"/>
+                <outlet property="dateBt" destination="0Tb-bg-UcC" id="HrF-9l-TAI"/>
                 <outlet property="favoriteBt" destination="uvB-sG-g86" id="IzU-2y-JTs"/>
+                <outlet property="genresBt" destination="Aan-zS-09m" id="3Lg-jG-aYj"/>
                 <outlet property="iconBt" destination="d3V-5e-asj" id="V0c-wN-n7b"/>
                 <outlet property="lengthTimeLabel" destination="EkX-ex-1fB" id="z61-kf-8O4"/>
                 <outlet property="listBt" destination="AhX-DV-P0u" id="hCP-AL-zC2"/>
+                <outlet property="listIconBt" destination="WIG-pr-Lyk" id="BSk-p4-Exn"/>
                 <outlet property="muteBt" destination="lxK-So-rJN" id="pTp-yP-mTt"/>
                 <outlet property="nextBt" destination="rwl-Ny-XA3" id="3wj-Sp-qPX"/>
                 <outlet property="playBt" destination="4Jh-yU-kVg" id="XlV-cU-VHi"/>
@@ -45,9 +48,13 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Pn5-Wy-H0o">
-                            <rect key="frame" x="58" y="45" width="44" height="44"/>
+                            <rect key="frame" x="62" y="44" width="44" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="by_Albums.png">
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <inset key="titleEdgeInsets" minX="-30" minY="30" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="8" minY="-10" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="Albums" image="by_Albums.png" backgroundImage="by_bg_gray.png">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -55,39 +62,23 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4Ez-Wz-C6s">
-                            <rect key="frame" x="110" y="45" width="44" height="44"/>
+                            <rect key="frame" x="110" y="44" width="44" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="by_Artists.png">
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <inset key="titleEdgeInsets" minX="-30" minY="30" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="8" minY="-10" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="Artists" image="by_Artists.png" backgroundImage="by_bg_gray.png">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
                                 <action selector="byArtistAction:" destination="-1" eventType="touchUpInside" id="zoe-DT-Ub0"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wsM-nc-c2B">
-                            <rect key="frame" x="6" y="45" width="44" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="by_Songs.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="bySongAction:" destination="-1" eventType="touchUpInside" id="OMk-ap-v0f"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rCa-xa-tnb">
-                            <rect key="frame" x="266" y="45" width="44" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="by_Folder.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="catalogBtAction:" destination="-1" eventType="touchUpInside" id="vvi-Za-4TM"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="d3V-5e-asj">
-                            <rect key="frame" x="817" y="45" width="44" height="44"/>
+                            <rect key="frame" x="861" y="45" width="44" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="menu_icon.png">
+                            <state key="normal" image="menu_icon.png" backgroundImage="by_bg_gray.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -95,9 +86,13 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Aan-zS-09m">
-                            <rect key="frame" x="162" y="45" width="44" height="44"/>
+                            <rect key="frame" x="159" y="44" width="44" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="by_Genres.png">
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <inset key="titleEdgeInsets" minX="-30" minY="30" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="8" minY="-10" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="Genres" image="by_Genres.png" backgroundImage="by_bg_gray.png">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -105,9 +100,13 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0Tb-bg-UcC">
-                            <rect key="frame" x="214" y="45" width="44" height="44"/>
+                            <rect key="frame" x="208" y="44" width="44" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="by_Years.png">
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <inset key="titleEdgeInsets" minX="-30" minY="30" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="8" minY="-10" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="Years" image="by_Years.png" backgroundImage="by_bg_gray.png">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -115,9 +114,9 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WIG-pr-Lyk">
-                            <rect key="frame" x="921" y="45" width="44" height="44"/>
+                            <rect key="frame" x="959" y="45" width="44" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="menu_list_icon.png">
+                            <state key="normal" image="menu_list_icon.png" backgroundImage="by_bg_gray.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -125,9 +124,9 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AhX-DV-P0u">
-                            <rect key="frame" x="869" y="45" width="44" height="44"/>
+                            <rect key="frame" x="910" y="45" width="44" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="menu_list_no_icon.png">
+                            <state key="normal" image="menu_list_no_icon.png" backgroundImage="by_bg_gray.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -184,8 +183,8 @@
                                 <action selector="hideBottomAction:" destination="-1" eventType="touchUpInside" id="Tin-3J-QJt"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BjY-No-UXZ">
-                            <rect key="frame" x="752" y="28" width="40" height="72"/>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BjY-No-UXZ">
+                            <rect key="frame" x="775" y="10" width="19" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="control.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -195,9 +194,9 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="uvB-sG-g86">
-                            <rect key="frame" x="972" y="45" width="44" height="44"/>
+                            <rect key="frame" x="812" y="45" width="44" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="menu_favourite.png">
+                            <state key="normal" image="menu_favourite.png" backgroundImage="by_bg_gray.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -219,6 +218,34 @@
                             </state>
                             <connections>
                                 <action selector="searchAction:" destination="-1" eventType="touchUpInside" id="epv-MP-gQD"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wsM-nc-c2B">
+                            <rect key="frame" x="14" y="44" width="44" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <inset key="titleEdgeInsets" minX="-30" minY="30" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="10"/>
+                            <state key="normal" title="Songs" image="by_Songs.png" backgroundImage="by_bg_gray.png">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="bySongAction:" destination="-1" eventType="touchUpInside" id="OMk-ap-v0f"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rCa-xa-tnb">
+                            <rect key="frame" x="260" y="44" width="44" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <inset key="titleEdgeInsets" minX="-30" minY="30" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="8" minY="-10" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="Folder" image="by_Folder.png" backgroundImage="by_bg_gray.png">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="catalogBtAction:" destination="-1" eventType="touchUpInside" id="vvi-Za-4TM"/>
                             </connections>
                         </button>
                     </subviews>
@@ -329,12 +356,13 @@
         </view>
     </objects>
     <resources>
-        <image name="by_Albums.png" width="56" height="56"/>
-        <image name="by_Artists.png" width="56" height="56"/>
-        <image name="by_Folder.png" width="56" height="56"/>
-        <image name="by_Genres.png" width="56" height="56"/>
-        <image name="by_Songs.png" width="56" height="56"/>
-        <image name="by_Years.png" width="56" height="56"/>
+        <image name="by_Albums.png" width="28" height="28"/>
+        <image name="by_Artists.png" width="28" height="28"/>
+        <image name="by_Folder.png" width="28" height="28"/>
+        <image name="by_Genres.png" width="28" height="28"/>
+        <image name="by_Songs.png" width="28" height="28"/>
+        <image name="by_Years.png" width="28" height="28"/>
+        <image name="by_bg_gray.png" width="80" height="80"/>
         <image name="control.png" width="40" height="72"/>
         <image name="current_music.png" width="152" height="153"/>
         <image name="hide.png" width="56" height="16"/>

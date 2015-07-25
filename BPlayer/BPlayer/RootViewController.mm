@@ -335,6 +335,11 @@ static BOOL displayMute=NO;
     UIPopoverController *popoverController=[[UIPopoverController alloc]initWithContentViewController:favoriteListController];
     
     [popoverController presentPopoverFromRect:self.favoriteBt.frame inView:self.topView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    //status
+    [self menuNormal];
+    
+    [self.favoriteBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
+    [self.favoriteBt setImage:[UIImage imageNamed:@"menu_favourite_select.png"] forState:UIControlStateNormal];
 }
 
 - (IBAction)playlistAction:(id)sender {
@@ -401,6 +406,13 @@ static BOOL displayMute=NO;
 
 
 - (IBAction)catalogBtAction:(id)sender {
+    //status
+    [self byNormal];
+    
+    [self.catalogBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
+    [self.catalogBt setImage:[UIImage imageNamed:@"by_Folder_select.png"] forState:UIControlStateNormal];
+    [self.catalogBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    //
 
     CGRect frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height, kContentViewWidth-self.rightView.frame.size.width, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
     
@@ -462,6 +474,11 @@ static BOOL displayMute=NO;
     NSLog(@"按作曲浏览");
     
     [self refreshAllMusicByType:@"list"];
+    //status
+    [self menuNormal];
+    
+    [self.listBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
+    [self.listBt setImage:[UIImage imageNamed:@"menu_list_no_icon_select.png"] forState:UIControlStateNormal];
 }
 
 - (IBAction)iconLookAction:(id)sender {
@@ -474,6 +491,11 @@ static BOOL displayMute=NO;
     
     
     [self refreshAllMusicByType:@"icon"];
+    //status
+    [self menuNormal];
+    
+    [self.iconBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
+    [self.iconBt setImage:[UIImage imageNamed:@"menu_icon_select.png"] forState:UIControlStateNormal];
 }
 - (IBAction)listIconAction:(id)sender {
     NSLog(@"列表－图标浏览");
@@ -485,6 +507,11 @@ static BOOL displayMute=NO;
     NSLog(@"按作曲浏览");
     
     [self refreshAllMusicByType:@"list_icon"];
+    //status
+    [self menuNormal];
+    
+    [self.listIconBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
+    [self.listIconBt setImage:[UIImage imageNamed:@"menu_list_icon_select.png"] forState:UIControlStateNormal];
 }
 
 - (IBAction)hideBottomAction:(id)sender {
@@ -505,35 +532,107 @@ static BOOL displayMute=NO;
 - (IBAction)remoteControlAction:(id)sender {
     RemoteControlController *remote=[[RemoteControlController alloc]init];
     [self presentModalViewController:remote animated:YES];
+
+    
 }
 
 - (IBAction)byDateAction:(id)sender {
     NSLog(@"按日期浏览");
     [self refreshAllMusicByType:@"date"];
+    //status
+    [self byNormal];
+    
+    [self.dateBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
+    [self.dateBt setImage:[UIImage imageNamed:@"by_Years_select.png"] forState:UIControlStateNormal];
+    [self.dateBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 - (IBAction)bySongAction:(id)sender {
     NSLog(@"按歌曲浏览");
     [self refreshAllMusicByType:@"music"];
+    //status
+    [self byNormal];
     
+    [self.songBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
+    [self.songBt setImage:[UIImage imageNamed:@"by_Songs_select.png"] forState:UIControlStateNormal];
+    [self.songBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
 - (IBAction)byZuoquAction:(id)sender {
     NSLog(@"按作曲浏览");
 
     [self refreshAllMusicByType:@"zuoqu"];
+    //status
+    [self byNormal];
+    
+    [self.genresBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
+    [self.genresBt setImage:[UIImage imageNamed:@"by_Genres_select.png"] forState:UIControlStateNormal];
+    [self.genresBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
 - (IBAction)byArtistAction:(id)sender {
     NSLog(@"按艺术家浏览");
     [self refreshAllMusicByType:@"artist"];
+    //status
+    [self byNormal];
+    
+    [self.artistBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
+    [self.artistBt setImage:[UIImage imageNamed:@"by_Artists_select.png"] forState:UIControlStateNormal];
+    [self.artistBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
 - (IBAction)byAlbumAction:(id)sender {
     NSLog(@"按专辑浏览");
     [self refreshAllMusicByType:@"album"];
+    //status
+    [self byNormal];
+    
+    [self.zhuanjiBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
+    [self.zhuanjiBt setImage:[UIImage imageNamed:@"by_Albums_select.png"] forState:UIControlStateNormal];
+    [self.zhuanjiBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
-
+- (void)byNormal{
+    NSString *bgName=@"by_bg_gray.png";
+    //song
+    [self.songBt setBackgroundImage:[UIImage imageNamed:bgName] forState:UIControlStateNormal];
+    [self.songBt setImage:[UIImage imageNamed:@"by_Songs.png"] forState:UIControlStateNormal];
+    [self.songBt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    //album
+    [self.zhuanjiBt setBackgroundImage:[UIImage imageNamed:bgName] forState:UIControlStateNormal];
+    [self.zhuanjiBt setImage:[UIImage imageNamed:@"by_Albums.png"] forState:UIControlStateNormal];
+    [self.zhuanjiBt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    //artist
+    [self.artistBt setBackgroundImage:[UIImage imageNamed:bgName] forState:UIControlStateNormal];
+    [self.artistBt setImage:[UIImage imageNamed:@"by_Artists.png"] forState:UIControlStateNormal];
+    [self.artistBt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+     //genres
+    [self.genresBt setBackgroundImage:[UIImage imageNamed:bgName] forState:UIControlStateNormal];
+    [self.genresBt setImage:[UIImage imageNamed:@"by_Genres.png"] forState:UIControlStateNormal];
+    [self.genresBt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    //years
+    [self.dateBt setBackgroundImage:[UIImage imageNamed:bgName] forState:UIControlStateNormal];
+    [self.dateBt setImage:[UIImage imageNamed:@"by_Years.png"] forState:UIControlStateNormal];
+    [self.dateBt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    //folder
+    [self.catalogBt setBackgroundImage:[UIImage imageNamed:bgName] forState:UIControlStateNormal];
+    [self.catalogBt setImage:[UIImage imageNamed:@"by_Folder.png"] forState:UIControlStateNormal];
+    [self.catalogBt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+}
+- (void)menuNormal{
+    NSString *bgName=@"by_bg_gray.png";
+    //favourite
+    [self.favoriteBt setBackgroundImage:[UIImage imageNamed:bgName] forState:UIControlStateNormal];
+    [self.favoriteBt setImage:[UIImage imageNamed:@"menu_favourite.png"] forState:UIControlStateNormal];
+    //icon
+    [self.iconBt setBackgroundImage:[UIImage imageNamed:bgName] forState:UIControlStateNormal];
+    [self.iconBt setImage:[UIImage imageNamed:@"menu_icon.png"] forState:UIControlStateNormal];
+    //list
+    [self.listIconBt setBackgroundImage:[UIImage imageNamed:bgName] forState:UIControlStateNormal];
+    [self.listIconBt setImage:[UIImage imageNamed:@"menu_list_icon.png"] forState:UIControlStateNormal];
+    //list-no-icon
+    [self.listBt setBackgroundImage:[UIImage imageNamed:bgName] forState:UIControlStateNormal];
+    [self.listBt setImage:[UIImage imageNamed:@"menu_list_no_icon.png"] forState:UIControlStateNormal];
+}
 #pragma mark -
 - (IBAction)preBtAction:(id)sender {
     NSLog(@"上一首");
