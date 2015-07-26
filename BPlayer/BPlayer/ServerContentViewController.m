@@ -28,18 +28,20 @@
     }
     return self;
 }
-- (id)initWithFrame:(CGRect)frame root:(BOOL)rootOrNot objectId:(NSString *)anObjectId{
+- (id)initWithFrame:(CGRect)frame root:(BOOL)rootOrNot objectId:(NSString *)anObjectId title:(NSString *)title{
     self=[super init];
     if(self){
         self.selfFrame=frame;
         self.browserRoot=rootOrNot;
         self.objID=anObjectId;
+        self.title=title;
     }
     return self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.objIDArr = [[NSMutableArray alloc] init];
+    
     //self.itemArr = @[];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -133,6 +135,16 @@
     
     MediaServerItem *item = [self.itemArr objectAtIndex:indexPath.row];
     cell.textLabel.text = item.title;
+    NSString *imgStr=item.thumbnailUrl;
+    if(imgStr && imgStr!=nil && ![imgStr isEqual:[NSNull null]]){
+        ImageView *iv=[[ImageView alloc]initWithFrame:cell.imageView.frame imageURLStr:imgStr plactHolderImgName:@"temp.png" scale:NO];
+        [cell.contentView addSubview:iv];
+    }
+    else{
+        cell.imageView.image=[UIImage imageNamed:@"temp.png"];
+    }
+    
+    
     NSLog(@"objID:%@",item.objID);
     NSLog(@"title:%@",item.title);
     NSLog(@"uri:%@",item.uri);
@@ -162,23 +174,7 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MediaServerItem * item=[self.itemArr objectAtIndex:indexPath.row];;
-    //go back
-//    if ( !self.browserRoot
-//        && indexPath.row == 0) {
-//
-//        [self.objIDArr removeLastObject];
-//        NSString *parentObjID = [self.objIDArr lastObject];
-//        //[self.browser browse:parentObjID];
-//        return;
-//    }
-//    // Navigation logic may go here, for example:
-//    
-//    else if(self.browserRoot){
-//        item = [self.itemArr objectAtIndex:indexPath.row];
-//    }
-//    else{
-//        item = [self.itemArr objectAtIndex:indexPath.row-1];
-//    }
+
     //根据类型判断处理
     if(item.type==FOLDER){
         
@@ -186,7 +182,7 @@
         NSLog(@"item objid:%@",item.objID);
         
         //[self.browser browse:item.objID];
-        ServerContentViewController *sContentController=[[ServerContentViewController alloc]initWithFrame:self.tableView.bounds root:NO objectId:item.objID];
+        ServerContentViewController *sContentController=[[ServerContentViewController alloc]initWithFrame:self.tableView.bounds root:NO objectId:item.objID title:item.title];
         //NSLog(@"view:%@",sContentController);
         
 //        TestTableViewController *test=[[TestTableViewController alloc]init];

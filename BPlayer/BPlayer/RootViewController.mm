@@ -265,8 +265,14 @@ static BOOL displayMute=NO;
                 NSString *genres=@"";
                 for(id obj in item.genres){
                     if(![obj isEqual:[NSNull null]] && obj!=nil){
-                        
-                        genres=[genres stringByAppendingString:obj];
+                        NSString *str;
+                        if(genres.length>0){
+                            str=[NSString stringWithFormat:@"%@%@",@"/",obj];
+                        }
+                        else{
+                            str=[NSString stringWithFormat:@"%@",obj];
+                        }
+                        genres=[genres stringByAppendingString:str];
                     }
                     
                 }
@@ -427,7 +433,8 @@ static BOOL displayMute=NO;
         return;
     }
     NSLog(@"frame:%@",[NSValue valueWithCGRect:frame]);
-    ServerContentViewController *itemController=[[ServerContentViewController alloc]initWithFrame:frame];
+//    ServerContentViewController *itemController=[[ServerContentViewController alloc]initWithFrame:frame];
+    ServerContentViewController *itemController=[[ServerContentViewController alloc]initWithFrame:frame root:YES objectId:nil title:appDelagete.serverUuid];
     //catalogNav视图用于按照目录层级的方式进行访问server资源
     if(self.catalogNav){
         NSLog(@"如果已有目录浏览视图，则先删除");
@@ -1053,7 +1060,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
         return;
     }
     
-    ServerContentViewController *contentController=[[ServerContentViewController alloc]initWithFrame:frame root:YES objectId:nil];
+    ServerContentViewController *contentController=[[ServerContentViewController alloc]initWithFrame:frame root:YES objectId:nil title:appDelagete.serverUuid];
 
     //catalogNav视图用于按照目录层级的方式进行访问server资源
     if(self.catalogNav){
