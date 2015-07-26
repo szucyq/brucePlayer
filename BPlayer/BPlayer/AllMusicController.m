@@ -8,6 +8,7 @@
 //#define kMusicViewWidth 900
 //#define kMusicViewHeight 600
 #define kMusicTableRowHeigth 60
+#define kUnknownAlertString @"Unknown"
 
 #import "AllMusicController.h"
 #import "AppDelegate.h"
@@ -77,10 +78,12 @@
     NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
     int imageWidth=[[defaults valueForKey:kIconWidth] intValue];
     int imagecount=[[defaults valueForKey:kIconNumber] intValue];
+    int imageHeight=[[defaults valueForKey:kIconHeight] intValue];
     NSLog(@"width1:%d--number1:%d",imageWidth,imagecount);
-    if(imagecount==0 || imageWidth==0){
+    if(imagecount==0 || imageWidth==0 || imageHeight==0){
         imageWidth=120;
-        imagecount=5;
+        imagecount=7;
+        imageHeight=120;
     }
     NSLog(@"width:%d--number:%d",imageWidth,imagecount);
 
@@ -97,7 +100,8 @@
     UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
                                                         initWithTarget:self
                                                         action:@selector(handlePinch:)];
-    [scrollerview addGestureRecognizer:pinchGestureRecognizer];
+//    [scrollerview addGestureRecognizer:pinchGestureRecognizer];
+    [self.scrollView addGestureRecognizer:pinchGestureRecognizer];
     [self.scrollView addSubview:scrollerview];
     
     
@@ -106,14 +110,15 @@
     
     float paddingX=(kMusicViewWidth-imagecount*imageWidth)/(imagecount+1);
     float paddingY=paddingX+40;
+    float baseY=-40;
     
     for (int i=0; i<self.listArray.count; i++) {
         MediaServerItem *record=[self.listArray objectAtIndex:i];
         
         float x=i%imagecount*(imageWidth)+(i%imagecount+1)*paddingX;
-        float y=i/imagecount*(imageWidth)+(i/imagecount+1)*paddingY;
-        NSLog(@"x:%f--y:%f",x,y);
-        UIImageView *iconimage=[[UIImageView alloc]initWithFrame:CGRectMake(x, y, imageWidth, imageWidth)];
+        float y=i/imagecount*(imageHeight)+(i/imagecount+1)*paddingY+baseY;
+//        NSLog(@"x:%f--y:%f",x,y);
+        UIImageView *iconimage=[[UIImageView alloc]initWithFrame:CGRectMake(x, y, imageWidth, imageHeight)];
         NSString *stringimage=record.albumArtURI;
         if ([stringimage isEqualToString:@"(null)"]) {
             [iconimage setImage:[UIImage imageNamed:@"temp"]];
@@ -123,7 +128,7 @@
         [self.scrollView addSubview:iconimage];
         
         
-        UIButton * imagebutton=[[UIButton alloc]initWithFrame:CGRectMake(x, y, imageWidth, imageWidth)];
+        UIButton * imagebutton=[[UIButton alloc]initWithFrame:CGRectMake(x, y, imageWidth, imageHeight)];
         imagebutton.tag=i+1000;
         [imagebutton addTarget:self action:@selector(tapAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.scrollView addSubview:imagebutton];
@@ -145,12 +150,17 @@
         detailText.backgroundColor = [UIColor clearColor];
         detailText.textAlignment = NSTextAlignmentCenter;
         detailText.font            = [UIFont systemFontOfSize:12.0];
-        [detailText setText:@"album"];
+        if(record.album){
+          [detailText setText:record.album];
+        }
+        else{
+            [detailText setText:kUnknownAlertString];
+        }
         [self.scrollView addSubview:detailText];
         
         
     }
-    float sizeHeight=(self.listArray.count/imagecount+1)*(imageWidth+paddingY);
+    float sizeHeight=(self.listArray.count/imagecount+1)*(imageHeight+paddingY);
     self.scrollView.contentSize=CGSizeMake(kMusicViewWidth, sizeHeight);
     //    self.scrollView.frame=scrollerview.frame;
     
@@ -227,6 +237,76 @@
 - (void) handlePinch:(UIPinchGestureRecognizer*) recognizer
 {
     NSLog(@"handle pinch");
+    CGFloat factor = [(UIPinchGestureRecognizer *) recognizer scale];
+    NSLog(@"scale is :%f",factor);
+    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+    int imagecount=[[defaults valueForKey:kIconNumber] intValue];
+    
+    if(imagecount==0)
+        imagecount=7;
+    NSLog(@"iamgecount :%d",imagecount);
+    if(factor>=1){
+        //放大手势
+        if(imagecount==7){
+            //6
+            [defaults setObject:@"6" forKey:kIconNumber];
+            [defaults setObject:@"130" forKey:kIconWidth];
+            [defaults setObject:@"130" forKey:kIconHeight];
+            [defaults synchronize];
+            [self addscroller];
+            return;
+        }
+        if(imagecount==6){
+            //5
+            [defaults setObject:@"5" forKey:kIconNumber];
+            [defaults setObject:@"140" forKey:kIconWidth];
+            [defaults setObject:@"140" forKey:kIconHeight];
+            [defaults synchronize];
+            [self addscroller];
+            return;
+        }
+        if(imagecount==5){
+            //4
+            [defaults setObject:@"4" forKey:kIconNumber];
+            [defaults setObject:@"150" forKey:kIconWidth];
+            [defaults setObject:@"150" forKey:kIconHeight];
+            [defaults synchronize];
+            [self addscroller];
+            return;
+        }
+        
+    }
+    else{
+        //缩小手势
+        if(imagecount==4){
+            //5
+            [defaults setObject:@"5" forKey:kIconNumber];
+            [defaults setObject:@"140" forKey:kIconWidth];
+            [defaults setObject:@"140" forKey:kIconHeight];
+            [defaults synchronize];
+            [self addscroller];
+            return;
+        }
+        if(imagecount==5){
+            //6
+            [defaults setObject:@"6" forKey:kIconNumber];
+            [defaults setObject:@"130" forKey:kIconWidth];
+            [defaults setObject:@"130" forKey:kIconHeight];
+            [defaults synchronize];
+            [self addscroller];
+            return;
+        }
+        if(imagecount==6){
+            //7
+            [defaults setObject:@"7" forKey:kIconNumber];
+            [defaults setObject:@"120" forKey:kIconWidth];
+            [defaults setObject:@"120" forKey:kIconHeight];
+            [defaults synchronize];
+            [self addscroller];
+            return;
+        }
+    }
+    
 //    recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
 //    
 //    recognizer.scale = 1;
@@ -601,7 +681,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     titleLabel.numberOfLines = 0;
     titleLabel.textAlignment = NSTextAlignmentLeft;
     if (!item.title ) {
-        [titleLabel setText:@"unknow"];
+        [titleLabel setText:kUnknownAlertString];
     }else{
         [titleLabel setText:item.title];
     }
@@ -614,7 +694,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     timeLabel.numberOfLines = 0;
     timeLabel.textAlignment = NSTextAlignmentCenter;
     if (!item.duration ) {
-        [timeLabel setText:@"unknow"];
+        [timeLabel setText:kUnknownAlertString];
     }else{
         [timeLabel setText:stringFromInterval(item.duration)];
     }
@@ -627,7 +707,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     singerLabel.numberOfLines = 0;
     singerLabel.textAlignment = NSTextAlignmentLeft;
     if (!item.artist) {
-        [singerLabel setText:@"unknow"];
+        [singerLabel setText:kUnknownAlertString];
     }else{
         [singerLabel setText:item.artist];
     }
@@ -641,7 +721,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     albumNameLabel.numberOfLines = 0;
     albumNameLabel.textAlignment = NSTextAlignmentLeft;
     if (!item.album) {
-        [albumNameLabel setText:@"unknow"];
+        [albumNameLabel setText:kUnknownAlertString];
     }else{
         [albumNameLabel setText:item.album];
     }
@@ -655,7 +735,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     dateLabel.numberOfLines = 0;
     dateLabel.textAlignment = NSTextAlignmentCenter;
     if (!item.date ) {
-        [dateLabel setText:@"unknow"];
+        [dateLabel setText:kUnknownAlertString];
     }else{
         
         NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
@@ -674,7 +754,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     typeLabel.numberOfLines = 0;
     typeLabel.textAlignment = NSTextAlignmentCenter;
     if (item.genres.count==0) {
-        [typeLabel setText:@"unknow"];
+        [typeLabel setText:kUnknownAlertString];
     }else{
         NSString *genres=@"";
         for(id obj in item.genres){

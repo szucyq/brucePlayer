@@ -37,6 +37,7 @@
 //图标方式
 #define kIconNumber @"kIconNumber"
 #define kIconWidth  @"kIconWidth"
+#define kIconHeight @"kIconHeight"
 
 //--------------------------
 

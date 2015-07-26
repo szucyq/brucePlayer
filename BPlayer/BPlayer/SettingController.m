@@ -30,8 +30,8 @@
     [self.view addSubview:self.listTableView];
     [self.view bringSubviewToFront:self.listTableView];
     //
-//    self.listArray=[NSMutableArray arrayWithObjects:@"图标浏览方式显示数量",@"自动锁屏",@"用户指南",@"用户反馈",@"版本", nil];
-    self.listArray=[NSMutableArray arrayWithObjects:@"Sources",@"ES9018 DAC",@"WM8741 DAC",@"Analog Input",@"S/P DIF",@"DSD Output Mode",@"Default Setting",@"WIFI",@"About", nil];
+    self.listArray=[NSMutableArray arrayWithObjects:@"图标浏览方式显示数量",@"自动锁屏",@"用户指南",@"用户反馈",@"版本", nil];
+//    self.listArray=[NSMutableArray arrayWithObjects:@"Sources",@"ES9018 DAC",@"WM8741 DAC",@"Analog Input",@"S/P DIF",@"DSD Output Mode",@"Default Setting",@"WIFI",@"About", nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -80,7 +80,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"row:%d",indexPath.row);
     if(indexPath.row==0){
-        self.iconNumView.hidden=YES;
+        self.iconNumView.hidden=NO;
     }
     else{
         self.iconNumView.hidden=YES;
@@ -91,28 +91,33 @@
 - (IBAction)iconNumAction:(id)sender {
     NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
     NSInteger tag=[(UIButton*)sender tag];
+    
     if(tag==1){
-        //3
-        [defaults setObject:@"3" forKey:kIconNumber];
-        [defaults setObject:@"130" forKey:kIconWidth];
+        //4
+        [defaults setObject:@"4" forKey:kIconNumber];
+        [defaults setObject:@"150" forKey:kIconWidth];
+        [defaults setObject:@"150" forKey:kIconHeight];
         [defaults synchronize];
     }
     else if(tag==2){
-        //4
-        [defaults setObject:@"4" forKey:@"iconNum"];
-        [defaults setObject:@"110" forKey:@"iconWidth"];
+        //5
+        [defaults setObject:@"5" forKey:kIconNumber];
+        [defaults setObject:@"140" forKey:kIconWidth];
+        [defaults setObject:@"140" forKey:kIconHeight];
         [defaults synchronize];
     }
     else if(tag==3){
-        //5
-        [defaults setObject:@"5" forKey:@"iconNum"];
-        [defaults setObject:@"90" forKey:@"iconWidth"];
+        //6
+        [defaults setObject:@"6" forKey:kIconNumber];
+        [defaults setObject:@"130" forKey:kIconWidth];
+        [defaults setObject:@"130" forKey:kIconHeight];
         [defaults synchronize];
     }
     else if(tag==4){
-        //6
-        [defaults setObject:@"6" forKey:@"iconNum"];
-        [defaults setObject:@"70" forKey:@"iconWidth"];
+        //7
+        [defaults setObject:@"7" forKey:kIconNumber];
+        [defaults setObject:@"120" forKey:kIconWidth];
+        [defaults setObject:@"120" forKey:kIconHeight];
         [defaults synchronize];
     }
 }
