@@ -158,6 +158,8 @@
 		32F4DA561B63AF0700A31DE1 /* menu_icon_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32F4DA521B63AF0700A31DE1 /* menu_icon_select@2x.png */; };
 		32F4DA571B63AF0700A31DE1 /* menu_list_icon_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32F4DA531B63AF0700A31DE1 /* menu_list_icon_select@2x.png */; };
 		32F4DA581B63AF0700A31DE1 /* menu_list_no_icon_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32F4DA541B63AF0700A31DE1 /* menu_list_no_icon_select@2x.png */; };
+		32F4DA611B648E2B00A31DE1 /* AllMusicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F4DA5F1B648E2B00A31DE1 /* AllMusicCell.m */; };
+		32F4DA621B648E2B00A31DE1 /* AllMusicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32F4DA601B648E2B00A31DE1 /* AllMusicCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -425,6 +427,9 @@
 		32F4DA521B63AF0700A31DE1 /* menu_icon_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_icon_select@2x.png"; sourceTree = "<group>"; };
 		32F4DA531B63AF0700A31DE1 /* menu_list_icon_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_list_icon_select@2x.png"; sourceTree = "<group>"; };
 		32F4DA541B63AF0700A31DE1 /* menu_list_no_icon_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_list_no_icon_select@2x.png"; sourceTree = "<group>"; };
+		32F4DA5E1B648E2B00A31DE1 /* AllMusicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllMusicCell.h; sourceTree = "<group>"; };
+		32F4DA5F1B648E2B00A31DE1 /* AllMusicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllMusicCell.m; sourceTree = "<group>"; };
+		32F4DA601B648E2B00A31DE1 /* AllMusicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllMusicCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -867,6 +872,9 @@
 				32DE23091B42631100B62958 /* ServerContentViewController.m */,
 				32DCC8671B3DB9700063DD60 /* AllMusicController.h */,
 				32DCC8681B3DB9700063DD60 /* AllMusicController.m */,
+				32F4DA5E1B648E2B00A31DE1 /* AllMusicCell.h */,
+				32F4DA5F1B648E2B00A31DE1 /* AllMusicCell.m */,
+				32F4DA601B648E2B00A31DE1 /* AllMusicCell.xib */,
 			);
 			name = DMC;
 			sourceTree = "<group>";
@@ -1031,6 +1039,7 @@
 				32DCC8311B3DB8B40063DD60 /* MJRefresh.bundle in Resources */,
 				32F4DA4C1B63A33F00A31DE1 /* by_Albums_select@2x.png in Resources */,
 				32A25B781B55214400C8FE08 /* remote-exit.png in Resources */,
+				32F4DA621B648E2B00A31DE1 /* AllMusicCell.xib in Resources */,
 				32F4DA4E1B63A33F00A31DE1 /* by_Folder_select@2x.png in Resources */,
 				32A25B831B55214400C8FE08 /* remote-up.png in Resources */,
 				32A25B801B55214400C8FE08 /* remote-record.png in Resources */,
@@ -1113,6 +1122,7 @@
 				32DCC8341B3DB8B40063DD60 /* MJRefreshFooter.m in Sources */,
 				32DCC8451B3DB8B40063DD60 /* UIImageView+AFNetworking.m in Sources */,
 				32DCC8431B3DB8B40063DD60 /* UIAlertView+AFNetworking.m in Sources */,
+				32F4DA611B648E2B00A31DE1 /* AllMusicCell.m in Sources */,
 				32DCC7C91B3DB8780063DD60 /* WithLeftRightController.m in Sources */,
 				32DCC8321B3DB8B40063DD60 /* MJRefreshComponent.m in Sources */,
 				32E55F071B57C2610059EF09 /* ServerCell.m in Sources */,

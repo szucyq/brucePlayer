@@ -29,6 +29,7 @@
     _lastIndexPath=[NSIndexPath indexPathForRow:-1 inSection:0];
     // Do any additional setup after loading the view.
     self.title=@"收藏列表";
+    self.listArray=[NSMutableArray array];
     [self getAllMusicData];
     
 }
@@ -43,7 +44,7 @@
     }
     NSLog(@"server uuid :%@",appDelagete.serverUuid);
     
-    NSString *sql=[NSString stringWithFormat:@"%@%@%@",@"select * from favorite where server='",appDelagete.serverUuid,@"';"];
+    NSString *sql=[NSString stringWithFormat:@"%@%@%@",@"select * from favourite where server='",appDelagete.serverUuid,@"';"];
     //    NSString *sql=[NSString stringWithFormat:@"%@",@"select * from music;"];
     //查询数据
     [CoreFMDB executeQuery:sql queryResBlock:^(FMResultSet *set) {
@@ -135,8 +136,8 @@
     
 //    NSDictionary *renders = [MediaRenderControllerService instance].renderDic;
     MediaServerItem *item=[self.listArray objectAtIndex:indexPath.row];
-    NSString *title=item.title;
-    cell.textLabel.text = title;
+//    NSString *title=item.title;
+    cell.textLabel.text = item.title;
     //cell.textLabel.text = [NSString stringWithFormat:@"%@%ld",@"render",(long)indexPath.row];
     return cell;
 }
@@ -160,26 +161,9 @@
     NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:item,@"item", nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"kPlay" object:nil userInfo:userinfo];
 
-    [self dismissViewControllerAnimated:YES completion:NO];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)mediaRenderAdded:(NSNotification*)notification
-{
-    NSDictionary *msg = notification.object;
-    //NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
-    NSLog(@"renders:%@",[MediaRenderControllerService instance].renderDic);
-    NSString *uuid = [msg valueForKey:@"UUID"];
-    [self.renderDic setObject:msg forKey:uuid];
-    [self.listTableView reloadData];
-}
 
-- (void)mediaRenderRemove:(NSNotification*)notification
-{
-    NSDictionary *msg = notification.object;
-    //NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
-    NSString *uuid = [msg valueForKey:@"UUID"];
-    [self.renderDic removeObjectForKey:uuid];
-    [self.listTableView reloadData];
-}
 
 @end

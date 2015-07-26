@@ -474,6 +474,101 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     }
     
 }
+#pragma mark -
+#pragma mark 收藏
+- (BOOL)isFavourite:(NSString*)uri{
+    NSString *sql=[NSString stringWithFormat:@"%@%@%@",@"select * from favourite where uri='",uri,@"';"];
+    NSLog(@"check sql:%@",sql);
+    NSString *resultStr;
+//    [CoreFMDB executeQuery:sql queryResBlock:^(FMResultSet *set){
+//        NSLog(@"result:%@",[set resultDictionary]);
+//        while ([set next]) {
+//            NSLog(@"t:%@",[set stringForColumn:@"title"]);
+//        }
+//        if([set resultDictionary]){
+//            NSLog(@"result dic:%@",[set resultDictionary]);
+//            resultStr=@"yes";
+//        }
+//        
+//        else{
+//            resultStr=@"no";
+//        }
+//    }];
+
+    return NO;
+}
+- (void)favouriteAction:(id)sender{
+    UIButton *bt=(UIButton*)sender;
+    NSLog(@"tag:%ld",bt.tag);
+    MediaServerItem *item=[self.listArray objectAtIndex:bt.tag];
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    //先判断是要收藏还是要取消收藏
+    if([self isFavourite:item.uri]){
+        //已经收藏了，则取消
+        NSString *sql=[NSString stringWithFormat:@"%@%@%@",@"delete from favourite where uri='",item.uri,@"';"];
+        BOOL musicRemove=[CoreFMDB executeUpdate:sql];
+        if(musicRemove){
+            NSLog(@"success:%@",item.title);
+            [bt setImage:[UIImage imageNamed:@"menu_favourite.png"] forState:UIControlStateNormal];
+        }
+        else{
+            NSLog(@"fail:%@",item.title);
+        }
+    }
+    else{
+       //没有收藏过，则收藏
+        NSString *title=[NSString stringWithFormat:@"%@",item.title];
+        NSString *uri=[NSString stringWithFormat:@"%@",item.uri];
+        NSString *composer=[NSString stringWithFormat:@"%@",item.composer];
+        NSString *album=[NSString stringWithFormat:@"%@",item.album];
+        
+        NSString *genres=@"";
+        for(id obj in item.genres){
+            if(![obj isEqual:[NSNull null]] && obj!=nil){
+                NSString *str;
+                if(genres.length>0){
+                    str=[NSString stringWithFormat:@"%@%@",@"/",obj];
+                }
+                else{
+                    str=[NSString stringWithFormat:@"%@",obj];
+                }
+                genres=[genres stringByAppendingString:str];
+            }
+            
+        }
+        
+        //date
+        //                NSString *date=[NSString stringWithFormat:@"%@",item.date];
+        NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+        dateFormatter.dateFormat= @"yyyy-MM-dd";
+        NSString *date=[dateFormatter stringFromDate:item.date];
+        //    NSLog(@"date:%@",date);
+        //
+        NSString *format=[NSString stringWithFormat:@"%@",item.contentFormat];
+        //duration
+        NSTimeInterval durationDouble=item.duration;
+        NSString *duration=[NSString stringWithFormat:@"%f",durationDouble];
+        //    NSLog(@"duration:%f",durationDouble);
+        
+        NSString *sql=[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",@"insert into favourite (server,title,uri,composer,album,genres,date,format,duration) values('",appDelagete.serverUuid,@"','",title,@"','",uri,@"','",composer,@"','",album,@"','",genres,@"','",date,@"','",format,@"','",duration,@"');"];
+        
+            NSLog(@"add fav sql:%@",sql);
+        BOOL musicAdd=[CoreFMDB executeUpdate:sql];
+        if(musicAdd){
+            NSLog(@"success:%@",item.title);
+            [bt setImage:[UIImage imageNamed:@"menu_favourite_select.png"] forState:UIControlStateNormal];
+        }
+        else{
+            NSLog(@"fail:%@",item.title);
+        }
+    }
+    
+    
+    
+    
+    
+    
+}
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -598,6 +693,9 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     }
     [bgView addSubview:typeLabel];
     
+    
+    
+    //根据模式选择是否显示小图标
     if(islistIcon){
         UIImageView *headImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 50, 50)];
         NSString *stringimage=[NSString stringWithFormat:@"%@",item.smallImageUrl];
@@ -610,7 +708,19 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
         }
         [bgView addSubview:headImageView];
     }
+    //收藏按钮
+    UIButton *favBt=[UIButton buttonWithType:UIButtonTypeCustom];
+    favBt.frame=CGRectMake(kContentViewWidth-60, 0, 60, 60);
+    [favBt addTarget:self action:@selector(favouriteAction:) forControlEvents:UIControlEventTouchUpInside];
+    favBt.tag=indexPath.row;
     
+    if([self isFavourite:item.uri]){
+        [favBt setImage:[UIImage imageNamed:@"menu_favourite_select.png"] forState:UIControlStateNormal];
+    }
+    else{
+        [favBt setImage:[UIImage imageNamed:@"menu_favourite.png"] forState:UIControlStateNormal];
+    }
+    [bgView addSubview:favBt];
     //点击cell颜色
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
     cell.selectedBackgroundView.backgroundColor=[UIColor blueColor];
