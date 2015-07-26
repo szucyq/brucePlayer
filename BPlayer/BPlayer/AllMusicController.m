@@ -479,23 +479,17 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
 - (BOOL)isFavourite:(NSString*)uri{
     NSString *sql=[NSString stringWithFormat:@"%@%@%@",@"select * from favourite where uri='",uri,@"';"];
     NSLog(@"check sql:%@",sql);
-    NSString *resultStr;
-//    [CoreFMDB executeQuery:sql queryResBlock:^(FMResultSet *set){
-//        NSLog(@"result:%@",[set resultDictionary]);
-//        while ([set next]) {
-//            NSLog(@"t:%@",[set stringForColumn:@"title"]);
-//        }
-//        if([set resultDictionary]){
-//            NSLog(@"result dic:%@",[set resultDictionary]);
-//            resultStr=@"yes";
-//        }
-//        
-//        else{
-//            resultStr=@"no";
-//        }
-//    }];
+    __block BOOL isFavourite=NO;
+    [CoreFMDB executeQuery:sql queryResBlock:^(FMResultSet *set){
+        NSLog(@"result:%@",[set resultDictionary]);
+        while ([set next]) {
+            NSLog(@"t:%@",[set stringForColumn:@"title"]);
+            isFavourite=YES;
+        }
+        
+    }];
 
-    return NO;
+    return isFavourite;
 }
 - (void)favouriteAction:(id)sender{
     UIButton *bt=(UIButton*)sender;

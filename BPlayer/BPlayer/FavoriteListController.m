@@ -99,9 +99,9 @@
 //#undef SECONDS_PER_HOUR
 //#undef HOURS_PER_DAY
 //}
-- (void)viewDidLayoutSubviews{
-    self.navigationController.navigationBarHidden=NO;
-}
+//- (void)viewDidLayoutSubviews{
+//    self.navigationController.navigationBarHidden=NO;
+//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -148,20 +148,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSInteger newRow = [indexPath row];
-    NSInteger oldRow = [_lastIndexPath row];
-    if (newRow != oldRow){
-        UITableViewCell *newCell = [tableView cellForRowAtIndexPath:                                                                indexPath];
-        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
-        UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:                                                                _lastIndexPath];
-        oldCell.accessoryType = UITableViewCellAccessoryNone;        _lastIndexPath = indexPath;
-    }
+//    NSInteger newRow = [indexPath row];
+//    NSInteger oldRow = [_lastIndexPath row];
+//    if (newRow != oldRow){
+//        UITableViewCell *newCell = [tableView cellForRowAtIndexPath:                                                                indexPath];
+//        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
+//        UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:                                                                _lastIndexPath];
+//        oldCell.accessoryType = UITableViewCellAccessoryNone;        _lastIndexPath = indexPath;
+//    }
     //
-    MediaServerItem *item=[self.listArray objectAtIndex:indexPath.row];
-    NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:item,@"item", nil];
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"kPlay" object:nil userInfo:userinfo];
+    [self dismissViewControllerAnimated:YES completion:^{
+        MediaServerItem *item=[self.listArray objectAtIndex:indexPath.row];
+        NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:item,@"item", nil];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"kPlay" object:nil userInfo:userinfo];
+    }];
+    
 
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 
