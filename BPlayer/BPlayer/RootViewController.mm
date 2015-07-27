@@ -66,8 +66,10 @@ static BOOL displayMute=NO;
     
     //setting通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(settingAction:) name:@"setting" object:nil];
-
+    //30 s后隐藏视图
+    [self beginHideTimer];
 }
+
 - (void)gestureAction:(UIGestureRecognizer *)sender{
     if([sender isKindOfClass:[UISwipeGestureRecognizer class]]){
         NSLog(@"轻扫");
@@ -217,6 +219,43 @@ static BOOL displayMute=NO;
     
     [alter show];
     
+}
+#pragma mark -
+#pragma 隐藏底部视图
+- (void)beginHideTimer{
+    if([self.hideTimer isValid]){
+        [self.hideTimer invalidate];
+    }
+    self.secondsCountDown = 10;//10秒倒计时
+    self.hideTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(hideTimeFireMethod) userInfo:nil repeats:YES];
+}
+- (void)hideTimeFireMethod{
+    self.secondsCountDown--;
+    if(self.secondsCountDown==0){
+        [self.hideTimer invalidate];
+        displayBottom=YES;
+        [self performSelector:@selector(hideBottomAction:) withObject:nil];
+    }
+    else{
+        
+        
+    }
+}
+- (IBAction)hideBottomAction:(id)sender {
+    //    CGRect frame;
+    if(displayBottom){
+        self.bottomView.hidden=YES;
+        //        frame=CGRectMake(0, self.topView.frame.origin.y+self.topView.frame.size.height, kContentViewWidth, self.view.frame.size.height-self.topView.frame.size.height-self.topView.frame.origin.y);
+        
+    }
+    else{
+        //        frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height+self.bottomView.frame.size.height, kContentViewWidth, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
+        self.bottomView.hidden=NO;
+        [self beginHideTimer];
+    }
+    displayBottom=!displayBottom;
+    //    [self setNewFrame:frame];
+    [self viewDidLayoutSubviews];
 }
 #pragma mark -
 #pragma mark - actions
@@ -527,20 +566,7 @@ static BOOL displayMute=NO;
     [self.listIconBt setImage:[UIImage imageNamed:@"menu_list_icon_select.png"] forState:UIControlStateNormal];
 }
 
-- (IBAction)hideBottomAction:(id)sender {
-//    CGRect frame;
-    if(displayBottom){
-        self.bottomView.hidden=YES;
-//        frame=CGRectMake(0, self.topView.frame.origin.y+self.topView.frame.size.height, kContentViewWidth, self.view.frame.size.height-self.topView.frame.size.height-self.topView.frame.origin.y);
-    }
-    else{
-//        frame=CGRectMake(0, kContentBaseY+self.topView.frame.size.height+self.bottomView.frame.size.height, kContentViewWidth, self.view.frame.size.height-self.topView.frame.size.height-self.bottomView.frame.size.height-kContentBaseY);
-        self.bottomView.hidden=NO;
-    }
-    displayBottom=!displayBottom;
-//    [self setNewFrame:frame];
-    [self viewDidLayoutSubviews];
-}
+
 
 - (IBAction)remoteControlAction:(id)sender {
     RemoteControlController *remote=[[RemoteControlController alloc]init];
