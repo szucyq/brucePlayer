@@ -12,6 +12,9 @@
 
 #define MEDIARENDERADDEDNOTIFICATION @"MediaRenderAddedNotification"
 #define MEDIARENDERREMOVEDNOTIFICATION @"MediaRenderRemovedNotification"
+#define MEDIARENDERSTATENOTIFICATION @"MediaRenderStateNotification"
+#define MEDIARENDERDURATIONNOTIFICATION @"MediaRenderDurationNotification"
+#define MEDIARENDERTITLENOTIFICATION @"MediaRenderTitleNotification"
 
 MediaRenderControllerServiceListener::MediaRenderControllerServiceListener()
 {
@@ -264,4 +267,65 @@ void MediaRenderControllerServiceListener::OnGetTransportInfoResult(NPT_Result r
     dispatch_async(dispatch_get_main_queue(), ^{
         callback(NPT_SUCCEEDED(res) ? YES : NO, st);
     });
+}
+
+void MediaRenderControllerServiceListener::OnMRStateVariablesChanged(PLT_Service *service
+                               , NPT_List<PLT_StateVariable*> *vars)
+{
+    //service->GetDevice()->GetUUID();
+    NPT_List<PLT_StateVariable*>::Iterator iter = vars->GetFirstItem();
+    while ( iter ) {
+        NSString *UUID = [NSString stringWithUTF8String:service->GetDevice()->GetUUID().GetChars()];
+        NPT_String stateName = (*iter)->GetName();
+        if ( stateName == "TransportState" ) {
+            RenderStatu st = RenderStatu::STAT_UNKNOW;
+            NPT_String value = (*iter)->GetValue().ToLowercase();
+            if ( value == "stopped" ) {
+                st = RenderStatu::STOPED;
+            } else if ( value == "paused_playback" ) {
+                st = RenderStatu::PAUSED;
+            } else if ( value == "playing" ) {
+                st = RenderStatu::PLAYING;
+            } else if ( value == "transitioning" ) {
+                st = RenderStatu::LOADING;
+            } else if ( value == "no_media_present" ) {
+                st = RenderStatu::STOPED;
+            }
+            NSNumber *state = [NSNumber numberWithInt:st];
+            NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[UUID, state]
+                                                              forKeys:@[@"UUID", @"state"]];
+            NSNotification *ntf = [NSNotification notificationWithName:MEDIARENDERADDEDNOTIFICATION object:dic];
+            [[NSNotificationCenter defaultCenter] postNotification:ntf];
+        } else if ( stateName == "CurrentTrackDuration") {
+            NPT_String value = (*iter)->GetValue();
+            int h = 0;
+            value.Split(":").GetItem(0)->ToInteger(h);
+            int m = 0;
+            value.Split(":").GetItem(1)->ToInteger(m);
+            int s = 0;
+            value.Split(":").GetItem(2)->ToInteger(s);
+            NSNumber *sconds = [NSNumber numberWithInt:h*3600 + m*60 + s];
+            NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[UUID, sconds]
+                                                            forKeys:@[@"UUID", @"duration"]];
+            NSNotification *ntf = [NSNotification notificationWithName:MEDIARENDERDURATIONNOTIFICATION object:dic];
+            [[NSNotificationCenter defaultCenter] postNotification:ntf];
+        } else if ( stateName == "CurrentTrackMetaData") {
+            PLT_MediaObjectListReference objs(new PLT_MediaObjectList());
+            NPT_String value = (*iter)->GetValue();
+            NSString *title = nil;
+            if (NPT_SUCCEEDED(PLT_Didl::FromDidl(value, objs))) {
+                if (objs->GetItemCount() >= 1) {
+                    PLT_MediaItem *p = dynamic_cast<PLT_MediaItem*>(*(objs->GetFirstItem()));
+                    title = [NSString stringWithUTF8String:p->m_Title.GetChars()];
+                }
+            }
+            NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[UUID, title]
+                                                            forKeys:@[@"UUID", @"title"]];
+            NSNotification *ntf = [NSNotification notificationWithName:MEDIARENDERTITLENOTIFICATION object:dic];
+            [[NSNotificationCenter defaultCenter] postNotification:ntf];
+        }
+        //NSLog(@"%s  %s", (*iter)->GetName().GetChars(), (*iter)->GetValue().GetChars());
+        iter++;
+    }
+    return PLT_MediaControllerDelegate::OnMRStateVariablesChanged(service, vars);
 }

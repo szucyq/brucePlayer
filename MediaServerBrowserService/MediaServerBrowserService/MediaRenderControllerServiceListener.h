@@ -79,6 +79,9 @@ public:
                                   , PLT_TransportInfo* info
                                   , void* userdata );
     
+    void OnMRStateVariablesChanged(PLT_Service *service
+                                   , NPT_List<PLT_StateVariable*> *vars);
+    
     NSDictionary* allRenders();
     
 private:
