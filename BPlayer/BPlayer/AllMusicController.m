@@ -351,10 +351,10 @@
             NSLog(@"%@-%@",[set stringForColumn:@"title"],[set stringForColumn:@"uri"]);
             //date
             NSString *dateStr=[set stringForColumn:@"date"];
-            NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
-            dateFormatter.dateFormat= @"yyyy-MM-dd";
-            NSDate *date=[dateFormatter dateFromString:dateStr];
-            NSLog(@"date:%@",date);
+//            NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+//            dateFormatter.dateFormat= @"yyyy-MM-dd";
+//            NSDate *date=[dateFormatter dateFromString:dateStr];
+//            NSLog(@"date:%@",date);
             //duration
             NSString *durationStr=[set stringForColumn:@"duration"];
             NSTimeInterval duration=[durationStr floatValue];
@@ -364,7 +364,7 @@
             item.title=[set stringForColumn:@"title"];
             item.uri=[set stringForColumn:@"uri"];
             item.composer=[set stringForColumn:@"composer"];
-            item.date=date;
+            item.date=dateStr;
             item.album=[set stringForColumn:@"album"];
 //            item.contentFormat=[set stringForColumn:@"genres"];
             item.artist=[set stringForColumn:@"artist"];
@@ -738,11 +738,11 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
         [dateLabel setText:kUnknownAlertString];
     }else{
         
-        NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
-        dateFormatter.dateFormat= @"yyyy-MM-dd";
-        NSDate *date=item.date;
-        NSString *dateStr=[dateFormatter stringFromDate:date];
-        [dateLabel setText:dateStr];
+//        NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+//        dateFormatter.dateFormat= @"yyyy-MM-dd";
+//        NSDate *date=item.date;
+//        NSString *dateStr=[dateFormatter stringFromDate:date];
+        [dateLabel setText:item.date];
     }
     
     [bgView addSubview:dateLabel];
@@ -772,7 +772,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     //根据模式选择是否显示小图标
     if(islistIcon){
         UIImageView *headImageView = [[UIImageView alloc]initWithFrame:CGRectMake(10, 5, 50, 50)];
-        NSString *stringimage=[NSString stringWithFormat:@"%@",item.smallImageUrl];
+        NSString *stringimage=[NSString stringWithFormat:@"%@",item.albumArtURI];
         if (!stringimage) {
             [headImageView setImage:[UIImage imageNamed:@"temp"]];
             

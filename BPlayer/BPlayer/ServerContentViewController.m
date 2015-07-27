@@ -135,7 +135,7 @@
     
     MediaServerItem *item = [self.itemArr objectAtIndex:indexPath.row];
     cell.textLabel.text = item.title;
-    NSString *imgStr=item.thumbnailUrl;
+    NSString *imgStr=item.iconURI;
     if(imgStr && imgStr!=nil && ![imgStr isEqual:[NSNull null]]){
         ImageView *iv=[[ImageView alloc]initWithFrame:cell.imageView.frame imageURLStr:imgStr plactHolderImgName:@"temp.png" scale:NO];
         [cell.contentView addSubview:iv];
@@ -159,10 +159,8 @@
     NSLog(@"mimeType:%@",item.mimeType);
     NSLog(@"extention:%@",item.extention);
     NSLog(@"albumArtURI:%@",item.albumArtURI);
-    NSLog(@"thumbnailUrl:%@",item.thumbnailUrl);
-    NSLog(@"smallImageUrl:%@",item.smallImageUrl);
-    NSLog(@"mediumImageUrl:%@",item.mediumImageUrl);
-    NSLog(@"largeImageUrl:%@",item.largeImageUrl);
+    NSLog(@"iconURI:%@",item.iconURI);
+    
     
     
     return cell;
