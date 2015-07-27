@@ -131,7 +131,6 @@ void MediaRenderControllerServiceListener::OnGetMediaInfoResult(NPT_Result res
         }
         MediaItemInfo *itemInfo = [[MediaItemInfo alloc] init];
         itemInfo.duration = info->media_duration.ToSeconds();
-
         itemInfo.curUrl = [NSString stringWithUTF8String: info->cur_uri.GetChars()];
         //
         PLT_MediaObjectListReference objs(new PLT_MediaObjectList());

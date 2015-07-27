@@ -95,7 +95,7 @@ enum MediaServerItemType {
 
 @property (nonatomic, strong) NSString *artist;
 
-@property (nonatomic, strong) NSDate *date;
+@property (nonatomic, strong) NSString *date;
 
 @property (nonatomic, strong) NSString *composer;
 
@@ -111,13 +111,13 @@ enum MediaServerItemType {
 
 @property (nonatomic, strong) NSString *albumArtURI;
 
-@property (nonatomic, strong) NSString *thumbnailUrl;
+@property (nonatomic, strong) NSString *iconURI;
 
-@property (nonatomic, strong) NSString *smallImageUrl;
+//@property (nonatomic, strong) NSString *smallImageUrl;
 
-@property (nonatomic, strong) NSString *mediumImageUrl;
+//@property (nonatomic, strong) NSString *mediumImageUrl;
 
-@property (nonatomic, strong) NSString *largeImageUrl;
+//@property (nonatomic, strong) NSString *largeImageUrl;
 
 @property (nonatomic, strong) NSString *album;
 
