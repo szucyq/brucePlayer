@@ -211,6 +211,13 @@ static BOOL displayMute=NO;
     NSLog(@"cata view frame:%@",[NSValue valueWithCGRect:self.catalogNav.view.frame]);
     [self viewDidLayoutSubviews];
 }
+- (void)alert:(NSString *)title msg:(NSString *)msg
+{
+    UIAlertView *alter = [[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    
+    [alter show];
+    
+}
 #pragma mark -
 #pragma mark - actions
 - (IBAction)renderBtAction:(id)sender {
@@ -646,8 +653,20 @@ static BOOL displayMute=NO;
     [self initRender];
     [self.render previous:^(BOOL value){
         NSLog(@"previous:%d",value);
+        if(value){
+            [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
+                if(value){
+                    NSLog(@"curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
+                    [self refreshCurrentMusicInfoWithItem:item];
+                }
+            }];
+            
+            
+        }
+        NSString *str=[NSString stringWithFormat:@"%d",value];
+        [self alert:@"上一首提示" msg:str];
     }];
-    [self refreshCurrentMusicInfoWithItem:nil];
+//    [self refreshCurrentMusicInfoWithItem:nil];
 }
 
 - (IBAction)playPauseBtAction:(id)sender {
@@ -705,6 +724,8 @@ static BOOL displayMute=NO;
             
             
         }
+        NSString *str=[NSString stringWithFormat:@"%d",value];
+        [self alert:@"下一首提示" msg:str];
     }];
     
     
@@ -779,6 +800,8 @@ static BOOL displayMute=NO;
             NSLog(@"mute:%d",value);
             [self.muteBt setTitle:@"静音" forState:UIControlStateNormal];
             displayMute=!displayMute;
+            NSString *str=[NSString stringWithFormat:@"%d",value];
+            [self alert:@"静音提示" msg:str];
         }];
     }
     else{
@@ -787,6 +810,8 @@ static BOOL displayMute=NO;
             NSLog(@"mute:%d",value);
             [self.muteBt setTitle:@"原音" forState:UIControlStateNormal];
             displayMute=!displayMute;
+            NSString *str=[NSString stringWithFormat:@"%d",value];
+            [self alert:@"静音提示" msg:str];
         }];
     }
     
