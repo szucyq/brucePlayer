@@ -81,6 +81,8 @@ enum RenderStatu{
 
 @property (nonatomic, strong) NSString *curUrl;
 
+@property (nonatomic, strong) NSString *nextUrl;
+
 @property (nonatomic, strong) NSString *title;
 
 @property (nonatomic, strong) NSString *iconUri;

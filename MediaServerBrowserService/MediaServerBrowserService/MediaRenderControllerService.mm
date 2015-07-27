@@ -101,6 +101,7 @@ class MediaRenderLinster;
 @implementation MediaItemInfo
 
 @synthesize curUrl;
+@synthesize nextUrl;
 @synthesize duration;
 @synthesize title;
 @synthesize bitRate;
