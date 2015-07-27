@@ -79,7 +79,7 @@
     int imageWidth=[[defaults valueForKey:kIconWidth] intValue];
     int imagecount=[[defaults valueForKey:kIconNumber] intValue];
     int imageHeight=[[defaults valueForKey:kIconHeight] intValue];
-    NSLog(@"width1:%d--number1:%d",imageWidth,imagecount);
+    NSLog(@"width1:%d--number1:%d-- height:%d",imageWidth,imagecount,imageHeight);
     if(imagecount==0 || imageWidth==0 || imageHeight==0){
         imageWidth=120;
         imagecount=7;

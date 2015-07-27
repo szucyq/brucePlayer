@@ -36,7 +36,13 @@ static BOOL displayMute=NO;
     //初始化颜色
     self.bottomView.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bottom_bg.png"]];
     self.topView.backgroundColor=RGB(236, 234, 234, 1);
-    
+    //默认by方式
+    [self.songBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
+    [self.songBt setImage:[UIImage imageNamed:@"by_Songs_select.png"] forState:UIControlStateNormal];
+    [self.songBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    //默认浏览方式
+    [self.listIconBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
+    [self.listIconBt setImage:[UIImage imageNamed:@"menu_list_icon_select.png"] forState:UIControlStateNormal];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playWithAvItem:) name:@"kPlay" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getServerAction:) name:@"kSelectServer" object:nil];
