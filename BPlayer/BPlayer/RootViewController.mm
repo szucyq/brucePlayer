@@ -288,8 +288,8 @@ static BOOL displayMute=NO;
 //                NSString *date=[NSString stringWithFormat:@"%@",item.date];
                 NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
                 dateFormatter.dateFormat= @"yyyy-MM-dd";
-                NSString *date=[dateFormatter stringFromDate:item.date];
-                NSLog(@"date:%@",date);
+//                NSString *date=[dateFormatter stringFromDate:item.date];
+//                NSLog(@"date:%@",date);
                 //
                 NSString *format=[NSString stringWithFormat:@"%@",item.contentFormat];
                 //duration
@@ -297,7 +297,7 @@ static BOOL displayMute=NO;
                 NSString *duration=[NSString stringWithFormat:@"%f",durationDouble];
                 NSLog(@"duration:%f",durationDouble);
                 
-                 NSString *sql=[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",@"insert into music (server,title,uri,composer,album,genres,date,format,duration) values('",appDelagete.serverUuid,@"','",title,@"','",uri,@"','",composer,@"','",album,@"','",genres,@"','",date,@"','",format,@"','",duration,@"');"];
+                 NSString *sql=[NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@",@"insert into music (server,title,uri,composer,album,genres,date,format,duration) values('",appDelagete.serverUuid,@"','",title,@"','",uri,@"','",composer,@"','",album,@"','",genres,@"','",item.date,@"','",format,@"','",duration,@"');"];
                 
                 NSLog(@"sql:%@",sql);
                 BOOL musicAdd=[CoreFMDB executeUpdate:sql];
@@ -321,10 +321,9 @@ static BOOL displayMute=NO;
                 NSLog(@"mimeType:%@",item.mimeType);
                 NSLog(@"extention:%@",item.extention);
                 NSLog(@"albumArtURI:%@",item.albumArtURI);
-                NSLog(@"thumbnailUrl:%@",item.thumbnailUrl);
-                NSLog(@"smallImageUrl:%@",item.smallImageUrl);
-                NSLog(@"mediumImageUrl:%@",item.mediumImageUrl);
-                NSLog(@"largeImageUrl:%@",item.largeImageUrl);
+                
+                NSLog(@"iconURI:%@",item.iconURI);
+                
                 NSLog(@"duration:%f",item.duration);
                 NSLog(@"album:%@",item.album);
                 NSLog(@"genres:%@",item.genres);
@@ -957,10 +956,8 @@ static BOOL displayMute=NO;
     NSLog(@"mimeType:%@",item.mimeType);
     NSLog(@"extention:%@",item.extention);
     NSLog(@"albumArtURI:%@",item.albumArtURI);
-    NSLog(@"thumbnailUrl:%@",item.thumbnailUrl);
-    NSLog(@"smallImageUrl:%@",item.smallImageUrl);
-    NSLog(@"mediumImageUrl:%@",item.mediumImageUrl);
-    NSLog(@"largeImageUrl:%@",item.largeImageUrl);
+    NSLog(@"iconURI:%@",item.iconURI);
+    
     NSLog(@"duration:%f",item.duration);
     NSLog(@"album:%@",item.album);
     NSLog(@"genres:%@",item.genres);

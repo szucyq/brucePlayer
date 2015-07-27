@@ -81,7 +81,7 @@
 #pragma mark - upnp methods
 
 - (void)initUpnpServer {
-    return;
+//    return;
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     NSString *name=[[UIDevice currentDevice] name];
     // **This is quite useless for no document content manage support from UI
