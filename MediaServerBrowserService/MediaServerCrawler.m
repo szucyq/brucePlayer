@@ -60,9 +60,13 @@
                     case FOLDER:
                         [dirArr_ addObject:item.objID];
                         break;
-                    default:
+                    case AUDIO:
                         NSLog(@"[MediaServerCrawler] [onBrowseResult] add %@", item.title);
                         [crawlItemArr_ addObject:item];
+                        break;
+                    default:
+//                        NSLog(@"[MediaServerCrawler] [onBrowseResult] add %@", item.title);
+//                        [crawlItemArr_ addObject:item];
                         break;
                 }
             }

@@ -160,6 +160,8 @@
 		32F4DA581B63AF0700A31DE1 /* menu_list_no_icon_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32F4DA541B63AF0700A31DE1 /* menu_list_no_icon_select@2x.png */; };
 		32F4DA611B648E2B00A31DE1 /* AllMusicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 32F4DA5F1B648E2B00A31DE1 /* AllMusicCell.m */; };
 		32F4DA621B648E2B00A31DE1 /* AllMusicCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32F4DA601B648E2B00A31DE1 /* AllMusicCell.xib */; };
+		32F4DA751B678C9F00A31DE1 /* favourite_no.png in Resources */ = {isa = PBXBuildFile; fileRef = 32F4DA731B678C9F00A31DE1 /* favourite_no.png */; };
+		32F4DA761B678C9F00A31DE1 /* favourite_yes.png in Resources */ = {isa = PBXBuildFile; fileRef = 32F4DA741B678C9F00A31DE1 /* favourite_yes.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -430,6 +432,8 @@
 		32F4DA5E1B648E2B00A31DE1 /* AllMusicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllMusicCell.h; sourceTree = "<group>"; };
 		32F4DA5F1B648E2B00A31DE1 /* AllMusicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllMusicCell.m; sourceTree = "<group>"; };
 		32F4DA601B648E2B00A31DE1 /* AllMusicCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllMusicCell.xib; sourceTree = "<group>"; };
+		32F4DA731B678C9F00A31DE1 /* favourite_no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favourite_no.png; sourceTree = "<group>"; };
+		32F4DA741B678C9F00A31DE1 /* favourite_yes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favourite_yes.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -523,6 +527,8 @@
 				32E55EF61B57BAD60059EF09 /* Icon-72@2x.png */,
 				32E55EF71B57BAD60059EF09 /* Icon.png */,
 				32E55EF81B57BAD60059EF09 /* Icon@2x.png */,
+				32F4DA731B678C9F00A31DE1 /* favourite_no.png */,
+				32F4DA741B678C9F00A31DE1 /* favourite_yes.png */,
 				328CD88F1B5388BF002523E4 /* control.png */,
 				328CD88D1B5387FB002523E4 /* hide@2x.png */,
 				328CD8911B538C3A002523E4 /* bottom_bg.png */,
@@ -1023,6 +1029,7 @@
 				32A25B751B55214400C8FE08 /* remote-bg03.png in Resources */,
 				32A25B811B55214400C8FE08 /* remote-right.png in Resources */,
 				3216EDF51B49674400FEDAC0 /* play.png in Resources */,
+				32F4DA751B678C9F00A31DE1 /* favourite_no.png in Resources */,
 				32F4DA451B63A15000A31DE1 /* by_bg_blue.png in Resources */,
 				32A25B7C1B55214400C8FE08 /* remote-mute.png in Resources */,
 				328CD89C1B539747002523E4 /* RemoteControlController.xib in Resources */,
@@ -1049,6 +1056,7 @@
 				32F4DA461B63A15000A31DE1 /* by_bg_gray.png in Resources */,
 				32F4DA4F1B63A33F00A31DE1 /* by_Genres_select@2x.png in Resources */,
 				3216EDF31B49674400FEDAC0 /* next_unselected@2x.png in Resources */,
+				32F4DA761B678C9F00A31DE1 /* favourite_yes.png in Resources */,
 				327137761B4A38E400CE69D6 /* current_music.png in Resources */,
 				32E55F081B57C2610059EF09 /* ServerCell.xib in Resources */,
 				3216EE071B496A1C00FEDAC0 /* by_Years@2x.png in Resources */,

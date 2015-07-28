@@ -583,7 +583,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
         BOOL musicRemove=[CoreFMDB executeUpdate:sql];
         if(musicRemove){
             NSLog(@"success:%@",item.title);
-            [bt setImage:[UIImage imageNamed:@"menu_favourite.png"] forState:UIControlStateNormal];
+            [bt setImage:[UIImage imageNamed:@"favourite_no.png"] forState:UIControlStateNormal];
         }
         else{
             NSLog(@"fail:%@",item.title);
@@ -630,7 +630,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
         BOOL musicAdd=[CoreFMDB executeUpdate:sql];
         if(musicAdd){
             NSLog(@"success:%@",item.title);
-            [bt setImage:[UIImage imageNamed:@"menu_favourite_select.png"] forState:UIControlStateNormal];
+            [bt setImage:[UIImage imageNamed:@"favourite_yes.png"] forState:UIControlStateNormal];
         }
         else{
             NSLog(@"fail:%@",item.title);
@@ -789,10 +789,10 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     favBt.tag=indexPath.row;
     
     if([self isFavourite:item.uri]){
-        [favBt setImage:[UIImage imageNamed:@"menu_favourite_select.png"] forState:UIControlStateNormal];
+        [favBt setImage:[UIImage imageNamed:@"favourite_yes.png"] forState:UIControlStateNormal];
     }
     else{
-        [favBt setImage:[UIImage imageNamed:@"menu_favourite.png"] forState:UIControlStateNormal];
+        [favBt setImage:[UIImage imageNamed:@"favourite_no.png"] forState:UIControlStateNormal];
     }
     [bgView addSubview:favBt];
     //点击cell颜色
