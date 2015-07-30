@@ -11,6 +11,9 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "AppDelegate.h"
 
+#import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
+
 static BOOL displayBottom=YES;
 static BOOL displayMute=NO;
 
@@ -997,6 +1000,67 @@ static BOOL displayMute=NO;
     NSLog(@"bit:%f",item.bitrate);
     
 
+    //test begin
+    
+//    NSURL *fileURL=[NSURL fileURLWithPath:item.uri];
+//    AVURLAsset *mp3Asset=[AVURLAsset URLAssetWithURL:fileURL options:nil];
+//    NSFileManager *fm = [NSFileManager defaultManager];
+//    NSDictionary *dictAtt = [fm attributesOfItemAtPath:item.uri error:nil];
+//    
+//    NSString *singer;//歌手
+//    NSString *artworker;//作曲家
+//    
+//    NSString *song;//歌曲名
+//    UIImage *image;//图片
+//    NSString *albumName;//专辑名
+//    NSString *fileSize;//文件大小
+//    //    NSString *voiceStyle;//音质类型
+//    //    NSString *fileStyle;//文件类型
+//    NSString *creatDate;//创建日期
+//    
+//    fileSize = [NSString stringWithFormat:@"%.2fMB",[[dictAtt objectForKey:@"NSFileSize"] floatValue]/(1024*1024)];
+//    NSString *tempStrr  = [NSString stringWithFormat:@"%@", [dictAtt objectForKey:@"NSFileCreationDate"]] ;
+////    creatDate = [tempStrr substringToIndex:19];
+//    
+//    //    NSString *savePath; //存储路径  creationDate software
+//    //        NSLog(@"---------%@",[mp3Asset availableMetadataFormats]);
+//    for (NSString *format in [mp3Asset availableMetadataFormats]) {
+//        for (AVMetadataItem *metadataItem in [mp3Asset metadataForFormat:format]) {
+//            
+//            //                NSLog(@"metadataItem is %@",[mp3Asset metadataForFormat:format]);
+//            if([metadataItem.commonKey isEqualToString:@"title"]){
+//                song = (NSString *)metadataItem.value;//歌曲名
+//            }else if ([metadataItem.commonKey isEqualToString:@"artist"]){
+//                singer = (NSString *)metadataItem.value;//歌手
+//            }
+//            else if ([metadataItem.commonKey isEqualToString:@"duration"]){
+//                NSString*  duration = (NSString *)metadataItem.value;//歌手
+//                                    NSLog(@"+++++++++duration is %@",duration);
+//            }
+//            else if ([metadataItem.commonKey isEqualToString:@"software"]){
+//                NSString*  software = (NSString *)metadataItem.value;//歌手
+//                //                    NSLog(@"+++++++++software is %@",software);
+//            }
+//            
+//            //            专辑名称
+//            else if ([metadataItem.commonKey isEqualToString:@"albumName"])
+//            {
+//                albumName = (NSString *)metadataItem.value;
+//                                    NSLog(@"albumName is %@",albumName);
+//            }else if ([metadataItem.commonKey isEqualToString:@"artwork"]) {
+//                artworker = (NSString *)metadataItem.value;
+//                
+//                NSData *data=(NSData *)metadataItem.value;
+//                image=[UIImage imageWithData:data];//图片
+//            }
+//            
+//        }
+//    }
+//    
+//    
+//    NSDictionary *singrecord=[[NSDictionary alloc]initWithObjectsAndKeys:song,@"title", singer, @"artist", albumName, @"albumName", image, @"albumimage", fileSize,@"fileSize" ,creatDate,@"creatDate",nil];
+//    NSLog(@"record:%@",singrecord);
+    //test end
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     NSString *renderUuid=appDelagete.renderUuid;
     if([renderUuid isEqualToString:@"self"]){

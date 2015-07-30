@@ -73,6 +73,7 @@
 		32A25B811B55214400C8FE08 /* remote-right.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A25B701B55214400C8FE08 /* remote-right.png */; };
 		32A25B821B55214400C8FE08 /* remote-stop.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A25B711B55214400C8FE08 /* remote-stop.png */; };
 		32A25B831B55214400C8FE08 /* remote-up.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A25B721B55214400C8FE08 /* remote-up.png */; };
+		32B1EFE01B679CA200BE21EF /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B1EFDF1B679CA200BE21EF /* AudioToolbox.framework */; };
 		32DB6A7A1B3FF8FB0030E86F /* RenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DB6A791B3FF8FB0030E86F /* RenderViewController.m */; };
 		32DCC7671B3DB6230063DD60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC7661B3DB6230063DD60 /* main.m */; };
 		32DCC76A1B3DB6230063DD60 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 32DCC7691B3DB6230063DD60 /* AppDelegate.mm */; };
@@ -284,6 +285,7 @@
 		32A25B701B55214400C8FE08 /* remote-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "remote-right.png"; sourceTree = "<group>"; };
 		32A25B711B55214400C8FE08 /* remote-stop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "remote-stop.png"; sourceTree = "<group>"; };
 		32A25B721B55214400C8FE08 /* remote-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "remote-up.png"; sourceTree = "<group>"; };
+		32B1EFDF1B679CA200BE21EF /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		32DB6A781B3FF8FB0030E86F /* RenderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderViewController.h; sourceTree = "<group>"; };
 		32DB6A791B3FF8FB0030E86F /* RenderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderViewController.m; sourceTree = "<group>"; };
 		32DCC7611B3DB6230063DD60 /* BPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -441,6 +443,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32B1EFE01B679CA200BE21EF /* AudioToolbox.framework in Frameworks */,
+				32DCC86D1B3DB9920063DD60 /* AVFoundation.framework in Frameworks */,
 				32DCC8711B3DB9AF0063DD60 /* MediaPlayer.framework in Frameworks */,
 				3216EE2B1B49780D00FEDAC0 /* libsqlite3.dylib in Frameworks */,
 				32DCC89A1B3DC2B20063DD60 /* Platinum.framework in Frameworks */,
@@ -449,7 +453,6 @@
 				32DE230E1B4267E100B62958 /* MediaServerBrowserService.framework in Frameworks */,
 				32DCC8731B3DB9BD0063DD60 /* AssetsLibrary.framework in Frameworks */,
 				32DCC86F1B3DB9A10063DD60 /* libxml2.2.dylib in Frameworks */,
-				32DCC86D1B3DB9920063DD60 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -613,6 +616,7 @@
 		32DCC7581B3DB6230063DD60 = {
 			isa = PBXGroup;
 			children = (
+				32B1EFDF1B679CA200BE21EF /* AudioToolbox.framework */,
 				3297F4A11B3DCCBF0006EDFA /* MediaServerBrowserService.xcodeproj */,
 				32DCC7631B3DB6230063DD60 /* BPlayer */,
 				32DCC77D1B3DB6230063DD60 /* BPlayerTests */,
