@@ -236,7 +236,7 @@ static BOOL displayMute=NO;
     if([self.hideTimer isValid]){
         [self.hideTimer invalidate];
     }
-    self.secondsCountDown = 10;//10秒倒计时
+    self.secondsCountDown = 1000;//1000秒倒计时
     self.hideTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(hideTimeFireMethod) userInfo:nil repeats:YES];
 }
 - (void)hideTimeFireMethod{
