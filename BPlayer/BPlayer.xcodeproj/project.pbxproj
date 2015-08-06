@@ -40,6 +40,11 @@
 		3216EE341B4A082900FEDAC0 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3216EE321B4A082900FEDAC0 /* SearchViewController.m */; };
 		3228E7321B61BD6A0090A0D5 /* PlayListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3228E7301B61BD6A0090A0D5 /* PlayListController.m */; };
 		3228E7351B61C08C0090A0D5 /* FavoriteListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3228E7331B61C08C0090A0D5 /* FavoriteListController.m */; };
+		32372AFC1B72DD0000A5CEC3 /* icon_audio@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32372AF71B72DD0000A5CEC3 /* icon_audio@2x.png */; };
+		32372AFD1B72DD0000A5CEC3 /* icon_folder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32372AF81B72DD0000A5CEC3 /* icon_folder@2x.png */; };
+		32372AFE1B72DD0000A5CEC3 /* icon_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32372AF91B72DD0000A5CEC3 /* icon_image@2x.png */; };
+		32372AFF1B72DD0000A5CEC3 /* icon_unknown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32372AFA1B72DD0000A5CEC3 /* icon_unknown@2x.png */; };
+		32372B001B72DD0000A5CEC3 /* icon_video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32372AFB1B72DD0000A5CEC3 /* icon_video@2x.png */; };
 		3254A3351B4374820059A7D2 /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3254A2E41B4374820059A7D2 /* add@2x.png */; };
 		3254A3371B4374820059A7D2 /* backTo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3254A2E61B4374820059A7D2 /* backTo.png */; };
 		327137681B4A2ADF00CE69D6 /* temp.png in Resources */ = {isa = PBXBuildFile; fileRef = 327137671B4A2ADF00CE69D6 /* temp.png */; };
@@ -250,6 +255,11 @@
 		3228E7311B61BD6A0090A0D5 /* PlayListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayListController.h; sourceTree = "<group>"; };
 		3228E7331B61C08C0090A0D5 /* FavoriteListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteListController.m; sourceTree = "<group>"; };
 		3228E7341B61C08C0090A0D5 /* FavoriteListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteListController.h; sourceTree = "<group>"; };
+		32372AF71B72DD0000A5CEC3 /* icon_audio@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_audio@2x.png"; sourceTree = "<group>"; };
+		32372AF81B72DD0000A5CEC3 /* icon_folder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_folder@2x.png"; sourceTree = "<group>"; };
+		32372AF91B72DD0000A5CEC3 /* icon_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_image@2x.png"; sourceTree = "<group>"; };
+		32372AFA1B72DD0000A5CEC3 /* icon_unknown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_unknown@2x.png"; sourceTree = "<group>"; };
+		32372AFB1B72DD0000A5CEC3 /* icon_video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_video@2x.png"; sourceTree = "<group>"; };
 		3254A2E41B4374820059A7D2 /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		3254A2E61B4374820059A7D2 /* backTo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backTo.png; sourceTree = "<group>"; };
 		327137671B4A2ADF00CE69D6 /* temp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = temp.png; sourceTree = "<group>"; };
@@ -536,6 +546,11 @@
 				328CD88D1B5387FB002523E4 /* hide@2x.png */,
 				328CD8911B538C3A002523E4 /* bottom_bg.png */,
 				327137671B4A2ADF00CE69D6 /* temp.png */,
+				32372AF71B72DD0000A5CEC3 /* icon_audio@2x.png */,
+				32372AF81B72DD0000A5CEC3 /* icon_folder@2x.png */,
+				32372AF91B72DD0000A5CEC3 /* icon_image@2x.png */,
+				32372AFA1B72DD0000A5CEC3 /* icon_unknown@2x.png */,
+				32372AFB1B72DD0000A5CEC3 /* icon_video@2x.png */,
 				3216EE081B496B7D00FEDAC0 /* menu_icon@2x.png */,
 				32F4DA521B63AF0700A31DE1 /* menu_icon_select@2x.png */,
 				3216EE091B496B7D00FEDAC0 /* menu_list_icon@2x.png */,
@@ -997,11 +1012,14 @@
 				327137721B4A37C900CE69D6 /* play_circle@2x.png in Resources */,
 				32DCC78E1B3DB6AC0063DD60 /* RootView.xib in Resources */,
 				32E55EFA1B57BAD60059EF09 /* Icon-72@2x.png in Resources */,
+				32372AFD1B72DD0000A5CEC3 /* icon_folder@2x.png in Resources */,
+				32372B001B72DD0000A5CEC3 /* icon_video@2x.png in Resources */,
 				3271376B1B4A33D900CE69D6 /* setting_selected.png in Resources */,
 				3216EE051B496A0800FEDAC0 /* by_Songs@2x.png in Resources */,
 				32A25B731B55214400C8FE08 /* remote-bg01@2x.png in Resources */,
 				32F4DA501B63A33F00A31DE1 /* by_Years_select@2x.png in Resources */,
 				32DCC83F1B3DB8B40063DD60 /* SVProgressHUD.bundle in Resources */,
+				32372AFE1B72DD0000A5CEC3 /* icon_image@2x.png in Resources */,
 				328CD88E1B5387FB002523E4 /* hide@2x.png in Resources */,
 				32F4DA571B63AF0700A31DE1 /* menu_list_icon_select@2x.png in Resources */,
 				3216EE0C1B496B7D00FEDAC0 /* menu_list_icon@2x.png in Resources */,
@@ -1014,6 +1032,7 @@
 				32F4DA561B63AF0700A31DE1 /* menu_icon_select@2x.png in Resources */,
 				3216EE0B1B496B7D00FEDAC0 /* menu_icon@2x.png in Resources */,
 				32A25B791B55214400C8FE08 /* remote-home.png in Resources */,
+				32372AFC1B72DD0000A5CEC3 /* icon_audio@2x.png in Resources */,
 				32A25B7E1B55214400C8FE08 /* remote-playpause.png in Resources */,
 				327137731B4A37C900CE69D6 /* play_list@2x.png in Resources */,
 				32F4DA4D1B63A33F00A31DE1 /* by_Artists_select@2x.png in Resources */,
@@ -1043,6 +1062,7 @@
 				3297F4B21B3FC8CE0006EDFA /* RootView-iPhone.xib in Resources */,
 				32F4DA421B63A12D00A31DE1 /* by_Songs_select@2x.png in Resources */,
 				3216EDF61B49674400FEDAC0 /* privous_selected.png in Resources */,
+				32372AFF1B72DD0000A5CEC3 /* icon_unknown@2x.png in Resources */,
 				3216EE041B496A0800FEDAC0 /* by_Genres@2x.png in Resources */,
 				32A25B7B1B55214400C8FE08 /* remote-love.png in Resources */,
 				32E55EF91B57BAD60059EF09 /* Icon-72.png in Resources */,

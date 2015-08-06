@@ -114,18 +114,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    UITableViewCell *cell = [[UITableViewCell alloc] init];
-//    if ( !self.browserRoot ) {
-//        if (indexPath.row == 0) {
-//            cell.textLabel.text = @"..";
-//        } else {
-//            MediaServerItem *item = [self.itemArr objectAtIndex:indexPath.row - 1];
-//            cell.textLabel.text = item.title;
-//        }
-//    } else {
-//        MediaServerItem *item = [self.itemArr objectAtIndex:indexPath.row];
-//        cell.textLabel.text = item.title;
-//    }
     static NSString *identifier=@"serverCell";
     UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:identifier];
     
@@ -136,12 +124,35 @@
     MediaServerItem *item = [self.itemArr objectAtIndex:indexPath.row];
     cell.textLabel.text = item.title;
     NSString *imgStr=item.iconURI;
-    if(imgStr && imgStr!=nil && ![imgStr isEqual:[NSNull null]]){
-        ImageView *iv=[[ImageView alloc]initWithFrame:cell.imageView.frame imageURLStr:imgStr plactHolderImgName:@"temp.png" scale:NO];
-        [cell.contentView addSubview:iv];
+    NSLog(@"img :%@",item.iconURI);
+    if(imgStr==nil || [imgStr isEqual:[NSNull null]] || imgStr.length==0){
+        switch (item.type) {
+            case FOLDER:
+                cell.imageView.image=[UIImage imageNamed:@"icon_folder.png"];
+                break;
+            case AUDIO:
+                cell.imageView.image=[UIImage imageNamed:@"icon_audio.png"];
+                break;
+            case VIDEO:
+                cell.imageView.image=[UIImage imageNamed:@"icon_video.png"];
+                break;
+            case IMAGE:
+                cell.imageView.image=[UIImage imageNamed:@"icon_image.png"];
+                break;
+            case UNKNOW:
+                cell.imageView.image=[UIImage imageNamed:@"icon_unknown.png"];
+                break;
+                
+            default:
+                cell.imageView.image=[UIImage imageNamed:@"icon_unknown.png"];
+                break;
+        }
+        
     }
     else{
-        cell.imageView.image=[UIImage imageNamed:@"temp.png"];
+        ImageView *iv=[[ImageView alloc]initWithFrame:cell.imageView.frame imageURLStr:imgStr plactHolderImgName:@"temp.png" scale:NO];
+        [cell.contentView addSubview:iv];
+        
     }
     
     
