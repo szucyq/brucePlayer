@@ -9,6 +9,7 @@
 #import "WithTableViewController.h"
 #import <MediaServerBrowserService/MediaServerCrawler.h>
 #import "AllMusicCell.h"
+#import "UIScrollView+Touches.h"
 @interface AllMusicController : WithTableViewController
 @property (nonatomic,copy)NSString *byType;
 @property (nonatomic,copy)NSString *serverUuid;

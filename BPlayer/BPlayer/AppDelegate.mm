@@ -12,6 +12,7 @@
 #import "Util.h"
 #import "Macro.h"
 #import "CoreFMDB.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface AppDelegate ()
 
@@ -47,6 +48,19 @@
     [self createLeftView];
     
     NSLog(@"%@-%@",[[UIDevice currentDevice] name],[[UIDevice currentDevice] systemName]);
+    //后台播放
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    
+    NSError *setCategoryError = nil;
+    
+    [session setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
+    
+    NSError *activationError = nil;
+    
+    [session setActive:YES error:&activationError];
+    
+    //让app支持接受远程控制事件
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     
     //初始化dms
     [self initUpnpServer];

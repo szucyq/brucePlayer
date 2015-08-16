@@ -97,10 +97,10 @@
     
     scrollerview=[[UIView alloc]init];
     scrollerview.backgroundColor=[UIColor clearColor];
+
     UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
                                                         initWithTarget:self
                                                         action:@selector(handlePinch:)];
-//    [scrollerview addGestureRecognizer:pinchGestureRecognizer];
     [self.scrollView addGestureRecognizer:pinchGestureRecognizer];
     [self.scrollView addSubview:scrollerview];
     
@@ -331,6 +331,71 @@
 //    }
     
 }
+
+-(void) touchesEnded: (NSSet *) touches withEvent: (UIEvent *) event {
+    
+    //---get all touches on the screen---
+    NSSet *allTouches = [event allTouches];
+    NSLog(@"touch end");
+    //---compare the number of touches on the screen---
+//    switch ([allTouches count])
+//    {
+//            //---single touch---
+//        case 1: {
+//            //---get info of the touch---
+//            UITouch *touch = [[allTouches allObjects] objectAtIndex:0];
+//            
+//            //---check to see if the image is being touched---
+//            CGPoint touchPoint = [touch locationInView:[self view]];
+//            
+//            if (touchPoint.x > imageView.frame.origin.x &&
+//                touchPoint.x < imageView.frame.origin.x +
+//                imageView.frame.size.width &&
+//                touchPoint.y > imageView.frame.origin.y &&
+//                touchPoint.y <imageView.frame.origin.y +
+//                imageView.frame.size.height) {
+//                [imageView setCenter:touchPoint];
+//            }
+//        }  break;
+//            
+//            //---double-touch---
+//        case 2: {
+//            //---get info of first touch---
+//            UITouch *touch1 = [[allTouches allObjects] objectAtIndex:0];
+//            
+//            //---get info of second touch---
+//            UITouch *touch2 = [[allTouches allObjects] objectAtIndex:1];
+//            
+//            //---get the points touched---
+//            CGPoint touch1PT = [touch1 locationInView:[self view]];
+//            CGPoint touch2PT = [touch2 locationInView:[self view]];
+//            
+//            NSLog(@"Touch1: %.0f, %.0f", touch1PT.x, touch1PT.y);
+//            NSLog(@"Touch2: %.0f, %.0f", touch2PT.x, touch2PT.y);
+//            
+//            CGFloat currentDistance = [self distanceBetweenTwoPoints: touch1PT
+//                                                             toPoint: touch2PT];
+//            
+//            //---zoom in---
+//            if (currentDistance > originalDistance)
+//            {
+//                imageView.frame = CGRectMake(imageView.frame.origin.x - 2,
+//                                             imageView.frame.origin.y - 2,
+//                                             imageView.frame.size.width + 4,
+//                                             imageView.frame.size.height + 4);
+//            }
+//            else {
+//                //---zoom out---
+//                imageView.frame = CGRectMake(imageView.frame.origin.x + 2,
+//                                             imageView.frame.origin.y + 2,
+//                                             imageView.frame.size.width - 4,
+//                                             imageView.frame.size.height - 4);
+//            }
+//            originalDistance = currentDistance;
+//        } break;
+//    }
+}
+
 - (void)getAllMusicData{
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     

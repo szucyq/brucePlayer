@@ -11,4 +11,5 @@
 
 @interface UIScrollView(MyScrollViewTouches) 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
+
 @end

@@ -45,24 +45,31 @@ static BOOL displaySetting=NO;
     self.navigationController.navigationBarHidden=NO;
     
 //    self.view.frame=CGRectMake(0, 0, self.viewFrame.size.width, self.viewFrame.size.height);
-    self.listTableView.frame=CGRectMake(0, 0, self.viewFrame.size.width, self.viewFrame.size.height-100);
+    if(self.listTableView){
+        [self.listTableView removeFromSuperview];
+    }
+    self.listTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.viewFrame.size.width, self.viewFrame.size.height-100) style:UITableViewStyleGrouped];
+    self.listTableView.delegate=self;
+    self.listTableView.dataSource=self;
+
+    
+    [self.view addSubview:self.listTableView];
+    [self.view bringSubviewToFront:self.listTableView];
     [self.listTableView reloadData];
+    
     NSLog(@"self view frame 1:%@",[NSValue valueWithCGRect:self.view.frame]);
     //设置按钮
     UIView *view=[self.view viewWithTag:1001];
-    if(view){
-        
-    }
-    else{
+    if(!view){
         UIButton *settingBt=[UIButton buttonWithType:UIButtonTypeCustom];
         [settingBt setFrame:CGRectMake((kLeftViewWidth-56)/2.0,self.listTableView.frame.origin.y+self.listTableView.frame.size.height , 56, 56)];
         [settingBt addTarget:self action:@selector(settingAction) forControlEvents:UIControlEventTouchUpInside];
         [settingBt setBackgroundImage:[UIImage imageNamed:@"setting_unselected.png"] forState:UIControlStateNormal];
-//        [settingBt setTitle:@"设置" forState:UIControlStateNormal];
         settingBt.tag=1001;
         [self.view addSubview:settingBt];
         [self.view bringSubviewToFront:settingBt];
     }
+    
     
 }
 - (void)viewDidLoad
@@ -76,11 +83,6 @@ static BOOL displaySetting=NO;
     self.dmsArr=[NSMutableDictionary dictionary];
     self.listArray=[NSMutableArray array];
     self.title=@"选择服务器";
-//    [self setCustomRightButtonText:@"预加载资源" withImgName:nil];
-//    [self setCustomBackButtonText:@"返回" withImgName:nil];
-    
-//    UIBarButtonItem *rightBt=[[UIBarButtonItem alloc]initWithTitle:@"预加载资源" style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonAction)];
-//    self.navigationItem.rightBarButtonItem = rightBt;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(mediaServerAdded:)
@@ -200,6 +202,7 @@ static BOOL displaySetting=NO;
     
     
     NSString *key=[[_dmsArr allKeys] objectAtIndex:indexPath.row];
+    NSLog(@"this server:%@",[_dmsArr objectForKey:key]);
     cell.friendlyNameLabel.text=[[_dmsArr objectForKey:key] valueForKey:@"FriendlyName"];
     cell.ipLabel.text=[[_dmsArr objectForKey:key] valueForKey:@"IP"];
     
@@ -296,6 +299,22 @@ static BOOL displaySetting=NO;
 //    [self.navigationController pushViewController:contentController_ animated:YES];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 44.0;
+}
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.viewFrame.size.width, 44.0)];
+    view.backgroundColor=[UIColor blueColor];
+    
+    UILabel *label=[[UILabel alloc]initWithFrame:view.frame];
+    label.text=@"Local Sources";
+    label.font=[UIFont systemFontOfSize:15.0];
+    label.textColor=[UIColor whiteColor];
+    label.textAlignment=NSTextAlignmentLeft;
+    [view addSubview:label];
+    
+    return view;
+}
 #pragma mark -
 #pragma mark MediaServerBrowserDelegate
 

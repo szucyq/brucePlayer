@@ -45,6 +45,7 @@
 		32372AFE1B72DD0000A5CEC3 /* icon_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32372AF91B72DD0000A5CEC3 /* icon_image@2x.png */; };
 		32372AFF1B72DD0000A5CEC3 /* icon_unknown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32372AFA1B72DD0000A5CEC3 /* icon_unknown@2x.png */; };
 		32372B001B72DD0000A5CEC3 /* icon_video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32372AFB1B72DD0000A5CEC3 /* icon_video@2x.png */; };
+		324F944D1B80C79D00BA0BDA /* UIScrollView+Touches.m in Sources */ = {isa = PBXBuildFile; fileRef = 324F944C1B80C79D00BA0BDA /* UIScrollView+Touches.m */; };
 		3254A3351B4374820059A7D2 /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3254A2E41B4374820059A7D2 /* add@2x.png */; };
 		3254A3371B4374820059A7D2 /* backTo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3254A2E61B4374820059A7D2 /* backTo.png */; };
 		327137681B4A2ADF00CE69D6 /* temp.png in Resources */ = {isa = PBXBuildFile; fileRef = 327137671B4A2ADF00CE69D6 /* temp.png */; };
@@ -260,6 +261,8 @@
 		32372AF91B72DD0000A5CEC3 /* icon_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_image@2x.png"; sourceTree = "<group>"; };
 		32372AFA1B72DD0000A5CEC3 /* icon_unknown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_unknown@2x.png"; sourceTree = "<group>"; };
 		32372AFB1B72DD0000A5CEC3 /* icon_video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_video@2x.png"; sourceTree = "<group>"; };
+		324F944B1B80C79D00BA0BDA /* UIScrollView+Touches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Touches.h"; sourceTree = "<group>"; };
+		324F944C1B80C79D00BA0BDA /* UIScrollView+Touches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Touches.m"; sourceTree = "<group>"; };
 		3254A2E41B4374820059A7D2 /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		3254A2E61B4374820059A7D2 /* backTo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backTo.png; sourceTree = "<group>"; };
 		327137671B4A2ADF00CE69D6 /* temp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = temp.png; sourceTree = "<group>"; };
@@ -900,6 +903,8 @@
 				32F4DA5E1B648E2B00A31DE1 /* AllMusicCell.h */,
 				32F4DA5F1B648E2B00A31DE1 /* AllMusicCell.m */,
 				32F4DA601B648E2B00A31DE1 /* AllMusicCell.xib */,
+				324F944B1B80C79D00BA0BDA /* UIScrollView+Touches.h */,
+				324F944C1B80C79D00BA0BDA /* UIScrollView+Touches.m */,
 			);
 			name = DMC;
 			sourceTree = "<group>";
@@ -1135,6 +1140,7 @@
 				32DCC8441B3DB8B40063DD60 /* UIButton+AFNetworking.m in Sources */,
 				32DCC78D1B3DB6AC0063DD60 /* RootViewController.mm in Sources */,
 				32DCC8251B3DB8B40063DD60 /* AFNetworkReachabilityManager.m in Sources */,
+				324F944D1B80C79D00BA0BDA /* UIScrollView+Touches.m in Sources */,
 				32DCC7C41B3DB8780063DD60 /* UICustomLineLabel.m in Sources */,
 				32DCC8601B3DB9580063DD60 /* UPnPEngine.mm in Sources */,
 				32DCC7C61B3DB8780063DD60 /* ImageView.m in Sources */,
