@@ -17,7 +17,7 @@
     BOOL  isicon;
     BOOL  islistIcon;
     BOOL  islist;
-    UIView *scrollerview;
+    UIView *touchView;
     float kMusicViewWidth;
     float kMusicViewHeight;
     
@@ -91,18 +91,18 @@
     {
         [subView removeFromSuperview];
     }
-    if (scrollerview.superview) {
-        [scrollerview removeFromSuperview];
+    if (touchView.superview) {
+        [touchView removeFromSuperview];
     }
     
-    scrollerview=[[UIView alloc]init];
-    scrollerview.backgroundColor=[UIColor clearColor];
+    touchView=[[UIView alloc]init];
+    touchView.backgroundColor=[UIColor clearColor];
 
     UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
                                                         initWithTarget:self
                                                         action:@selector(handlePinch:)];
     [self.scrollView addGestureRecognizer:pinchGestureRecognizer];
-    [self.scrollView addSubview:scrollerview];
+    [self.scrollView addSubview:touchView];
     
     
     
@@ -162,12 +162,11 @@
     }
     float sizeHeight=(self.listArray.count/imagecount+1)*(imageHeight+paddingY);
     self.scrollView.contentSize=CGSizeMake(kMusicViewWidth, sizeHeight);
-    //    self.scrollView.frame=scrollerview.frame;
+
     
-    //    [scrollerview setFrame:CGRectMake(0, 0, kMusicViewWidth, kMusicViewHeight)];
     
     self.scrollView.backgroundColor=[UIColor clearColor];
-    scrollerview.backgroundColor=[UIColor redColor];
+
     
 }
 - (void)didReceiveMemoryWarning {
@@ -237,6 +236,7 @@
 - (void) handlePinch:(UIPinchGestureRecognizer*) recognizer
 {
     NSLog(@"handle pinch");
+    
     CGFloat factor = [(UIPinchGestureRecognizer *) recognizer scale];
     NSLog(@"scale is :%f",factor);
     NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
@@ -245,67 +245,70 @@
     if(imagecount==0)
         imagecount=7;
     NSLog(@"iamgecount :%d",imagecount);
-    if(factor>=1){
-        //放大手势
-        if(imagecount==7){
-            //6
-            [defaults setObject:@"6" forKey:kIconNumber];
-            [defaults setObject:@"130" forKey:kIconWidth];
-            [defaults setObject:@"130" forKey:kIconHeight];
-            [defaults synchronize];
-            [self addscroller];
-            return;
+    if(recognizer.state==UIGestureRecognizerStateEnded){
+        if(factor>=1){
+            //放大手势
+            if(imagecount==7){
+                //6
+                [defaults setObject:@"6" forKey:kIconNumber];
+                [defaults setObject:kIconWidth_6 forKey:kIconWidth];
+                [defaults setObject:kIconHeight_6 forKey:kIconHeight];
+                [defaults synchronize];
+                [self addscroller];
+                return;
+            }
+            if(imagecount==6){
+                //5
+                [defaults setObject:@"5" forKey:kIconNumber];
+                [defaults setObject:kIconWidth_5 forKey:kIconWidth];
+                [defaults setObject:kIconHeight_5 forKey:kIconHeight];
+                [defaults synchronize];
+                [self addscroller];
+                return;
+            }
+            if(imagecount==5){
+                //4
+                [defaults setObject:@"4" forKey:kIconNumber];
+                [defaults setObject:kIconWidth_4 forKey:kIconWidth];
+                [defaults setObject:kIconHeight_4 forKey:kIconHeight];
+                [defaults synchronize];
+                [self addscroller];
+                return;
+            }
+            
         }
-        if(imagecount==6){
-            //5
-            [defaults setObject:@"5" forKey:kIconNumber];
-            [defaults setObject:@"140" forKey:kIconWidth];
-            [defaults setObject:@"140" forKey:kIconHeight];
-            [defaults synchronize];
-            [self addscroller];
-            return;
+        else{
+            //缩小手势
+            if(imagecount==4){
+                //5
+                [defaults setObject:@"5" forKey:kIconNumber];
+                [defaults setObject:kIconWidth_5 forKey:kIconWidth];
+                [defaults setObject:kIconHeight_5 forKey:kIconHeight];
+                [defaults synchronize];
+                [self addscroller];
+                return;
+            }
+            if(imagecount==5){
+                //6
+                [defaults setObject:@"6" forKey:kIconNumber];
+                [defaults setObject:kIconWidth_6 forKey:kIconWidth];
+                [defaults setObject:kIconHeight_6 forKey:kIconHeight];
+                [defaults synchronize];
+                [self addscroller];
+                return;
+            }
+            if(imagecount==6){
+                //7
+                [defaults setObject:@"7" forKey:kIconNumber];
+                [defaults setObject:kIconWidth_7 forKey:kIconWidth];
+                [defaults setObject:kIconHeight_7 forKey:kIconHeight];
+                [defaults synchronize];
+                [self addscroller];
+                return;
+            }
         }
-        if(imagecount==5){
-            //4
-            [defaults setObject:@"4" forKey:kIconNumber];
-            [defaults setObject:@"150" forKey:kIconWidth];
-            [defaults setObject:@"150" forKey:kIconHeight];
-            [defaults synchronize];
-            [self addscroller];
-            return;
-        }
-        
     }
-    else{
-        //缩小手势
-        if(imagecount==4){
-            //5
-            [defaults setObject:@"5" forKey:kIconNumber];
-            [defaults setObject:@"140" forKey:kIconWidth];
-            [defaults setObject:@"140" forKey:kIconHeight];
-            [defaults synchronize];
-            [self addscroller];
-            return;
-        }
-        if(imagecount==5){
-            //6
-            [defaults setObject:@"6" forKey:kIconNumber];
-            [defaults setObject:@"130" forKey:kIconWidth];
-            [defaults setObject:@"130" forKey:kIconHeight];
-            [defaults synchronize];
-            [self addscroller];
-            return;
-        }
-        if(imagecount==6){
-            //7
-            [defaults setObject:@"7" forKey:kIconNumber];
-            [defaults setObject:@"120" forKey:kIconWidth];
-            [defaults setObject:@"120" forKey:kIconHeight];
-            [defaults synchronize];
-            [self addscroller];
-            return;
-        }
-    }
+    
     
 //    recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
 //    
@@ -316,7 +319,7 @@
 //        
 //        
 //    }
-//    NSString *savestr=[NSString stringWithFormat:@"%f",scrollerview.frame.size.width];
+//    NSString *savestr=[NSString stringWithFormat:@"%f",touchView.frame.size.width];
 //    NSLog(@"savestr is %@",savestr);
 //    
 //    float scrollerscale=[[[NSUserDefaults standardUserDefaults]objectForKey:@"recognizerwidth"] floatValue];
@@ -471,6 +474,8 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     
     self.listTableView.hidden=YES;
     self.scrollView.hidden=NO;
+    
+    [self addscroller];
 }
 
 - (void)showlistIconAction{

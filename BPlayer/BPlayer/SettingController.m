@@ -95,29 +95,29 @@
     if(tag==1){
         //4
         [defaults setObject:@"4" forKey:kIconNumber];
-        [defaults setObject:@"150" forKey:kIconWidth];
-        [defaults setObject:@"150" forKey:kIconHeight];
+        [defaults setObject:kIconWidth_4 forKey:kIconWidth];
+        [defaults setObject:kIconHeight_4 forKey:kIconHeight];
         [defaults synchronize];
     }
     else if(tag==2){
         //5
         [defaults setObject:@"5" forKey:kIconNumber];
-        [defaults setObject:@"140" forKey:kIconWidth];
-        [defaults setObject:@"140" forKey:kIconHeight];
+        [defaults setObject:kIconWidth_5 forKey:kIconWidth];
+        [defaults setObject:kIconHeight_5 forKey:kIconHeight];
         [defaults synchronize];
     }
     else if(tag==3){
         //6
         [defaults setObject:@"6" forKey:kIconNumber];
-        [defaults setObject:@"130" forKey:kIconWidth];
-        [defaults setObject:@"130" forKey:kIconHeight];
+        [defaults setObject:kIconWidth_6 forKey:kIconWidth];
+        [defaults setObject:kIconHeight_6 forKey:kIconHeight];
         [defaults synchronize];
     }
     else if(tag==4){
         //7
         [defaults setObject:@"7" forKey:kIconNumber];
-        [defaults setObject:@"120" forKey:kIconWidth];
-        [defaults setObject:@"120" forKey:kIconHeight];
+        [defaults setObject:kIconWidth_7 forKey:kIconWidth];
+        [defaults setObject:kIconHeight_7 forKey:kIconHeight];
         [defaults synchronize];
     }
 }

@@ -34,8 +34,14 @@
     
     //add table view
     self.listTableView.frame=CGRectMake(0, self.musicSearchBar.frame.origin.y+self.musicSearchBar.frame.size.height, kContentViewWidth, kContentViewHeightNoTab-self.musicSearchBar.frame.size.height-self.musicSearchBar.frame.origin.y);
+    //back
+//    [self setCustomBackButtonText:@"返回" withImgName:nil];
+    
     
 }
+//- (void)backToAction:(id)sender{
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
 //- (void)viewWillAppear:(BOOL)animated{
 //    [super viewWillAppear:animated];
 //    [self.navigationController setNavigationBarHidden:NO];

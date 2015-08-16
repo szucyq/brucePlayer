@@ -39,13 +39,18 @@
 #define kIconWidth  @"kIconWidth"
 #define kIconHeight @"kIconHeight"
 
-//--------------------------
+//------图标大小
+#define kIconWidth_4 @"150"
+#define kIconHeight_4 @"150"
 
+#define kIconWidth_5 @"140"
+#define kIconHeight_5 @"140"
 
+#define kIconWidth_6 @"130"
+#define kIconHeight_6 @"130"
 
-
-
-
+#define kIconWidth_7 @"120"
+#define kIconHeight_7 @"120"
 //技巧
 //------- arc
 //用-fno-objc-arc标记来禁用在ARC工程那些不支持ARC的文件的ARC
