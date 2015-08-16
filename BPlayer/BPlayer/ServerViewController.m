@@ -79,8 +79,8 @@ static BOOL displaySetting=NO;
 //    [self setCustomRightButtonText:@"预加载资源" withImgName:nil];
 //    [self setCustomBackButtonText:@"返回" withImgName:nil];
     
-    UIBarButtonItem *rightBt=[[UIBarButtonItem alloc]initWithTitle:@"预加载资源" style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonAction)];
-    self.navigationItem.rightBarButtonItem = rightBt;
+//    UIBarButtonItem *rightBt=[[UIBarButtonItem alloc]initWithTitle:@"预加载资源" style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonAction)];
+//    self.navigationItem.rightBarButtonItem = rightBt;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(mediaServerAdded:)

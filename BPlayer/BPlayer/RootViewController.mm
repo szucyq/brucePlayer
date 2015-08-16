@@ -397,10 +397,10 @@ static BOOL displayMute=NO;
     
     [popoverController presentPopoverFromRect:self.favoriteBt.frame inView:self.topView permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     //status
-    [self menuNormal];
+//    [self menuNormal];
     
-    [self.favoriteBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
-    [self.favoriteBt setImage:[UIImage imageNamed:@"menu_favourite_select.png"] forState:UIControlStateNormal];
+//    [self.favoriteBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
+//    [self.favoriteBt setImage:[UIImage imageNamed:@"menu_favourite_select.png"] forState:UIControlStateNormal];
 }
 
 - (IBAction)playlistAction:(id)sender {

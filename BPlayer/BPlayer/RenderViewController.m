@@ -19,7 +19,12 @@
 - (id)initWithFrame:(CGRect)frame{
     self=[super init];
     if(self){
-        self.listTableView.frame=CGRectMake(0, 0, frame.size.width, frame.size.height);
+        UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, 44.0)];
+        label.text=@"设备";
+        label.textAlignment=NSTextAlignmentCenter;
+        [self.view addSubview:label];
+        
+        self.listTableView.frame=CGRectMake(0, 44, frame.size.width, frame.size.height);
         
     }
     return self;
