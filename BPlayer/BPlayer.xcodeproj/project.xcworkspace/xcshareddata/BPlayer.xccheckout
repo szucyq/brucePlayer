@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>00CEFC71-EE3A-49E5-BABC-51AEC24367D0</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>BPlayer</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>78D7817612590D102C1A142403A0264956590F17</key>
 		<string>https://github.com/szucyq/brucePlayer.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>BPlayer/BPlayer.xcodeproj/project.xcworkspace</string>
+	<string>BPlayer/BPlayer.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>78D7817612590D102C1A142403A0264956590F17</key>

@@ -282,7 +282,7 @@ static BOOL displaySetting=NO;
     NSString *uuid=[[_dmsArr objectForKey:key] valueForKey:@"UUID"];
     appDelagete.serverUuid=uuid;
 
-    [SVProgressHUD showSuccessWithStatus:@"已选择媒体服务器" maskType:SVProgressHUDMaskTypeBlack];
+//    [SVProgressHUD showSuccessWithStatus:@"已选择媒体服务器" maskType:SVProgressHUDMaskTypeBlack];
     
     //此处选择server后，传递server信息，让前端刷新对应server内容
     NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:uuid,@"server", nil];

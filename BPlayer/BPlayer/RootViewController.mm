@@ -14,6 +14,8 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 
+#import "MTStatusBarOverlay.h"
+
 static BOOL displayBottom=YES;
 static BOOL displayMute=NO;
 
@@ -299,6 +301,14 @@ static BOOL displayMute=NO;
 
 - (IBAction)loadAllContentsAction:(id)sender {
     NSLog(@"加载所有资源，等资源做效果");
+    //--status bar
+    MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
+    overlay.animation = MTStatusBarOverlayAnimationFallDown;  // MTStatusBarOverlayAnimationShrink
+    overlay.detailViewMode = MTDetailViewModeHistory;
+    [overlay postMessage:@"资源同步中..." animated:YES];
+    overlay.progress = 0.5;
+    
+    //---
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     
     if(appDelagete.serverUuid){
@@ -379,6 +389,7 @@ static BOOL displayMute=NO;
                 NSLog(@"bit:%f",item.bitrate);
                 NSLog(@"date:%@",item.date);
             }
+            [overlay hide];
         }];
     }
     else{
@@ -1196,7 +1207,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     [self.view addSubview:self.catalogNav.view];
     [self.view bringSubviewToFront:self.catalogNav.view];
     //提醒开始同步该服务器资源
-    [SVProgressHUD showInfoWithStatus:@"正在为您同步资源" maskType:SVProgressHUDMaskTypeBlack];
+//    [SVProgressHUD showInfoWithStatus:@"正在为您同步资源" maskType:SVProgressHUDMaskTypeBlack];
     [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
 }
 #pragma mark -
