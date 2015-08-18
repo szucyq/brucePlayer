@@ -80,6 +80,8 @@ static BOOL displayMute=NO;
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(settingAction:) name:@"setting" object:nil];
     //30 s后隐藏视图
     [self beginHideTimer];
+    //如果之前有server，则默认同步server资料
+    [self initDataIfExistServer];
 }
 
 - (void)gestureAction:(UIGestureRecognizer *)sender{
@@ -232,6 +234,15 @@ static BOOL displayMute=NO;
     [alter show];
     
 }
+- (void)initDataIfExistServer{
+//    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+//    NSString *uuid=[defaults valueForKey:kDefaultServer];
+//    if(uuid){
+//        AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+//        appDelagete.serverUuid=uuid;
+//        [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
+//    }
+}
 #pragma mark -
 #pragma 隐藏底部视图
 - (void)beginHideTimer{
@@ -306,7 +317,7 @@ static BOOL displayMute=NO;
     overlay.animation = MTStatusBarOverlayAnimationFallDown;  // MTStatusBarOverlayAnimationShrink
     overlay.detailViewMode = MTDetailViewModeHistory;
     [overlay postMessage:@"资源同步中..." animated:YES];
-    overlay.progress = 0.5;
+    overlay.progress = 0.1;
     
     //---
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
@@ -389,7 +400,10 @@ static BOOL displayMute=NO;
                 NSLog(@"bit:%f",item.bitrate);
                 NSLog(@"date:%@",item.date);
             }
-            [overlay hide];
+            
+            [overlay postImmediateFinishMessage:@"资源同步完成!" duration:2.0 animated:YES];
+            overlay.progress =1.0;
+
         }];
     }
     else{

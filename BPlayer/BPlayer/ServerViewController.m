@@ -287,6 +287,13 @@ static BOOL displaySetting=NO;
     //此处选择server后，传递server信息，让前端刷新对应server内容
     NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:uuid,@"server", nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"kSelectServer" object:nil userInfo:userinfo];
+    
+    //保存server
+    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+    [defaults setValue:uuid forKey:kDefaultServer];
+    [defaults synchronize]
+    ;
+    
 //    return;
     //暂时跳转下级目录测试
 //    if (contentController_ == nil) {
