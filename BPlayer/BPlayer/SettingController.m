@@ -30,8 +30,12 @@
     [self.view addSubview:self.listTableView];
     [self.view bringSubviewToFront:self.listTableView];
     //
-    self.listArray=[NSMutableArray arrayWithObjects:@"图标浏览方式显示数量",@"自动锁屏",@"用户指南",@"用户反馈",@"版本", nil];
+//    self.listArray=[NSMutableArray arrayWithObjects:@"图标浏览方式显示数量",@"自动锁屏",@"用户指南",@"用户反馈",@"版本", nil];
+    
+    self.listArray=[NSMutableArray arrayWithObjects:@"用户指南",@"版本", nil];
+    
 //    self.listArray=[NSMutableArray arrayWithObjects:@"Sources",@"ES9018 DAC",@"WM8741 DAC",@"Analog Input",@"S/P DIF",@"DSD Output Mode",@"Default Setting",@"WIFI",@"About", nil];
+    self.iconNumView.hidden=YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,12 +82,21 @@
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"row:%d",indexPath.row);
     if(indexPath.row==0){
-        self.iconNumView.hidden=NO;
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.baidu.com/"]];
+    }
+    else if(indexPath.row==1){
+        UIView *view=[self.view viewWithTag:1001];
+        if(!view){
+            UILabel *label=[[UILabel alloc]initWithFrame:CGRectMake(260, 100, 100, 40)];
+            label.text=@"当前版本1.0";
+            label.tag=1001;
+            [self.view addSubview:label];
+        }
+        
     }
     else{
-        self.iconNumView.hidden=YES;
+        
     }
 }
 #pragma mark -
