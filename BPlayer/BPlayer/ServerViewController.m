@@ -84,15 +84,15 @@ static BOOL displaySetting=NO;
     self.listArray=[NSMutableArray array];
     self.title=@"选择服务器";
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(mediaServerAdded:)
-                                                 name:@"MediaServerAddedNotification"
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(mediaServerRemove:)
-                                                 name:@"MediaServerRemovedNotification"
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(mediaServerAdded:)
+//                                                 name:@"MediaServerAddedNotification"
+//                                               object:nil];
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(mediaServerRemove:)
+//                                                 name:@"MediaServerRemovedNotification"
+//                                               object:nil];
     
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadLeftView:) name:@"LeftRefresh" object:nil];
@@ -199,7 +199,7 @@ static BOOL displaySetting=NO;
         
     }
     
-    
+
     
     NSString *key=[[_dmsArr allKeys] objectAtIndex:indexPath.row];
     NSLog(@"this server:%@",[_dmsArr objectForKey:key]);
@@ -282,11 +282,18 @@ static BOOL displaySetting=NO;
     NSString *uuid=[[_dmsArr objectForKey:key] valueForKey:@"UUID"];
     appDelagete.serverUuid=uuid;
 
-    [SVProgressHUD showSuccessWithStatus:@"已选择媒体服务器" maskType:SVProgressHUDMaskTypeBlack];
+//    [SVProgressHUD showSuccessWithStatus:@"已选择媒体服务器" maskType:SVProgressHUDMaskTypeBlack];
     
     //此处选择server后，传递server信息，让前端刷新对应server内容
     NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:uuid,@"server", nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"kSelectServer" object:nil userInfo:userinfo];
+    
+    //保存server
+    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+    [defaults setValue:uuid forKey:kDefaultServer];
+    [defaults synchronize]
+    ;
+    
 //    return;
     //暂时跳转下级目录测试
 //    if (contentController_ == nil) {

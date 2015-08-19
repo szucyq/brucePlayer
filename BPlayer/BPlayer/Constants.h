@@ -51,6 +51,10 @@
 
 #define kIconWidth_7 @"120"
 #define kIconHeight_7 @"120"
+
+
+#define kDefaultServer @"kDefaultServer"
+#define kDefaultRender @"kDefaultRender"
 //技巧
 //------- arc
 //用-fno-objc-arc标记来禁用在ARC工程那些不支持ARC的文件的ARC

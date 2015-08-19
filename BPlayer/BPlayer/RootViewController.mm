@@ -14,6 +14,8 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 
+#import "MTStatusBarOverlay.h"
+
 static BOOL displayBottom=YES;
 static BOOL displayMute=NO;
 
@@ -78,6 +80,8 @@ static BOOL displayMute=NO;
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(settingAction:) name:@"setting" object:nil];
     //30 s后隐藏视图
     [self beginHideTimer];
+    //如果之前有server，则默认同步server资料
+    [self initDataIfExistServer];
 }
 
 - (void)gestureAction:(UIGestureRecognizer *)sender{
@@ -230,6 +234,15 @@ static BOOL displayMute=NO;
     [alter show];
     
 }
+- (void)initDataIfExistServer{
+//    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+//    NSString *uuid=[defaults valueForKey:kDefaultServer];
+//    if(uuid){
+//        AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+//        appDelagete.serverUuid=uuid;
+//        [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
+//    }
+}
 #pragma mark -
 #pragma 隐藏底部视图
 - (void)beginHideTimer{
@@ -299,6 +312,14 @@ static BOOL displayMute=NO;
 
 - (IBAction)loadAllContentsAction:(id)sender {
     NSLog(@"加载所有资源，等资源做效果");
+    //--status bar
+    MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
+    overlay.animation = MTStatusBarOverlayAnimationFallDown;  // MTStatusBarOverlayAnimationShrink
+    overlay.detailViewMode = MTDetailViewModeHistory;
+    [overlay postMessage:@"资源同步中..." animated:YES];
+    overlay.progress = 0.1;
+    
+    //---
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     
     if(appDelagete.serverUuid){
@@ -379,6 +400,10 @@ static BOOL displayMute=NO;
                 NSLog(@"bit:%f",item.bitrate);
                 NSLog(@"date:%@",item.date);
             }
+            
+            [overlay postImmediateFinishMessage:@"资源同步完成!" duration:2.0 animated:YES];
+            overlay.progress =1.0;
+
         }];
     }
     else{
@@ -1196,7 +1221,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     [self.view addSubview:self.catalogNav.view];
     [self.view bringSubviewToFront:self.catalogNav.view];
     //提醒开始同步该服务器资源
-    [SVProgressHUD showInfoWithStatus:@"正在为您同步资源" maskType:SVProgressHUDMaskTypeBlack];
+//    [SVProgressHUD showInfoWithStatus:@"正在为您同步资源" maskType:SVProgressHUDMaskTypeBlack];
     [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
 }
 #pragma mark -
@@ -1211,9 +1236,8 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     [self.dmsDic setObject:msg forKey:uuid];
     
     NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:self.dmsDic,@"server", nil];
-    NSLog(@"servers:%@",[MediaServerBrowserService instance].mediaServers);
+    NSLog(@"servers add:%@",[MediaServerBrowserService instance].mediaServers);
 //     NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:[MediaServerBrowserService instance].mediaServers,@"server", nil];
-//    [self.listTableView reloadData];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"LeftRefresh" object:nil userInfo:dic];
 }
 
@@ -1223,7 +1247,11 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     //NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
     NSString *uuid = [msg valueForKey:@"UUID"];
     [self.dmsDic removeObjectForKey:uuid];
-//    [self.listTableView reloadData];
+    
+    NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:self.dmsDic,@"server", nil];
+    NSLog(@"servers Remove:%@",[MediaServerBrowserService instance].mediaServers);
+//    NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:[MediaServerBrowserService instance].mediaServers,@"server", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LeftRefresh" object:nil userInfo:dic];
 }
 @end
 
