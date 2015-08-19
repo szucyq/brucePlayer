@@ -294,7 +294,7 @@ void MediaRenderControllerServiceListener::OnMRStateVariablesChanged(PLT_Service
             NSNumber *state = [NSNumber numberWithInt:st];
             NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[UUID, state]
                                                               forKeys:@[@"UUID", @"state"]];
-            NSNotification *ntf = [NSNotification notificationWithName:MEDIARENDERADDEDNOTIFICATION object:dic];
+            NSNotification *ntf = [NSNotification notificationWithName:MEDIARENDERSTATENOTIFICATION object:dic];
             [[NSNotificationCenter defaultCenter] postNotification:ntf];
         } else if ( stateName == "CurrentTrackDuration") {
             NPT_String value = (*iter)->GetValue();
@@ -312,7 +312,7 @@ void MediaRenderControllerServiceListener::OnMRStateVariablesChanged(PLT_Service
         } else if ( stateName == "CurrentTrackMetaData") {
             PLT_MediaObjectListReference objs(new PLT_MediaObjectList());
             NPT_String value = (*iter)->GetValue();
-            NSString *title = nil;
+            NSString *title = [[NSString alloc] init];
             if (NPT_SUCCEEDED(PLT_Didl::FromDidl(value, objs))) {
                 if (objs->GetItemCount() >= 1) {
                     PLT_MediaItem *p = dynamic_cast<PLT_MediaItem*>(*(objs->GetFirstItem()));
