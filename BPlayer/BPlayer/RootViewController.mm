@@ -1236,9 +1236,8 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     [self.dmsDic setObject:msg forKey:uuid];
     
     NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:self.dmsDic,@"server", nil];
-    NSLog(@"servers:%@",[MediaServerBrowserService instance].mediaServers);
+    NSLog(@"servers add:%@",[MediaServerBrowserService instance].mediaServers);
 //     NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:[MediaServerBrowserService instance].mediaServers,@"server", nil];
-//    [self.listTableView reloadData];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"LeftRefresh" object:nil userInfo:dic];
 }
 
@@ -1248,7 +1247,11 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     //NSString *friendlyName = [msg valueForKey:@"FriendlyName"];
     NSString *uuid = [msg valueForKey:@"UUID"];
     [self.dmsDic removeObjectForKey:uuid];
-//    [self.listTableView reloadData];
+    
+    NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:self.dmsDic,@"server", nil];
+    NSLog(@"servers Remove:%@",[MediaServerBrowserService instance].mediaServers);
+//    NSDictionary *dic=[NSDictionary dictionaryWithObjectsAndKeys:[MediaServerBrowserService instance].mediaServers,@"server", nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LeftRefresh" object:nil userInfo:dic];
 }
 @end
 

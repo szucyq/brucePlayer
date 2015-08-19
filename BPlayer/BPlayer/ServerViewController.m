@@ -84,15 +84,15 @@ static BOOL displaySetting=NO;
     self.listArray=[NSMutableArray array];
     self.title=@"选择服务器";
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(mediaServerAdded:)
-                                                 name:@"MediaServerAddedNotification"
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(mediaServerRemove:)
-                                                 name:@"MediaServerRemovedNotification"
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(mediaServerAdded:)
+//                                                 name:@"MediaServerAddedNotification"
+//                                               object:nil];
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(mediaServerRemove:)
+//                                                 name:@"MediaServerRemovedNotification"
+//                                               object:nil];
     
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadLeftView:) name:@"LeftRefresh" object:nil];
@@ -199,7 +199,7 @@ static BOOL displaySetting=NO;
         
     }
     
-    
+
     
     NSString *key=[[_dmsArr allKeys] objectAtIndex:indexPath.row];
     NSLog(@"this server:%@",[_dmsArr objectForKey:key]);
