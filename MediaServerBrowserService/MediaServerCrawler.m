@@ -72,6 +72,8 @@
             }
         } else {
             NSLog(@"[MediaServerCrawler] [onBrowseResult] failure!!!");
+            callback_(NO, nil);
+            return;
         }
         [self browseFolder];
     }];
