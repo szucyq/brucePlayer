@@ -46,6 +46,10 @@ enum RenderStatu{
 @property(nonatomic, readonly)NSString *UUID;
 @property(nonatomic, readonly)NSString *friendlyName;
 
+@property(nonatomic, readonly)NSNumber *state;
+@property(nonatomic, readonly)NSNumber *duration;
+@property(nonatomic, readonly)NSString *title;
+
 // async get
 - (void)getCurPos:(void (^)(BOOL,NSTimeInterval,NSTimeInterval))handler;
 

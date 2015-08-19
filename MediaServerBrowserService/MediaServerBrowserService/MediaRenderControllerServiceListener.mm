@@ -23,7 +23,7 @@ MediaRenderControllerServiceListener::MediaRenderControllerServiceListener()
 
 bool MediaRenderControllerServiceListener::OnMRAdded(PLT_DeviceDataReference &device)
 {
-    NSLog(@"[MediaRenderLinster] [OnMRAdded] render add %s", device->GetFriendlyName().GetChars());
+    NSLog(@"[MediaRenderListener] [OnMRAdded] render add %s", device->GetFriendlyName().GetChars());
     renders_.push_back(device);
     NSString *friendlyName = [NSString stringWithUTF8String: device->GetFriendlyName().GetChars()];
     NSString *uuid = [NSString stringWithUTF8String: device->GetUUID().GetChars()];
@@ -40,7 +40,7 @@ bool MediaRenderControllerServiceListener::OnMRAdded(PLT_DeviceDataReference &de
 
 void MediaRenderControllerServiceListener::OnMRRemoved(PLT_DeviceDataReference &device)
 {
-    NSLog(@"[MediaRenderLinster] [OnMRRemoved] render add %s", device->GetFriendlyName().GetChars());
+    NSLog(@"[MediaRenderListener] [OnMRRemoved] render add %s", device->GetFriendlyName().GetChars());
     renders_.remove(device);
     NSString *friendlyName = [NSString stringWithUTF8String: device->GetFriendlyName().GetChars()];
     NSString *uuid = [NSString stringWithUTF8String: device->GetUUID().GetChars()];
@@ -250,6 +250,9 @@ void MediaRenderControllerServiceListener::OnGetTransportInfoResult(NPT_Result r
 {
     NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userdata);
     void (^callback)(BOOL,int) = [dic valueForKey:@"getStat"];
+    if ( NPT_FAILED(res) ) {
+        callback(NO, 0);
+    }
     NSString *stStr = [NSString stringWithUTF8String:info->cur_transport_state.GetChars()];
     int st = 4; //unknow
     stStr = [stStr lowercaseString];
@@ -265,7 +268,7 @@ void MediaRenderControllerServiceListener::OnGetTransportInfoResult(NPT_Result r
         st = 0;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-        callback(NPT_SUCCEEDED(res) ? YES : NO, st);
+        callback(YES, st);
     });
 }
 
@@ -297,13 +300,15 @@ void MediaRenderControllerServiceListener::OnMRStateVariablesChanged(PLT_Service
             NSNotification *ntf = [NSNotification notificationWithName:MEDIARENDERSTATENOTIFICATION object:dic];
             [[NSNotificationCenter defaultCenter] postNotification:ntf];
         } else if ( stateName == "CurrentTrackDuration") {
-            NPT_String value = (*iter)->GetValue();
+            NPT_List<NPT_String> ts = (*iter)->GetValue().Split(":");
             int h = 0;
-            value.Split(":").GetItem(0)->ToInteger(h);
             int m = 0;
-            value.Split(":").GetItem(1)->ToInteger(m);
             int s = 0;
-            value.Split(":").GetItem(2)->ToInteger(s);
+            if (ts.GetItemCount() == 3) {
+                ts.GetItem(0)->ToInteger(h);
+                ts.GetItem(1)->ToInteger(m);
+                ts.GetItem(2)->ToInteger(s);
+            }
             NSNumber *sconds = [NSNumber numberWithInt:h*3600 + m*60 + s];
             NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[UUID, sconds]
                                                             forKeys:@[@"UUID", @"duration"]];

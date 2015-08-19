@@ -16,7 +16,9 @@
     PLT_DeviceDataReference device_;
 }
 
-@synthesize UUID = UUID_;
+@synthesize state = state_;
+@synthesize title = title_;
+@synthesize duration = duration_;
 
 - (id)initWithController:(PLT_DeviceDataReference)device
               controller:(PLT_MediaController *)controller
@@ -25,8 +27,66 @@
     if (self) {
         controller_ = controller;
         device_ = device;
+        state_ = [[NSNumber alloc] initWithInt:RenderStatu::STAT_UNKNOW];
+        duration_ = [[NSNumber alloc] initWithInt:0];
+        title_ = [[NSString alloc] init];
+        
+        //
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(stateChange:)
+                                                     name:@"MediaRenderStateNotification"
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(titleChange:)
+                                                     name:@"MediaRenderTitleNotification"
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(durationChange:)
+                                                     name:@"MediaRenderDurationNotification"
+                                                   object:nil];
     }
     return self;
+}
+
+- (void)durationChange:(NSNotification*)notification
+{
+    NSDictionary *msg = notification.object;
+    NSString *UUID = [msg valueForKey:@"UUID"];
+    NSNumber *duration = [msg valueForKey:@"duration"];
+    if ( [UUID isEqualToString:self.UUID] &&
+        ![duration isEqualToNumber:duration_] ) {
+        duration_ = duration;
+        //title_ = title;
+    }
+}
+
+- (void)titleChange:(NSNotification*)notification
+{
+    NSDictionary *msg = notification.object;
+    NSString *UUID = [msg valueForKey:@"UUID"];
+    NSString *title = [msg valueForKey:@"title"];
+    if ( [UUID isEqualToString:self.UUID] &&
+        ![title isEqualToString:title_] ) {
+        title_ = title;
+    }
+}
+
+- (void)stateChange:(NSNotification*)notification
+{
+    NSDictionary *msg = notification.object;
+    NSString *UUID = [msg valueForKey:@"UUID"];
+    NSNumber *st = [msg valueForKey:@"state"];
+    if ( [UUID isEqualToString:self.UUID] &&
+        ![st isEqualToNumber:state_] ) {
+        state_ = st;
+    }
+}
+
+- (NSString*)UUID
+{
+    return [NSString stringWithUTF8String:device_->GetUUID().GetChars()];
 }
 
 - (NSString*)friendlyName
