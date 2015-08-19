@@ -47,8 +47,8 @@ static BOOL displayMute=NO;
     [self.catalogBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
     //默认浏览方式
-    [self.listIconBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
-    [self.listIconBt setImage:[UIImage imageNamed:@"menu_list_icon_select.png"] forState:UIControlStateNormal];
+//    [self.listIconBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
+//    [self.listIconBt setImage:[UIImage imageNamed:@"menu_list_icon_select.png"] forState:UIControlStateNormal];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playWithAvItem:) name:@"kPlay" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getServerAction:) name:@"kSelectServer" object:nil];
@@ -328,6 +328,7 @@ static BOOL displayMute=NO;
 
         //
         MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithBrowser:browser];
+        NSLog(@"crawler init");
         [crawler crawl:^(BOOL ret, NSArray *items) {
             NSLog(@"crawler items = %d", [items count]);
             //添加music 数据
@@ -726,7 +727,6 @@ static BOOL displayMute=NO;
         NSString *str=[NSString stringWithFormat:@"%d",value];
         [self alert:@"上一首提示" msg:str];
     }];
-//    [self refreshCurrentMusicInfoWithItem:nil];
 }
 
 - (IBAction)playPauseBtAction:(id)sender {
@@ -908,8 +908,7 @@ static BOOL displayMute=NO;
     //当前时间进度
     self.curMusicTimeLabel.text=time;
     self.curTimeLabel.text=time;
-    //刷新音量
-    [self getVolumeAction:nil];
+    
 }
 - (void)refreshAllMusicByType:(NSString*)type{
     //取得当前的server
@@ -1163,12 +1162,13 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     [self.render getCurPos:^(BOOL value,NSTimeInterval time,NSTimeInterval duration){
         NSLog(@"getCurPos:%f---duration:%f",time,duration);
     
+        //该方法应该主要刷新当前时间进度，不用做其他变化信息的处理
         self.seekSlider.minimumValue = 0;   //最小值
         self.seekSlider.maximumValue = duration;  //最大值
         self.lengthTimeLabel.text=stringFromInterval(duration);
         self.seekSlider.value=time;
         
-        //----应该在play时修改slider，目前没有时间属性先显示这里
+        //歌曲信息变化时应该由kvo||getMediaInfo来触发，不用放此处
     
         [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
             if(value){
@@ -1179,8 +1179,10 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
             //刷新当前时间
             NSString *timeStr=stringFromInterval(time);
             [self refreshCurrentMusicItem:item curTime:timeStr];
-            //刷新当前歌曲信息－自动切换歌曲时需要用到
+            //刷新当前歌曲信息－自动切换歌曲、prevous、next时需要用到该方法
             [self refreshCurrentMusicInfoWithItem:item];
+            //刷新音量
+            [self getVolumeAction:nil];
         }];
         
     }];

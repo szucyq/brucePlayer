@@ -266,7 +266,7 @@
                             </connections>
                         </button>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" id="mQs-Jt-xjn">
-                            <rect key="frame" x="856" y="15" width="162" height="31"/>
+                            <rect key="frame" x="856" y="17" width="162" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <connections>
                                 <action selector="setVolumeAction:" destination="-1" eventType="valueChanged" id="G4R-zg-bB2"/>
@@ -318,7 +318,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lxK-So-rJN">
-                            <rect key="frame" x="807" y="2" width="56" height="56"/>
+                            <rect key="frame" x="807" y="3" width="56" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="静音">
