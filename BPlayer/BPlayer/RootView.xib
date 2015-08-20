@@ -13,7 +13,7 @@
                 <outlet property="curMusicBitLabel" destination="IIu-iR-Ewo" id="A01-E1-KMn"/>
                 <outlet property="curMusicFormatLabel" destination="Nnq-G2-vYp" id="Pog-ky-pIy"/>
                 <outlet property="curMusicIv" destination="pt1-WV-MCw" id="loZ-Tt-Ryl"/>
-                <outlet property="curMusicNameLabel" destination="r9u-sa-JzC" id="Uao-ki-vpj"/>
+                <outlet property="curMusicNameLabel" destination="r9u-sa-JzC" id="qfx-aQ-C2M"/>
                 <outlet property="curMusicTimeLabel" destination="i6Y-Is-nGz" id="oQc-OB-XUD"/>
                 <outlet property="curTimeLabel" destination="Fpx-H4-RIc" id="M0L-EJ-apj"/>
                 <outlet property="dateBt" destination="0Tb-bg-UcC" id="HrF-9l-TAI"/>
@@ -176,7 +176,7 @@
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="时间" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="i6Y-Is-nGz">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="i6Y-Is-nGz">
                             <rect key="frame" x="542" y="68" width="103" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>

@@ -92,22 +92,42 @@ static BOOL displayMute=NO;
     if([keyPath isEqualToString:@"state"])
     {
         NSLog(@"state:%@",[self.render valueForKey:@"state"]);
+        
+        if([[self.render valueForKey:@"state"] intValue]==1){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //playing
+                [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
+                    if(value){
+                        NSLog(@"getMediaInfo curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
+                        [self refreshCurrentMusicInfoWithItem:item];
+                    }
+                }];
+            });
+        }
     }
     if([keyPath isEqualToString:@"duration"])
     {
-        //当前歌曲长度
-        NSTimeInterval ti=[[self.render valueForKey:@"duration"] doubleValue];
-        self.lengthTimeLabel.text=stringFromInterval(ti);
-        self.curMusicTimeLabel.text=stringFromInterval(ti);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //当前歌曲长度
+            NSTimeInterval ti=[[self.render valueForKey:@"duration"] doubleValue];
+            self.lengthTimeLabel.text=stringFromInterval(ti);
+            self.curMusicTimeLabel.text=stringFromInterval(ti);
+            
+            //进度条
+            self.seekSlider.minimumValue = 0;   //最小值
+            self.seekSlider.maximumValue = ti;  //最大值
+            self.seekSlider.value=0;
+        });
         
-        //进度条
-        self.seekSlider.minimumValue = 0;   //最小值
-        self.seekSlider.maximumValue = ti;  //最大值
     }
     if([keyPath isEqualToString:@"title"])
     {
         NSLog(@"title:%@",[self.render valueForKey:@"title"]);
-        self.curMusicNameLabel.text=[self.render valueForKey:@"title"];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.curMusicNameLabel.text=[self.render valueForKey:@"title"];
+        });
+        
+        NSLog(@"title 2:%@",self.curMusicNameLabel.text);
     }
 }
 - (void)gestureAction:(UIGestureRecognizer *)sender{
@@ -946,28 +966,25 @@ static BOOL displayMute=NO;
 }
 #pragma mark - refresh music info
 - (void)refreshCurrentMusicInfoWithItem:(MediaItemInfo*)item{
-    //名字
-    self.curMusicNameLabel.text=item.title;
-    //格式
-    self.curMusicFormatLabel.text=item.extention;
-    //比特率
-    self.curMusicBitLabel.text=[NSString stringWithFormat:@"%ld",item.bitRate];
-    //播放按钮旁边－当前歌曲长度
-    self.curMusicTimeLabel.text=stringFromInterval(item.duration);//
-    //进度条右侧－当前item长度
-    self.lengthTimeLabel.text=stringFromInterval(item.duration);
-    
-    self.curMusicNameLabel.text=item.title;
+  
+    NSLog(@"extention")
     //格式
     self.curMusicFormatLabel.text=item.extention;
     //比特率
     self.curMusicBitLabel.text=[NSString stringWithFormat:@"%ld",item.bitRate];
     
     //slider
-    self.seekSlider.minimumValue = 0;   //最小值
-    self.seekSlider.maximumValue = item.duration;  //最大值
-    self.lengthTimeLabel.text=stringFromInterval(item.duration);
-    self.seekSlider.value=0;
+//    self.seekSlider.minimumValue = 0;   //最小值
+//    self.seekSlider.maximumValue = item.duration;  //最大值
+//    self.lengthTimeLabel.text=stringFromInterval(item.duration);
+//    self.seekSlider.value=0;
+    
+    //名字
+    //    self.curMusicNameLabel.text=item.title;
+    //播放按钮旁边－当前歌曲长度
+    //    self.curMusicTimeLabel.text=stringFromInterval(item.duration);//
+    //进度条右侧－当前item长度
+    //    self.lengthTimeLabel.text=stringFromInterval(item.duration);
 }
 - (void)refreshCurrentMusicItem:(MediaItemInfo*)item curTime:(NSString*)time{
     
@@ -1194,10 +1211,6 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
         NSLog(@"getCurPos:%f---duration:%f",time,duration);
     
         //该方法应该主要刷新当前时间进度，不用做其他变化信息的处理
-//        self.seekSlider.minimumValue = 0;   //最小值
-//        self.seekSlider.maximumValue = duration;  //最大值
-//        self.lengthTimeLabel.text=stringFromInterval(duration);
-//        self.curMusicTimeLabel.text=stringFromInterval(duration);
         self.seekSlider.value=time;//每秒刷新进度条显示
         
         NSString *timeStr=stringFromInterval(time);
@@ -1205,22 +1218,8 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
         
         [self getVolumeAction:nil];//每秒刷新音量
         
-        //歌曲信息变化时应该由kvo||getMediaInfo来触发，不用放此处
     
-//        [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
-//            if(value){
-//                NSLog(@"getMediaInfo curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
-//                
-//            }
-//            
-//            //刷新当前时间
-//            NSString *timeStr=stringFromInterval(time);
-//            [self refreshCurrentMusicItem:item curTime:timeStr];
-//            //刷新当前歌曲信息－自动切换歌曲、prevous、next时需要用到该方法
-//            [self refreshCurrentMusicInfoWithItem:item];
-//            //刷新音量
-//            [self getVolumeAction:nil];
-//        }];
+        
         
     }];
     
@@ -1270,7 +1269,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
 - (void)getRenderAction:(NSNotification *)sender{
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     NSString *renderUuid=appDelagete.renderUuid;
-    
+    NSLog(@"uuid:%@",renderUuid);
     self.render=[[MediaRenderControllerService instance] controllerWithUUID:renderUuid];
     
     //添加kvo
