@@ -129,6 +129,16 @@ static BOOL displayMute=NO;
         
         NSLog(@"title 2:%@",self.curMusicNameLabel.text);
     }
+    if([keyPath isEqualToString:@"volume"])
+    {
+        NSLog(@"volume:%@",[self.render valueForKey:@"volume"]);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSInteger volume=[[self.render valueForKey:@"volume"] integerValue];
+            self.volumeBt.value=volume;
+        });
+        
+
+    }
 }
 - (void)gestureAction:(UIGestureRecognizer *)sender{
     if([sender isKindOfClass:[UISwipeGestureRecognizer class]]){
@@ -281,13 +291,16 @@ static BOOL displayMute=NO;
     
 }
 - (void)initDataIfExistServer{
-//    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
-//    NSString *uuid=[defaults valueForKey:kDefaultServer];
-//    if(uuid){
-//        AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-//        appDelagete.serverUuid=uuid;
-//        [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
-//    }
+    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+    NSString *uuid=[defaults valueForKey:kDefaultServer];
+    if(uuid){
+        AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+        appDelagete.serverUuid=uuid;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
+        });
+        
+    }
 }
 #pragma mark -
 #pragma 隐藏底部视图
@@ -866,21 +879,43 @@ static BOOL displayMute=NO;
 //}
 
 - (IBAction)playStyleAction:(id)sender {
+    [self initRender];
+    
     if(_playStyle==Single){
-        _playStyle=Playlist;
-        [self.playStyleBt setImage:[UIImage imageNamed:@"play_list.png"] forState:UIControlStateNormal];
+        
+        [self.render setPlayMode:ORDER_PLAY handler:^(BOOL ret){
+            if(ret){
+                _playStyle=Playlist;
+                [self.playStyleBt setImage:[UIImage imageNamed:@"play_list.png"] forState:UIControlStateNormal];
+            }
+        }];
     }
     else if(_playStyle==Playlist){
-        _playStyle=Circle;
-        [self.playStyleBt setImage:[UIImage imageNamed:@"play_circle.png"] forState:UIControlStateNormal];
+        [self.render setPlayMode:CIRCULATE_PLAY handler:^(BOOL ret){
+            if(ret){
+                _playStyle=Circle;
+                [self.playStyleBt setImage:[UIImage imageNamed:@"play_circle.png"] forState:UIControlStateNormal];
+            }
+        }];
+        
     }
     else if(_playStyle==Circle){
-        _playStyle=Random;
-        [self.playStyleBt setImage:[UIImage imageNamed:@"play_random.png"] forState:UIControlStateNormal];
+        [self.render setPlayMode:RANDOM_PLAY handler:^(BOOL ret){
+            if(ret){
+                _playStyle=Random;
+                [self.playStyleBt setImage:[UIImage imageNamed:@"play_random.png"] forState:UIControlStateNormal];
+            }
+        }];
+        
     }
     else if(_playStyle==Random){
-        _playStyle=Single;
-        [self.playStyleBt setImage:[UIImage imageNamed:@"play_single.png"] forState:UIControlStateNormal];
+        [self.render setPlayMode:SINGLE_CIRCULATE handler:^(BOOL ret){
+            if(ret){
+                _playStyle=Single;
+                [self.playStyleBt setImage:[UIImage imageNamed:@"play_single.png"] forState:UIControlStateNormal];
+            }
+        }];
+        
     }
     
 }
@@ -1081,67 +1116,7 @@ static BOOL displayMute=NO;
     NSLog(@"bit:%f",item.bitrate);
     
 
-    //test begin
-    
-//    NSURL *fileURL=[NSURL fileURLWithPath:item.uri];
-//    AVURLAsset *mp3Asset=[AVURLAsset URLAssetWithURL:fileURL options:nil];
-//    NSFileManager *fm = [NSFileManager defaultManager];
-//    NSDictionary *dictAtt = [fm attributesOfItemAtPath:item.uri error:nil];
-//    
-//    NSString *singer;//歌手
-//    NSString *artworker;//作曲家
-//    
-//    NSString *song;//歌曲名
-//    UIImage *image;//图片
-//    NSString *albumName;//专辑名
-//    NSString *fileSize;//文件大小
-//    //    NSString *voiceStyle;//音质类型
-//    //    NSString *fileStyle;//文件类型
-//    NSString *creatDate;//创建日期
-//    
-//    fileSize = [NSString stringWithFormat:@"%.2fMB",[[dictAtt objectForKey:@"NSFileSize"] floatValue]/(1024*1024)];
-//    NSString *tempStrr  = [NSString stringWithFormat:@"%@", [dictAtt objectForKey:@"NSFileCreationDate"]] ;
-////    creatDate = [tempStrr substringToIndex:19];
-//    
-//    //    NSString *savePath; //存储路径  creationDate software
-//    //        NSLog(@"---------%@",[mp3Asset availableMetadataFormats]);
-//    for (NSString *format in [mp3Asset availableMetadataFormats]) {
-//        for (AVMetadataItem *metadataItem in [mp3Asset metadataForFormat:format]) {
-//            
-//            //                NSLog(@"metadataItem is %@",[mp3Asset metadataForFormat:format]);
-//            if([metadataItem.commonKey isEqualToString:@"title"]){
-//                song = (NSString *)metadataItem.value;//歌曲名
-//            }else if ([metadataItem.commonKey isEqualToString:@"artist"]){
-//                singer = (NSString *)metadataItem.value;//歌手
-//            }
-//            else if ([metadataItem.commonKey isEqualToString:@"duration"]){
-//                NSString*  duration = (NSString *)metadataItem.value;//歌手
-//                                    NSLog(@"+++++++++duration is %@",duration);
-//            }
-//            else if ([metadataItem.commonKey isEqualToString:@"software"]){
-//                NSString*  software = (NSString *)metadataItem.value;//歌手
-//                //                    NSLog(@"+++++++++software is %@",software);
-//            }
-//            
-//            //            专辑名称
-//            else if ([metadataItem.commonKey isEqualToString:@"albumName"])
-//            {
-//                albumName = (NSString *)metadataItem.value;
-//                                    NSLog(@"albumName is %@",albumName);
-//            }else if ([metadataItem.commonKey isEqualToString:@"artwork"]) {
-//                artworker = (NSString *)metadataItem.value;
-//                
-//                NSData *data=(NSData *)metadataItem.value;
-//                image=[UIImage imageWithData:data];//图片
-//            }
-//            
-//        }
-//    }
-//    
-//    
-//    NSDictionary *singrecord=[[NSDictionary alloc]initWithObjectsAndKeys:song,@"title", singer, @"artist", albumName, @"albumName", image, @"albumimage", fileSize,@"fileSize" ,creatDate,@"creatDate",nil];
-//    NSLog(@"record:%@",singrecord);
-    //test end
+
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     NSString *renderUuid=appDelagete.renderUuid;
     if([renderUuid isEqualToString:@"self"]){
@@ -1162,12 +1137,12 @@ static BOOL displayMute=NO;
                 if(ret){
                     [self.playBt setBackgroundImage:[UIImage imageNamed:@"pause.png"] forState:UIControlStateNormal];
                     //刷新当前播放音乐的显示信息
-                    [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
-                        if(value){
-                            NSLog(@"curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
-                            [self refreshCurrentMusicInfoWithItem:item];
-                        }
-                    }];
+//                    [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
+//                        if(value){
+//                            NSLog(@"curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
+//                            [self refreshCurrentMusicInfoWithItem:item];
+//                        }
+//                    }];
                     
                     //timer
                     if([self.playTimer isValid]){
@@ -1208,7 +1183,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
 -(void)timeFireMethod{
 
     [self.render getCurPos:^(BOOL value,NSTimeInterval time,NSTimeInterval duration){
-        NSLog(@"getCurPos:%f---duration:%f",time,duration);
+//        NSLog(@"getCurPos:%f---duration:%f",time,duration);
     
         //该方法应该主要刷新当前时间进度，不用做其他变化信息的处理
         self.seekSlider.value=time;//每秒刷新进度条显示
@@ -1216,7 +1191,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
         NSString *timeStr=stringFromInterval(time);
         [self refreshCurrentMusicItem:nil curTime:timeStr];//每秒刷新进度label显示
         
-        [self getVolumeAction:nil];//每秒刷新音量
+//        [self getVolumeAction:nil];//每秒刷新音量
         
     
         
@@ -1271,11 +1246,16 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     NSString *renderUuid=appDelagete.renderUuid;
     NSLog(@"uuid:%@",renderUuid);
     self.render=[[MediaRenderControllerService instance] controllerWithUUID:renderUuid];
+    [self.render getStat:^(BOOL value,int status){
+        
+    }];
     
     //添加kvo
     [self.render addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     [self.render addObserver:self forKeyPath:@"duration" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     [self.render addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    [self.render addObserver:self forKeyPath:@"volume" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    
 }
 #pragma mark -
 #pragma mark MediaServerBrowserDelegate
