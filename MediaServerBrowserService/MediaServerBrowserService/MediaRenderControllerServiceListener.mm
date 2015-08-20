@@ -244,6 +244,17 @@ void MediaRenderControllerServiceListener::OnPreviousResult(NPT_Result res
     });
 }
 
+void MediaRenderControllerServiceListener::OnSetPlayModeResult(NPT_Result res
+                                                            , PLT_DeviceDataReference &device
+                                                            , void *userdata)
+{
+    NSMutableDictionary *dic = (NSMutableDictionary*)CFBridgingRelease(userdata);
+    void (^callback)(BOOL) = [dic valueForKey:@"setPlayMode"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        callback(NPT_SUCCEEDED(res) ? YES : NO);
+    });
+}
+
 void MediaRenderControllerServiceListener::OnGetTransportInfoResult(NPT_Result res
                                                                     , PLT_DeviceDataReference& device
                                                                     , PLT_TransportInfo* info

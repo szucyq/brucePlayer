@@ -79,6 +79,10 @@ public:
                                   , PLT_TransportInfo* info
                                   , void* userdata );
     
+    void OnSetPlayModeResult( NPT_Result res
+                             , PLT_DeviceDataReference& device
+                             , void* userdata );
+    
     void OnMRStateVariablesChanged(PLT_Service *service
                                    , NPT_List<PLT_StateVariable*> *vars);
     

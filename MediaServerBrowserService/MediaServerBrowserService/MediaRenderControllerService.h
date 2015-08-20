@@ -42,6 +42,13 @@ enum RenderStatu{
     STAT_UNKNOW
 };
 
+enum PlayMode {
+    SINGLE_CIRCULATE = 100,
+    ORDER_PLAY = 101,
+    CIRCULATE_PLAY = 102,
+    RANDOM_PLAY = 103
+};
+
 //get
 @property(nonatomic, readonly)NSString *UUID;
 @property(nonatomic, readonly)NSString *friendlyName;
@@ -68,6 +75,8 @@ enum RenderStatu{
 
 //set
 - (void)setUri:(NSString*)url name:(NSString*)name handler:(void (^)(BOOL))handler;
+
+- (void)setPlayMode:(enum PlayMode)mode handler:(void(^)(BOOL))handler;
 
 - (void)play:(void (^)(BOOL))handler;
 

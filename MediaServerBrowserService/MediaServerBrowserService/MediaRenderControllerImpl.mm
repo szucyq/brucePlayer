@@ -157,6 +157,17 @@
     }
 }
 
+- (void)setPlayMode:(enum PlayMode)mode handler:(void(^)(BOOL))handler
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject:handler forKey:@"setPlayMode"];
+    NPT_String modeStr = NPT_String::FromInteger(mode);
+    NPT_Result result = controller_->SetPlayMode(device_, DEFAULT_INSTANCE_ID, modeStr, (void*)CFBridgingRetain(dic));
+    if ( NPT_FAILED(result) ) {
+        NSLog(@"[MediaRenderControllerImpl] [setPlayMode] failure res = %d", result);
+    }
+}
+
 - (void)getCurPos:(void (^)(BOOL, NSTimeInterval, NSTimeInterval))handler
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
