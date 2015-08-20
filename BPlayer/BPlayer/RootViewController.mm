@@ -105,6 +105,7 @@ static BOOL displayMute=NO;
     }
     if([keyPath isEqualToString:@"title"])
     {
+        NSLog(@"title:%@",[self.render valueForKey:@"title"]);
         self.curMusicNameLabel.text=[self.render valueForKey:@"title"];
     }
 }

@@ -58,6 +58,7 @@
     if ( [UUID isEqualToString:self.UUID] &&
         ![duration isEqualToNumber:duration_] ) {
         duration_ = duration;
+        [self setValue:duration_ forKey:@"duration"];
         //title_ = title;
     }
 }
@@ -70,6 +71,7 @@
     if ( [UUID isEqualToString:self.UUID] &&
         ![title isEqualToString:title_] ) {
         title_ = title;
+        [self setValue:title forKey:@"title"];
     }
 }
 
@@ -81,6 +83,7 @@
     if ( [UUID isEqualToString:self.UUID] &&
         ![st isEqualToNumber:state_] ) {
         state_ = st;
+        [self setValue:state_ forKey:@"state"];
     }
 }
 
