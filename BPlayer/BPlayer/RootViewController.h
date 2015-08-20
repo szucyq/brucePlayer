@@ -86,6 +86,7 @@ enum PlayStyle {
 @property (nonatomic,retain)NSTimer *playTimer;
 @property (nonatomic,retain)NSTimer *hideTimer;
 @property (nonatomic)int secondsCountDown;
+
 //右侧actions
 - (IBAction)renderBtAction:(id)sender;
 - (IBAction)serverBtAction:(id)sender;

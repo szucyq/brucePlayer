@@ -83,22 +83,19 @@ static BOOL displayMute=NO;
     //如果之前有server，则默认同步server资料
     [self initDataIfExistServer];
     
-    //添加kvo
-    [[MediaRenderControllerService instance] addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-    [[MediaRenderControllerService instance] addObserver:self forKeyPath:@"duration" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-    [[MediaRenderControllerService instance] addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    
     
 }
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if([keyPath isEqualToString:@"state"])
     {
-        NSLog(@"state:%@",[[MediaRenderControllerService instance] valueForKey:@"state"]);
+        NSLog(@"state:%@",[self.render valueForKey:@"state"]);
     }
     if([keyPath isEqualToString:@"duration"])
     {
         //当前歌曲长度
-        NSTimeInterval ti=[[[MediaRenderControllerService instance] valueForKey:@"duration"] doubleValue];
+        NSTimeInterval ti=[[self.render valueForKey:@"duration"] doubleValue];
         self.lengthTimeLabel.text=stringFromInterval(ti);
         self.curMusicTimeLabel.text=stringFromInterval(ti);
         
@@ -108,7 +105,7 @@ static BOOL displayMute=NO;
     }
     if([keyPath isEqualToString:@"title"])
     {
-        self.curMusicNameLabel.text=[[MediaRenderControllerService instance] valueForKey:@"title"];
+        self.curMusicNameLabel.text=[self.render valueForKey:@"title"];
     }
 }
 - (void)gestureAction:(UIGestureRecognizer *)sender{
@@ -236,6 +233,11 @@ static BOOL displayMute=NO;
 //            self.render=[[MediaRenderControllerService instance] controllerWithUUID:renderUuid];
 //        }
         self.render=[[MediaRenderControllerService instance] controllerWithUUID:renderUuid];
+        
+        //添加kvo
+        [self.render addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+        [self.render addObserver:self forKeyPath:@"duration" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+        [self.render addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     }
     else{
         [SVProgressHUD showErrorWithStatus:@"请选择播放器" maskType:SVProgressHUDMaskTypeBlack];

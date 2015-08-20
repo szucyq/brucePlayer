@@ -127,7 +127,8 @@
     NSLog(@"uuid 1:%@",renderUuid);
     //    appDelagete.avRenderer = (CGUpnpAvRenderer*)[self.dataSource objectAtIndex:indexPath.row];
     //    [self dismissViewControllerAnimated:YES completion:nil];
-    [SVProgressHUD showSuccessWithStatus:@"已选择播放器" maskType:SVProgressHUDMaskTypeBlack];
+    
+    [SVProgressHUD showWithStatus:@"已选择设备"];
     [self dismissViewControllerAnimated:YES completion:nil];
 //    NSString *friendlyName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
 //    NSDictionary *dic = [MediaRenderControllerService instance].renderDic;
