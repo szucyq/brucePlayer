@@ -967,7 +967,7 @@ static BOOL displayMute=NO;
 #pragma mark - refresh music info
 - (void)refreshCurrentMusicInfoWithItem:(MediaItemInfo*)item{
   
-    NSLog(@"extention")
+    NSLog(@"extention");
     //格式
     self.curMusicFormatLabel.text=item.extention;
     //比特率
