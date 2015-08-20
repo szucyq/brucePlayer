@@ -52,6 +52,7 @@ static BOOL displayMute=NO;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playWithAvItem:) name:@"kPlay" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getServerAction:) name:@"kSelectServer" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getRenderAction:) name:@"kSelectRender" object:nil];
     //启动查找服务器
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(mediaServerAdded:)
@@ -230,15 +231,10 @@ static BOOL displayMute=NO;
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     NSString *renderUuid=appDelagete.renderUuid;
     if(renderUuid){
-//        if(!self.render){
-//            self.render=[[MediaRenderControllerService instance] controllerWithUUID:renderUuid];
-//        }
-        self.render=[[MediaRenderControllerService instance] controllerWithUUID:renderUuid];
+        if(!self.render){
+            self.render=[[MediaRenderControllerService instance] controllerWithUUID:renderUuid];
+        }
         
-        //添加kvo
-        [self.render addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-        [self.render addObserver:self forKeyPath:@"duration" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-        [self.render addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     }
     else{
         [SVProgressHUD showErrorWithStatus:@"请选择播放器" maskType:SVProgressHUDMaskTypeBlack];
@@ -1041,7 +1037,8 @@ static BOOL displayMute=NO;
     //    }
     
 }
-#pragma mark - notificationon controls
+#pragma mark -
+#pragma mark - play   notificationon
 - (void)playWithAvItem:(NSNotification *)sender{
     NSDictionary *userinfo=[sender userInfo];
     MediaServerItem *item = [userinfo objectForKey:@"item"];
@@ -1228,6 +1225,8 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     }];
     
 }
+#pragma mark -
+#pragma mark - server   notificationon
 - (void)getServerAction:(NSNotification *)sender{
 
     //左侧消失
@@ -1265,6 +1264,19 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     //提醒开始同步该服务器资源
 //    [SVProgressHUD showInfoWithStatus:@"正在为您同步资源" maskType:SVProgressHUDMaskTypeBlack];
     [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
+}
+#pragma mark -
+#pragma mark - render   notificationon
+- (void)getRenderAction:(NSNotification *)sender{
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    NSString *renderUuid=appDelagete.renderUuid;
+    
+    self.render=[[MediaRenderControllerService instance] controllerWithUUID:renderUuid];
+    
+    //添加kvo
+    [self.render addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    [self.render addObserver:self forKeyPath:@"duration" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    [self.render addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
 }
 #pragma mark -
 #pragma mark MediaServerBrowserDelegate

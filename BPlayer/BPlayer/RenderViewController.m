@@ -119,27 +119,22 @@
         UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:                                                                _lastIndexPath];
         oldCell.accessoryType = UITableViewCellAccessoryNone;        _lastIndexPath = indexPath;
     }
+    
+    
     //保存render信息，供播放时使用
-//    NSDictionary *renders = [MediaRenderControllerService instance].renderDic;
     NSString *renderUuid = [[self.renderDic allKeys] objectAtIndex:indexPath.row];
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     appDelagete.renderUuid=renderUuid;
     NSLog(@"uuid 1:%@",renderUuid);
-    //    appDelagete.avRenderer = (CGUpnpAvRenderer*)[self.dataSource objectAtIndex:indexPath.row];
-    //    [self dismissViewControllerAnimated:YES completion:nil];
     
-    [SVProgressHUD showWithStatus:@"已选择设备"];
+    //通知
+    NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:renderUuid,@"render", nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"kSelectRender" object:nil userInfo:userinfo];
+    
+
+    [SVProgressHUD showSuccessWithStatus:@"已选择设备"];
     [self dismissViewControllerAnimated:YES completion:nil];
-//    NSString *friendlyName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
-//    NSDictionary *dic = [MediaRenderControllerService instance].renderDic;
-//    NSString *UUID = nil;
-//    for (NSString *key in dic.allKeys) {
-//        NSString *tmp = [dic valueForKey:key];
-//        if ( [tmp isEqualToString:friendlyName] ) {
-//            UUID = key;
-//        }
-//    }
-//    NSLog(@"uuid 2:%@",UUID);
+
 
 }
 
