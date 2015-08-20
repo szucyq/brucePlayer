@@ -291,16 +291,16 @@ static BOOL displayMute=NO;
     
 }
 - (void)initDataIfExistServer{
-    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
-    NSString *uuid=[defaults valueForKey:kDefaultServer];
-    if(uuid){
-        AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-        appDelagete.serverUuid=uuid;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
-        });
-        
-    }
+//    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+//    NSString *uuid=[defaults valueForKey:kDefaultServer];
+//    if(uuid){
+//        AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+//        appDelagete.serverUuid=uuid;
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self performSelector:@selector(loadAllContentsAction:) withObject:nil];
+//        });
+//        
+//    }
 }
 #pragma mark -
 #pragma 隐藏底部视图
