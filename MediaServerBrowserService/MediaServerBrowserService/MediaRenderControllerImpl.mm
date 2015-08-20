@@ -19,6 +19,7 @@
 @synthesize state = state_;
 @synthesize title = title_;
 @synthesize duration = duration_;
+@synthesize volume = volume_;
 
 - (id)initWithController:(PLT_DeviceDataReference)device
               controller:(PLT_MediaController *)controller
@@ -30,7 +31,7 @@
         state_ = [[NSNumber alloc] initWithInt:RenderStatu::STAT_UNKNOW];
         duration_ = [[NSNumber alloc] initWithInt:0];
         title_ = [[NSString alloc] init];
-        
+        volume_ = [[NSNumber alloc] initWithInt:0];
         //
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(stateChange:)
@@ -46,8 +47,26 @@
                                                  selector:@selector(durationChange:)
                                                      name:@"MediaRenderDurationNotification"
                                                    object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(volumeChange:)
+                                                     name:@"MediaRenderVolumeNotification"
+                                                   object:nil];
     }
     return self;
+}
+
+- (void)volumeChange:(NSNotification*)notification
+{
+    NSDictionary *msg = notification.object;
+    NSString *UUID = [msg valueForKey:@"UUID"];
+    NSNumber *vol = [msg valueForKey:@"volume"];
+    if ( [UUID isEqualToString:self.UUID] &&
+        ![vol isEqualToNumber:volume_] ) {
+        volume_ = vol;
+        [self setValue:volume_ forKey:@"volume"];
+        //title_ = title;
+    }
 }
 
 - (void)durationChange:(NSNotification*)notification

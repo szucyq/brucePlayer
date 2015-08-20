@@ -48,6 +48,7 @@ enum RenderStatu{
 
 @property(nonatomic, readonly)NSNumber *state;
 @property(nonatomic, readonly)NSNumber *duration;
+@property(nonatomic, readonly)NSNumber *volume;
 @property(nonatomic, readonly)NSString *title;
 
 // async get

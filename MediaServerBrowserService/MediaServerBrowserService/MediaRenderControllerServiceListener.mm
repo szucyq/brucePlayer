@@ -15,6 +15,7 @@
 #define MEDIARENDERSTATENOTIFICATION @"MediaRenderStateNotification"
 #define MEDIARENDERDURATIONNOTIFICATION @"MediaRenderDurationNotification"
 #define MEDIARENDERTITLENOTIFICATION @"MediaRenderTitleNotification"
+#define MEDIARENDERVOLUMENOTIFICATION @"MediaRenderVolumeNotification"
 
 MediaRenderControllerServiceListener::MediaRenderControllerServiceListener()
 {
@@ -327,6 +328,16 @@ void MediaRenderControllerServiceListener::OnMRStateVariablesChanged(PLT_Service
             NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[UUID, title]
                                                             forKeys:@[@"UUID", @"title"]];
             NSNotification *ntf = [NSNotification notificationWithName:MEDIARENDERTITLENOTIFICATION object:dic];
+            [[NSNotificationCenter defaultCenter] postNotification:ntf];
+        } else if ( stateName == "Volume") {
+            PLT_MediaObjectListReference objs(new PLT_MediaObjectList());
+            NPT_String value = (*iter)->GetValue();
+            int vol = 0;
+            value.ToInteger(vol);
+            NSNumber *volNum = [NSNumber numberWithInteger:vol];
+            NSDictionary *dic = [NSDictionary dictionaryWithObjects:@[UUID, volNum]
+                                                            forKeys:@[@"UUID", @"volume"]];
+            NSNotification *ntf = [NSNotification notificationWithName:MEDIARENDERVOLUMENOTIFICATION object:dic];
             [[NSNotificationCenter defaultCenter] postNotification:ntf];
         }
         //NSLog(@"%s  %s", (*iter)->GetName().GetChars(), (*iter)->GetValue().GetChars());
