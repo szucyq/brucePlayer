@@ -303,7 +303,7 @@ static BOOL displayMute=NO;
 //    }
 }
 #pragma mark -
-#pragma 隐藏底部视图
+#pragma mark - 隐藏底部视图
 - (void)beginHideTimer{
     if([self.hideTimer isValid]){
         [self.hideTimer invalidate];
@@ -450,10 +450,15 @@ static BOOL displayMute=NO;
                 NSLog(@"contentFormat:%@",item.contentFormat);
                 NSLog(@"mimeType:%@",item.mimeType);
                 NSLog(@"extention:%@",item.extention);
-                NSLog(@"albumArtURI:%@",item.albumArtURI);
                 
-                NSLog(@"iconURI:%@",item.iconURI);
                 
+                
+                if(item.albumArtURI.length>0){
+                    NSLog(@"albumArtURI:%@",item.albumArtURI);
+                }
+                if(item.iconURI.length>0){
+                    NSLog(@"iconURI:%@",item.iconURI);
+                }
                 NSLog(@"duration:%f",item.duration);
                 NSLog(@"album:%@",item.album);
                 NSLog(@"genres:%@",item.genres);
@@ -550,7 +555,8 @@ static BOOL displayMute=NO;
 }
 
 
-
+#pragma mark -
+#pragma mark - 浏览方式
 - (IBAction)catalogBtAction:(id)sender {
     //status
     [self byNormal];
@@ -768,6 +774,7 @@ static BOOL displayMute=NO;
     [self.listBt setImage:[UIImage imageNamed:@"menu_list_no_icon.png"] forState:UIControlStateNormal];
 }
 #pragma mark -
+#pragma mark - 上一首｜下一首｜播放暂停｜进度条｜音量｜播放模式
 - (IBAction)preBtAction:(id)sender {
     NSLog(@"上一首");
     [self initRender];
@@ -882,7 +889,8 @@ static BOOL displayMute=NO;
     [self initRender];
     
     if(_playStyle==Single){
-        
+//        _playStyle=Playlist;
+//        [self.playStyleBt setImage:[UIImage imageNamed:@"play_list.png"] forState:UIControlStateNormal];
         [self.render setPlayMode:ORDER_PLAY handler:^(BOOL ret){
             if(ret){
                 _playStyle=Playlist;
@@ -891,6 +899,8 @@ static BOOL displayMute=NO;
         }];
     }
     else if(_playStyle==Playlist){
+//        _playStyle=Circle;
+//        [self.playStyleBt setImage:[UIImage imageNamed:@"play_circle.png"] forState:UIControlStateNormal];
         [self.render setPlayMode:CIRCULATE_PLAY handler:^(BOOL ret){
             if(ret){
                 _playStyle=Circle;
@@ -900,6 +910,8 @@ static BOOL displayMute=NO;
         
     }
     else if(_playStyle==Circle){
+//        _playStyle=Random;
+//        [self.playStyleBt setImage:[UIImage imageNamed:@"play_random.png"] forState:UIControlStateNormal];
         [self.render setPlayMode:RANDOM_PLAY handler:^(BOOL ret){
             if(ret){
                 _playStyle=Random;
@@ -909,6 +921,8 @@ static BOOL displayMute=NO;
         
     }
     else if(_playStyle==Random){
+//        _playStyle=Single;
+//        [self.playStyleBt setImage:[UIImage imageNamed:@"play_single.png"] forState:UIControlStateNormal];
         [self.render setPlayMode:SINGLE_CIRCULATE handler:^(BOOL ret){
             if(ret){
                 _playStyle=Single;

@@ -234,45 +234,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BPlayer/RootViewController.mm"
-            timestampString = "461759133.338832"
+            timestampString = "461772574.175998"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
-            landmarkName = "-observeValueForKeyPath:ofObject:change:context:"
+            startingLineNumber = "461"
+            endingLineNumber = "461"
+            landmarkName = "-loadAllContentsAction:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[RootViewController observeValueForKeyPath:ofObject:change:context:]"
-                  moduleName = "BPlayer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bruce/iOS/new/%E6%92%AD%E6%94%BE%E5%99%A8/ipad/brucePlayer/BPlayer/BPlayer/RootViewController.mm"
-                  timestampString = "461757215.375318"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "125"
-                  endingLineNumber = "125"
-                  offsetFromSymbolStart = "2308">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[RootViewController observeValueForKeyPath:ofObject:change:context:]"
-                  moduleName = "BPlayer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bruce/iOS/new/%E6%92%AD%E6%94%BE%E5%99%A8/ipad/brucePlayer/BPlayer/BPlayer/RootViewController.mm"
-                  timestampString = "461757215.375437"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "125"
-                  endingLineNumber = "125"
-                  offsetFromSymbolStart = "2328">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BPlayer/RootViewController.mm"
+            timestampString = "461772577.527377"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "458"
+            endingLineNumber = "458"
+            landmarkName = "-loadAllContentsAction:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
