@@ -95,13 +95,21 @@
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
-    
-    
 //    NSDictionary *renders = [MediaRenderControllerService instance].renderDic;
-    NSString *uuid=[[self.renderDic allKeys] objectAtIndex:indexPath.row];
-    NSDictionary *render=[self.renderDic objectForKey:uuid];
+    NSString *key=[[self.renderDic allKeys] objectAtIndex:indexPath.row];
+    NSDictionary *render=[self.renderDic objectForKey:key];
     cell.textLabel.text = [render valueForKey:@"FriendlyName"];
-    //cell.textLabel.text = [NSString stringWithFormat:@"%@%ld",@"render",(long)indexPath.row];
+
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    NSLog(@"app key:%@---key:%@",appDelagete.renderUuid,key);
+    if(appDelagete.renderUuid &&[appDelagete.renderUuid isEqualToString:key]){
+        cell.textLabel.textColor=[UIColor blueColor];
+    }
+    else{
+        cell.textLabel.textColor=[UIColor blackColor];
+    }
+    
+    
     return cell;
 }
 
@@ -111,14 +119,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSInteger newRow = [indexPath row];
-    NSInteger oldRow = [_lastIndexPath row];
-    if (newRow != oldRow){
-        UITableViewCell *newCell = [tableView cellForRowAtIndexPath:                                                                indexPath];
-        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
-        UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:                                                                _lastIndexPath];
-        oldCell.accessoryType = UITableViewCellAccessoryNone;        _lastIndexPath = indexPath;
-    }
+//    NSInteger newRow = [indexPath row];
+//    NSInteger oldRow = [_lastIndexPath row];
+//    if (newRow != oldRow){
+//        UITableViewCell *newCell = [tableView cellForRowAtIndexPath:                                                                indexPath];
+//        newCell.textLabel.textColor=[UIColor blueColor];
+//        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
+//        UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:                                                                _lastIndexPath];
+//        oldCell.accessoryType = UITableViewCellAccessoryNone;        _lastIndexPath = indexPath;
+//    }
     
     
     //保存render信息，供播放时使用
@@ -126,6 +135,7 @@
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     appDelagete.renderUuid=renderUuid;
     NSLog(@"uuid 1:%@",renderUuid);
+    [self.listTableView reloadData];
     
     //通知
     NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:renderUuid,@"render", nil];

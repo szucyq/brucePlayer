@@ -935,12 +935,18 @@ static BOOL displayMute=NO;
 }
 - (IBAction)seekAction:(id)sender {
     NSLog(@"进度条控制:%f",self.seekSlider.value);
+    if([self.playTimer isValid]){
+        [self.playTimer invalidate];
+    }
+    
     [self initRender];
     NSTimeInterval time=self.seekSlider.value;
     [self.render seek:time handler:^(BOOL value){
         NSLog(@"进度条控制 value:%d",value);
         if(value){
             self.seekSlider.value=time;
+            //
+            self.playTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
         }
     }];
 
@@ -1204,12 +1210,6 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
         
         NSString *timeStr=stringFromInterval(time);
         [self refreshCurrentMusicItem:nil curTime:timeStr];//每秒刷新进度label显示
-        
-//        [self getVolumeAction:nil];//每秒刷新音量
-        
-    
-        
-        
     }];
     
 }

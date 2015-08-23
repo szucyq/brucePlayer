@@ -203,6 +203,7 @@ static BOOL displaySetting=NO;
     
     NSString *key=[[_dmsArr allKeys] objectAtIndex:indexPath.row];
     NSLog(@"this server:%@",[_dmsArr objectForKey:key]);
+
     cell.friendlyNameLabel.text=[[_dmsArr objectForKey:key] valueForKey:@"FriendlyName"];
     cell.ipLabel.text=[[_dmsArr objectForKey:key] valueForKey:@"IP"];
     
@@ -219,6 +220,13 @@ static BOOL displaySetting=NO;
     }
     
 
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    if(appDelagete.serverUuid && [appDelagete.serverUuid isEqualToString:key]){
+        cell.friendlyNameLabel.textColor=[UIColor blueColor];
+        cell.ipLabel.textColor=[UIColor blueColor];
+    }
+    
+    
     return cell;
 }
 
@@ -266,14 +274,14 @@ static BOOL displaySetting=NO;
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSInteger newRow = [indexPath row];
-    NSInteger oldRow = [_lastIndexPath row];
-    if (newRow != oldRow){
-        UITableViewCell *newCell = [tableView cellForRowAtIndexPath:                                                                indexPath];
-        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
-        UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:                                                                _lastIndexPath];
-        oldCell.accessoryType = UITableViewCellAccessoryNone;        _lastIndexPath = indexPath;
-    }
+//    NSInteger newRow = [indexPath row];
+//    NSInteger oldRow = [_lastIndexPath row];
+//    if (newRow != oldRow){
+//        UITableViewCell *newCell = [tableView cellForRowAtIndexPath:                                                                indexPath];
+//        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
+//        UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:                                                                _lastIndexPath];
+//        oldCell.accessoryType = UITableViewCellAccessoryNone;        _lastIndexPath = indexPath;
+//    }
     
     
     //只是选择server，并不进入浏览。
@@ -281,6 +289,7 @@ static BOOL displaySetting=NO;
     NSString *key = [[_dmsArr allKeys] objectAtIndex:indexPath.row];
     NSString *uuid=[[_dmsArr objectForKey:key] valueForKey:@"UUID"];
     appDelagete.serverUuid=uuid;
+    [self.listTableView reloadData];
 
 //    [SVProgressHUD showSuccessWithStatus:@"已选择媒体服务器" maskType:SVProgressHUDMaskTypeBlack];
     
