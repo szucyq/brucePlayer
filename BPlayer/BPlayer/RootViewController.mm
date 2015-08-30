@@ -1160,13 +1160,6 @@ static BOOL displayMute=NO;
                 NSLog(@"play:%d",ret);
                 if(ret){
                     [self.playBt setBackgroundImage:[UIImage imageNamed:@"pause.png"] forState:UIControlStateNormal];
-                    //刷新当前播放音乐的显示信息
-//                    [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
-//                        if(value){
-//                            NSLog(@"curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
-//                            [self refreshCurrentMusicInfoWithItem:item];
-//                        }
-//                    }];
                     
                     //timer
                     if([self.playTimer isValid]){
@@ -1276,7 +1269,20 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     [self.render addObserver:self forKeyPath:@"duration" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     [self.render addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     [self.render addObserver:self forKeyPath:@"volume" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-    
+    //选择render后，同步当前设备数据
+    //刷新当前播放音乐的显示信息
+    [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
+        if(value){
+            NSLog(@"curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
+            [self refreshCurrentMusicInfoWithItem:item];
+        }
+    }];
+
+    //timer
+    if([self.playTimer isValid]){
+        [self.playTimer invalidate];
+    }
+    self.playTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
 }
 #pragma mark -
 #pragma mark MediaServerBrowserDelegate
