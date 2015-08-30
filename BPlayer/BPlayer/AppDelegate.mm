@@ -26,7 +26,7 @@
     self.window=[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor=[UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    
+    self.curMusicNumber=0;
     //
     if(kIS_IPAD){
         RootViewController *root=[[RootViewController alloc]initWithNibName:@"RootView" bundle:nil];

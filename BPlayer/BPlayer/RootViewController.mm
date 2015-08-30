@@ -1023,6 +1023,104 @@ static BOOL displayMute=NO;
         [self.view addSubview:self.allMusicController.view];
     }
 }
+- (void)nextSongNumber{
+//    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+//    int curSongNum=[[defaults valueForKey:kCurSongNumber] intValue];
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    int curSongNum=appDelagete.curMusicNumber;
+    
+    NSMutableArray *array=[self allMusicDataArray];
+    if(!array){
+        return;
+    }
+    
+    if (_playStyle==Single)
+    {
+        curSongNum=curSongNum;
+    }
+    else if (_playStyle==Playlist)
+    {
+        if (curSongNum==array.count-1)
+        {
+            if([self.playTimer isValid]){
+                [self.playTimer invalidate];
+            }
+            sleep(5);
+            exit(0);
+        }
+        else
+        {
+            curSongNum++;
+        }
+    }
+    else if (_playStyle==Circle)
+    {
+        if (curSongNum==array.count-1)
+        {
+            curSongNum=0;
+        }
+        else
+        {
+            curSongNum++;
+        }
+    }
+    else if (_playStyle==Random){
+        curSongNum=rand()%(array.count);
+        NSLog(@"随机%d",curSongNum);
+    }
+    
+    appDelagete.curMusicNumber=curSongNum;
+//    [defaults setValue:[NSNumber numberWithInt:curSongNum] forKey:kCurSongNumber];
+//    [defaults synchronize];
+}
+- (NSMutableArray*)allMusicDataArray{
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    if(!appDelagete.serverUuid){
+        NSLog(@"server uuid :%@",appDelagete.serverUuid);
+        return nil;
+    }
+    
+    NSLog(@"server uuid :%@",appDelagete.serverUuid);
+    NSMutableArray *array=[NSMutableArray array];
+    
+    NSString *sql=[NSString stringWithFormat:@"%@%@%@",@"select * from music where server='",appDelagete.serverUuid,@"';"];
+    //    NSString *sql=[NSString stringWithFormat:@"%@",@"select * from music;"];
+    //查询数据
+    [CoreFMDB executeQuery:sql queryResBlock:^(FMResultSet *set) {
+        
+        while ([set next]) {
+            NSLog(@"%@-%@",[set stringForColumn:@"title"],[set stringForColumn:@"uri"]);
+            //date
+            NSString *dateStr=[set stringForColumn:@"date"];
+            NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+            dateFormatter.dateFormat= @"yyyy-MM-dd";
+            NSDate *date=[dateFormatter dateFromString:dateStr];
+            NSLog(@"date:%@",date);
+            //duration
+            NSString *durationStr=[set stringForColumn:@"duration"];
+            NSTimeInterval duration=[durationStr floatValue];
+            
+            
+            MediaServerItem *item=[[MediaServerItem alloc]init];
+            item.title=[set stringForColumn:@"title"];
+            item.uri=[set stringForColumn:@"uri"];
+            item.composer=[set stringForColumn:@"composer"];
+//            item.date=date;
+            item.album=[set stringForColumn:@"album"];
+            //            item.contentFormat=[set stringForColumn:@"genres"];
+            item.artist=[set stringForColumn:@"artist"];
+            item.duration=duration;
+            NSArray *gArray=[NSArray arrayWithObject:[set stringForColumn:@"genres"]];
+            item.genres=gArray;
+            
+            [array addObject:item];
+        }
+        
+    }];
+    
+    return array;
+
+}
 #pragma mark - refresh music info
 - (void)refreshCurrentMusicInfoWithItem:(MediaItemInfo*)item{
   
