@@ -63,7 +63,7 @@
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     
     //初始化dms
-//    [self initUpnpServer];
+    [self initUpnpServer];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NotificationFlag_StatusChanged object:nil];
     

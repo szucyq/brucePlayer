@@ -933,6 +933,7 @@ static BOOL displayMute=NO;
     }
     
 }
+
 - (IBAction)seekAction:(id)sender {
     NSLog(@"进度条控制:%f",self.seekSlider.value);
     if([self.playTimer isValid]){
@@ -944,14 +945,17 @@ static BOOL displayMute=NO;
     [self.render seek:time handler:^(BOOL value){
         NSLog(@"进度条控制 value:%d",value);
         if(value){
-            self.seekSlider.value=time;
             //
-            self.playTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
+            [self performSelector:@selector(initTimer) withObject:nil afterDelay:1.0];
+
+
         }
     }];
 
 }
-
+- (void)initTimer{
+    self.playTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
+}
 - (IBAction)muteAction:(id)sender {
     
     [self initRender];
@@ -1203,13 +1207,16 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
 -(void)timeFireMethod{
 
     [self.render getCurPos:^(BOOL value,NSTimeInterval time,NSTimeInterval duration){
-//        NSLog(@"getCurPos:%f---duration:%f",time,duration);
+        NSLog(@"getCurPos:%f---duration:%f",time,duration);
     
         //该方法应该主要刷新当前时间进度，不用做其他变化信息的处理
-        self.seekSlider.value=time;//每秒刷新进度条显示
+        if(value){
+            self.seekSlider.value=time;//每秒刷新进度条显示
+            
+            NSString *timeStr=stringFromInterval(time);
+            [self refreshCurrentMusicItem:nil curTime:timeStr];//每秒刷新进度label显示
+        }
         
-        NSString *timeStr=stringFromInterval(time);
-        [self refreshCurrentMusicItem:nil curTime:timeStr];//每秒刷新进度label显示
     }];
     
 }
