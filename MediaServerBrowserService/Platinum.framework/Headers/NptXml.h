@@ -301,7 +301,7 @@ class NPT_XmlParser
     NPT_Result OnStartElement(const char* name);
     NPT_Result OnElementAttribute(const char* name, const char* value);
     NPT_Result OnEndElement(const char* name);
-    NPT_Result OnCharacterData(const char* data, NPT_Size size);
+    NPT_Result OnCharacterData(const char* data, unsigned long size);
     void       RemoveIgnorableWhitespace();
 
     // members

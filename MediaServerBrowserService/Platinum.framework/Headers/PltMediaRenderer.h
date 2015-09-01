@@ -58,12 +58,16 @@ public:
     virtual NPT_Result OnPrevious(PLT_ActionReference& action) = 0;
     virtual NPT_Result OnSeek(PLT_ActionReference& action) = 0;
     virtual NPT_Result OnStop(PLT_ActionReference& action) = 0;
-    virtual NPT_Result OnSetAVTransportURI(PLT_ActionReference& action) = 0;
+    virtual NPT_Result OnSetAVTransportURI(PLT_ActionReference& action, const NPT_String& remoteip) = 0;
     virtual NPT_Result OnSetPlayMode(PLT_ActionReference& action) = 0;
+	virtual NPT_Result OnGetPositionInfo(PLT_ActionReference& action) = 0;
+	virtual NPT_Result OnGetDeviceCapabilities(PLT_ActionReference& action) = 0;
 
     // RenderingControl
     virtual NPT_Result OnSetVolume(PLT_ActionReference& action) = 0;
     virtual NPT_Result OnSetVolumeDB(PLT_ActionReference& action) = 0;
+	virtual NPT_Result OnGetVolume(PLT_ActionReference& action) = 0;
+	virtual NPT_Result OnGetMute(PLT_ActionReference& action) = 0;
     virtual NPT_Result OnGetVolumeDBRange(PLT_ActionReference& action) = 0;
     virtual NPT_Result OnSetMute(PLT_ActionReference& action) = 0;
 };
@@ -78,7 +82,8 @@ public:
                       bool         show_ip = false,
                       const char*  uuid = NULL,
                       unsigned int port = 0,
-                      bool         port_rebind = false);
+					  bool         port_rebind = false,
+					  bool		open2thirdparty = true);
     // methods
     virtual void SetDelegate(PLT_MediaRendererDelegate* delegate) { m_Delegate = delegate; }
 
@@ -101,17 +106,24 @@ protected:
     virtual NPT_Result OnPrevious(PLT_ActionReference& action);
     virtual NPT_Result OnSeek(PLT_ActionReference& action);
     virtual NPT_Result OnStop(PLT_ActionReference& action);
-    virtual NPT_Result OnSetAVTransportURI(PLT_ActionReference& action);
+    virtual NPT_Result OnSetAVTransportURI(PLT_ActionReference& action, const NPT_String& remoteip);
     virtual NPT_Result OnSetPlayMode(PLT_ActionReference& action);
+	virtual NPT_Result OnGetPositionInfo(PLT_ActionReference& action);
+	virtual NPT_Result OnGetDeviceCapabilities(PLT_ActionReference& action);
 
     // RenderingControl
     virtual NPT_Result OnSetVolume(PLT_ActionReference& action);
     virtual NPT_Result OnSetVolumeDB(PLT_ActionReference &action);
+	virtual NPT_Result OnGetVolume(PLT_ActionReference &action);
     virtual NPT_Result OnGetVolumeDBRange(PLT_ActionReference &action);
     virtual NPT_Result OnSetMute(PLT_ActionReference& action);
-
+	virtual NPT_Result OnGetMute(PLT_ActionReference& action);
+	virtual NPT_Result SetupResponse(NPT_HttpRequest&              request,
+									const NPT_HttpRequestContext& context,
+									NPT_HttpResponse&             response);
 private:
     PLT_MediaRendererDelegate* m_Delegate;
+	bool m_isOpen2Thirdparty;
 };
 
 #endif /* _PLT_MEDIA_RENDERER_H_ */

@@ -48,11 +48,12 @@
 #include "PltTaskManager.h"
 #include "PltAction.h"
 #include "PltHttp.h"
-#include "PltHttpServer.h"
 
 /*----------------------------------------------------------------------
 |   forward declarations
 +---------------------------------------------------------------------*/
+class PLT_HttpServer;
+class PLT_HttpServerHandler;
 class PLT_SsdpDeviceAnnounceTask;
 class PLT_SsdpListenTask;
 
@@ -92,7 +93,7 @@ public:
                    bool         port_rebind = false);
     virtual ~PLT_DeviceHost();
     
-    virtual void SetExtraBroadcast(bool broadcast) { m_ExtraBroascast = broadcast; }
+    virtual void SetBroadcast(bool broadcast) { m_Broadcast = broadcast; }
      
     /**
      When a UPnP device comes up, the specifications require that a SSDP bye-bye
@@ -114,6 +115,11 @@ public:
      @param lease_time Lease Time
      */
     NPT_Result SetLeaseTime(NPT_TimeInterval lease_time) { return PLT_DeviceData::SetLeaseTime(lease_time); }
+	NPT_List<NPT_String> get_DmcUseragent() const {return m_dmcUserAgent;}
+
+	void SetMulticastIp(const NPT_String& multicastIp) {m_MulticastIp = multicastIp;}
+	NPT_String GetMulticastIp() const {return m_MulticastIp;}
+	virtual void Refresh();
 
 protected:
     /**
@@ -132,23 +138,23 @@ protected:
      @param device the device to announce
      @param request the SSDP pre formatted request
      @param socket the network socket to use to send the request
-     @param type PLT_SsdpAnnounceType enum if the announce is a SSDP bye-bye, update or alive.
+     @param byebye boolean indicating if the announce is a SSDP bye-bye or alive.
      */
-    static NPT_Result Announce(PLT_DeviceData*      device,
-                               NPT_HttpRequest&     request,
-                               NPT_UdpSocket&       socket,
-                               PLT_SsdpAnnounceType type);
+    static NPT_Result Announce(PLT_DeviceData*  device, 
+                                NPT_HttpRequest& request, 
+                                NPT_UdpSocket&   socket, 
+                                bool             byebye);
     /**
      Called during SSDP announce. The HTTP request is already configured with
      the right method and host.
      @param request the SSDP pre formatted request
      @param socket the network socket to use to send the request
-     @param type PLT_SsdpAnnounceType enum if the announce is a SSDP bye-bye, update or alive.
+     @param byebye boolean indicating if the announce is a SSDP bye-bye or alive.
      */
-    NPT_Result Announce(NPT_HttpRequest&     request,
-                        NPT_UdpSocket&       socket,
-                        PLT_SsdpAnnounceType type) {
-        return Announce(this, request, socket, type);
+    NPT_Result Announce(NPT_HttpRequest& request, 
+                        NPT_UdpSocket&   socket, 
+                        bool             byebye) {
+        return Announce(this, request, socket, byebye);
     }
 
     /**
@@ -172,7 +178,7 @@ protected:
                                              NPT_HttpResponse&        response, 
                                              NPT_UdpSocket&           socket, 
                                              const char*              st,
-                                             const NPT_SocketAddress* addr = NULL);
+                                             const NPT_SocketAddress* addr  = NULL);
     /**
      Called by PLT_SsdpDeviceSearchResponseTask when responding to a M-SEARCH
      SSDP request.
@@ -188,7 +194,7 @@ protected:
                                               const NPT_SocketAddress* addr = NULL) {
         return SendSsdpSearchResponse(this, response, socket, st, addr);
     }
-    
+    bool has_device(const char* st);
 public:
     /**
      Add UPnP icon information to serve from file system.
@@ -327,13 +333,14 @@ protected:
     friend class PLT_SsdpDeviceSearchResponseTask;
     friend class PLT_SsdpAnnounceInterfaceIterator;
 
-    PLT_TaskManagerReference m_TaskManager;
-    PLT_HttpServerReference  m_HttpServer;
-    bool                     m_ExtraBroascast;
-    NPT_UInt16               m_Port;
-    bool                     m_PortRebind;
-    bool                     m_ByeByeFirst;
-    bool                     m_Started;
+    PLT_TaskManager m_TaskManager;
+    PLT_HttpServer* m_HttpServer;
+    bool            m_Broadcast;
+    NPT_UInt16      m_Port;
+    bool            m_PortRebind;
+    bool            m_ByeByeFirst;
+	NPT_List<NPT_String>			m_dmcUserAgent;
+	NPT_String					m_MulticastIp;
 };
 
 typedef NPT_Reference<PLT_DeviceHost> PLT_DeviceHostReference;

@@ -246,7 +246,7 @@ public:
     virtual void SetDelegate(PLT_MediaControllerDelegate* delegate) {
         m_Delegate = delegate;
     }
-
+	virtual void Refresh();
     // PLT_CtrlPointListener methods
     virtual NPT_Result OnDeviceAdded(PLT_DeviceDataReference& device);
     virtual NPT_Result OnDeviceRemoved(PLT_DeviceDataReference& device);

@@ -53,10 +53,10 @@ protected:
     virtual NPT_Result SetupIcons();
     virtual NPT_Result InitServiceURLs(PLT_Service* service, const char* service_name);
     
-    virtual NPT_Result Announce(PLT_DeviceData*      device, 
-                                NPT_HttpRequest&     request,
-                                NPT_UdpSocket&       socket,
-                                PLT_SsdpAnnounceType type);
+    virtual NPT_Result Announce(PLT_DeviceData*  device, 
+                                NPT_HttpRequest& request, 
+                                NPT_UdpSocket&   socket, 
+                                bool             byebye);
 
     // PLT_DeviceData methods
     virtual NPT_Result GetDescription(NPT_String& desc) { return PLT_MediaRenderer::GetDescription(desc); }

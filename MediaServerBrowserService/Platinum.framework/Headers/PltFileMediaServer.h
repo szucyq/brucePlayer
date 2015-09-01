@@ -46,6 +46,52 @@
 #include "PltMediaServer.h"
 #include "PltMediaCache.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#include <malloc.h>
+
+static wchar_t* A2W(const char* lpa, int acp)
+{
+	long dwNum = MultiByteToWideChar(acp, 0, lpa, -1, NULL, 0);
+	wchar_t* lpw = (wchar_t*)malloc(sizeof(wchar_t)*dwNum+1);
+	MultiByteToWideChar(acp, 0, lpa, -1, lpw, dwNum);
+	lpw[dwNum] = L'\0';
+	return lpw;
+}
+
+static char* W2A(const wchar_t* lpw, int acp)
+{
+	long dwNum = WideCharToMultiByte (acp, 0, lpw, -1, NULL, 0, NULL, NULL);
+	char* lpa = (char*)malloc(sizeof(char)*dwNum+1);
+	WideCharToMultiByte(acp, 0, lpw, -1, lpa, dwNum, NULL, NULL);
+	lpa[dwNum] = '\0';
+	return lpa;
+}
+
+static char* encode_utf8(const char* str)
+{
+	wchar_t* _lpw = A2W(str, CP_ACP);
+	return W2A(_lpw, CP_UTF8);
+}
+
+static char* decode_utf8(const char* str)
+{
+	wchar_t* _lpw = A2W(str, CP_UTF8);
+	return W2A(_lpw, CP_ACP);
+}
+
+#endif
+
+enum processtype_enum
+{
+	path_none = 0,
+	path_list,
+	path_dir,
+	path_file,
+	path_list_dir,
+	path_list_file,
+};
+
 /*----------------------------------------------------------------------
 |   PLT_FileMediaServerDelegate
 +---------------------------------------------------------------------*/
@@ -62,9 +108,17 @@ public:
                                            const char*        host, 
                                            const char*        file_path);
     // constructor & destructor
-    PLT_FileMediaServerDelegate(const char* url_root, const char* file_root, bool use_cache = false);
+    PLT_FileMediaServerDelegate(const char* url_root, const char* file_root);
     virtual ~PLT_FileMediaServerDelegate();
-    
+
+	bool AddVirtualPath(const char* path);
+	bool RemoveVirtualFath(const char* path);
+	NPT_String GetVirtualPathUrl(const char* path, NPT_UInt16 port);
+
+	NPT_List<NPT_String> get_PathList() const {return m_RootPathList;}
+	NPT_Map<NPT_String, NPT_UInt32> get_FileRequestCount() const {return m_fileRequestCount;}
+	NPT_List<NPT_String> get_DmrUseragent() const {return m_dmrUserAgent;}
+
 protected:
     // PLT_MediaServerDelegate methods
     virtual NPT_Result OnBrowseMetadata(PLT_ActionReference&          action, 
@@ -94,7 +148,7 @@ protected:
                                           NPT_HttpResponse&             response);
     
     // overridable methods
-    virtual NPT_Result ExtractResourcePath(const NPT_HttpUrl& url, NPT_String& file_path);
+    virtual NPT_Result ExtractResourcePath(const NPT_HttpUrl& url, NPT_String& file_path, NPT_String& filename);
     virtual NPT_String BuildResourceUri(const NPT_HttpUrl& base_uri, const char* host, const char* file_path);
     virtual NPT_Result ServeFile(const NPT_HttpRequest&        request, 
                                  const NPT_HttpRequestContext& context,
@@ -106,17 +160,31 @@ protected:
                                                const PLT_HttpRequestContext& context,
                                                bool                          with_count = true,
                                                bool                          keep_extension_in_title = false,
-                                               bool                          allip = false);
-    
+                                               bool                          allip = false,
+											   processtype_enum				processtype = path_none);
+
+	bool is_myself_filepath(const char* sfilepath);
+	NPT_String get_containerUpdateIDs();
+	NPT_String get_systemUpdateID();
+	NPT_String objectid2path(const NPT_String& id);
+	NPT_String path2objectid(const NPT_String& path, NPT_String& filename);
+	bool is_children_path(const NPT_String& path, const NPT_String& childrenpath);
 protected:
     friend class PLT_MediaItem;
     
     NPT_String  m_UrlRoot;
     NPT_String  m_FileRoot;
     bool        m_FilterUnknownOut;
-    bool        m_UseCache;
-    
+	NPT_List<NPT_String> m_RootPathList;
+	NPT_Map<NPT_String, NPT_UInt32> m_systemIDMap;
+	NPT_UInt32 m_lastSystemID;
+	NPT_Map<NPT_String, NPT_UInt32> m_containerUpdateMap;
+	NPT_Map<NPT_String, NPT_UInt32> m_fileRequestCount;
+	NPT_Map<NPT_String, NPT_List<NPT_String> > m_fileRequestUserAgent;
+	NPT_List<NPT_String>			m_dmrUserAgent;
     PLT_MediaCache<NPT_Reference<NPT_List<NPT_String> >, NPT_TimeStamp> m_DirCache;
+	NPT_Map<NPT_String, NPT_UInt32> m_pathIDMap;
+	NPT_UInt32 m_lastObjectid;
 };
 
 /*----------------------------------------------------------------------
@@ -136,16 +204,22 @@ public:    // constructor
                         bool         show_ip = false,
                         const char*  uuid = NULL,
                         NPT_UInt16   port = 0,
-                        bool         port_rebind = false) :
-        PLT_MediaServer(friendly_name, 
-                        show_ip,
-                        uuid, 
-                        port,
-                        port_rebind),
-        PLT_FileMediaServerDelegate("/", file_root) {SetDelegate(this);}
+                        bool         port_rebind = false,
+						bool		open2thirdparty = true);
+
+		virtual void AddVirtualPath(const char* path);
+		virtual void RemoveVirtualFath(const char* path);
+		virtual NPT_String GetVirtualPathUrl(const char* path);
+
+		virtual NPT_Result SetupServices();
 
 protected:
     virtual ~PLT_FileMediaServer() {}
+
+private:
+	NPT_Mutex m_state;
+	PLT_Service* m_pCDService;
+	PLT_Service* m_pCMService;
 };
 
 #endif /* _PLT_FILE_MEDIA_SERVER_H_ */

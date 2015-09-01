@@ -52,15 +52,6 @@
 class PLT_DeviceHost;
 
 /*----------------------------------------------------------------------
-|   PLT_SsdpAnnounceType
-+---------------------------------------------------------------------*/
-typedef enum {
-    PLT_ANNOUNCETYPE_BYEBYE,
-    PLT_ANNOUNCETYPE_ALIVE,
-    PLT_ANNOUNCETYPE_UPDATE
-} PLT_SsdpAnnounceType;
-
-/*----------------------------------------------------------------------
 |   PLT_SsdpPacketListener class
 +---------------------------------------------------------------------*/
 /**
@@ -183,15 +174,16 @@ protected:
 class PLT_SsdpAnnounceInterfaceIterator
 {
 public:
-    PLT_SsdpAnnounceInterfaceIterator(PLT_DeviceHost* device, PLT_SsdpAnnounceType type, bool broadcast = false) :
-        m_Device(device), m_Type(type), m_Broadcast(broadcast) {}
+    PLT_SsdpAnnounceInterfaceIterator(PLT_DeviceHost* device, NPT_String multicastip, bool is_byebye = false, bool broadcast = false) :
+        m_Device(device), m_MulticastIp(multicastip), m_IsByeBye(is_byebye), m_Broadcast(broadcast) {}
       
     NPT_Result operator()(NPT_NetworkInterface*& if_addr) const;
-
+    
 private:
-    PLT_DeviceHost*         m_Device;
-    PLT_SsdpAnnounceType    m_Type;
-    bool                    m_Broadcast;
+    PLT_DeviceHost* m_Device;
+    bool            m_IsByeBye;
+    bool            m_Broadcast;
+	NPT_String	m_MulticastIp;
 };
 
 /*----------------------------------------------------------------------
@@ -204,12 +196,12 @@ private:
 class PLT_SsdpInitMulticastIterator
 {
 public:
-    PLT_SsdpInitMulticastIterator(NPT_UdpMulticastSocket* socket) :
-        m_Socket(socket) {}
+    PLT_SsdpInitMulticastIterator(NPT_UdpMulticastSocket* socket, NPT_String multicastip) :
+        m_Socket(socket), m_MulticastIp(multicastip) {}
 
     NPT_Result operator()(NPT_IpAddress& if_addr) const {
         NPT_IpAddress addr;
-        addr.ResolveName("239.255.255.250");
+        addr.ResolveName(m_MulticastIp);
         // OSX bug, since we're reusing the socket, we need to leave group first
         // before joining it
         m_Socket->LeaveGroup(addr, if_addr);
@@ -218,6 +210,7 @@ public:
 
 private:
     NPT_UdpMulticastSocket* m_Socket;
+	NPT_String	m_MulticastIp;
 };
 
 /*----------------------------------------------------------------------
@@ -232,11 +225,12 @@ class PLT_SsdpDeviceAnnounceTask : public PLT_ThreadTask
 public:
     PLT_SsdpDeviceAnnounceTask(PLT_DeviceHost*  device, 
                                NPT_TimeInterval repeat,
+							   NPT_String multicastip,
                                bool             is_byebye_first = false,
                                bool             extra_broadcast = false) : 
         m_Device(device), 
-        m_Repeat(repeat),
-        m_IsByeByeFirst(is_byebye_first),
+		m_MulticastIp(multicastip),
+        m_Repeat(repeat), m_IsByeByeFirst(is_byebye_first), 
         m_ExtraBroadcast(extra_broadcast) {}
 
 protected:
@@ -250,6 +244,7 @@ protected:
     NPT_TimeInterval            m_Repeat;
     bool                        m_IsByeByeFirst;
     bool                        m_ExtraBroadcast;
+	NPT_String	m_MulticastIp;
 };
 
 /*----------------------------------------------------------------------

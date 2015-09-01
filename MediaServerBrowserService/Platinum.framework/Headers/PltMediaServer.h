@@ -117,7 +117,8 @@ public:
                     bool         show_ip = false,
                     const char*  uuid = NULL,
                     NPT_UInt16   port = 0,
-                    bool         port_rebind = false);
+                    bool         port_rebind = false,
+					bool		open2thirdparty = true);
     
     // methods
     virtual void SetDelegate(PLT_MediaServerDelegate* delegate) { m_Delegate = delegate; }
@@ -180,8 +181,12 @@ protected:
                                          const char*                   sort_criteria, 
                                          const PLT_HttpRequestContext& context);
     
+	virtual NPT_Result SetupResponse(NPT_HttpRequest&              request,
+									const NPT_HttpRequestContext& context,
+									NPT_HttpResponse&             response);
 private:
     PLT_MediaServerDelegate* m_Delegate;
+	bool m_isOpen2Thirdparty;
 };
 
 #endif /* _PLT_MEDIA_SERVER_H_ */

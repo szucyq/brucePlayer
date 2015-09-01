@@ -83,18 +83,15 @@ public:
     virtual NPT_Result   Start();
     virtual NPT_Result   Stop();
     virtual unsigned int GetPort() { return m_Port; }
-
+	virtual NPT_String   GetServerIp() { return m_ServerIp; }
 private:
-    PLT_TaskManagerReference        m_TaskManager;
-    NPT_Reference<NPT_HttpServer>   m_Server;
-    NPT_IpAddress                   m_Address;
-    NPT_IpPort                      m_Port;
-    bool                            m_AllowRandomPortOnBindFailure;
-    bool                            m_ReuseAddress;
-    bool                            m_Running;
-    bool                            m_Aborted;
+    PLT_TaskManager*    m_TaskManager;
+    NPT_IpAddress       m_Address;
+    NPT_IpPort          m_Port;
+    bool                m_AllowRandomPortOnBindFailure;
+    bool                m_ReuseAddress;
+    bool                m_Aborted;
+	NPT_String			m_ServerIp;
 };
-
-typedef NPT_Reference<PLT_HttpServer> PLT_HttpServerReference;
 
 #endif /* _PLT_HTTP_SERVER_H_ */

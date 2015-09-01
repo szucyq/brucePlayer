@@ -128,7 +128,7 @@ public:
     virtual const NPT_Lock<PLT_DeviceDataReferenceList>& GetMediaServers() { return m_MediaServers; }
     virtual NPT_Result FindServer(const char* uuid, PLT_DeviceDataReference& device);    
     virtual void SetDelegate(PLT_MediaBrowserDelegate* delegate) { m_Delegate = delegate; }
-
+	void Refresh();
 protected:
     // PLT_CtrlPointListener methods
     virtual NPT_Result OnDeviceAdded(PLT_DeviceDataReference& device);

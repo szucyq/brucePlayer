@@ -46,11 +46,11 @@
 #include "PltService.h"
 #include "PltSsdp.h"
 #include "PltDeviceData.h"
-#include "PltHttpServer.h"
 
 /*----------------------------------------------------------------------
 |   forward declarations
 +---------------------------------------------------------------------*/
+class PLT_HttpServer;
 class PLT_CtrlPointHouseKeepingTask;
 class PLT_SsdpSearchTask;
 class PLT_SsdpListenTask;
@@ -106,12 +106,12 @@ public:
 
     // discovery
     virtual void IgnoreUUID(const char* uuid);
-    virtual NPT_Result Search(const NPT_HttpUrl& url = NPT_HttpUrl("239.255.255.250", 1900, "*"), 
+    virtual NPT_Result Search(const NPT_HttpUrl& url/* = NPT_HttpUrl(m_MulticastIp, 1900, "*")*/, 
                               const char*        target = "upnp:rootdevice", 
                               NPT_Cardinal       mx = 5,
                               NPT_TimeInterval   frequency = NPT_TimeInterval(50.), // pass NPT_TimeInterval(0.) for one time only
                               NPT_TimeInterval   initial_delay = NPT_TimeInterval(0.));
-    virtual NPT_Result Discover(const NPT_HttpUrl& url = NPT_HttpUrl("239.255.255.250", 1900, "*"),
+    virtual NPT_Result Discover(const NPT_HttpUrl& url/* = NPT_HttpUrl(m_MulticastIp, 1900, "*")*/,
                                 const char*        target = "ssdp:all", 
                                 NPT_Cardinal       mx = 5,
                                 NPT_TimeInterval   frequency = NPT_TimeInterval(50.), // pass NPT_TimeInterval(0.) for one time only
@@ -149,6 +149,9 @@ public:
     // PLT_SsdpPacketListener method
     virtual NPT_Result OnSsdpPacket(const NPT_HttpRequest&        request, 
                                     const NPT_HttpRequestContext& context);
+
+	void SetMulticastIp(const NPT_String& multicastIp) {m_MulticastIp = multicastIp;}
+	NPT_String GetMulticastIp() const {return m_MulticastIp;}
 
 protected:
 
@@ -198,6 +201,7 @@ protected:
     
 private:
     // methods
+    NPT_Result      RenewSubscribers();
     PLT_ThreadTask* RenewSubscriber(PLT_EventSubscriberReference subscriber);
     
     NPT_Result AddPendingEventNotification(PLT_EventNotification *notification);
@@ -223,7 +227,7 @@ private:
                                          NPT_Cardinal         mx, 
                                          NPT_TimeInterval     frequency,
                                          const NPT_IpAddress& address);
-    
+    bool IsVailedSubscriber(PLT_EventSubscriberReference subscriber);
 private:
     friend class NPT_Reference<PLT_CtrlPoint>;
     friend class PLT_UPnP;
@@ -238,15 +242,17 @@ private:
 
     NPT_List<NPT_String>                         m_UUIDsToIgnore;
     PLT_CtrlPointListenerList                    m_ListenerList;
-    PLT_HttpServerReference                      m_EventHttpServer;
-    PLT_TaskManagerReference                     m_TaskManager;
+    PLT_HttpServer*                              m_EventHttpServer;
+    PLT_TaskManager                              m_TaskManager;
     NPT_Mutex                                    m_Lock;
     NPT_List<PLT_DeviceDataReference>            m_RootDevices;
     NPT_List<PLT_EventSubscriberReference>       m_Subscribers;
     NPT_String                                   m_SearchCriteria;
-    bool                                         m_Started;
+    bool                                         m_Aborted;
     NPT_List<PLT_EventNotification *>            m_PendingNotifications;
     NPT_List<NPT_String>                         m_PendingInspections;
+	NPT_Map<NPT_String, NPT_String>              m_ValidUrlUUIDMap;
+	NPT_String							m_MulticastIp;
 };
 
 typedef NPT_Reference<PLT_CtrlPoint> PLT_CtrlPointReference;

@@ -37,7 +37,6 @@
 +---------------------------------------------------------------------*/
 #include "NptConfig.h"
 #include "NptStreams.h"
-#include "NptArray.h"
 #include "NptFile.h"
 
 /*----------------------------------------------------------------------
@@ -45,48 +44,6 @@
 +---------------------------------------------------------------------*/
 class NPT_ZipInflateState;
 class NPT_ZipDeflateState;
-
-/*----------------------------------------------------------------------
-|   NPT_ZipFile
-+---------------------------------------------------------------------*/
-const unsigned int NPT_ZIP_FILE_FLAG_ENCRYPTED = 0x01;
-const unsigned int NPT_ZIP_FILE_COMPRESSION_METHOD_NONE    = 0x00;
-const unsigned int NPT_ZIP_FILE_COMPRESSION_METHOD_DEFLATE = 0x08;
-
-class NPT_ZipFile
-{
-public:
-    // types
-    class Entry {
-    public:
-        Entry(const unsigned char* data);
-        NPT_String    m_Name;
-        NPT_UInt16    m_Flags;
-        NPT_UInt16    m_CompressionMethod;
-        NPT_UInt32    m_Crc32;
-        NPT_LargeSize m_CompressedSize;
-        NPT_LargeSize m_UncompressedSize;
-        NPT_UInt16    m_DiskNumber;
-        NPT_UInt16    m_InternalFileAttributes;
-        NPT_UInt32    m_ExternalFileAttributes;
-        NPT_Position  m_RelativeOffset;
-        NPT_UInt32    m_DirectoryEntrySize;
-    };
-    
-    // class methods
-    static NPT_Result Parse(NPT_InputStream& stream, NPT_ZipFile*& file);
-    static NPT_Result GetInputStream(Entry& entry, NPT_InputStreamReference& zip_stream, NPT_InputStream*& file_stream);
-    
-    // accessors
-    NPT_Array<Entry>& GetEntries() { return m_Entries; }
-    
-private:
-    // constructor
-    NPT_ZipFile();
-    
-    // members
-    NPT_Array<Entry> m_Entries;
-};
 
 /*----------------------------------------------------------------------
 |   NPT_Zip
@@ -121,8 +78,7 @@ public:
      * Inflate (i.e decompress) a buffer
      */
     static NPT_Result Inflate(const NPT_DataBuffer& in,
-                              NPT_DataBuffer&       out,
-                              bool                  raw = false);
+                              NPT_DataBuffer&       out);   
     
     /**
      * Deflate (i.e compress) a file
@@ -140,7 +96,7 @@ public:
 class NPT_ZipInflatingInputStream : public NPT_InputStream 
 {
 public:
-    NPT_ZipInflatingInputStream(NPT_InputStreamReference& source, bool raw = false);
+    NPT_ZipInflatingInputStream(NPT_InputStreamReference& source);
    ~NPT_ZipInflatingInputStream();
    
     // NPT_InputStream methods

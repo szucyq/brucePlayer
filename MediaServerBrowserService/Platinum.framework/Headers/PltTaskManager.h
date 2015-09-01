@@ -79,16 +79,11 @@ public:
     virtual NPT_Result StartTask(PLT_ThreadTask*   task, 
                                  NPT_TimeInterval* delay = NULL,
                                  bool              auto_destroy = true);
-    
+
     /**
      Stop all tasks associated with this task manager.
      */
-    NPT_Result Abort();
-    
-    /**
-     Reset task manager after an Abort so new tasks can be queued.
-     */
-    NPT_Result Reset();
+    NPT_Result StopAllTasks();
 
     /**
      Returns the max number of concurrent tasks allowed. 0 for no limit.
@@ -111,7 +106,5 @@ private:
     NPT_Cardinal               m_RunningTasks;
     bool                       m_Stopping;
 };
-
-typedef NPT_Reference<PLT_TaskManager> PLT_TaskManagerReference;
 
 #endif /* _PLT_TASKMANAGER_H_ */

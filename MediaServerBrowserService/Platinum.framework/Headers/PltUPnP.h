@@ -125,12 +125,16 @@ public:
      */
 	void SetIgnoreLocalUUIDs(bool ignore) { m_IgnoreLocalUUIDs = ignore; }
 
+	// 可以设置不同的组播，在init之前调用 一般组播地址为：239.255.255.*  其中DLNA协议使用的组播地址为239.255.255.250
+	void SetMulticastIp(const NPT_String& multicastIp) {m_MulticastIp = multicastIp;}
+	NPT_String GetMulticastIp() const {return m_MulticastIp;}
+
 private:
     // members
     NPT_Mutex                           m_Lock;
     NPT_List<PLT_DeviceHostReference>   m_Devices;
     NPT_List<PLT_CtrlPointReference>    m_CtrlPoints;
-    NPT_Reference<PLT_TaskManager>      m_TaskManager;
+    PLT_TaskManager                     m_TaskManager;
 
     // Since we can only have one socket listening on port 1900, 
     // we create it in here and we will attach every control points
@@ -138,6 +142,7 @@ private:
     bool                                m_Started;
     PLT_SsdpListenTask*                 m_SsdpListenTask; 
 	bool								m_IgnoreLocalUUIDs;
+	NPT_String							m_MulticastIp;
 };
 
 #endif /* _PLT_UPNP_H_ */

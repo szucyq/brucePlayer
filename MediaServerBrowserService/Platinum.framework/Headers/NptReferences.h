@@ -47,12 +47,12 @@ class NPT_Reference
 public:
     // constructors and destructor
     NPT_Reference() : m_Object(NULL), m_Counter(NULL), m_Mutex(NULL), m_ThreadSafe(true) {}
-    explicit NPT_Reference(T* object, bool thread_safe = true) :
-        m_Object(object),
+    explicit NPT_Reference(T* object, bool thread_safe = true) : 
+        m_Object(object), 
         m_Counter(object?new NPT_Cardinal(1):NULL),
         m_Mutex((object && thread_safe)?new NPT_Mutex():NULL),
         m_ThreadSafe(thread_safe) {}
-    
+
     NPT_Reference(const NPT_Reference<T>& ref) :
         m_Object(ref.m_Object), m_Counter(ref.m_Counter), m_Mutex(ref.m_Mutex), m_ThreadSafe(ref.m_ThreadSafe) {
         if (m_Mutex) m_Mutex->Lock();
