@@ -1131,17 +1131,16 @@ static BOOL displayMute=NO;
     self.curMusicBitLabel.text=[NSString stringWithFormat:@"%ld",item.bitRate];
     
     //slider
-//    self.seekSlider.minimumValue = 0;   //最小值
-//    self.seekSlider.maximumValue = item.duration;  //最大值
-//    self.lengthTimeLabel.text=stringFromInterval(item.duration);
-//    self.seekSlider.value=0;
+    self.seekSlider.minimumValue = 0;   //最小值
+    self.seekSlider.maximumValue = item.duration;  //最大值
+    self.lengthTimeLabel.text=stringFromInterval(item.duration);
     
     //名字
-    //    self.curMusicNameLabel.text=item.title;
+        self.curMusicNameLabel.text=item.title;
     //播放按钮旁边－当前歌曲长度
-    //    self.curMusicTimeLabel.text=stringFromInterval(item.duration);//
-    //进度条右侧－当前item长度
-    //    self.lengthTimeLabel.text=stringFromInterval(item.duration);
+        self.curMusicTimeLabel.text=stringFromInterval(item.duration);//
+    //进度条右侧－当前歌曲长度
+        self.lengthTimeLabel.text=stringFromInterval(item.duration);
 }
 - (void)refreshCurrentMusicItem:(MediaItemInfo*)item curTime:(NSString*)time{
     
@@ -1264,6 +1263,7 @@ static BOOL displayMute=NO;
                         [self.playTimer invalidate];
                     }
                     self.playTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
+                    
                 }
             }];
         }
@@ -1296,7 +1296,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
 #undef HOURS_PER_DAY
 }
 -(void)timeFireMethod{
-
+    //获取当前进度
     [self.render getCurPos:^(BOOL value,NSTimeInterval time,NSTimeInterval duration){
         NSLog(@"getCurPos:%f---duration:%f",time,duration);
     
@@ -1309,6 +1309,20 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
         }
         
     }];
+    //获取当前文件信息
+    [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
+        if(value){
+            NSLog(@"curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
+            [self refreshCurrentMusicInfoWithItem:item];
+        }
+    }];
+    
+    //获取当前音量
+    [self.render getVolume:^(BOOL value,NSInteger volume){
+        NSLog(@"value:%d--volume:%d",value,volume);
+        self.volumeBt.value=volume;
+    }];
+
     
 }
 #pragma mark -
