@@ -50,7 +50,7 @@ static BOOL displayMute=NO;
 //    [self.listIconBt setBackgroundImage:[UIImage imageNamed:@"by_bg_blue.png"] forState:UIControlStateNormal];
 //    [self.listIconBt setImage:[UIImage imageNamed:@"menu_list_icon_select.png"] forState:UIControlStateNormal];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playWithAvItem:) name:@"kPlay" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playWithChooseItem:) name:@"kPlay" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getServerAction:) name:@"kSelectServer" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getRenderAction:) name:@"kSelectRender" object:nil];
     //启动查找服务器
@@ -778,21 +778,33 @@ static BOOL displayMute=NO;
 - (IBAction)preBtAction:(id)sender {
     NSLog(@"上一首");
     [self initRender];
-    [self.render previous:^(BOOL value){
-        NSLog(@"previous:%d",value);
+    [self.render stop:^(BOOL value){
         if(value){
-            [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
-                if(value){
-                    NSLog(@"curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
-                    [self refreshCurrentMusicInfoWithItem:item];
-                }
-            }];
-            
-            
+            AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+            int curSongNum=appDelagete.curMusicNumber;
+            if(self.tempItemsArray.count>curSongNum){
+                MediaServerItem *item=[self.tempItemsArray objectAtIndex:curSongNum];
+                //播放
+                [self playWithNextItem:item];
+                
+            }
         }
-        NSString *str=[NSString stringWithFormat:@"%d",value];
-        [self alert:@"上一首提示" msg:str];
     }];
+//    [self.render previous:^(BOOL value){
+//        NSLog(@"previous:%d",value);
+//        if(value){
+//            [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
+//                if(value){
+//                    NSLog(@"curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
+//                    [self refreshCurrentMusicInfoWithItem:item];
+//                }
+//            }];
+//            
+//            
+//        }
+//        NSString *str=[NSString stringWithFormat:@"%d",value];
+//        [self alert:@"上一首提示" msg:str];
+//    }];
 }
 
 - (IBAction)playPauseBtAction:(id)sender {
@@ -838,21 +850,34 @@ static BOOL displayMute=NO;
 - (IBAction)nextBtAction:(id)sender {
     NSLog(@"下一首");
     [self initRender];
-    [self.render next:^(BOOL value){
-        NSLog(@"next:%d",value);
+    [self.render stop:^(BOOL value){
         if(value){
-            [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
-                if(value){
-                    NSLog(@"curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
-                    [self refreshCurrentMusicInfoWithItem:item];
-                }
-            }];
-            
-            
+            AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+            int curSongNum=appDelagete.curMusicNumber;
+            if(self.tempItemsArray.count>curSongNum){
+                MediaServerItem *item=[self.tempItemsArray objectAtIndex:curSongNum];
+
+                //播放
+                [self playWithNextItem:item];
+
+            }
         }
-        NSString *str=[NSString stringWithFormat:@"%d",value];
-        [self alert:@"下一首提示" msg:str];
     }];
+//    [self.render next:^(BOOL value){
+//        NSLog(@"next:%d",value);
+//        if(value){
+//            [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
+//                if(value){
+//                    NSLog(@"curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
+//                    [self refreshCurrentMusicInfoWithItem:item];
+//                }
+//            }];
+//            
+//            
+//        }
+//        NSString *str=[NSString stringWithFormat:@"%d",value];
+//        [self alert:@"下一首提示" msg:str];
+//    }];
     
     
 }
@@ -1029,8 +1054,10 @@ static BOOL displayMute=NO;
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     int curSongNum=appDelagete.curMusicNumber;
     
-    NSMutableArray *array=[self allMusicDataArray];
-    if(!array){
+//    NSMutableArray *array=[self allMusicDataArray];
+    [self.tempItemsArray removeAllObjects];
+    self.tempItemsArray=[self allMusicDataArray];
+    if(!self.tempItemsArray){
         return;
     }
     
@@ -1040,7 +1067,7 @@ static BOOL displayMute=NO;
     }
     else if (_playStyle==Playlist)
     {
-        if (curSongNum==array.count-1)
+        if (curSongNum==self.tempItemsArray.count-1)
         {
             if([self.playTimer isValid]){
                 [self.playTimer invalidate];
@@ -1055,7 +1082,7 @@ static BOOL displayMute=NO;
     }
     else if (_playStyle==Circle)
     {
-        if (curSongNum==array.count-1)
+        if (curSongNum==self.tempItemsArray.count-1)
         {
             curSongNum=0;
         }
@@ -1065,7 +1092,7 @@ static BOOL displayMute=NO;
         }
     }
     else if (_playStyle==Random){
-        curSongNum=rand()%(array.count);
+        curSongNum=rand()%(self.tempItemsArray.count);
         NSLog(@"随机%d",curSongNum);
     }
     
@@ -1120,6 +1147,68 @@ static BOOL displayMute=NO;
     
     return array;
 
+}
+- (void)playWithNextItem:(MediaServerItem *)item{
+    NSLog(@"objID:%@",item.objID);
+    NSLog(@"title:%@",item.title);
+    NSLog(@"uri:%@",item.uri);
+    NSLog(@"size:%lu",(unsigned long)item.size);
+    NSLog(@"type:%d",item.type);
+    NSLog(@"artist:%@",item.artist);
+    NSLog(@"date:%@",item.date);
+    NSLog(@"composer:%@",item.composer);
+    NSLog(@"trackList:%@",item.trackList);
+    NSLog(@"codeType:%@",item.codeType);
+    NSLog(@"contentFormat:%@",item.contentFormat);
+    NSLog(@"mimeType:%@",item.mimeType);
+    NSLog(@"extention:%@",item.extention);
+    NSLog(@"albumArtURI:%@",item.albumArtURI);
+    NSLog(@"iconURI:%@",item.iconURI);
+    
+    NSLog(@"duration:%f",item.duration);
+    NSLog(@"album:%@",item.album);
+    NSLog(@"genres:%@",item.genres);
+    NSLog(@"bit:%f",item.bitrate);
+    
+    
+    
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    NSString *renderUuid=appDelagete.renderUuid;
+    if([renderUuid isEqualToString:@"self"]){
+        MPMoviePlayerViewController *playerViewController =[[MPMoviePlayerViewController alloc]initWithContentURL:[NSURL URLWithString:item.uri]];
+        [self presentMoviePlayerViewControllerAnimated:playerViewController];
+        return;
+    }
+    
+    
+    //播放
+    [self.render setUri:item.uri name:item.title handler:^(BOOL ret){
+        if(ret){
+            NSLog(@"!!!!!!!!!!!!!!!!!!!!!!!!ret = %d", ret);
+            //play
+            [self.render play:^(BOOL ret){
+                NSLog(@"play:%d",ret);
+                if(ret){
+                    [self.playBt setBackgroundImage:[UIImage imageNamed:@"pause.png"] forState:UIControlStateNormal];
+                    
+                    //timer
+                    if(![self.playTimer isValid]){
+                        self.playTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
+                    }
+                    
+                    
+                }
+            }];
+        }
+        else{
+            [SVProgressHUD showErrorWithStatus:@"该文件播放错误，请重试" maskType:SVProgressHUDMaskTypeBlack];
+            return ;
+        }
+    }];
+    
+    
+    
+    
 }
 #pragma mark - refresh music info
 - (void)refreshCurrentMusicInfoWithItem:(MediaItemInfo*)item{
@@ -1212,7 +1301,7 @@ static BOOL displayMute=NO;
 }
 #pragma mark -
 #pragma mark - play   notificationon
-- (void)playWithAvItem:(NSNotification *)sender{
+- (void)playWithChooseItem:(NSNotification *)sender{
     NSDictionary *userinfo=[sender userInfo];
     MediaServerItem *item = [userinfo objectForKey:@"item"];
     NSLog(@"objID:%@",item.objID);
@@ -1259,10 +1348,10 @@ static BOOL displayMute=NO;
                     [self.playBt setBackgroundImage:[UIImage imageNamed:@"pause.png"] forState:UIControlStateNormal];
                     
                     //timer
-                    if([self.playTimer isValid]){
-                        [self.playTimer invalidate];
+                    if(![self.playTimer isValid]){
+                        self.playTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
                     }
-                    self.playTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
+                    
                     
                 }
             }];
