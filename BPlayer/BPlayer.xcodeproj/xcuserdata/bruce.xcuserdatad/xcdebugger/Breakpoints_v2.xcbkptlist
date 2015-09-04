@@ -249,13 +249,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BPlayer/RenderViewController.m"
-            timestampString = "462007066.174088"
+            filePath = "BPlayer/AllMusicController.m"
+            timestampString = "463028506.502407"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "451"
+            endingLineNumber = "451"
+            landmarkName = "-getAllMusicData"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

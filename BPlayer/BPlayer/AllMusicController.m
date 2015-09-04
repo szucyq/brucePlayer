@@ -51,25 +51,25 @@
     
     //
     self.view.backgroundColor=[UIColor whiteColor];
-    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
-    
-    if(appDelagete.serverUuid){
-        NSLog(@"server uuid :%@",appDelagete.serverUuid);
-//        MediaServerBrowser *browser=[[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid];
-        
-        //
-//        MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithBrowser:browser];
-//        [crawler crawl:^(BOOL ret, NSArray *items) {
-//            NSLog(@"crawler items = %@", items);
-//            self.listArray=items;
-//            [self.listTableView reloadData];
-//        }];
-        
-    }
-    else{
-//        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
-//        return;
-    }
+//    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+//    
+//    if(appDelagete.serverUuid){
+//        NSLog(@"server uuid :%@",appDelagete.serverUuid);
+////        MediaServerBrowser *browser=[[MediaServerBrowserService instance] browserWithUUID:appDelagete.serverUuid];
+//        
+//        //
+////        MediaServerCrawler *crawler=[[MediaServerCrawler alloc]initWithBrowser:browser];
+////        [crawler crawl:^(BOOL ret, NSArray *items) {
+////            NSLog(@"crawler items = %@", items);
+////            self.listArray=items;
+////            [self.listTableView reloadData];
+////        }];
+//        
+//    }
+//    else{
+////        [SVProgressHUD showErrorWithStatus:@"请先选择服务器" maskType:SVProgressHUDMaskTypeGradient];
+////        return;
+//    }
     //查询数据
     [self getAllMusicData];
 }
@@ -197,6 +197,9 @@
     //如果是音频文件播放，则要在主界面控制
     NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:item,@"item", nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"kPlay" object:nil userInfo:userinfo];
+    //
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    appDelagete.curMusicNumber=i;
 }
 - (void)setByType:(NSString *)byType{
     [self.listArray removeAllObjects];
@@ -402,7 +405,7 @@
 - (void)getAllMusicData{
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
     
-    
+//    appDelagete.serverUuid=@"7bf7d1a8-fd38-008a-2ae4-b7b7a6073543";
     if(!appDelagete.serverUuid){
         NSLog(@"server uuid :%@",appDelagete.serverUuid);
         [self.listArray removeAllObjects];
@@ -968,6 +971,9 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     //如果是音频文件播放，则要在主界面控制
     NSDictionary *userinfo=[NSDictionary dictionaryWithObjectsAndKeys:item,@"item", nil];
     [[NSNotificationCenter defaultCenter]postNotificationName:@"kPlay" object:nil userInfo:userinfo];
+    
+    AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
+    appDelagete.curMusicNumber=indexPath.row;
 }
 
 @end

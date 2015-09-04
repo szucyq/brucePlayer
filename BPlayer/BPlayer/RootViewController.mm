@@ -780,6 +780,8 @@ static BOOL displayMute=NO;
     [self initRender];
     [self.render stop:^(BOOL value){
         if(value){
+            [self nextSongNumber:NO];
+            //
             AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
             int curSongNum=appDelagete.curMusicNumber;
             if(self.tempItemsArray.count>curSongNum){
@@ -851,12 +853,15 @@ static BOOL displayMute=NO;
     NSLog(@"下一首");
     [self initRender];
     [self.render stop:^(BOOL value){
+        NSLog(@"stop:%d",value);
         if(value){
+            [self nextSongNumber:YES];
             AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
             int curSongNum=appDelagete.curMusicNumber;
+            NSLog(@"temp count:%d---cur num:%d",self.tempItemsArray.count,curSongNum);
             if(self.tempItemsArray.count>curSongNum){
                 MediaServerItem *item=[self.tempItemsArray objectAtIndex:curSongNum];
-
+                NSLog(@"next item;%@",item);
                 //播放
                 [self playWithNextItem:item];
 
@@ -1048,7 +1053,7 @@ static BOOL displayMute=NO;
         [self.view addSubview:self.allMusicController.view];
     }
 }
-- (void)nextSongNumber{
+- (void)nextSongNumber:(BOOL)sender{
 //    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
 //    int curSongNum=[[defaults valueForKey:kCurSongNumber] intValue];
     AppDelegate* appDelagete = [[UIApplication sharedApplication] delegate];
@@ -1067,29 +1072,59 @@ static BOOL displayMute=NO;
     }
     else if (_playStyle==Playlist)
     {
-        if (curSongNum==self.tempItemsArray.count-1)
-        {
-            if([self.playTimer isValid]){
-                [self.playTimer invalidate];
+        if(sender){
+            if (curSongNum==self.tempItemsArray.count-1)
+            {
+                if([self.playTimer isValid]){
+                    [self.playTimer invalidate];
+                }
+                sleep(5);
+                exit(0);
             }
-            sleep(5);
-            exit(0);
+            else
+            {
+                curSongNum++;
+            }
         }
-        else
-        {
-            curSongNum++;
+        else{
+            if (curSongNum==0)
+            {
+                if([self.playTimer isValid]){
+                    [self.playTimer invalidate];
+                }
+                sleep(5);
+                exit(0);
+            }
+            else
+            {
+                curSongNum--;
+            }
         }
+        
     }
     else if (_playStyle==Circle)
     {
-        if (curSongNum==self.tempItemsArray.count-1)
-        {
-            curSongNum=0;
+        if(sender){
+            if (curSongNum==self.tempItemsArray.count-1)
+            {
+                curSongNum=0;
+            }
+            else
+            {
+                curSongNum++;
+            }
         }
-        else
-        {
-            curSongNum++;
+        else{
+            if (curSongNum==0)
+            {
+                curSongNum=self.tempItemsArray.count-1;
+            }
+            else
+            {
+                curSongNum--;
+            }
         }
+        
     }
     else if (_playStyle==Random){
         curSongNum=rand()%(self.tempItemsArray.count);
@@ -1149,26 +1184,26 @@ static BOOL displayMute=NO;
 
 }
 - (void)playWithNextItem:(MediaServerItem *)item{
-    NSLog(@"objID:%@",item.objID);
-    NSLog(@"title:%@",item.title);
-    NSLog(@"uri:%@",item.uri);
-    NSLog(@"size:%lu",(unsigned long)item.size);
-    NSLog(@"type:%d",item.type);
-    NSLog(@"artist:%@",item.artist);
-    NSLog(@"date:%@",item.date);
-    NSLog(@"composer:%@",item.composer);
-    NSLog(@"trackList:%@",item.trackList);
-    NSLog(@"codeType:%@",item.codeType);
-    NSLog(@"contentFormat:%@",item.contentFormat);
-    NSLog(@"mimeType:%@",item.mimeType);
-    NSLog(@"extention:%@",item.extention);
-    NSLog(@"albumArtURI:%@",item.albumArtURI);
-    NSLog(@"iconURI:%@",item.iconURI);
-    
-    NSLog(@"duration:%f",item.duration);
-    NSLog(@"album:%@",item.album);
-    NSLog(@"genres:%@",item.genres);
-    NSLog(@"bit:%f",item.bitrate);
+//    NSLog(@"objID:%@",item.objID);
+//    NSLog(@"title:%@",item.title);
+//    NSLog(@"uri:%@",item.uri);
+//    NSLog(@"size:%lu",(unsigned long)item.size);
+//    NSLog(@"type:%d",item.type);
+//    NSLog(@"artist:%@",item.artist);
+//    NSLog(@"date:%@",item.date);
+//    NSLog(@"composer:%@",item.composer);
+//    NSLog(@"trackList:%@",item.trackList);
+//    NSLog(@"codeType:%@",item.codeType);
+//    NSLog(@"contentFormat:%@",item.contentFormat);
+//    NSLog(@"mimeType:%@",item.mimeType);
+//    NSLog(@"extention:%@",item.extention);
+//    NSLog(@"albumArtURI:%@",item.albumArtURI);
+//    NSLog(@"iconURI:%@",item.iconURI);
+//    
+//    NSLog(@"duration:%f",item.duration);
+//    NSLog(@"album:%@",item.album);
+//    NSLog(@"genres:%@",item.genres);
+//    NSLog(@"bit:%f",item.bitrate);
     
     
     
@@ -1212,8 +1247,6 @@ static BOOL displayMute=NO;
 }
 #pragma mark - refresh music info
 - (void)refreshCurrentMusicInfoWithItem:(MediaItemInfo*)item{
-  
-    NSLog(@"extention");
     //格式
     self.curMusicFormatLabel.text=item.extention;
     //比特率
@@ -1401,7 +1434,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     //获取当前文件信息
     [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
         if(value){
-            NSLog(@"curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
+//            NSLog(@"curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
             [self refreshCurrentMusicInfoWithItem:item];
         }
     }];
@@ -1466,10 +1499,10 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     }];
     
     //添加kvo
-    [self.render addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-    [self.render addObserver:self forKeyPath:@"duration" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-    [self.render addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
-    [self.render addObserver:self forKeyPath:@"volume" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+//    [self.render addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+//    [self.render addObserver:self forKeyPath:@"duration" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+//    [self.render addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+//    [self.render addObserver:self forKeyPath:@"volume" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     //选择render后，同步当前设备数据
     //刷新当前播放音乐的显示信息
     [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
