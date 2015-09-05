@@ -1258,11 +1258,11 @@ static BOOL displayMute=NO;
     self.lengthTimeLabel.text=stringFromInterval(item.duration);
     
     //名字
-        self.curMusicNameLabel.text=item.title;
+    self.curMusicNameLabel.text=item.title;
     //播放按钮旁边－当前歌曲长度
-        self.curMusicTimeLabel.text=stringFromInterval(item.duration);//
+    self.curMusicTimeLabel.text=stringFromInterval(item.duration);//
     //进度条右侧－当前歌曲长度
-        self.lengthTimeLabel.text=stringFromInterval(item.duration);
+    self.lengthTimeLabel.text=stringFromInterval(item.duration);
 }
 - (void)refreshCurrentMusicItem:(MediaItemInfo*)item curTime:(NSString*)time{
     
@@ -1434,7 +1434,7 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
     //获取当前文件信息
     [self.render getMediaInfo:^(BOOL value,MediaItemInfo *item){
         if(value){
-//            NSLog(@"curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
+            NSLog(@"curUrl:%@,title:%@,icon:%@,duration:%f",item.curUrl,item.title,item.iconUri,item.duration);
             [self refreshCurrentMusicInfoWithItem:item];
         }
     }];
