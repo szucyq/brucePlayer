@@ -308,7 +308,7 @@ static BOOL displayMute=NO;
     if([self.hideTimer isValid]){
         [self.hideTimer invalidate];
     }
-    self.secondsCountDown = 1000;//1000秒倒计时
+    self.secondsCountDown = 100;//1000秒倒计时后隐藏
     self.hideTimer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(hideTimeFireMethod) userInfo:nil repeats:YES];
 }
 - (void)hideTimeFireMethod{
@@ -1254,8 +1254,8 @@ static BOOL displayMute=NO;
     
     //slider
     self.seekSlider.minimumValue = 0;   //最小值
-    self.seekSlider.maximumValue = item.duration;  //最大值
-    self.lengthTimeLabel.text=stringFromInterval(item.duration);
+//    self.seekSlider.maximumValue = item.duration;  //最大值
+//    self.lengthTimeLabel.text=stringFromInterval(item.duration);
     
     //名字
     self.curMusicNameLabel.text=item.title;
@@ -1425,9 +1425,9 @@ NSString *stringFromInterval(NSTimeInterval timeInterval)
         //该方法应该主要刷新当前时间进度，不用做其他变化信息的处理
         if(value){
             self.seekSlider.value=time;//每秒刷新进度条显示
-            
-            NSString *timeStr=stringFromInterval(time);
-            [self refreshCurrentMusicItem:nil curTime:timeStr];//每秒刷新进度label显示
+            self.seekSlider.maximumValue = duration;  //最大值
+            self.lengthTimeLabel.text=stringFromInterval(duration);//slider右侧时间显示
+            self.curTimeLabel.text=stringFromInterval(time);//slider 左侧时间显示
         }
         
     }];
