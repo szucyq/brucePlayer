@@ -22,9 +22,26 @@ MediaRenderControllerServiceListener::MediaRenderControllerServiceListener()
 
 }
 
+void MediaRenderControllerServiceListener::FetchDevice(PLT_DeviceDataReference &device)
+{
+    NSLog(@"[MediaRenderListener] [FetchDevice] begin fetch %s ", device->GetFriendlyName().GetChars());
+    NPT_Array<PLT_Service*> services = device->GetServices();
+    for (int i=0; i<services.GetItemCount(); i++) {
+        PLT_Service *s = services[i];
+        NSLog(@"\t[MediaRenderListener] [FetchDevice] %s", s->GetServiceName().GetChars());
+        NPT_Array<PLT_ActionDesc*> actions = s->GetActionDescs();
+        for (int j=0; j<actions.GetItemCount(); j++) {
+            PLT_ActionDesc *action = actions[j];
+            NSLog(@"\t\[MediaRenderListener] [FetchDevice] taction name %s", action->GetName().GetChars());
+        }
+    }
+    NSLog(@"[MediaRenderListener] [FetchDevice] end fetch %s ", device->GetFriendlyName().GetChars());
+}
+
 bool MediaRenderControllerServiceListener::OnMRAdded(PLT_DeviceDataReference &device)
 {
     NSLog(@"[MediaRenderListener] [OnMRAdded] render add %s", device->GetFriendlyName().GetChars());
+    FetchDevice(device);
     renders_.push_back(device);
     NSString *friendlyName = [NSString stringWithUTF8String: device->GetFriendlyName().GetChars()];
     NSString *uuid = [NSString stringWithUTF8String: device->GetUUID().GetChars()];

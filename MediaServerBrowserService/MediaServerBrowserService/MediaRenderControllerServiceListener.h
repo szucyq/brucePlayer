@@ -89,6 +89,8 @@ public:
     NSDictionary* allRenders();
     
 private:
+    void FetchDevice(PLT_DeviceDataReference &device);
+private:
     std::list<PLT_DeviceDataReference> renders_;
 };
 
