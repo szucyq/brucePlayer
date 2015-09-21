@@ -205,9 +205,15 @@ static BOOL displaySetting=NO;
     NSLog(@"this server:%@",[_dmsArr objectForKey:key]);
 
     cell.friendlyNameLabel.text=[[_dmsArr objectForKey:key] valueForKey:@"FriendlyName"];
-    cell.ipLabel.text=[[_dmsArr objectForKey:key] valueForKey:@"IP"];
     
-    NSString *iconUrl=[[_dmsArr objectForKey:key] valueForKey:@"iconUrl"];
+    MediaServerBrowser *browser=[[MediaServerBrowserService instance] browserWithUUID:key];
+    NSString *iconUrl=browser.iconURL;
+    NSString *ipAddress=browser.IP;
+//    cell.ipLabel.text=[[_dmsArr objectForKey:key] valueForKey:@"IP"];
+    
+//    NSString *iconUrl=[[_dmsArr objectForKey:key] valueForKey:@"iconUrl"];
+    cell.ipLabel.text=ipAddress;
+    
     NSLog(@"server icon:%@",iconUrl);
     if([iconUrl isEqual:[NSNull null]] || iconUrl==nil){
         cell.iconIv.image=[UIImage imageNamed:@"Icon.png"];
@@ -215,6 +221,7 @@ static BOOL displaySetting=NO;
     }
     else{
         ImageView *iv=[[ImageView alloc]initWithFrame:cell.iconIv.frame imageURLStr:iconUrl plactHolderImgName:@"icon.png" scale:NO];
+        iv.backgroundColor=[UIColor clearColor];
         
         [cell.contentView addSubview:iv];
     }
