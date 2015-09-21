@@ -53,7 +53,7 @@
     return IPStr;
 }
 
-- (NSString*)iconUrl
+- (NSString*)iconURL
 {
     NSString *url = [NSString stringWithUTF8String:device_->GetIconUrl().GetChars()];
     return url;

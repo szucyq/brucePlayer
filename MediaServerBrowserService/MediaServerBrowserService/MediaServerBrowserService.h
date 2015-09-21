@@ -63,7 +63,7 @@ FOUNDATION_EXPORT const unsigned char MediaServerBrowserServiceVersionString[];
 
 @property(nonatomic, readonly) NSString* IP;
 
-@property(nonatomic, readonly) NSString* iconUrl;
+@property(nonatomic, readonly) NSString* iconURL;
 
 @end
 
